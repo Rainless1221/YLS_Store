@@ -228,7 +228,7 @@
         
         [[FBHAppViewModel shareViewModel]insert_store_application:model.merchant_id andMerchantDict:dict Success:^(NSDictionary *resDic) {
             if ([resDic[@"status"] integerValue] == 1) {
-                [SVProgressHUD showSuccessWithStatus:@"等待信息审核中"];
+                [SVProgressHUD showSuccessWithStatus:resDic[@"message"]];
 
                 [self.navigationController popViewControllerAnimated:YES];
             }else{

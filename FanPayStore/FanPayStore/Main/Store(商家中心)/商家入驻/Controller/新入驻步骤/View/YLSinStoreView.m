@@ -618,44 +618,19 @@
 }
 #pragma mark - 选择周期事件
 -(void)CycleAction{
-    [self periodView];
     if (self.delagate && [self.delagate respondsToSelector:@selector(SetCycle:)]) {
         [self.delagate SetCycle:self.AView_Cycle];
-        
     }
-}
--(void)periodView{
-    PeriodView *periodV = [[PeriodView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, ScreenH)];
-    periodV.PeriodBlock = ^(NSString *PeriodString) {
-        if ([PeriodString isEqualToString:@""]) {
-            return ;
-        }
-        self.AView_Cycle.text = PeriodString;
-        self.AView_Cycle.textColor = UIColorFromRGB(0x222222);
-    };
-    [[UIApplication sharedApplication].keyWindow addSubview:periodV];
-    
 }
 #pragma mark - 选择营业时间事件
 -(void)TimeAction{
-    [self TimesView];
 
     if (self.delagate && [self.delagate respondsToSelector:@selector(SetTime:)]) {
         [self.delagate SetTime:self.AView_Time];
         
     }
 }
--(void)TimesView{
-    hoursView *hoursV = [[hoursView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, ScreenH)];
-    hoursV.HoursBlock = ^(NSString *HoursString) {
-        if ([HoursString isEqualToString:@""]) {
-            return ;
-        }
-        self.AView_Time.text = HoursString;
-        self.AView_Time.textColor = UIColorFromRGB(0x222222);
-    };
-    [[UIApplication sharedApplication].keyWindow addSubview:hoursV];
-}
+
 #pragma mark - 简介输入控制事件
 - (void)textFieldDidChange:(UITextField *)textField
 {
@@ -975,8 +950,12 @@
     } else {
         [self.ReminArray removeObject:[NSString stringWithFormat:@"%ld",(long)icon.tag]];
     }
-    
+    if (self.delagate && [self.delagate respondsToSelector:@selector(SetReminder:)]) {
+        [self.delagate SetReminder:self.ReminArray];
+        
+    }
 }
+
 #pragma mark - 懒加载
 #pragma mark ———————— 店铺信息UI ————————
 -(UIView *)AView{

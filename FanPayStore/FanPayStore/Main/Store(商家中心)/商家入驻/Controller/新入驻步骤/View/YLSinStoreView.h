@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)SetAddress:(UILabel *)addressLabel;
 -(void)SetCycle:(UITextField *)Cycle;
 -(void)SetTime:(UITextField *)Time;
-
+-(void)SetReminder:(NSMutableArray*)Array;
 @end
 
 @interface YLSinStoreView : UIView<UITextFieldDelegate,SelectedReminDelegate>

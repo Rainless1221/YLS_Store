@@ -303,7 +303,7 @@
 #import "UITextView+JKExtension.h"
 #import "JKLimitInput.h"
 
-#import "MySwitch.h"//自定义
+#import "MySwitch.h"//自定义开关
 
 #import "QYSDK.h"//七鱼客服
 
