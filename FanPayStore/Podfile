@@ -1,0 +1,23 @@
+platform :ios,'9.0'
+inhibit_all_warnings!#去pod警告
+
+target 'FanPayStore'do
+	pod 'AFNetworking'
+	pod 'Masonry'
+	pod 'YYKit'
+	pod 'MOBFoundation'
+	pod 'SVProgressHUD'
+	pod 'IQKeyboardManager','~> 4.0.11'
+	pod 'SDWebImage'
+	pod 'MJExtension'
+	pod 'MJRefresh'#上下拉刷新
+	pod 'JPush'
+	pod 'MBProgressHUD'
+	pod 'FMDB'
+	pod 'FSCalendar'
+	pod 'AMap3DMap','~>7.0.0 '
+ 	pod 'AMapSearch','~>6.9.0 '
+ 	pod 'AMapLocation'
+#	pod 'YYModel', '~> 1.0.4'
+#pod    'QIYU_iOS_SDK',    '~> 5.0.0'
+end

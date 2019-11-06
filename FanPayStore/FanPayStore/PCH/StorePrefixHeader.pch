@@ -1,0 +1,320 @@
+//
+//  StorePrefixHeader.pch
+//  FanPayStore
+//
+//  Created by mocoo_ios on 2019/5/27.
+//  Copyright © 2019年 mocoo_ios. All rights reserved.
+//
+
+#ifndef StorePrefixHeader_pch
+#define StorePrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+
+
+#import "AppDelegate.h"
+#import "AppDelegate+AppLifeCircle.h"
+#import "AppDelegate+ViewController.h"
+#import "AppDelegate+Share.h"
+
+
+#import "UILabel+TextAlign.h"
+#import "UIView+SHViewCategory.h"
+//#import "UITabBar+littleRedDotBadge.h"
+#import "UITabBar+badge.h"
+
+#pragma mark --------- Base -------------------
+
+#import "FBHTabBar.h"
+#import "BaseViewController.h"
+#import "BaseTabBarController.h"
+#import "BaseNavigationController.h"
+
+#pragma mark --------- Tool -------------------
+
+#import "FontConfig.h"
+#import "ColorConfig.h"
+#import "ThirdMacros.h"
+#import "ModelConfig.h" //model文件
+#import "MethodCommon.h"
+#import "MD5.h"
+#import "MD5Sign.h"
+#import "YBCacheConstant.h"
+#import "FBHAppViewModel.h"//网络请求
+#import "SGAdvertScrollView.h"//轮播
+#import "PublicMethods.h"
+#import "zyyy_DateListView.h"//日历
+#import "SYGuideView.h"//引导页
+#import "HQBannerView.h"
+#import "DeleteView.h"
+#import "FL_Button.h" //按钮拓展类
+#import "LRSChartView.h"//曲线图
+#import "SWQRCode.h"
+#import "SWScannerView.h"//扫一扫
+#import "SureguideView.h"
+#import "SliderView.h"
+#import "TZImagePickerController.h"//  相册选择
+#import "YCShadowView.h"
+#import "IanAdsStartView.h"//开屏广告
+#import "JHCoverView.h"//密码验证
+
+
+
+
+#pragma mark --------- 控制器 -------------------
+#import "FBHregisteredViewController.h"
+#import "FBHCashierController.h"
+#import "FBHWorkbenchController.h"
+#import "FBHStoreViewController.h"
+#import "FBHQRCodeController.h"
+#import "FBHRichScanController.h"
+#import "FBHaccomplishController.h"
+#import "FBHbondViewController.h"
+#import "FBHinformationViewController.h"
+#import "FBHRevenueController.h"
+#import "FBHRevenuedetailsController.h"
+#import "FBHWithdrawJLViewController.h"
+#import "FBHWithdrawViewController.h"
+#import "FBHHelpViewController.h"
+#import "FBHaccountController.h"
+#import "FBHJoinInViewController.h"
+#import "FBHJoinInTController.h"
+#import "FBHGYViewController.h"
+#import "FBHbankcardController.h"
+#import "FBHAllpubliccardController.h"
+#import "FBHAllcardController.h"
+#import "FBHcardSaoViewController.h"
+#import "SetupViewController.h"
+#import "FBHResetViewController.h"
+#import "PaymentViewController.h"
+#import "FBHupPassViewController.h"
+#import "Payment_passwordViewController.h"
+#import "BingbangViewController.h"
+#import "FBHRunViewController.h"
+#import "ManagementTypesController.h"
+#import "FBHDWViewController.h"
+#import "CityViewController.h"
+#import "MapViewController.h"
+#import "FBHDWSSViewController.h"
+#import "FansViewController.h"
+#import "WordViewController.h"
+#import "FBHinformViewController.h"
+#import "FBHinformDetailViewController.h"
+#import "FBHOrderViewController.h"
+#import "FBHDLSViewController.h"
+#import "FBHDdetailsController.h"
+#import "FBHevaluateViewController.h"
+#import "FBHiscountViewController.h"
+#import "FBHSZViewController.h"
+#import "FBHFdetailsController.h"
+#import "FBHFBSPViewController.h"
+#import "FBHCPViewController.h"
+#import "FBHCPfabuViewController.h"
+#import "LabelViewController.h"
+#import "TheLabelController.h"
+#import "StepsViewController.h"
+#import "StoreNameViewController.h"
+#import "StoreInformationController.h"
+#import "CertificateCardController.h"
+#import "ReviewStatusController.h"
+#import "StoreStatusViewController.h"
+#import "MarketingController.h"
+#import "FBHgoodDetailsController.h"
+#import "ConsumptionViewController.h"
+#import "StoreBranchController.h"
+#import "AddBranchController.h"
+#import "ReceiptsController.h"
+#import "StatusViewController.h"
+#import "MoneyCertificationController.h"
+#import "Wei_StoreController.h"
+#import "Geti_StoreController.h"
+#import "Qiye_StoreController.h"
+#import "ModifyController.h"
+#import "FillInViewController.h"
+#import "MoneyWinViewController.h"
+#import "StoreReminController.h"
+#import "EnvironmentController.h"
+#import "EnvironmentView.h"
+#import "ServiceFacilityController.h"
+#import "ServiceFacility.h"
+#import "StatisticalController.h"
+#import "GuestRoomsController.h"
+#import "TypeViewController.h"
+#import "TuiViewController.h"
+#import "FBHPreferController.h"//优惠活动
+#import "ZhuoCodeViewController.h"
+#import "BingYuanViewController.h"
+#import "FeedbackViewController.h"//商家反馈
+#import "YLSLogInController.h"//登录
+#import "YLSinStoreController.h"//新入驻步骤
+#import "YLSEquipmentController.h"//绑定设备
+#import "YLSAddFacilityController.h"//添加打印设备
+#import "YLSRegisteredController.h"//注册商家
+#import "YLSAddProductController.h"//发布产品
+#import "YLSCommodityAttriController.h"//商品属性
+
+
+
+#pragma mark --------- 控制器的主视图View -------------------
+#import "WorkbenchBaseView.h"
+#import "bondPromptView.h"
+#import "CalendarView.h"
+#import "FBHCashierBaseView.h"
+#import "FBHPickerView.h"
+#import "RevenuedetailsView.h"
+#import "RevenueHeaderM.h"
+#import "ReveTableViewCell.h"
+#import "TableViewSectionHeaderView.h"
+#import "FBHWithdraw.h"
+#import "CashierTableViewCell.h"
+#import "CashTDView.h"
+#import "CashTDViewCell.h"
+#import "WithdrawJLCell.h"
+#import "WithdrawView.h"
+#import "WithdrawWinView.h"
+#import "CardWinView.h"
+#import "bankcardTableViewCell.h"
+#import "JoinInView.h"
+#import "JoinInViewT.h"
+#import "HelpTableViewCell.h"
+#import "DMTypeView.h"
+#import "publiccardView.h"
+#import "storeCenterView.h"
+#import "SeekTableViewCell.h"
+#import "DXXView.h"
+#import "ZXCollectionCell.h"
+#import "SecondaryCell.h"
+#import "BingpromptView.h"
+#import "RunTypeTableViewCell.h"
+#import "SetupView.h"
+#import "FSTableViewCell.h"
+#import "HuoDTableViewCell.h"
+#import "informTableViewCell.h"
+#import "NewVTableViewCell.h"
+#import "TheOrderTableViewCell.h"
+#import "OrderTableViewCell.h"
+#import "TheOrderCell.h"
+#import "DDMenuView.h"
+#import "DDLSView.h"
+#import "StarEvaluator.h"
+#import "StoreDiscountView.h"
+#import "FdetailsHead.h"
+#import "FBHSZTableViewCell.h"
+#import "FdetailsTableViewCell.h"
+#import "SZCollectionViewCell.h"
+#import "CHDeleTableViewCell.h"
+#import "CHTableViewCell.h"
+#import "CHTableViewCellT.h"
+#import "CPFBView.h"
+#import "labelView.h"
+#import "ThelabelCell.h"
+#import "TheLabeView.h"
+#import "ReminView.h"
+#import "CertificateCardView.h"
+#import "BannerView.h"
+#import "SampleView.h"
+#import "PeriodView.h"
+#import "hoursView.h"
+#import "StoreStatusView.h"
+#import "ActivityScreenView.h"
+#import "MarkeViewCell.h"
+#import "goodDetailsView.h"
+#import "BranchViewCell.h"
+#import "FBHChatView.h"
+#import "ChatTableViewCell.h"
+#import "MoneyTableViewCell.h"
+#import "LawPeopleView.h"//法人
+#import "IdentityView.h"//身份证信息
+#import "BankView.h"//银行卡
+#import "AgreementView.h"//协议
+#import "BusinessView.h"//营业执照
+#import "AccountView.h" //开户许可证或印签卡
+#import "Account_TXTableViewCell.h"//账号提现信息
+#import "MoneyHeaderView.h"
+#import "MoetytypeView.h"
+#import "PickerPCView.h"
+#import "TotalRevenue.h"
+#import "TheHotelCell.h"//酒店cell
+#import "Distribution.h"
+#import "DistributionList.h"
+#import "HotelOrderCell.h"
+#import "RoomsRules.h"
+#import "preferential.h"
+#import "StopTheService.h"
+#import "LeaveAmessageController.h"
+#import "RequirementsController.h"
+#import "RefundCell.h"
+#import "OrderViewCell.h"
+#import "DetailsQTView.h"//订单其他信息
+#import "DetailsPLView.h"//订单已评价信息
+#import "DetailsJDView.h"//订单酒店信息
+#import "DetailsYSView.h"//订单饮食信息
+#import "DetailsTKView.h"//订单退款详情
+#import "DetailsAmountView.h"//退款输入金额
+#import "SelectedRemin.h"//选择温馨提示
+
+#import "RefundView.h"//申请退款中
+#import "YLSCertificationController.h"//分账认证
+#import "YLSAddCertification.h" //添加认证
+#import "YLSAddDuiGongCertification.h"
+#import "YLSCertifH5Controller.h"
+#import "YLSSheBeiController.h"
+
+
+
+
+
+
+#pragma mark --------- 第三方库 -------------------
+#import <AFNetworking.h>
+#import <Masonry.h>
+//#import "YYModel.h"
+#import "YYKit.h"
+#import <YYKit/YYKit.h>
+#import "JPUSHService.h"// 引入 JPush 功能所需头文件
+#ifdef NSFoundationVersionNumber_iOS_9_x_Max// iOS10 注册 APNs 所需头文件
+#import <UserNotifications/UserNotifications.h>
+#endif
+#import <AdSupport/AdSupport.h>// 如果需要使用 idfa 功能所需要引入的头文件（可选）
+#import <UMSocialCore/UMSocialCore.h>//友盟分享
+#import <AMapFoundationKit/AMapFoundationKit.h>
+#import <AMapLocationKit/AMapLocationKit.h>
+#import <SVProgressHUD.h>
+#import "MBProgressHUD+XY.h"
+#import <MOBFoundation/MOBFoundation.h>
+#import <IQKeyboardManager.h>//键盘
+#import "UIImageView+WebCache.h"//图片下载
+#import <SDWebImage/UIButton+WebCache.h>
+#import "UITableView+AddForPlaceholder.h"//占位图
+#import <MJRefresh/MJRefresh.h>//上下拉刷新
+#import "ShareManager.h"//分享方法
+#import "FmdbManage.h"//数据持久操作
+#import "FSCalendar.h"//一款开源iOS日历控件
+#import "WMZAlert.h"//弹窗封装
+#import "FmdbManage.h"//数据操作
+#import "DDDBSearchHisManager.h"
+
+#import "JWBluetoothManage.h"//打印机
+#import "PPNumberButton.h"//加减按钮
+#import "SoundControlSingle.h"//系统声音和震动
+#import "XMTextView.h"//输入视图
+#import "UITextView+JKExtension.h"
+#import "JKLimitInput.h"
+
+#import "MySwitch.h"//自定义
+
+#import "QYSDK.h"//七鱼客服
+
+
+
+#pragma mark --------- 一鹿省 -------------------
+#import "YlsCheckstandController.h"
+#import "YlsWorkbenchController.h"
+#import "YlsNewsController.h"
+#import "YlsStoreController.h"
+
+
+
+#endif /* StorePrefixHeader_pch */

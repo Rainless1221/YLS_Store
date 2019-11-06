@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="informTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="159"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="158.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KKY-Zo-Qkt">
+                        <rect key="frame" x="15" y="42" width="345" height="115.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="通知消息" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SOl-a2-qBi">
+                                <rect key="frame" x="11" y="15" width="73.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pic_default_avatar" translatesAutoresizingMaskIntoConstraints="NO" id="FXs-fG-Eza">
+                                <rect key="frame" x="10" y="39.5" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="LeM-Fp-Nmz"/>
+                                    <constraint firstAttribute="height" constant="60" id="oIR-Mn-ZAe"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="最新的翻呗活动即将到期，翻呗设置会自动 取消，如需要重新设置翻呗，请前往“翻呗 设置”修改。" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nlm-vU-7C4">
+                                <rect key="frame" x="86" y="39.5" width="245" height="52"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="52" id="Wxu-MD-grL"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="FXs-fG-Eza" firstAttribute="leading" secondItem="KKY-Zo-Qkt" secondAttribute="leading" constant="10" id="Dg9-l7-1It"/>
+                            <constraint firstItem="SOl-a2-qBi" firstAttribute="leading" secondItem="KKY-Zo-Qkt" secondAttribute="leading" constant="11" id="HZ4-QM-dwL"/>
+                            <constraint firstItem="nlm-vU-7C4" firstAttribute="leading" secondItem="FXs-fG-Eza" secondAttribute="trailing" constant="16" id="UlG-8m-ELI"/>
+                            <constraint firstItem="nlm-vU-7C4" firstAttribute="top" secondItem="FXs-fG-Eza" secondAttribute="top" id="cyI-Nw-fy3"/>
+                            <constraint firstAttribute="trailing" secondItem="nlm-vU-7C4" secondAttribute="trailing" constant="14" id="dcD-Cl-ceP"/>
+                            <constraint firstItem="SOl-a2-qBi" firstAttribute="top" secondItem="KKY-Zo-Qkt" secondAttribute="top" constant="15" id="ecp-jd-nBU"/>
+                            <constraint firstAttribute="bottom" secondItem="FXs-fG-Eza" secondAttribute="bottom" constant="16" id="rIN-tK-Jsy"/>
+                        </constraints>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2018.12.03 14:50" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zu6-Rh-ou4">
+                        <rect key="frame" x="15" y="0.0" width="345" height="42"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="KKY-Zo-Qkt" secondAttribute="trailing" constant="15" id="0Gc-rT-NcR"/>
+                    <constraint firstItem="zu6-Rh-ou4" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="2E3-e4-joV"/>
+                    <constraint firstAttribute="bottom" secondItem="KKY-Zo-Qkt" secondAttribute="bottom" constant="1" id="3d6-0J-HmO"/>
+                    <constraint firstItem="KKY-Zo-Qkt" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="42" id="Ayo-au-ogs"/>
+                    <constraint firstItem="KKY-Zo-Qkt" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="Q3r-VS-GF5"/>
+                    <constraint firstItem="KKY-Zo-Qkt" firstAttribute="top" secondItem="zu6-Rh-ou4" secondAttribute="bottom" id="QWi-RR-jhF"/>
+                    <constraint firstAttribute="trailing" secondItem="zu6-Rh-ou4" secondAttribute="trailing" constant="15" id="fhj-DY-Pnd"/>
+                    <constraint firstItem="zu6-Rh-ou4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="z1P-01-VQM"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="add_time" destination="zu6-Rh-ou4" id="pQE-SI-dGD"/>
+                <outlet property="news_content" destination="nlm-vU-7C4" id="avP-wg-4lU"/>
+                <outlet property="news_pic" destination="FXs-fG-Eza" id="8XM-qH-T6g"/>
+                <outlet property="news_title" destination="SOl-a2-qBi" id="Nf2-v1-gG8"/>
+            </connections>
+            <point key="canvasLocation" x="24.5" y="51.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="pic_default_avatar" width="120" height="120"/>
+    </resources>
+</document>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="FdetailsHead">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="250"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_index_top_scene" translatesAutoresizingMaskIntoConstraints="NO" id="isf-yV-9F9">
+                    <rect key="frame" x="15" y="15" width="345" height="149"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="149" id="nGf-ay-F6h"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="优惠商品" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lgl-SM-fy4">
+                    <rect key="frame" x="15" y="194" width="66" height="20"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="当前翻呗额度（元）" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tjm-An-S4S">
+                    <rect key="frame" x="30" y="27" width="111" height="15"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IAE-wQ-akA">
+                    <rect key="frame" x="20" y="56" width="335" height="43"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2018/12/12/ - 2018/12/18" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DTe-PF-mrK">
+                    <rect key="frame" x="20" y="99" width="335" height="14.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="每天有且仅有一次修改翻呗的机会" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cx7-ZH-MSP">
+                    <rect key="frame" x="30" y="133.5" width="184" height="15"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Ki-wE-OzY">
+                    <rect key="frame" x="278" y="130" width="67" height="22"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="67" id="22S-6t-Daj"/>
+                        <constraint firstAttribute="height" constant="22" id="yaT-Lo-o8S"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <state key="normal" title="去修改">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                            <integer key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="11"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="ModifyAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="cEn-2F-6TF"/>
+                    </connections>
+                </button>
+            </subviews>
+            <constraints>
+                <constraint firstItem="isf-yV-9F9" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="24P-Wu-pNQ"/>
+                <constraint firstItem="cx7-ZH-MSP" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="30" id="88z-pd-iNa"/>
+                <constraint firstItem="DTe-PF-mrK" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="8P7-Ao-1bf"/>
+                <constraint firstAttribute="trailing" secondItem="DTe-PF-mrK" secondAttribute="trailing" constant="20" id="9eV-W7-BBY"/>
+                <constraint firstItem="cx7-ZH-MSP" firstAttribute="top" secondItem="DTe-PF-mrK" secondAttribute="bottom" constant="20" id="9kd-J7-OFK"/>
+                <constraint firstItem="Tjm-An-S4S" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="30" id="JiG-YB-Eqh"/>
+                <constraint firstAttribute="trailing" secondItem="isf-yV-9F9" secondAttribute="trailing" constant="15" id="UVB-6a-eP3"/>
+                <constraint firstItem="IAE-wQ-akA" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="VE7-EW-D5N"/>
+                <constraint firstItem="Lgl-SM-fy4" firstAttribute="top" secondItem="isf-yV-9F9" secondAttribute="bottom" constant="30" id="Vl7-5Q-Z7B"/>
+                <constraint firstItem="isf-yV-9F9" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="aOU-6r-Ejt"/>
+                <constraint firstAttribute="trailing" secondItem="IAE-wQ-akA" secondAttribute="trailing" constant="20" id="aWe-jz-lXR"/>
+                <constraint firstItem="IAE-wQ-akA" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="56" id="eva-Ss-4ZX"/>
+                <constraint firstItem="DTe-PF-mrK" firstAttribute="top" secondItem="IAE-wQ-akA" secondAttribute="bottom" id="jbq-fX-38x"/>
+                <constraint firstAttribute="trailing" secondItem="4Ki-wE-OzY" secondAttribute="trailing" constant="30" id="l5F-cS-mnK"/>
+                <constraint firstItem="Lgl-SM-fy4" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="m56-jP-BZZ"/>
+                <constraint firstItem="4Ki-wE-OzY" firstAttribute="centerY" secondItem="cx7-ZH-MSP" secondAttribute="centerY" id="qpz-Qm-M1T"/>
+                <constraint firstItem="Tjm-An-S4S" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="27" id="wgC-fR-XBE"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="XButton" destination="4Ki-wE-OzY" id="8y1-Dm-1N5"/>
+                <outlet property="datetime" destination="DTe-PF-mrK" id="Mpi-xM-dMV"/>
+                <outlet property="discount_amount" destination="IAE-wQ-akA" id="3Ww-ps-8PG"/>
+            </connections>
+            <point key="canvasLocation" x="24.5" y="-165.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="bg_index_top_scene" width="375" height="240"/>
+    </resources>
+</document>

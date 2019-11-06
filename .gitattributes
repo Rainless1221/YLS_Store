@@ -1,0 +1,13 @@
+FanPayStore/Pods/AMapLocation/AMapLocationKit.framework/AMapLocationKit filter=lfs diff=lfs merge=lfs -text
+FanPayStore/Pods/AMapFoundation/AMapFoundationKit.framework/AMapFoundationKit filter=lfs diff=lfs merge=lfs -text
+FanPayStore/Pods/AMap3DMap/MAMapKit.framework/MAMapKit filter=lfs diff=lfs merge=lfs -text
+FanPayStore/FanPayStore/ToolS/七鱼客服SDK/libevent.a filter=lfs diff=lfs merge=lfs -text
+FanPayStore/FanPayStore/ToolS/友盟分享/UMSocial/UMSocialSDK/UMSocialCore.framework/UMSocialCore filter=lfs diff=lfs merge=lfs -text
+FanPayStore/FanPayStore/ToolS/七鱼客服SDK/libcrypto.a filter=lfs diff=lfs merge=lfs -text
+FanPayStore/FanPayStore/ToolS/七鱼客服SDK/libQYSDK.a filter=lfs diff=lfs merge=lfs -text
+FanPayStore/Pods/AMapSearch/AMapSearchKit.framework/AMapSearchKit filter=lfs diff=lfs merge=lfs -text
+FanPayStore/FanPayStore/ToolS/友盟分享/UMSocial/UMSocialUI/UShareUI.framework/UShareUI filter=lfs diff=lfs merge=lfs -text
+FanPayStore/Pods/JCore/libjcore-ios-1.1.7.a filter=lfs diff=lfs merge=lfs -text
+FanPayStore/Pods/JPush/libjpush-ios-3.0.8.a filter=lfs diff=lfs merge=lfs -text
+FanPayStore/Pods/MOBFoundation/MOBFoundation.framework/MOBFoundation filter=lfs diff=lfs merge=lfs -text
+FanPayStore/Pods/YYKit/Vendor/WebP.framework/WebP filter=lfs diff=lfs merge=lfs -text

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="WithdrawWinView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Aob-8z-C09">
+                    <rect key="frame" x="15" y="177" width="345" height="333"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="提现成功" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l8b-qL-gpI">
+                            <rect key="frame" x="10" y="93" width="325" height="24"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1.由于银行审批限制，提现申请将在24小时内到账；如遇高峰期，可能延迟到账，请耐心等待                              2.查询提现历史，可在本页右上角“提现记录”查看记录状态" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k8h-mK-0BT">
+                            <rect key="frame" x="31" y="128" width="283" height="126"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="126" id="cmc-Xo-x2w"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fh1-ps-nLg">
+                            <rect key="frame" x="30" y="264" width="285" height="44"/>
+                            <color key="backgroundColor" red="0.96862745100000003" green="0.68235294120000001" blue="0.16862745100000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="MOG-1q-ISQ"/>
+                            </constraints>
+                            <state key="normal" title="我知道了">
+                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="10"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="WinAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="usX-A2-8Pn"/>
+                            </connections>
+                        </button>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icn_complete" translatesAutoresizingMaskIntoConstraints="NO" id="eQW-l9-vOd">
+                            <rect key="frame" x="148.5" y="30" width="48" height="48"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="48" id="ah2-ve-QkE"/>
+                                <constraint firstAttribute="height" constant="48" id="mVH-gb-1gD"/>
+                            </constraints>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="333" id="1dx-Oo-JLr"/>
+                        <constraint firstItem="k8h-mK-0BT" firstAttribute="top" secondItem="l8b-qL-gpI" secondAttribute="bottom" constant="11" id="3tA-mJ-O16"/>
+                        <constraint firstAttribute="bottom" secondItem="fh1-ps-nLg" secondAttribute="bottom" constant="25" id="9P9-eD-VTK"/>
+                        <constraint firstItem="k8h-mK-0BT" firstAttribute="leading" secondItem="Aob-8z-C09" secondAttribute="leading" constant="31" id="9Y5-tG-8iw"/>
+                        <constraint firstAttribute="trailing" secondItem="l8b-qL-gpI" secondAttribute="trailing" constant="10" id="9eR-j9-6Pb"/>
+                        <constraint firstAttribute="trailing" secondItem="fh1-ps-nLg" secondAttribute="trailing" constant="30" id="KIF-bh-Alr"/>
+                        <constraint firstItem="l8b-qL-gpI" firstAttribute="top" secondItem="eQW-l9-vOd" secondAttribute="bottom" constant="15" id="MNa-kA-YHQ"/>
+                        <constraint firstAttribute="trailing" secondItem="k8h-mK-0BT" secondAttribute="trailing" constant="31" id="MRS-ZD-JVa"/>
+                        <constraint firstItem="l8b-qL-gpI" firstAttribute="leading" secondItem="Aob-8z-C09" secondAttribute="leading" constant="10" id="aPQ-ji-ZPr"/>
+                        <constraint firstItem="eQW-l9-vOd" firstAttribute="centerX" secondItem="Aob-8z-C09" secondAttribute="centerX" id="aSQ-nK-gaO"/>
+                        <constraint firstItem="l8b-qL-gpI" firstAttribute="centerX" secondItem="Aob-8z-C09" secondAttribute="centerX" id="fs7-cc-kdi"/>
+                        <constraint firstItem="fh1-ps-nLg" firstAttribute="leading" secondItem="Aob-8z-C09" secondAttribute="leading" constant="30" id="pbE-Mr-Izn"/>
+                        <constraint firstItem="eQW-l9-vOd" firstAttribute="top" secondItem="Aob-8z-C09" secondAttribute="top" constant="30" id="ynn-iB-ZHw"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="6"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="Aob-8z-C09" secondAttribute="trailing" constant="15" id="ALv-ik-Ff6"/>
+                <constraint firstItem="Aob-8z-C09" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="10" id="mBt-xr-xQZ"/>
+                <constraint firstItem="Aob-8z-C09" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="ueQ-Ro-cmp"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="WinButton" destination="fh1-ps-nLg" id="86P-gA-yu6"/>
+                <outlet property="Winlabel" destination="l8b-qL-gpI" id="A4k-83-zR9"/>
+                <outlet property="baseView" destination="Aob-8z-C09" id="pdM-hC-FuT"/>
+                <outlet property="logoImg" destination="eQW-l9-vOd" id="YPL-IG-lch"/>
+                <outlet property="wintext" destination="k8h-mK-0BT" id="Aac-DK-gUG"/>
+            </connections>
+            <point key="canvasLocation" x="3.5" y="51.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="icn_complete" width="58" height="58"/>
+    </resources>
+</document>
