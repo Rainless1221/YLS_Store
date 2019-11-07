@@ -972,4 +972,15 @@
            andstore_id:(NSString *)store_id
                Success:(void (^)(NSDictionary *resDic))success
             andfailure:(void (^)(void))failure;
+
+/**
+获取商品平台价 根据商品原价和优惠价计算平台价 接口
+ */
+-(void)get_plat_price_according_goods_price_and_discount_price:(NSString *)merchant_id
+                                                   andstore_id:(NSString *)store_id
+                                                   andgoods_price:(NSString *)goods_price
+                                                   anddiscount_price:(NSString *)discount_price
+                                                       Success:(void (^)(NSDictionary *resDic))success
+                                                    andfailure:(void (^)(void))failure;
+
 @end

@@ -11,6 +11,9 @@
 #import "Store_Menu_View.h"
 
 @interface StoreStatusViewController ()<UIScrollViewDelegate,editorActionDelegate>
+{
+    NSInteger _TypeView;
+}
 @property (strong,nonatomic)UIScrollView * ScrollView;
 @property (strong,nonatomic)StoreStatusView * StatusView;
 @property (strong,nonatomic)StoreStatus_View * Store_View;
@@ -62,6 +65,7 @@ YBWeakSelf
     self.Store_Menu_View = [[Store_Menu_View alloc]initWithFrame:CGRectMake(15, self.Store_View.bottom +20, self.view.width - 30, 100)];
     self.Store_Menu_View.backgroundColor = [UIColor whiteColor];
     self.Store_Menu_View.delagate = self;
+    _TypeView = self.Store_Menu_View.TypeView;
     [self.ScrollView addSubview:self.Store_Menu_View];
 
     self.Store_Menu_View.height = self.Store_Menu_View.SizeHeight;
@@ -81,7 +85,15 @@ YBWeakSelf
 
     [self setupNavigationView];
 
-    
+    //conversion
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(conversionAction:) name:@"Store_Menu_View" object:nil];
+}
+
+- (void)conversionAction: (NSNotification *) notification {
+    UIButton *but = (UIButton *)[self.Store_Menu_View viewWithTag:0+10];
+//    but.tag = _TypeView+10;
+    [self.Store_Menu_View ButtonAction:but];
+
 }
 #pragma mark --- navigationView ---
 -(void)setupNavigationView{
@@ -125,34 +137,33 @@ YBWeakSelf
 -(void)LethAction{
     [self.navigationController popViewControllerAnimated:YES];
 }
+
 #pragma mark - 去编辑
 -(void)editorAction:(NSInteger)Typeinteger{
-    
-    
     
    YLSinStoreController *VC  = [YLSinStoreController new];
     VC.Data = self.StoreData;
     
-    if (Typeinteger == 1) {
+    if (Typeinteger == 0) {
         VC.NavString = @"店铺信息";
         VC.Typeyint = 0;
 
         [self.navigationController pushViewController:VC animated:NO];
 
 
-    }else if (Typeinteger == 2){
+    }else if (Typeinteger == 1){
         VC.NavString = @"温馨提示";
         VC.Typeyint = 1;
 
         [self.navigationController pushViewController:VC animated:NO];
 
-    }else if (Typeinteger == 3){
+    }else if (Typeinteger == 2){
         VC.NavString = @"店铺图片";
         VC.Typeyint = 2;
 
         [self.navigationController pushViewController:VC animated:NO];
 
-    }else if (Typeinteger == 4){
+    }else if (Typeinteger == 3){
         VC.NavString = @"证件图片";
         VC.Typeyint = 3;
 

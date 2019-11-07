@@ -384,6 +384,24 @@
         make.right.mas_offset(0);
     }];
    
+    /**店铺图片*/
+    self.facade = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, IPHONEWIDTH(103), IPHONEHIGHT(103))];
+    self.facade.image = [UIImage imageNamed:@"btn_add_shop_info_image_normal"];
+    self.facade. layer.cornerRadius = 5;
+    self.facade.layer.masksToBounds = YES;
+    self.facade.userInteractionEnabled = YES;//打开用户交互
+    self.facade.tag = 31;
+    //初始化一个手势
+    UITapGestureRecognizer *facadeTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(facadeTapAction)];
+    //为图片添加手势
+    [self.facade addGestureRecognizer:facadeTap];
+    [self.CView_backview addSubview:self.facade];
+    [self.facade mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(CView_text3.mas_bottom).offset(20.5);
+        make.left.mas_offset(10);
+        make.size.mas_offset(CGSizeMake(IPHONEWIDTH(103), IPHONEHIGHT(103)));
+    }];
+    
     UIView *CView_line2 = [[UIView alloc] init];
     CView_line2.backgroundColor = [UIColor colorWithRed:234/255.0 green:234/255.0 blue:234/255.0 alpha:1.0];
     [self.CView_backview addSubview:CView_line2];
@@ -413,7 +431,20 @@
         make.left.mas_offset(10);
         make.right.mas_offset(0);
     }];
-    
+    /**环境图片*/
+    self.environment = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, IPHONEWIDTH(103), IPHONEHIGHT(103))];
+    self.environment.image = [UIImage imageNamed:@"btn_add_shop_info_image_normal"];
+    self.environment.userInteractionEnabled = YES;//打开用户交互
+    //初始化一个手势
+    UITapGestureRecognizer *environmentTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(environmentTapAction)];
+    //为图片添加手势
+    [self.environment addGestureRecognizer:environmentTap];
+    [self.CView_backview addSubview:self.environment];
+    [self.environment mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(CView_text5.mas_bottom).offset(20.5);
+        make.left.mas_offset(10);
+        make.size.mas_offset(CGSizeMake(IPHONEWIDTH(103), IPHONEHIGHT(103)));
+    }];
     
     
     
@@ -477,12 +508,47 @@
         make.left.mas_offset(10);
         make.right.mas_offset(0);
     }];
+    /**身份证正反*/
+    self.IdCardOn = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, IPHONEWIDTH(103), IPHONEHIGHT(103))];
+    self.IdCardOn.image = [UIImage imageNamed:@"btn_add_shop_info_image_normal"];
+    self.IdCardOn. layer.cornerRadius = 5;
+    self.IdCardOn.layer.masksToBounds = YES;
+    self.IdCardOn.userInteractionEnabled = YES;//打开用户交互
+    self.IdCardOn.tag = 41;
+    //初始化一个手势
+    UITapGestureRecognizer *IdCardOnTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(IdCardOnTapAction)];
+    //为图片添加手势
+    [self.IdCardOn addGestureRecognizer:IdCardOnTap];
+    [DView_backview addSubview:self.IdCardOn];
+    [self.IdCardOn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(DView_label3.mas_bottom).offset(20.5);
+        make.left.mas_offset(10);
+        make.size.mas_offset(CGSizeMake(IPHONEWIDTH(103), IPHONEHIGHT(103)));
+    }];
+    
+    self.IdCardUnder = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, IPHONEWIDTH(103), IPHONEHIGHT(103))];
+    self.IdCardUnder.image = [UIImage imageNamed:@"btn_add_shop_info_image_normal"];
+    self.IdCardUnder. layer.cornerRadius = 5;
+    self.IdCardUnder.layer.masksToBounds = YES;
+    self.IdCardUnder.userInteractionEnabled = YES;//打开用户交互
+    self.IdCardUnder.tag = 42;
+    //初始化一个手势
+    UITapGestureRecognizer *IdCardUnderTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(IdCardUnderTapAction)];
+    //为图片添加手势
+    [self.IdCardUnder addGestureRecognizer:IdCardUnderTap];
+    [DView_backview addSubview:self.IdCardUnder];
+    [self.IdCardUnder mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(DView_label3.mas_bottom).offset(20.5);
+        make.left.equalTo(self.IdCardOn.mas_right).offset(8);
+        make.size.mas_offset(CGSizeMake(IPHONEWIDTH(103), IPHONEHIGHT(103)));
+    }];
+    
     
     UIView *DView_line2 = [[UIView alloc] init];
     DView_line2.backgroundColor = [UIColor colorWithRed:234/255.0 green:234/255.0 blue:234/255.0 alpha:1.0];
     [DView_backview addSubview:DView_line2];
     [DView_line2 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(DView_line1.mas_bottom).offset(194);
+        make.top.equalTo(self.IdCardOn.mas_bottom).offset(15);
         make.left.mas_offset(10);
         make.right.mas_offset(-10);
         make.height.mas_offset(1);
@@ -507,11 +573,30 @@
         make.left.mas_offset(10);
         make.right.mas_offset(0);
     }];
+    /**营业执照*/
+    self.business = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, IPHONEWIDTH(103), IPHONEHIGHT(103))];
+    self.business.image = [UIImage imageNamed:@"btn_add_shop_info_image_normal"];
+    self.business. layer.cornerRadius = 5;
+    self.business.layer.masksToBounds = YES;
+    self.business.userInteractionEnabled = YES;//打开用户交互
+    self.business.tag = 43;
+    //初始化一个手势
+    UITapGestureRecognizer *businessTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(businessTapAction)];
+    //为图片添加手势
+    [self.business addGestureRecognizer:businessTap];
+    [DView_backview addSubview:self.business];
+    [self.business mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(DView_label5.mas_bottom).offset(20.5);
+        make.left.mas_offset(10);
+        make.size.mas_offset(CGSizeMake(IPHONEWIDTH(103), IPHONEHIGHT(103)));
+    }];
+    
+    
     UIView *DView_line3 = [[UIView alloc] init];
     DView_line3.backgroundColor = [UIColor colorWithRed:234/255.0 green:234/255.0 blue:234/255.0 alpha:1.0];
     [DView_backview addSubview:DView_line3];
     [DView_line3 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(DView_line2.mas_bottom).offset(194);
+        make.top.equalTo(self.business.mas_bottom).offset(15);
         make.left.mas_offset(10);
         make.right.mas_offset(-10);
         make.height.mas_offset(1);
@@ -536,7 +621,23 @@
         make.left.mas_offset(10);
         make.right.mas_offset(0);
     }];
-    
+    /**上传经营许可证*/
+    self.license = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, IPHONEWIDTH(103), IPHONEHIGHT(103))];
+    self.license.image = [UIImage imageNamed:@"btn_add_shop_info_image_normal"];
+    self.license. layer.cornerRadius = 5;
+    self.license.layer.masksToBounds = YES;
+    self.license.userInteractionEnabled = YES;//打开用户交互
+    self.license.tag = 44;
+    //初始化一个手势
+    UITapGestureRecognizer *licenseTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(licenseTapAction)];
+    //为图片添加手势
+    [self.license addGestureRecognizer:licenseTap];
+    [DView_backview addSubview:self.license];
+    [self.license mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(DView_label7.mas_bottom).offset(20.5);
+        make.left.mas_offset(10);
+        make.size.mas_offset(CGSizeMake(IPHONEWIDTH(103), IPHONEHIGHT(103)));
+    }];
     
     
 
@@ -741,7 +842,47 @@
 -(void)KeyTianAction{
     [self.AView_KeyView removeFromSuperview];
 }
-
+#pragma mark - 选择图片
+/*身份证正*/
+-(void)IdCardOnTapAction{
+    if (self.delagate && [self.delagate respondsToSelector:@selector(SetImageDelegate:)]) {
+        [self.delagate SetImageDelegate:self.IdCardOn];
+    }
+    
+}
+/*身份证反*/
+-(void)IdCardUnderTapAction{
+    if (self.delagate && [self.delagate respondsToSelector:@selector(SetImageDelegate:)]) {
+        [self.delagate SetImageDelegate:self.IdCardUnder];
+    }
+    
+}
+/*上传营业执照*/
+-(void)businessTapAction{
+    if (self.delagate && [self.delagate respondsToSelector:@selector(SetImageDelegate:)]) {
+        [self.delagate SetImageDelegate:self.business];
+    }
+    
+}
+/*上传经营许可证*/
+-(void)licenseTapAction{
+    if (self.delagate && [self.delagate respondsToSelector:@selector(SetImageDelegate:)]) {
+        [self.delagate SetImageDelegate:self.license];
+    }
+    
+}
+/*上传门脸照片*/
+-(void)facadeTapAction{
+    if (self.delagate && [self.delagate respondsToSelector:@selector(SetImageDelegate:)]) {
+        [self.delagate SetImageDelegate:self.facade];
+    }
+    
+}
+/*上传门脸照片*/
+-(void)environmentTapAction{
+    
+    
+}
 #pragma mark -赋值
 -(void)setData:(NSDictionary *)Data{
 #pragma mark ———————— 店铺信息数据
@@ -803,7 +944,7 @@
    //reminder
     //is_selected
     NSArray *Array = Data[@"reminder"];
-
+    _ReminData = Array;
     self.ReminLabel_Y = 60;
     CGRect rect = CGRectNull;
     for (int i = 0; i<Array.count; i++) {
@@ -823,7 +964,7 @@
         NSString *is_selected = [NSString stringWithFormat:@"%@",Array[i][@"is_selected"]];
         if ([is_selected isEqualToString:@"1"]) {
             self.ReminV.ReminIcon.selected = YES;
-            [self.ReminArray addObject:[NSString stringWithFormat:@"%@",Array[i][@"info_id"]]];
+//            [self.ReminArray addObject:[NSString stringWithFormat:@"%@",Array[i][@"info_id"]]];
 
         }
         
@@ -836,6 +977,7 @@
         self.ReminLabel_Y = self.ReminV.bottom;
         
     }
+
     //reminder2
     [self.BView_backview addSubview:self.ReminderView];
     [self.ReminderView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -877,8 +1019,17 @@
         [self ButtonAction:but];
     }
 #pragma mark ———————— 照片数据
-#pragma mark ———————— 证件数据
+    NSString *door_face_pic = [NSString stringWithFormat:@"%@",Data[@"door_face_pic"]];
+    [self.facade setImageWithURL:[NSURL URLWithString:door_face_pic] placeholder:[UIImage imageNamed:@"pic_default_avatar"]];
 
+#pragma mark ———————— 证件数据
+    /** 身份证照片 */
+    NSString *card_pic = [NSString stringWithFormat:@"%@",Data[@"hand_held_ID_card_pic"]];
+    // 用指定字符串分割字符串，返回一个数组
+    NSArray *CardArray = [card_pic componentsSeparatedByString:@","];
+    
+    [self.IdCardOn setImageWithURL:[NSURL URLWithString:CardArray[0]] placeholder:[UIImage imageNamed:@"pic_default_avatar"]];
+    [self.IdCardUnder setImageWithURL:[NSURL URLWithString:CardArray[1]] placeholder:[UIImage imageNamed:@"pic_default_avatar"]];
 }
 -(void)setReminData:(NSArray *)ReminData{
     _ReminData = ReminData;
@@ -945,17 +1096,35 @@
 }
 #pragma mark - 保存选择温馨提示数据
 -(void)SelectedReminAction:(UIView *)ReminV and:(UIButton *)icon{
+    NSLog(@"%ld",icon.tag);
     if (icon.isSelected) {
         [self.ReminArray addObject:[NSString stringWithFormat:@"%ld",(long)icon.tag]];
     } else {
         [self.ReminArray removeObject:[NSString stringWithFormat:@"%ld",(long)icon.tag]];
     }
+    [self reminActionArray];
+   
+}
+-(void)reminActionArray{
+    NSMutableArray *Aray = [NSMutableArray array];
+    
+    for (NSString *reminID in self.ReminArray) {
+        
+        for (NSDictionary *dict in self.ReminData) {
+            NSString *ID = [NSString stringWithFormat:@"%@",dict[@"info_id"]];
+            if ([reminID isEqualToString:ID]) {
+                [Aray addObject:dict];
+            }
+            
+        }
+        
+    }
+    
     if (self.delagate && [self.delagate respondsToSelector:@selector(SetReminder:)]) {
-        [self.delagate SetReminder:self.ReminArray];
+        [self.delagate SetReminder:Aray];
         
     }
 }
-
 #pragma mark - 懒加载
 #pragma mark ———————— 店铺信息UI ————————
 -(UIView *)AView{

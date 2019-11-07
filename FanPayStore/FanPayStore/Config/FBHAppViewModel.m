@@ -3971,4 +3971,38 @@
         
     }];
 }
+
+/**
+ 获取商品平台价 根据商品原价和优惠价计算平台价 接口
+ */
+-(void)get_plat_price_according_goods_price_and_discount_price:(NSString *)merchant_id
+                                                   andstore_id:(NSString *)store_id
+                                                andgoods_price:(NSString *)goods_price
+                                             anddiscount_price:(NSString *)discount_price
+                                                       Success:(void (^)(NSDictionary *resDic))success
+                                                    andfailure:(void (^)(void))failure{
+    
+    //里层的parameter
+    NSMutableDictionary *dic=[NSMutableDictionary dictionary];
+    [dic setValue:merchant_id forKey:@"merchant_id"];
+    [dic setValue:store_id forKey:@"store_id"];
+    [dic setValue:goods_price forKey:@"goods_price"];
+    [dic setValue:discount_price forKey:@"discount_price"];
+    
+    UserModel *model = [UserModel getUseData];
+    [dic setValue:model.token forKey:@"token"];
+    
+    NSString *timestamp = [FBHAppViewModel currentTimeStr];
+    [dic setValue:timestamp forKey:@"timestamp"];
+    NSString *process = [NSString stringWithFormat:@"%@%@",merchant_id,timestamp];
+    [dic setValue:[MD5Sign MD5:process] forKey:@"process"];
+    
+    [YBHttpTool post:@"merchant_center/get_plat_price_according_goods_price_and_discount_price" params:dic success:^(NSDictionary *obj) {
+        success(obj);
+        
+    } failure:^(NSError *error) {
+        failure();
+        
+    }];
+}
 @end

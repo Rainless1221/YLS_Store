@@ -17,6 +17,7 @@
     self.goods_description1.delegate = self;
     self.LabelBtn.frame = CGRectMake(94, 9, 110, 30);
     self.discount_price.delegate = self;
+    self.goods_price.delegate = self;
     UITapGestureRecognizer *tapGesturRecognizer=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction:)];
     [self.TheLabelView addGestureRecognizer:tapGesturRecognizer];
     
@@ -25,19 +26,7 @@
     UIButton *Button = [UIButton buttonWithType:UIButtonTypeCustom];
     Button.frame = self.FBButton.frame;
     Button.width = ScreenW-30;
-//    CAGradientLayer *gl = [CAGradientLayer layer];
-//    gl.frame = CGRectMake(0,0,ScreenW-30,44);
-//    gl.startPoint = CGPointMake(0, 0);
-//    gl.endPoint = CGPointMake(1, 1);
-//    gl.colors = @[(__bridge id)[UIColor colorWithRed:67/255.0 green:193/255.0 blue:255/255.0 alpha:1.0].CGColor,(__bridge id)[UIColor colorWithRed:69/255.0 green:166/255.0 blue:255/255.0 alpha:1.0].CGColor,(__bridge id)[UIColor colorWithRed:61/255.0 green:137/255.0 blue:255/255.0 alpha:1.0].CGColor];
-//    gl.locations = @[@(0.0),@(0.5),@(1.0)];
-//    gl.cornerRadius = 10;
-//    [Button.layer addSublayer:gl];
-//
-//    Button.layer.shadowColor = [UIColor colorWithRed:61/255.0 green:138/255.0 blue:255/255.0 alpha:0.5].CGColor;
-//    Button.layer.shadowOffset = CGSizeMake(0,4);
-//    Button.layer.shadowOpacity = 1;
-//    Button.layer.shadowRadius = 9;
+
     
     [Button setTitle:@"立即发布" forState:UIControlStateNormal];
     [Button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -92,28 +81,28 @@
     
     if (text.length>0) {
         if (self.goods_price.text.length>0) {
-            double price = ([self.goods_price.text doubleValue]-[text doubleValue])*plat+[text doubleValue];
-            self.Pingtai.text = [NSString stringWithFormat:@"%.2f",price];
-            self.Pingtai.textColor = UIColorFromRGB(0x222222);
+            
+            [self get_plat_price_rate:self.discount_price.text];
+//            double price = 0;
+//            double goodPrice = ([self.goods_price.text doubleValue]-[text doubleValue])*plat;
+//            if (goodPrice> [text doubleValue]) {
+//                 price = [text doubleValue]+[text doubleValue];
+//            }else{
+//                 price = ([self.goods_price.text doubleValue]-[text doubleValue])*plat+[text doubleValue];
+//            }
+//            self.Pingtai.text = [NSString stringWithFormat:@"%.2f",price];
+//            self.Pingtai.textColor = UIColorFromRGB(0x222222);
+            
+            
         }
     
     }else {
         self.Pingtai.text = @"平台价为优惠价+服务费之和";
         self.Pingtai.textColor = UIColorFromRGB(0xCCCCCC);
-        
     }
     
     return returnValue;
 
-    //    NSString *text = [textField.text stringByReplacingCharactersInRange:range withString:string];
-    //    if (text.length >= 16) {
-    //        [self cardToBankName:text];
-    //    }
-    //    NSLog(@"完整的文本 ：%@",text);
-    //    NSLog(@"每次输入的单个文字 ：%@",string);
-    //    NSLog(@"textField.text 显示的会少一个文字 ：%@",textField.text);
-    //
-    //    return YES;
 }
 -(NSString *)reviseString:(NSString *)str{
     
@@ -124,6 +113,27 @@
     
 }
 
+-(void)get_plat_price_rate:(NSString *)discount_price{
+    
+    //get_plat_price_according_goods_price_and_discount_price
+    UserModel *model = [UserModel getUseData];
+    
+    [[FBHAppViewModel shareViewModel]get_plat_price_according_goods_price_and_discount_price:model.merchant_id andstore_id:model.store_id  andgoods_price:[NSString stringWithFormat:@"%@",self.goods_price.text] anddiscount_price:discount_price  Success:^(NSDictionary *resDic) {
+        
+        if ([resDic[@"status"] integerValue]==1) {
+            NSDictionary *DIC=resDic[@"data"];
+            
+            self.Pingtai.text = [NSString stringWithFormat:@"%@",DIC[@"plat_price"]];
+            self.Pingtai.textColor = UIColorFromRGB(0x222222);
+            
+        }else{
+            
+        }
+        
+    } andfailure:^{
+        
+    }];
+}
 #pragma mark - 赋值
 -(void)setData:(NSDictionary *)Data{
     //商品名
@@ -134,7 +144,6 @@
         self.goods_name.text = goods_name;
 
     }
-                 
     
     
     NSString *goods_price = [NSString stringWithFormat:@"%@",Data[@"goods_price"]];
@@ -174,17 +183,17 @@
     
     
     /*计算平台价*/
-    NSString * plat_price_rate = [PublicMethods readFromUserD:@"plat_price_rate"];
-    if ([[MethodCommon judgeStringIsNull:plat_price_rate] isEqualToString:@""]) {
-        plat_price_rate = @"0.2";
-    }
-    NSString *price = [self reviseString:plat_price_rate];
-    double plat = [price doubleValue];
-    double priceS = ([self.goods_price.text doubleValue]-[self.discount_price.text  doubleValue])*plat+[self.discount_price.text doubleValue];
-    self.Pingtai.text = [NSString stringWithFormat:@"%.2f",priceS];
-    self.Pingtai.textColor = UIColorFromRGB(0x222222);
+//    NSString * plat_price_rate = [PublicMethods readFromUserD:@"plat_price_rate"];
+//    if ([[MethodCommon judgeStringIsNull:plat_price_rate] isEqualToString:@""]) {
+//        plat_price_rate = @"0.2";
+//    }
+//    NSString *price = [self reviseString:plat_price_rate];
+//    double plat = [price doubleValue];
+//    double priceS = ([self.goods_price.text doubleValue]-[self.discount_price.text  doubleValue])*plat+[self.discount_price.text doubleValue];
+//    self.Pingtai.text = [NSString stringWithFormat:@"%.2f",priceS];
+//    self.Pingtai.textColor = UIColorFromRGB(0x222222);
 
-    
+    [self get_plat_price_rate:self.discount_price.text];
   
 
     self.placeholderLabel.hidden=YES;

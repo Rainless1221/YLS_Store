@@ -9,7 +9,7 @@
 #import "YLSinStoreController.h"
 #import "YLSinStoreView.h"
 
-@interface YLSinStoreController ()<QieHuActionDelegate,MapControllerDelegate>
+@interface YLSinStoreController ()<QieHuActionDelegate,MapControllerDelegate,TZImagePickerControllerDelegate>
 @property (strong,nonatomic)UIScrollView * ScrollView;
 @property (strong,nonatomic)YLSinStoreView * InStoreView;
 @property (strong,nonatomic)NSMutableDictionary * StoreDataDict;
@@ -81,22 +81,33 @@
 
     UserModel *model = [UserModel getUseData];
     NSString *addres = [NSString stringWithFormat:@"%@",self.InStoreView.AView_address.text];
-
+    
+    NSString *Reminsting = [NSString new];
+    for (NSDictionary *dict in self.StoreDataDict[@"reminder"]) {
+        NSString *reminID = [NSString stringWithFormat:@"%@",dict[@"info_id"]];
+        if ([[MethodCommon judgeStringIsNull:Reminsting] isEqualToString:@""]) {
+            Reminsting  = [NSString stringWithFormat:@"%@",reminID];
+        }else{
+            Reminsting  = [NSString stringWithFormat:@"%@,%@",Reminsting,reminID];
+        }
+        
+    }
+    
     NSDictionary *dict = @{
-                           @"store_address":[NSString stringWithFormat:@"%@",addres],
-                           @"lon":[NSString stringWithFormat:@"%@",self.StoreDataDict[@"lon"]],
-                           @"lat":[NSString stringWithFormat:@"%@",self.StoreDataDict[@"lat"]],
-                           @"specific_location":[NSString stringWithFormat:@"%@",self.InStoreView.AView_MenP.text],
-                           @"business_hours":[NSString stringWithFormat:@"%@",self.StoreDataDict[@"business_hours"]],
-                           @"business_times":[NSString stringWithFormat:@"%@",self.StoreDataDict[@"business_times"]],
-                           @"merchant_name":[NSString stringWithFormat:@"%@",self.InStoreView.AView_Name.text],
-                           @"merchant_mobile":[NSString stringWithFormat:@"%@",self.InStoreView.AView_Phone.text],
-                           @"merchant_telephone":[NSString stringWithFormat:@"%@",self.InStoreView.AView_GPhone.text],
+//                           @"store_address":[NSString stringWithFormat:@"%@",addres],
+//                           @"lon":[NSString stringWithFormat:@"%@",self.StoreDataDict[@"lon"]],
+//                           @"lat":[NSString stringWithFormat:@"%@",self.StoreDataDict[@"lat"]],
+//                           @"specific_location":[NSString stringWithFormat:@"%@",self.InStoreView.AView_MenP.text],
+//                           @"business_hours":[NSString stringWithFormat:@"%@",self.StoreDataDict[@"business_hours"]],
+//                           @"business_times":[NSString stringWithFormat:@"%@",self.StoreDataDict[@"business_times"]],
+//                           @"merchant_name":[NSString stringWithFormat:@"%@",self.InStoreView.AView_Name.text],
+//                           @"merchant_mobile":[NSString stringWithFormat:@"%@",self.InStoreView.AView_Phone.text],
+//                           @"merchant_telephone":[NSString stringWithFormat:@"%@",self.InStoreView.AView_GPhone.text],
 
                            
-                           @"reminder":[NSString stringWithFormat:@"%@",self.StoreDataDict[@"reminder"]],
+                           @"reminder":[NSString stringWithFormat:@"%@",Reminsting],
                            @"reminder2":[NSString stringWithFormat:@"%@",self.InStoreView.ReminTF.text],
-//                           @"door_face_pic":[NSString stringWithFormat:@"%@",self.door_face_pic],
+                           @"door_face_pic":[NSString stringWithFormat:@"%@",self.StoreDataDict[@"door_face_pic"]],
 //                           @"store_environment_pics":[NSString stringWithFormat:@"%@",self.storePics],
 //
                            
@@ -104,12 +115,12 @@
     
     NSLog(@"数据  = %@",dict)
     
-    return;
     
     [[FBHAppViewModel shareViewModel]insert_store_application:model.merchant_id andMerchantDict:dict Success:^(NSDictionary *resDic) {
         if ([resDic[@"status"] integerValue] == 1) {
             
             [SVProgressHUD showSuccessWithStatus:resDic[@"message"]];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"Store_Menu_View" object:nil];
             [self.navigationController popViewControllerAnimated:YES];
             
         }else{
@@ -128,12 +139,13 @@
 #pragma mark - 赋值
 -(void)setData:(NSDictionary *)Data{
     _Data = Data;
-    self.InStoreView.Data = Data;
     for (NSString *key in Data) {
         
         [self.StoreDataDict setObject:Data[key] forKey:key];
         
     }
+    self.InStoreView.Data = Data;
+   
 
 }
 #pragma mark - QieHuActionDelegate(切换)
@@ -195,18 +207,58 @@
 }
 #pragma mark - 选择温馨提示事件
 -(void)SetReminder:(NSMutableArray *)Array{
-    NSString *Reminsting = [NSString new];
-    for (NSString *reminID in Array) {
-        if ([[MethodCommon judgeStringIsNull:Reminsting] isEqualToString:@""]) {
-            Reminsting  = [NSString stringWithFormat:@"%@",reminID];
-        }else{
-            Reminsting  = [NSString stringWithFormat:@"%@,%@",Reminsting,reminID];
-        }
-        
-    }
     
-    [self.StoreDataDict setObject:Reminsting forKey:@"reminder"];
+    [self.StoreDataDict setObject:Array forKey:@"reminder"];
 
+}
+#pragma mark - 选择图片事件
+-(void)SetImageDelegate:(UIImageView *)Image{
+    TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:1 columnNumber:4 delegate:self pushPhotoPickerVc:YES];
+    [imagePickerVc setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
+        [Image setImage:photos[0]];
+//        [sender setImage:photos[0] forState:UIControlStateNormal];
+        [self image:photos[0] andtag:Image.tag];
+        
+        
+    }];
+    [self presentViewController:imagePickerVc animated:YES completion:nil];
+}
+#pragma mark - 上传图片
+-(void)image:(UIImage *)img andtag:(NSInteger)imatag{
+    [[FBHAppViewModel shareViewModel]uploadImageWithData:img andtype:@"1"  Success:^(NSDictionary *resDic) {
+        NSString *urlstr = [[NSString alloc]init];
+        if ([resDic[@"status"] integerValue]==1) {
+            NSDictionary *DIC=resDic[@"data"];
+            switch (imatag) {
+                case 31:
+                    /*店铺门店照*/
+                    [self.StoreDataDict setObject:[NSString stringWithFormat:@"%@",DIC[@"img_url"]] forKey:@"door_face_pic"];
+                    break;
+                case 41:
+                      /*身份证正面*/
+                    break;
+                case 42:
+                    /*身份证反面*/
+                    break;
+                case 43:
+                    /*营业执照*/
+                    break;
+                case 44:
+                    /*经营许可证*/
+                    break;
+                default:
+                    break;
+            }
+            
+            [SVProgressHUD showSuccessWithStatus:resDic[@"message"]];
+            
+        }else{
+            [SVProgressHUD setMinimumDismissTimeInterval:2];
+            [SVProgressHUD showErrorWithStatus:resDic[@"message"]];
+        }
+    } andfailure:^{
+        
+    }];
 }
 #pragma mark - 懒加载
 -(UIScrollView *)ScrollView{

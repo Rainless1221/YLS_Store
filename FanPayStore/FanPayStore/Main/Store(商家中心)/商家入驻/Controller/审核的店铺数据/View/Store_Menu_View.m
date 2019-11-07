@@ -12,6 +12,7 @@
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
+        self.TypeView = 0;
         [self createUI];
     }
     return self;
@@ -76,7 +77,7 @@
     }
     
     self.SizeHeight = 290+100;
-    self.TypeView = 1;
+    self.TypeView =0;
 #pragma mark ———————— 店铺信息 ————————
     [self addSubview:self.AView];
     [self.AView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -472,7 +473,7 @@
             self.CView.hidden = YES;
             self.DView.hidden = YES;
             self.SizeHeight = 290+100;
-            self.TypeView = 1;
+            self.TypeView =0;
             break;
         case 11:
             self.AView.hidden = YES;
@@ -480,7 +481,7 @@
             self.CView.hidden = YES;
             self.DView.hidden = YES;
             self.SizeHeight = self.ReminLabel_Y+250;
-            self.TypeView = 2;
+            self.TypeView = 1;
             break;
         case 12:
             self.AView.hidden = YES;
@@ -488,7 +489,7 @@
             self.CView.hidden = NO;
             self.DView.hidden = YES;
             self.SizeHeight = self.Image_Y+120;
-            self.TypeView = 3;
+            self.TypeView = 2;
             break;
         case 13:
             self.AView.hidden = YES;
@@ -496,7 +497,7 @@
             self.CView.hidden = YES;
             self.DView.hidden = NO;
             self.SizeHeight = 640+100;
-            self.TypeView = 4;
+            self.TypeView = 3;
             break;
         default:
             break;
@@ -505,6 +506,7 @@
     if (self.SizeHejightBlock) {
         self.SizeHejightBlock(self.SizeHeight);
     }
+   
     
 }
 #pragma mark - 编辑
@@ -567,6 +569,7 @@
     
     #pragma mark ———————— 温馨提示赋值
 
+    
     NSMutableArray *Array = [NSMutableArray array];
     self.ReminLabel_Y = 5;
     CGRect rect = CGRectNull;
@@ -579,6 +582,18 @@
         }
         
     }
+    //依次遍历self.view中的所有子视图
+    for(id tmpView in [self.BView subviews])
+    {
+        //找到要删除的子视图的对象
+        if([tmpView isKindOfClass:[SelectedRemin class]]){
+            SelectedRemin *imgView = (SelectedRemin *)tmpView;
+//            if(imgView.tag == 1) {//判断是否满足自己要删除的子视图的条件
+                [imgView removeFromSuperview]; //删除子视图
+//                break; //跳出for循环，因为子视图已经找到，无须往下遍历
+//            }
+        }
+    }
     
     for (int i = 0; i<Array.count; i++) {
        
@@ -587,20 +602,20 @@
         
         CGFloat infoLabelH = ceilf(rect.size.height);
         
-        SelectedRemin *ReminV = [[SelectedRemin alloc]initWithFrame:CGRectMake(10, self.ReminLabel_Y, self.BView.width-10, infoLabelH+10)];
-        ReminV.ReminLable.text = lableString;
-        ReminV.status = ReminVieWStatus_2;
-        ReminV.tag = i;
-        [self.BView addSubview:ReminV];
+        self.ReminV = [[SelectedRemin alloc]initWithFrame:CGRectMake(0, self.ReminLabel_Y, self.BView.width-10, infoLabelH+10)];
+        self.ReminV.ReminLable.text = lableString;
+        self.ReminV.status = ReminVieWStatus_2;
+        self.ReminV.tag = i;
+        [self.BView addSubview:self.ReminV];
         
         
-        [ReminV mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_offset(10);
+        [self.ReminV mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_offset(0);
             make.width.mas_offset(self.BView.width-10);
             make.top.mas_offset(self.ReminLabel_Y);
             make.height.mas_offset(infoLabelH);
         }];
-        self.ReminLabel_Y = ReminV.bottom;
+        self.ReminLabel_Y = self.ReminV.bottom;
         
     }
     
@@ -616,19 +631,37 @@
     
 #pragma mark ———————— 照片赋值
     
+    NSString *door_face_pic = [NSString stringWithFormat:@"%@",Data[@"door_face_pic"]];
+    [self.CView_Image1 setImageWithURL:[NSURL URLWithString:door_face_pic] placeholder:[UIImage imageNamed:@"pic_default_avatar"]];
+    
+    
+    /** 店里环境 */
+    NSString *store_environment_pics = [NSString stringWithFormat:@"%@",Data[@"store_environment_pics"]];
+    // 用指定字符串分割字符串，返回一个数组
+    NSArray *picsarray = [store_environment_pics componentsSeparatedByString:@","];
+    
     int cuon = (ScreenW - 20)/110;
 
-    for (int i = 0; i<25; i++) {
+    for (int i = 0; i<picsarray.count; i++) {
         NSInteger index = i % cuon;
         NSInteger page = i / cuon;
         UIImageView*CView_Image = [[UIImageView alloc] initWithFrame:CGRectMake(10+index*110,(self.CView_text4.bottom+19.5)+page*110,103,103)];
-        CView_Image.image = [UIImage imageNamed:@"pic_default_avatar"];
+//        CView_Image.image = [UIImage imageNamed:@"pic_default_avatar"];
+        [CView_Image setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",picsarray[i]]] placeholder:[UIImage imageNamed:@"pic_default_avatar"]];
+
         CView_Image.layer.cornerRadius = 6;
         CView_Image.layer.masksToBounds = YES;
         [self.CView addSubview:CView_Image];
         self.Image_Y = CView_Image.bottom;
     }
 #pragma mark ———————— 证件赋值
+    /** 身份证照片 */
+    NSString *card_pic = [NSString stringWithFormat:@"%@",Data[@"hand_held_ID_card_pic"]];
+    // 用指定字符串分割字符串，返回一个数组
+    NSArray *CardArray = [card_pic componentsSeparatedByString:@","];
+    
+    [self.DView_Image1 setImageWithURL:[NSURL URLWithString:CardArray[0]] placeholder:[UIImage imageNamed:@"pic_default_avatar"]];
+    [self.DView_Image2 setImageWithURL:[NSURL URLWithString:CardArray[1]] placeholder:[UIImage imageNamed:@"pic_default_avatar"]];
 
 }
 #pragma mark - 懒加载

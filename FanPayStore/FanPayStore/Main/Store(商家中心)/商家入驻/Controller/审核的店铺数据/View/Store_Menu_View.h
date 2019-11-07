@@ -50,7 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong,nonatomic)UIView * BView_backview;
 @property (assign,nonatomic)CGFloat ReminLabel_Y;
 @property (strong,nonatomic)UILabel * reminder2;
-
+@property (strong,nonatomic)SelectedRemin *ReminV;
 
 #pragma mark ———————— 照片 ————————
 @property (strong,nonatomic)UILabel * CView_text1;
@@ -83,6 +83,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /*赋值*/
 @property (strong,nonatomic)NSDictionary * Data;
+
+-(void)ButtonAction:(UIButton *)sender;
 
 @end
 

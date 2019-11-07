@@ -91,7 +91,18 @@
         info_id = @"";
     }else{
         self.ReminIcon.tag = [info_id integerValue];
+
     }
+
+    
+    NSString *is_selected = [NSString stringWithFormat:@"%@",Data[@"is_selected"]];
+    if ([is_selected isEqualToString:@"1"]) {
+        self.ReminIcon.selected = YES;
+        if (self.delagate && [self.delagate respondsToSelector:@selector(SelectedReminAction: and:)]) {
+            [self.delagate SelectedReminAction:self and:self.ReminIcon];
+        }
+    }
+    
     
 }
 #pragma mark - 懒加载

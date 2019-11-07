@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)SetCycle:(UITextField *)Cycle;
 -(void)SetTime:(UITextField *)Time;
 -(void)SetReminder:(NSMutableArray*)Array;
+-(void)SetImageDelegate:(UIImageView*)Image;
 @end
 
 @interface YLSinStoreView : UIView<UITextFieldDelegate,SelectedReminDelegate>
@@ -54,7 +55,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong,nonatomic)UITextView * ReminTF;
 
 #pragma mark ———————— 照片
+@property (strong,nonatomic)UIImageView * facade;
+@property (strong,nonatomic)UIImageView * environment;
 #pragma mark ———————— 证件
+@property (strong,nonatomic)UIImageView * IdCardOn;
+@property (strong,nonatomic)UIImageView * IdCardUnder;
+@property (strong,nonatomic)UIImageView * business;
+@property (strong,nonatomic)UIImageView * license;
 /*高度值*/
 @property (assign,nonatomic)CGFloat SizeHeight;
 
