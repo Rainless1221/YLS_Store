@@ -139,12 +139,12 @@
     UIButton *DetailButton = [UIButton buttonWithType:UIButtonTypeCustom];
     DetailButton.frame = CGRectMake(0, 0, 80, 32);
     [DetailButton setTitle:@"联系买家" forState:UIControlStateNormal];
-    [DetailButton setTitleColor:UIColorFromRGB(0xFFFFFF) forState:UIControlStateNormal];
-    [DetailButton setBackgroundColor:UIColorFromRGB(0x3D8AFF)];
+    [DetailButton setTitleColor:UIColorFromRGB(0x222222) forState:UIControlStateNormal];
+    [DetailButton setBackgroundColor:UIColorFromRGB(0xF7AE2B)];
     DetailButton.titleLabel.font = [UIFont systemFontOfSize:14];
     DetailButton.layer.cornerRadius = 16;
     DetailButton.layer.borderWidth = 1;
-    DetailButton.layer.borderColor = [UIColorFromRGB(0x3D8AFF) CGColor];
+    DetailButton.layer.borderColor = [UIColorFromRGB(0xF7AE2B) CGColor];
     [DetailButton addTarget:self action:@selector(DetailAction) forControlEvents:UIControlEventTouchUpInside];
     [self.orderView addSubview:DetailButton];
     [DetailButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -266,6 +266,7 @@
     }];
     
     UIButton *dayinBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    dayinBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;//居左显示
     [dayinBtn setTitle:@" 打印订单" forState:UIControlStateNormal];
     [dayinBtn setImage:[UIImage imageNamed:@"icn_printer_blue"] forState:UIControlStateNormal];
     [dayinBtn setTitleColor:UIColorFromRGB(0x3D8AFF) forState:UIControlStateNormal];
@@ -428,6 +429,7 @@
     }];
     
     UIButton *dayinBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    dayinBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;//居左显示
     [dayinBtn setTitle:@" 打印订单" forState:UIControlStateNormal];
     [dayinBtn setImage:[UIImage imageNamed:@"icn_printer_blue"] forState:UIControlStateNormal];
     [dayinBtn setTitleColor:UIColorFromRGB(0x3D8AFF) forState:UIControlStateNormal];
@@ -477,6 +479,7 @@
     }];
     
     UIButton *dayinBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    dayinBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;//居左显示
     [dayinBtn setTitle:@" 打印订单" forState:UIControlStateNormal];
     [dayinBtn setImage:[UIImage imageNamed:@"icn_printer_blue"] forState:UIControlStateNormal];
     [dayinBtn setTitleColor:UIColorFromRGB(0x3D8AFF) forState:UIControlStateNormal];
@@ -623,6 +626,7 @@
 //    }];
     
     UIButton *dayinBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    dayinBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;//居左显示
     [dayinBtn setTitle:@" 打印订单" forState:UIControlStateNormal];
     [dayinBtn setImage:[UIImage imageNamed:@"icn_printer_blue"] forState:UIControlStateNormal];
     [dayinBtn setTitleColor:UIColorFromRGB(0x3D8AFF) forState:UIControlStateNormal];
@@ -736,6 +740,7 @@
     
     
     UIButton *dayinBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    dayinBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;//居左显示
     [dayinBtn setTitle:@" 打印订单" forState:UIControlStateNormal];
     [dayinBtn setImage:[UIImage imageNamed:@"icn_printer_blue"] forState:UIControlStateNormal];
     [dayinBtn setTitleColor:UIColorFromRGB(0x3D8AFF) forState:UIControlStateNormal];
@@ -820,9 +825,9 @@
     [self.orderView addSubview:self.refundTime];
     [self.refundTime mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_offset(-10);
-        make.height.mas_offset(25);
-        make.width.mas_offset(180);
-        make.bottom.equalTo(self.goods_price.mas_top).offset(-20);
+        make.height.mas_offset(24);
+        make.width.mas_offset(IPHONEWIDTH(85));
+        make.bottom.equalTo(self.goods_price.mas_top).offset(-8);
     }];
 }
 #pragma mark - 退款
@@ -848,6 +853,7 @@
     }];
     
     UIButton *dayinBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    dayinBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;//居左显示
     [dayinBtn setTitle:@" 打印订单" forState:UIControlStateNormal];
     [dayinBtn setImage:[UIImage imageNamed:@"icn_printer_blue"] forState:UIControlStateNormal];
     [dayinBtn setTitleColor:UIColorFromRGB(0x3D8AFF) forState:UIControlStateNormal];
@@ -866,7 +872,7 @@
     self.label_TKBeiZhu.numberOfLines = 2;
     self.label_TKBeiZhu.textColor = UIColorFromRGB(0x999999);
     self.label_TKBeiZhu.font = [UIFont systemFontOfSize:14];
-    self.label_TKBeiZhu.text = @"备注：菜金酒水退款";
+    self.label_TKBeiZhu.text = @"备注：";
     [self.orderView addSubview:self.label_TKBeiZhu];
     [self.label_TKBeiZhu mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_offset(10);
@@ -888,7 +894,7 @@
     self.label_TKmoney.numberOfLines = 2;
     self.label_TKmoney.textColor = UIColorFromRGB(0xFF6969);
     self.label_TKmoney.font = [UIFont systemFontOfSize:14];
-    self.label_TKmoney.text = @"-¥22";
+    self.label_TKmoney.text = @"-¥";
     [self.orderView addSubview:self.label_TKmoney];
     [self.label_TKmoney mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_offset(-10);
@@ -1124,17 +1130,17 @@
     }else if (status == 4){
         [self.iconBtn setTitle:@"订单已评价" forState:UIControlStateNormal];
         [self.iconBtn setImage:[UIImage imageNamed:@"icn_order_complete"] forState:UIControlStateNormal];
-        orderV_H = 400;
+        orderV_H = 380;
         
     }else if(status == 5){
         [self.iconBtn setTitle:@"订单已取消" forState:UIControlStateNormal];
         [self.iconBtn setImage:[UIImage imageNamed:@"icn_order_cancel"] forState:UIControlStateNormal];
-        orderV_H = 320;
+        orderV_H = 280;
 
     }else if(status == 6){
         [self.iconBtn setTitle:@"订单退款" forState:UIControlStateNormal];
         [self.iconBtn setImage:[UIImage imageNamed:@"icn_order_refund"] forState:UIControlStateNormal];
-        orderV_H = 320;
+        orderV_H = 270;
         /*
          退款剩余时间
          remaining_process_refund_time
@@ -1149,27 +1155,32 @@
     }else if(status == 7){
         [self.iconBtn setTitle:@"订单退款" forState:UIControlStateNormal];
         [self.iconBtn setImage:[UIImage imageNamed:@"icn_order_refund"] forState:UIControlStateNormal];
-        orderV_H = 320;
+        orderV_H = 295;
         self.refundTime.text = @"退款成功";
 
     }else if(status == 8){
-         orderV_H = 320;
+         orderV_H = 295;
         [self.iconBtn setTitle:@"订单退款" forState:UIControlStateNormal];
         [self.iconBtn setImage:[UIImage imageNamed:@"icn_order_refund"] forState:UIControlStateNormal];
         self.refundTime.text = @"退款失败";
 
     }else if(status == 9){
-        orderV_H = 400;
+        orderV_H = 390;
         [self.iconBtn setTitle:@"订单退款" forState:UIControlStateNormal];
         [self.iconBtn setImage:[UIImage imageNamed:@"icn_order_refund"] forState:UIControlStateNormal];
-        
+        self.label_TKtype.text = @"退款处理中";
     }else if(status == 10){
-        orderV_H = 400;
+        orderV_H = 390;
         [self.iconBtn setTitle:@"订单退款" forState:UIControlStateNormal];
         [self.iconBtn setImage:[UIImage imageNamed:@"icn_order_refund"] forState:UIControlStateNormal];
-        
+        self.label_TKtype.text = @"退款完成";
+    }else if(status == 11){
+        orderV_H = 390;
+        [self.iconBtn setTitle:@"订单退款" forState:UIControlStateNormal];
+        [self.iconBtn setImage:[UIImage imageNamed:@"icn_order_refund"] forState:UIControlStateNormal];
+        self.label_TKtype.text = @"退款失败";
     }else{
-        orderV_H = 400;
+        orderV_H = 380;
 
     }
     
@@ -1215,7 +1226,9 @@
         [goodsName mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_offset(88+OrderGodds_H*i);
             make.left.mas_offset(10);
-            make.size.mas_offset(CGSizeMake(self.orderView.width/2, 20));
+            make.right.mas_offset(-100);
+//            make.size.mas_offset(CGSizeMake(self.orderView.width*0.8, 20));
+            make.height.mas_offset(20);
         }];
         UILabel *goods_price = [[UILabel alloc]init];
         goods_price.text = [NSString stringWithFormat:@"¥%@",goods[i][@"goods_price"]];
@@ -1225,7 +1238,7 @@
         [goods_price mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_offset(88+OrderGodds_H*i);
             make.left.equalTo(goodsName.mas_right).offset(0);
-            make.size.mas_offset(CGSizeMake(self.orderView.width/4, 20));
+            make.size.mas_offset(CGSizeMake(50, 20));
         }];
         
         UILabel *goods_num = [[UILabel alloc]init];
@@ -1237,7 +1250,7 @@
         [goods_num mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_offset(88+OrderGodds_H*i);
             make.right.mas_offset(-10);
-            make.size.mas_offset(CGSizeMake(self.orderView.width/4, 20));
+            make.size.mas_offset(CGSizeMake(50, 20));
         }];
     }
     
@@ -1286,8 +1299,21 @@
     }
     self.PaymentTime.text = [NSString stringWithFormat:@"剩余支付时间%@",remaining_payment_time];
     
-   
-
+  /*退款金额*/
+    NSString *refund_amount =[NSString stringWithFormat:@"%@",Data[@"refund_amount"]];
+    if ([[MethodCommon judgeStringIsNull:refund_amount] isEqualToString:@""]) {
+        self.label_TKmoney.text = @"-¥00";
+    }else{
+         self.label_TKmoney.text = [NSString stringWithFormat:@"-¥%@",refund_amount];
+    }
+ /*退款备注*/
+    NSString *refund_remark =[NSString stringWithFormat:@"%@",Data[@"refund_remark"]];
+    if ([[MethodCommon judgeStringIsNull:refund_remark] isEqualToString:@""]) {
+        self.label_TKBeiZhu.text = @"备注：";
+    }else{
+       self.label_TKBeiZhu.text = [NSString stringWithFormat:@"备注：%@",refund_remark];
+    }
+    
 }
 #pragma mark - 懒加载
 -(UIView *)orderView{

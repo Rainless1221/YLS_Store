@@ -16,6 +16,7 @@
 @interface FBHWithdrawViewController ()<UIScrollViewDelegate,JHCoverViewDelegate,UITextFieldDelegate>
 {
     double F;
+    NSString *_fee_payable;
 }
 @property (strong,nonatomic)WithdrawWinView * WinView;//提现成功弹出View
 @property (strong,nonatomic)UIScrollView * SJScrollView;
@@ -60,6 +61,7 @@
             /** 可提现金额 */
             self.scrollView.dangqiM.text = [NSString stringWithFormat:@"%@",DIC[@"withdrawable_cash"]];
             self.scrollView.fuwuLabel.text = [NSString stringWithFormat:@"可提现金额 %@元",DIC[@"withdrawable_cash"]];
+
             /** 我的银行卡信息 */
             [self.bankData removeAllObjects];
 //            self.bankData =DIC[@"bank_card_info"];
@@ -71,6 +73,9 @@
             NSString *rate = [NSString stringWithFormat:@"%@",DIC[@"service_charges_rate"]];
             self->F = [rate doubleValue];
             self.scrollView.fuwu.text = [NSString stringWithFormat:@"（收取 %.2lf%@服务费）",F*100,@"%"];
+            /*代付费用*/
+            _fee_payable = [NSString stringWithFormat:@"%@",DIC[@"fee_payable"]];
+            
 #pragma mark - 说明文本
             //withdraw_amount_limit_one_day 一个商户每日最多能提现的金额
             //withdraw_total_amount_limit_one_day 所有商户每日最多能提现的金额
@@ -109,7 +114,7 @@
             if ([[MethodCommon judgeStringIsNull:withdraw_amount_limit_one_day] isEqualToString:@""]) {
                 withdraw_amount_limit_one_day = @"100000";
             }
-            self.scrollView.TisiLabel7.text =  [NSString stringWithFormat:@"每笔最高%@元，每日提现不超过%@元，每笔代付费用2元，手续费%.2lf%@",withdraw_max_limit_one_time,withdraw_amount_limit_one_day,F*100,@"%"];
+            self.scrollView.TisiLabel7.text =  [NSString stringWithFormat:@"每笔最高%@元，每日提现不超过%@元，每笔代付费用%@元，手续费%.2lf%@",withdraw_max_limit_one_time,withdraw_amount_limit_one_day,_fee_payable,F*100,@"%"];
 
             [self.scrollView.tishi setTitle:[NSString stringWithFormat:@" 提现金额大于限制额度%@元，请分多次提现",withdraw_max_limit_one_time] forState:UIControlStateNormal];
             /** 赋值 **/
@@ -125,6 +130,9 @@
                 //银行卡名称
                 self.bankName = [NSString stringWithFormat:@" %@",self.bankData[0][@"affiliated_bank"]];
             }
+            
+            
+
             
             [MBProgressHUD hideHUD];
 
@@ -169,6 +177,8 @@
                 }
 
             }
+            
+
         }else{
             [SVProgressHUD setMinimumDismissTimeInterval:2];
             [SVProgressHUD showErrorWithStatus:resDic[@"message"]];
@@ -236,8 +246,6 @@
 -(void)createUI{
     [self.view addSubview:self.SJScrollView];
     [self.SJScrollView addSubview:self.scrollView];
-
-    
     
 }
 #pragma mark - 认证情况是否跳转
@@ -339,9 +347,8 @@
 }
 /** 全部额度 **/
 -(void)allAction{
-    
     double fuwu = [self.scrollView.dangqiM.text doubleValue];
-    fuwu = fuwu*F+2;
+    fuwu = fuwu*F+[_fee_payable doubleValue];
     if (fuwu>27) {
         fuwu = 27;
     }
@@ -519,11 +526,6 @@
         make.height.mas_offset(IPHONEHIGHT(48));
     }];
     
-    
-  
-
-    
-
 
     
 }
@@ -656,7 +658,7 @@
     coverView.delegate = self;
     /** 提示 **/
     double fuwu = [self.scrollView.JEField.text doubleValue];
-    fuwu = fuwu*F+2;
+    fuwu = fuwu*F+[_fee_payable doubleValue];
     if (fuwu>27) {
         fuwu = 27;
     }
@@ -755,6 +757,9 @@
         if ([resDic[@"status"] integerValue] == 1) {
             WithdrawWinView *tipView = [[NSBundle mainBundle] loadNibNamed:@"WithdrawWinView" owner:self options:nil].lastObject;
             tipView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+            tipView.WinActionBlock = ^{
+                [self.navigationController popViewControllerAnimated:YES];
+            };
             [self.view.window addSubview:tipView];
             [SVProgressHUD showSuccessWithStatus:resDic[@"message"]];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"list_new" object:@""];
@@ -776,20 +781,25 @@
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
     NSString *text = [textField.text stringByReplacingCharactersInRange:range withString:string];
     NSLog(@"textField4 - 正在编辑, 当前输入框内容为: %@",text);
-    double fuwu = [text doubleValue];
-    if (fuwu>20000) {
-        text = @"20000";
-    }else if (fuwu<10){
+    if (text.length>0){
+        double fuwu = [text doubleValue];
+        if (fuwu>20000) {
+            text = @"20000";
+        }else if (fuwu<10){
+            
+        }
         
+        fuwu = fuwu*F+[_fee_payable doubleValue];
+        if (fuwu>27) {
+            fuwu = 27;
+        }
+        
+        self.scrollView.fuwuLabel.textColor =UIColorFromRGBA(0x222222, 1);
+        _scrollView.fuwuLabel.text = [NSString stringWithFormat:@"服务费: %.2lf元",fuwu];
+    }else{
+        self.scrollView.fuwuLabel.textColor =UIColorFromRGBA(0xCCCCCC, 1);
+        _scrollView.fuwuLabel.text =[NSString stringWithFormat:@"可提现金额 %@元",self.scrollView.dangqiM.text];
     }
-    
-    fuwu = fuwu*F+2;
-    if (fuwu>27) {
-        fuwu = 27;
-    }
-
-    self.scrollView.fuwuLabel.textColor =UIColorFromRGBA(0x222222, 1);
-    _scrollView.fuwuLabel.text = [NSString stringWithFormat:@"服务费: %.2lf元",fuwu];
     return YES;
 }
 #pragma mark - 懒加载

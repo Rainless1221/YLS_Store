@@ -79,7 +79,7 @@
     
     /* icon */
     UIImageView *icon = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 6, 10)];
-    icon.image = [UIImage imageNamed:@"input_arrow_right_blue"];
+    icon.image = [UIImage imageNamed:@"input_arrow_right_deepgray"];
     [cell addSubview:icon];
     [icon mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_offset(0);

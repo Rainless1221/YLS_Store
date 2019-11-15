@@ -67,12 +67,7 @@
                                    };
             [[FBHAppViewModel shareViewModel]insert_store_application:model.merchant_id andMerchantDict:dict Success:^(NSDictionary *resDic) {
                 if ([resDic[@"status"] integerValue] == 1) {
-                    
-                    
                     [self.navigationController popToViewController:controller animated:YES];
-
-                    
-                    //            [self.navigationController popViewControllerAnimated:YES];
                 }else{
                     [SVProgressHUD setMinimumDismissTimeInterval:2];
                     [SVProgressHUD showErrorWithStatus:resDic[@"message"]];
@@ -101,6 +96,7 @@
     
     
 }
+#pragma mark - 根据一级分类ID获取二级分类
 - (void)merchant_category:(NSString *)categoryId{
     
     [MBProgressHUD MBProgress:@"数据加载中.."];
@@ -145,7 +141,6 @@
     cell.Data = self.TypesData[indexPath.row];
     cell.backgroundColor = UIColorFromRGB(0xFFFFFF);
     
-    
     if (cell.icon.tag == self.btnTag) {
         cell.isSelect = YES;
         cell.icon.selected =YES;
@@ -164,6 +159,8 @@
             
             /** 二级类型 */
             NSString *cate = [NSString stringWithFormat:@"%@",self.TypesData[btnTag][@"category_id"]];
+            self.sec_category_id = cate;
+            
             if ([cate isEqualToString:@""]) {
                 return ;
             }
@@ -193,8 +190,6 @@
     //当手指离开某行时，就让某行的选中状态消失
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     self.sec_category_id = self.TypesData[indexPath.row][@"category_id"];
-
-    
 }
 
 #pragma mark - 懒加载

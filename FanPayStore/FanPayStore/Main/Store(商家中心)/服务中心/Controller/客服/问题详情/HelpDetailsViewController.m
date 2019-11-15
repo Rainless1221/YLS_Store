@@ -102,11 +102,14 @@
     
 #pragma mark -  赋值
 //    [self.Detailsbutton setTitle:[NSString stringWithFormat:@"%@",self.Data[@"question"]] forState:UIControlStateNormal];
+    /*标题*/
     self.DetailsTEXT.text = [NSString stringWithFormat:@"%@",self.Data[@"question"]];
     
+    /**内容*/
      NSString *labelText=[NSString stringWithFormat:@"%@ ",self.Data[@"answer"]];
     
-    CustomLabel *label = [[CustomLabel alloc] initWithFrame:CGRectMake(15,74,ScreenW-30,100)];
+//    CustomLabel *label = [[CustomLabel alloc] initWithFrame:CGRectMake(15,74,ScreenW-30,100)];
+    CustomLabel *label = [[CustomLabel alloc] init];
     label.numberOfLines = 0;
     label.backgroundColor = [UIColor whiteColor];
     label.layer.cornerRadius = 5;
@@ -119,10 +122,10 @@
         make.top.mas_offset(74);
         make.left.mas_offset(15);
         make.right.mas_offset(-15);
+        make.height.mas_offset( view.bottom-74);
     }];
-
     label.attributedText = attrStr;
-    self.ScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, view.bottom+150);
+    self.ScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, view.bottom);
 
     
 //    NSString * htmlString =@"<html><body> Some html string \n <font size=\"13\" color=\"red\">This is some text!</font> </body></html>";

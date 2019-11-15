@@ -148,7 +148,6 @@
                     
                 });
             }
-            
             [self.WordTableView reloadData];
         }else{
             [SVProgressHUD setMinimumDismissTimeInterval:2];

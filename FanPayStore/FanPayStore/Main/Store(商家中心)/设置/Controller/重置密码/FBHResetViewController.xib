@@ -75,18 +75,18 @@
                         </view>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入验证码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4MS-Rx-8ha">
                             <rect key="frame" x="10" y="103" width="227" height="48"/>
-                            <color key="textColor" red="0.0" green="0.59999999999999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="izz-hr-xvc">
                             <rect key="frame" x="247" y="111" width="88" height="32"/>
-                            <color key="backgroundColor" red="0.23921568630000001" green="0.53725490200000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" red="0.96862745100000003" green="0.68235294120000001" blue="0.16862745100000001" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="88" id="p89-zt-xAI"/>
                             </constraints>
                             <state key="normal" title="获取验证码">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                             </state>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -99,7 +99,7 @@
                         </button>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入新密码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xtj-vL-JZI">
                             <rect key="frame" x="10" y="154" width="325" height="48"/>
-                            <color key="textColor" red="0.23921568630000001" green="0.53725490200000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
@@ -145,7 +145,7 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nA7-Kv-Dyd">
-                    <rect key="frame" x="15" y="279" width="345" height="44"/>
+                    <rect key="frame" x="15" y="310" width="345" height="44"/>
                     <color key="backgroundColor" red="0.23921568630000001" green="0.53725490200000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="gbc-mD-AhZ"/>
@@ -163,7 +163,7 @@
                         <action selector="determineAction:" destination="-1" eventType="touchUpInside" id="Hz9-bb-LBx"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="密码长度6-16位，至少包括数字、字母、符号中的两种" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ddb-ch-pMk">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="密码长度6-16位，需包含字母，数字，首字母大写" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ddb-ch-pMk">
                     <rect key="frame" x="15" y="222" width="345" height="25"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="25" id="Idj-0u-Bmq"/>
@@ -180,7 +180,7 @@
                 <constraint firstAttribute="trailing" secondItem="nA7-Kv-Dyd" secondAttribute="trailing" constant="15" id="PRr-Qz-ICP"/>
                 <constraint firstItem="nA7-Kv-Dyd" firstAttribute="leading" secondItem="ddb-ch-pMk" secondAttribute="leading" id="T1l-Q6-aFq"/>
                 <constraint firstItem="lqk-Ix-fUC" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="15" id="eQ1-3b-xf5"/>
-                <constraint firstItem="nA7-Kv-Dyd" firstAttribute="top" secondItem="lqk-Ix-fUC" secondAttribute="bottom" constant="62" id="kUf-ow-kYF"/>
+                <constraint firstItem="nA7-Kv-Dyd" firstAttribute="top" secondItem="lqk-Ix-fUC" secondAttribute="bottom" constant="93" id="kUf-ow-kYF"/>
                 <constraint firstItem="ddb-ch-pMk" firstAttribute="top" secondItem="lqk-Ix-fUC" secondAttribute="bottom" constant="5" id="tdF-gT-ZtH"/>
                 <constraint firstItem="lqk-Ix-fUC" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="v6A-NQ-tx3"/>
             </constraints>

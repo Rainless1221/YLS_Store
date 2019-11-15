@@ -28,6 +28,7 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = YES;
     [self refund_order_num];
+    
 }
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
@@ -84,6 +85,7 @@
             }
             
             [self.orderTableView reloadData];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"conversion" object:@""];
 
            
             
@@ -119,7 +121,9 @@
                 NSInteger order_num = [num integerValue];
                 if (order_num >0) {
                     [self.MenuView.badgeLable setHidden:NO];
+                    self.MenuView.badgeLable.width = order_num>9 ? 18: 13;
                     [self.MenuView.badgeLable  setText:num];
+
                 }else if (order_num == 0){
                     [self.MenuView.badgeLable setHidden:YES];
                     
@@ -667,7 +671,7 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if ([self.status isEqualToString:@"6"]) {
-        return 43;
+        return IPHONEWIDTH(48);
     }else{
         return 0.01;
     }
@@ -676,20 +680,41 @@
     UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 43)];
     headerView.backgroundColor = UIColorFromRGB(0xF6F6F6);
     UILabel *label1 = [[UILabel alloc] init];
-    label1.frame = CGRectMake(15,0,150,43);
+    label1.frame = CGRectMake(15,15,150,30);
     label1.numberOfLines = 0;
     label1.font = [UIFont systemFontOfSize:14];
     label1.textColor = [UIColor blackColor];
     [headerView addSubview:label1];
+    UIView *view = [[UIView alloc] init];
+    view.frame = CGRectMake(15,5,ScreenW-30,1);
+    view.clipsToBounds = YES;
+    [headerView addSubview:view];
+    NSInteger lineW = (ScreenW-30)/9;
+
     if (section == 0) {
         label1.text = @"未处理";
 
     }else if (section == 1){
-        label1.text = @"处理成功";
-
+        if (self.DataC.count>0) {
+            label1.text = @"处理成功";
+            for (int i=0; i<=lineW; i++) {
+                UIView *line = [[UIView alloc]initWithFrame:CGRectMake(i*9, 0, 5, 0.5)];
+                line.backgroundColor = UIColorFromRGBA(0x999999, 0.7);
+                [view addSubview:line];
+            }
+        }
+       
+        
     }else{
-        label1.text = @"处理失败";
-
+        if (self.DataS.count>0) {
+            label1.text = @"处理失败";
+            for (int i=0; i<=lineW; i++) {
+                UIView *line = [[UIView alloc]initWithFrame:CGRectMake(i*9, 0, 5, 0.5)];
+                line.backgroundColor = UIColorFromRGBA(0x999999, 0.7);
+                [view addSubview:line];
+            }
+        }
+       
     }
     if ([self.status isEqualToString:@"6"]) {
         return headerView;

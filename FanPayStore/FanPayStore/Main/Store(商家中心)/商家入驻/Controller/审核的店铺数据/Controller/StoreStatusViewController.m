@@ -51,35 +51,35 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view addSubview:self.ScrollView];
-YBWeakSelf
-    /*商家基本信息*/
-    self.Store_View = [[StoreStatus_View alloc]initWithFrame:CGRectMake(15, 75, self.view.width - 30, 202)];
-    self.Store_View.backgroundColor = [UIColor whiteColor];
-    [self.ScrollView addSubview:self.Store_View];
-    self.Store_View.StoreNameBlock = ^{
-        StoreNameViewController *NameVC = [StoreNameViewController new];
-        NameVC.Data_dict = weakSelf.StoreData1;
-        [weakSelf.navigationController pushViewController:NameVC animated:NO];
-    };
-    /*菜单*/
-    self.Store_Menu_View = [[Store_Menu_View alloc]initWithFrame:CGRectMake(15, self.Store_View.bottom +20, self.view.width - 30, 100)];
-    self.Store_Menu_View.backgroundColor = [UIColor whiteColor];
-    self.Store_Menu_View.delagate = self;
-    _TypeView = self.Store_Menu_View.TypeView;
-    [self.ScrollView addSubview:self.Store_Menu_View];
-
-    self.Store_Menu_View.height = self.Store_Menu_View.SizeHeight;
-    self.ScrollView.contentSize = CGSizeMake(SCREEN_WIDTH,  self.Store_Menu_View.SizeHeight);
-
-
-    self.Store_Menu_View.SizeHejightBlock = ^(CGFloat Height) {
-        weakSelf.Store_Menu_View.height = weakSelf.Store_Menu_View.SizeHeight;
-        weakSelf.ScrollView.contentSize = CGSizeMake(SCREEN_WIDTH,  weakSelf.Store_Menu_View.SizeHeight+330);
-    };
+//YBWeakSelf
+//    /*商家基本信息*/
+//    self.Store_View = [[StoreStatus_View alloc]initWithFrame:CGRectMake(15, 75, self.view.width - 30, 202)];
+//    self.Store_View.backgroundColor = [UIColor whiteColor];
+//    [self.ScrollView addSubview:self.Store_View];
+//    self.Store_View.StoreNameBlock = ^{
+//        StoreNameViewController *NameVC = [StoreNameViewController new];
+//        NameVC.Data_dict = weakSelf.StoreData1;
+//        [weakSelf.navigationController pushViewController:NameVC animated:NO];
+//    };
+//    /*菜单*/
+//    self.Store_Menu_View = [[Store_Menu_View alloc]initWithFrame:CGRectMake(15, self.Store_View.bottom +20, self.view.width - 30, 100)];
+//    self.Store_Menu_View.backgroundColor = [UIColor whiteColor];
+//    self.Store_Menu_View.delagate = self;
+//    _TypeView = self.Store_Menu_View.TypeView;
+//    [self.ScrollView addSubview:self.Store_Menu_View];
+//
+//    self.Store_Menu_View.height = self.Store_Menu_View.SizeHeight;
+//    self.ScrollView.contentSize = CGSizeMake(SCREEN_WIDTH,  self.Store_Menu_View.SizeHeight);
+//
+//
+//    self.Store_Menu_View.SizeHejightBlock = ^(CGFloat Height) {
+//        weakSelf.Store_Menu_View.height = weakSelf.Store_Menu_View.SizeHeight;
+//        weakSelf.ScrollView.contentSize = CGSizeMake(SCREEN_WIDTH,  weakSelf.Store_Menu_View.SizeHeight+330);
+//    };
 
     
-//    [self.ScrollView addSubview:self.NavigationImage];
-//    [self.ScrollView addSubview:self.StatusView];
+    [self.ScrollView addSubview:self.NavigationImage];
+    [self.ScrollView addSubview:self.StatusView];
 
     _halfHeight = (CGRectGetHeight([UIScreen mainScreen].bounds)) * 0.5 - 64;
 
@@ -212,8 +212,8 @@ YBWeakSelf
             
             
             /** 温馨提示 **/
-            NSMutableArray *reminderArr = [NSMutableArray array];
-            NSString *reminderString = [NSString new];
+//            NSMutableArray *reminderArr = [NSMutableArray array];
+//            NSString *reminderString = [NSString new];
 
             
 

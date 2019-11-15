@@ -48,7 +48,7 @@
         
         if ([resDic[@"status"] integerValue] == 1) {
             
-            NSDictionary *DIC=resDic[@"data"][@"news_info"];
+//            NSDictionary *DIC=resDic[@"data"][@"news_info"];
 
 //            [SVProgressHUD showSuccessWithStatus:resDic[@"message"]];
             
@@ -74,16 +74,14 @@
 
     
 }
-
+#pragma mark - 赋值
 -(void)setData:(NSDictionary *)Data{
     
     self.news_title.text = [NSString stringWithFormat:@"%@",Data[@"news_title"]];
     [self.news_title sizeToFit];
-    
     self.add_time.text = [NSString stringWithFormat:@"%@",Data[@"add_time"]];
     
     
-
     if (kStringIsEmpty(Data[@"news_pic"])) {
         self.news_pic.height = 0;
         self.news_content.mj_y = self.news_pic.bottom;
@@ -94,7 +92,6 @@
         self.BaseView.height = 362.5;
 
     }
-    
     self.news_content.text = [NSString stringWithFormat:@"%@",Data[@"news_content"]];
     [self.news_content sizeToFit];
 }

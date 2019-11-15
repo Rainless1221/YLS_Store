@@ -57,7 +57,7 @@
     for (int i =0; i<Array.count; i++) {
         
         UIView *line = [[UIView alloc]initWithFrame:CGRectMake(30,100+i*40,self.BaseView.width-60 , 1)];
-        line.backgroundColor = UIColorFromRGB(0x3D8AFF);
+        line.backgroundColor = UIColorFromRGB(0xF7AE2B);
         [self.BaseView addSubview:line];
         
         FL_Button *thirdBtn = [FL_Button buttonWithType:UIButtonTypeCustom];
@@ -81,24 +81,25 @@
     queButton.frame = CGRectMake(0, 0, self.BaseView.width-60, 44);
 
     
-    CAGradientLayer *gl = [CAGradientLayer layer];
-    gl.frame = queButton.bounds;
-    gl.startPoint = CGPointMake(0, 0);
-    gl.endPoint = CGPointMake(1, 1);
-    gl.colors = @[(__bridge id)[UIColor colorWithRed:67/255.0 green:193/255.0 blue:255/255.0 alpha:1.0].CGColor,(__bridge id)[UIColor colorWithRed:69/255.0 green:166/255.0 blue:255/255.0 alpha:1.0].CGColor,(__bridge id)[UIColor colorWithRed:61/255.0 green:137/255.0 blue:255/255.0 alpha:1.0].CGColor];
-    gl.locations = @[@(0.0),@(0.5),@(1.0)];
-    gl.cornerRadius = 10;
-    [queButton.layer addSublayer:gl];
+//    CAGradientLayer *gl = [CAGradientLayer layer];
+//    gl.frame = queButton.bounds;
+//    gl.startPoint = CGPointMake(0, 0);
+//    gl.endPoint = CGPointMake(1, 1);
+//    gl.colors = @[(__bridge id)[UIColor colorWithRed:67/255.0 green:193/255.0 blue:255/255.0 alpha:1.0].CGColor,(__bridge id)[UIColor colorWithRed:69/255.0 green:166/255.0 blue:255/255.0 alpha:1.0].CGColor,(__bridge id)[UIColor colorWithRed:61/255.0 green:137/255.0 blue:255/255.0 alpha:1.0].CGColor];
+//    gl.locations = @[@(0.0),@(0.5),@(1.0)];
+//    gl.cornerRadius = 10;
+//    [queButton.layer addSublayer:gl];
     
-    queButton.layer.shadowColor = [UIColor colorWithRed:61/255.0 green:138/255.0 blue:255/255.0 alpha:0.5].CGColor;
-    queButton.layer.shadowOffset = CGSizeMake(0,4);
-    queButton.layer.shadowOpacity = 1;
-    queButton.layer.shadowRadius = 9;
-    
+//    queButton.layer.shadowColor = [UIColor colorWithRed:61/255.0 green:138/255.0 blue:255/255.0 alpha:0.5].CGColor;
+//    queButton.layer.shadowOffset = CGSizeMake(0,4);
+//    queButton.layer.shadowOpacity = 1;
+//    queButton.layer.shadowRadius = 9;
+    queButton.layer.cornerRadius = 10;
+    queButton.backgroundColor = UIColorFromRGB(0xF7AE2B);
     [queButton setTitle:@"确定" forState:UIControlStateNormal];
     [queButton.titleLabel setFont:[UIFont systemFontOfSize:18]];
     
-    [queButton setTitleColor:UIColorFromRGB(0xFFFFFF) forState:UIControlStateNormal];
+    [queButton setTitleColor:UIColorFromRGB(0x222222) forState:UIControlStateNormal];
     [queButton addTarget:self action:@selector(queButtonaction) forControlEvents:UIControlEventTouchUpInside];
     
     [self.BaseView addSubview:queButton];
@@ -123,11 +124,8 @@
 //
 //    }
     sender.selected = !sender.selected;
-
     if (sender.selected == YES) {
-
 //        [self.PerArray addObject:sender.titleLabel.text];
-        
         [self.PerArray insertObject:sender.titleLabel.text atIndex:sender.tag];
     } else {
         [self.PerArray removeObjectAtIndex:sender.tag];
@@ -138,20 +136,22 @@
 -(void)queButtonaction{
     
     NSString *persting = [[NSString alloc]init];
-    for (int i =1; i<=self.PerArray.count; i++) {
+    for (int i =0; i<self.PerArray.count; i++) {
         
-        NSString *urlstring = [NSString stringWithFormat:@"%@",self.PerArray[i-1]];
+        NSString *urlstring = [NSString stringWithFormat:@"%@",self.PerArray[i]];
+        
         if ([urlstring isEqualToString:@""]) {
-            continue;
 
-        }
-        if (i == self.PerArray.count) {
-            persting = [persting stringByAppendingFormat:@"%@",urlstring];
         }else{
-            persting = [persting stringByAppendingFormat:@"%@,",urlstring];
+            if (i == self.PerArray.count) {
+                persting = [persting stringByAppendingFormat:@"%@",urlstring];
+            }else{
+                persting = [persting stringByAppendingFormat:@"%@,",urlstring];
+            }
         }
-        
+
     }
+    persting = [persting substringWithRange:NSMakeRange(0, [persting length] - 1)];
     NSLog(@" 选择的周期 ：%@",persting)
     
     

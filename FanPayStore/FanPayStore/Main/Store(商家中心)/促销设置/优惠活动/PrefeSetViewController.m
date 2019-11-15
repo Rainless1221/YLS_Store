@@ -443,7 +443,7 @@
     
     [[FBHAppViewModel shareViewModel]insert_update_preferential_activities:model.merchant_id andstore_id:model.store_id andbankDict:self.date1 Success:^(NSDictionary *resDic) {
         if ([resDic[@"status"] integerValue]==1) {
-            NSDictionary *DIC=resDic[@"data"];
+//            NSDictionary *DIC=resDic[@"data"];
             
             [[NSNotificationCenter defaultCenter] postNotificationName:@"prefeSave" object:self.Dict];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"prefeSavelist" object:self.Dict];

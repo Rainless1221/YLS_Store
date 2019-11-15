@@ -160,7 +160,7 @@
     [storeButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_offset(7);
         make.top.mas_offset(16);
-        make.size.mas_offset(CGSizeMake(90, 30));
+        make.size.mas_offset(CGSizeMake(IPHONEWIDTH(90), 30));
     }];
      /*id+头像*/
     [self.storeView_banner addSubview:self.goods_pic];
@@ -171,9 +171,10 @@
         make.size.mas_offset(CGSizeMake(90, 90));
     }];
     [self.goods_id mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_offset(120);
-        make.top.mas_offset(30);
-        make.size.mas_offset(CGSizeMake(156, 20));
+        make.left.equalTo(self.goods_pic.mas_right).offset(IPHONEWIDTH(10));
+        make.top.mas_offset(18);
+//        make.size.mas_offset(CGSizeMake(IPHONEWIDTH(156), 20));
+        make.right.equalTo(storeButton.mas_left).offset(-5);
     }];
     
     /*经营类型*/
@@ -283,6 +284,7 @@
         make.top.equalTo(icon_time.mas_top).offset(0);
         make.left.equalTo(icon_add.mas_right).offset(4);
         make.right.mas_offset(-80);
+        make.bottom.mas_offset(-1);
     }];
     
     
@@ -533,13 +535,43 @@
     self.store_category.text = [NSString stringWithFormat:@"%@",Data.store_category];
     
     /** ID */
-    self.goods_id.text = [NSString stringWithFormat:@"ID:%@",Data.store_code];
+    NSString *store_code  = [NSString stringWithFormat:@"ID:%@",Data.store_code];
+    if ([[MethodCommon judgeStringIsNull:store_code] isEqualToString:@""]) {
+       
+    }else{
+        self.goods_id.text = store_code;
+    }
     /** 商家姓名 */
-    self.store_name.text = [NSString stringWithFormat:@"%@",Data.merchant_name];
+    NSString *merchant_name = [NSString stringWithFormat:@"%@",Data.merchant_name];
+    if ([[MethodCommon judgeStringIsNull:merchant_name] isEqualToString:@""]) {
+        
+    }else{
+        self.store_name.text = merchant_name;
+    }
+    
     /** 店铺联系方式  */
-    self.store_phone.text = [NSString stringWithFormat:@"%@",Data.merchant_mobile];
+    NSString *merchant_mobile = [NSString stringWithFormat:@"%@",Data.merchant_mobile];
+    if ([[MethodCommon judgeStringIsNull:merchant_mobile] isEqualToString:@""]) {
+        
+    }else{
+        self.store_phone.text = merchant_mobile;
+
+    }
     /** 经营周期  经营时段 */
-    self.store_time.text = [NSString stringWithFormat:@"%@%@",Data.business_times,Data.business_hours];
+    NSString *TimeString  = [NSString new];
+     NSString *business_times = [NSString stringWithFormat:@"%@",Data.business_times];
+    NSString *business_hours = [NSString stringWithFormat:@"%@",Data.business_hours];
+    if ([[MethodCommon judgeStringIsNull:business_times] isEqualToString:@""]) {
+        
+    }else{
+        TimeString = [NSString stringWithFormat:@"%@",business_times];
+    }
+    if ([[MethodCommon judgeStringIsNull:business_hours] isEqualToString:@""]) {
+        
+    }else{
+        TimeString = [TimeString stringByAppendingString:business_hours];
+    }
+        self.store_time.text = TimeString;
     /** 商家粉丝 */
     self.fans_number.text = [NSString stringWithFormat:@"%@ 粉丝",Data.fans_number];
     /** 商家商品 */
@@ -773,7 +805,8 @@
     if (!_goods_id) {
         _goods_id = [[UILabel alloc]init];
         _goods_id.textColor= UIColorFromRGB(0x22222);
-        _goods_id.font = [UIFont systemFontOfSize:15];
+        _goods_id.font = [UIFont systemFontOfSize:IPHONEWIDTH(15)];
+        _goods_id.numberOfLines = 2;
         _goods_id.text = @" ID:";
     }
     return _goods_id;

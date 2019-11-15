@@ -21,7 +21,7 @@
         [self.CellBase addSubview:self.celltime];
         [self.celltime mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.mas_offset(-10);
-            make.top.mas_offset(22);
+            make.top.mas_offset(15);
         }];
 
     }
@@ -57,6 +57,7 @@
         }else{
             _celltype.hidden = NO;
             _celltype.text = num;
+            _celltype.width =[num intValue] > 9 ?  25:18;
             _celltype.backgroundColor = UIColorFromRGB(0xEE3319);
         }
         
@@ -75,7 +76,7 @@
 #pragma mark - 懒加载
 -(UIView *)CellBase{
     if (!_CellBase) {
-        _CellBase = [[UIView alloc]initWithFrame:CGRectMake(15, 0, ScreenW-30, 83)];
+        _CellBase = [[UIView alloc]initWithFrame:CGRectMake(15, 0, ScreenW-30, 78)];
         _CellBase.backgroundColor = [UIColor whiteColor];
         _CellBase.layer.cornerRadius = 5;
     }
@@ -89,7 +90,7 @@
 }
 -(UILabel *)cellLabel{
     if (!_cellLabel) {
-        _cellLabel = [[UILabel alloc]initWithFrame:CGRectMake(self.cellIcon.right+10,15,150,15)];
+        _cellLabel = [[UILabel alloc]initWithFrame:CGRectMake(self.cellIcon.right+10,15,150,20)];
         _cellLabel.font = [UIFont systemFontOfSize:autoScaleW(18)];
         _cellLabel.textColor = UIColorFromRGB(0x222222);
     }
@@ -97,9 +98,10 @@
 }
 -(UILabel *)cellText{
     if (!_cellText) {
-        _cellText = [[UILabel alloc]initWithFrame:CGRectMake(self.cellLabel.left,self.cellLabel.bottom+10,self.CellBase.width-self.cellLabel.left-30,20)];
+        _cellText = [[UILabel alloc]initWithFrame:CGRectMake(self.cellLabel.left,self.cellLabel.bottom+10,self.CellBase.width-self.cellLabel.left-40,25)];
         _cellText.font = [UIFont systemFontOfSize:autoScaleW(13)];
         _cellText.textColor = UIColorFromRGB(0x999999);
+        _cellText.numberOfLines = 2;
     }
     return _cellText;
 }
@@ -117,7 +119,7 @@
 }
 -(UILabel *)celltime{
     if (!_celltime) {
-        _celltime = [[UILabel alloc]initWithFrame:CGRectMake(self.cellLabel.right,22,self.CellBase.width-self.cellLabel.right-10,18)];
+        _celltime = [[UILabel alloc]initWithFrame:CGRectMake(self.cellLabel.right,15,self.CellBase.width-self.cellLabel.right-10,18)];
         _celltime.font = [UIFont systemFontOfSize:autoScaleW(15)];
         _celltime.textColor = UIColorFromRGB(0x999999);
         _celltime.textAlignment = 2;

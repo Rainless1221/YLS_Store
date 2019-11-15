@@ -91,7 +91,10 @@
     [self initAutoScaleSize];
     #pragma mark -网易七鱼
     [[QYSDK sharedSDK] registerAppId:@"f5864a9890cb8d9a13d120e65545590d" appName:@"一鹿省"];
-   
+    #pragma mark - 友盟基础统计集成
+    [UMConfigure initWithAppkey:@"5dccf3583fc1950363000b6f" channel:@"App Store"];
+    [MobClick setScenarioType:E_UM_NORMAL];//支持普通场景
+    [UMConfigure setLogEnabled:YES];
 #pragma mark - 高德地图
     [AMapServices sharedServices].apiKey = kAppKey_gaode;
 #pragma mark - 友盟

@@ -19,6 +19,10 @@
 /** 分页 */
 @property (assign,nonatomic)NSInteger page;
 @property (strong,nonatomic)UIView * menuV;
+/*粉丝中的用户数量*/
+@property (strong,nonatomic)NSString * count_fans_as_user;
+/*粉丝中的商户数量*/
+@property (strong,nonatomic)NSString * count_fans_as_mer;
 @end
 
 @implementation FansViewController
@@ -31,13 +35,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"我的粉丝";
-    
+    self.count_fans_as_user = @"0";
+    self.count_fans_as_mer = @"0";
     self.page = 1;
     [self merchant_center:self.page];
     /**
      * 导航栏
      */
-    //    [self setupNav];
+//        [self setupNav];
+    
     /**
      用户or商户
      */
@@ -58,6 +64,20 @@
         
         if ([resDic[@"status"] integerValue] == 1) {
             NSDictionary *DIC=resDic[@"data"];
+            
+            NSString *as_user =  [NSString stringWithFormat:@"%@",DIC[@"count_fans_as_user"]];
+            if ([[MethodCommon judgeStringIsNull:as_user] isEqualToString:@""]) {
+                self.count_fans_as_user = @"0";
+            }else{
+                self.count_fans_as_user = as_user;
+            }
+            NSString *as_mer =  [NSString stringWithFormat:@"%@",DIC[@"count_fans_as_mer"]];
+            if ([[MethodCommon judgeStringIsNull:as_mer] isEqualToString:@""]) {
+                self.count_fans_as_mer = @"0";
+            }else{
+                self.count_fans_as_mer = as_mer;
+            }
+            
             if (self.page == 1) {
                 [self.Data removeAllObjects];
                 [self.Data1 removeAllObjects];
@@ -85,11 +105,9 @@
 }
 #pragma mark - 导航栏
 -(void)setupNav{
-    UIButton *leftbutton=[[UIButton alloc]initWithFrame:CGRectMake(10, 0, 60, 28)];
-    [leftbutton setImage:[UIImage imageNamed:@"icn_nav_more_black_normal"] forState:(UIControlState)UIControlStateNormal];
-    [leftbutton addTarget:self action:@selector(rightAction) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *rightitem=[[UIBarButtonItem alloc]initWithCustomView:leftbutton];self.navigationItem.rightBarButtonItem=rightitem;
-    
+    UIBarButtonItem *rightitem= [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"icn_nav_more_black_normal"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(rightAction)];
+    self.navigationItem.rightBarButtonItem = rightitem;
+
 }
 -(void)rightAction{
     
@@ -174,17 +192,19 @@
     }
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    FSTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FSTableViewCell" forIndexPath:indexPath];
+//    FSTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"FSTableViewCell"];
+//    cell= [[FSTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"FSTableViewCell"];
+    
+    cell.backgroundColor = UIColorFromRGB(0xFFFFFF);
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     if (tableView == self.userTableView) {
-        FSTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FSTableViewCell" forIndexPath:indexPath];
-        cell.backgroundColor = UIColorFromRGB(0xFFFFFF);
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+       
 
         cell.Data = self.Data[indexPath.row];
         return cell;
     }else{
-        FSTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FSTableViewCell" forIndexPath:indexPath];
-        cell.backgroundColor = UIColorFromRGB(0xFFFFFF);
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
 
         cell.Data1 = self.Data1[indexPath.row];
         return cell;
@@ -192,10 +212,44 @@
     return nil;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 15.01f;
+    return IPHONEWIDTH(70.5);
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 68;
+}
+/*头部试图*/
+- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    
+    UIView *HeaderInView = [[UIView alloc] init];
+    HeaderInView.backgroundColor = UIColorFromRGB(0xF6F6F6);
+
+    UIView *view = [[UIView alloc] init];
+    view.backgroundColor = [UIColor colorWithRed:252/255.0 green:233/255.0 blue:232/255.0 alpha:1.0];
+    view.layer.cornerRadius = 5;
+    view.layer.borderWidth = 1;
+    view.layer.borderColor = UIColorFromRGB(0xF0BAB6).CGColor;
+    [HeaderInView addSubview:view];
+    [view mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.mas_offset(IPHONEWIDTH(15));
+        make.right.bottom.mas_offset(IPHONEWIDTH(-15));
+    }];
+    UILabel *label = [[UILabel alloc] init];
+    label.numberOfLines = 0;
+    label.font = [UIFont systemFontOfSize:IPHONEWIDTH(15)];
+    label.textColor = UIColorFromRGB(0xEE4E3E);
+    [view addSubview:label];
+    [label mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_offset(IPHONEWIDTH(10));
+        make.right.mas_offset(IPHONEWIDTH(-15));
+        make.top.bottom.mas_offset(0);
+    }];
+    if (tableView == self.userTableView) {
+        label.text = [NSString stringWithFormat:@"%@个用户粉丝关注",self.count_fans_as_user];
+    }else{
+        label.text = [NSString stringWithFormat:@"%@个商家粉丝关注",self.count_fans_as_mer];
+    }
+    
+    return HeaderInView;
 }
 //点击
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -220,8 +274,9 @@
 #pragma mark - GET
 -(UITableView *)userTableView{
     if (!_userTableView) {
-        _userTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 50, ScreenW, ScreenH-50) style:UITableViewStyleGrouped];
+        _userTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 50, ScreenW, ScreenH-50) style:UITableViewStylePlain];
         _userTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _userTableView.backgroundColor = UIColorFromRGB(0xF6F6F6);
         _userTableView.delegate = self;
         _userTableView.dataSource = self;
         _userTableView.allowsSelectionDuringEditing = YES;
@@ -244,8 +299,9 @@
 
 -(UITableView *)storeTableView{
     if (!_storeTableView) {
-        _storeTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 50, ScreenW, ScreenH-50) style:UITableViewStyleGrouped];
+        _storeTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 50, ScreenW, ScreenH-50) style:UITableViewStylePlain];
         _storeTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _storeTableView.backgroundColor = UIColorFromRGB(0xF6F6F6);
         _storeTableView.delegate = self;
         _storeTableView.dataSource = self;
         _storeTableView.allowsSelectionDuringEditing = YES;

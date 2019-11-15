@@ -123,7 +123,7 @@
         
         if ([resDic[@"status"] integerValue]==1) {
             NSDictionary *DIC = resDic[@"data"][@"bank_card_info"];
-            Bank_infoModel *model=[Bank_infoModel mj_objectWithKeyValues:DIC];
+//            Bank_infoModel *model=[Bank_infoModel mj_objectWithKeyValues:DIC];
             
         }else{
             [SVProgressHUD setMinimumDismissTimeInterval:2];

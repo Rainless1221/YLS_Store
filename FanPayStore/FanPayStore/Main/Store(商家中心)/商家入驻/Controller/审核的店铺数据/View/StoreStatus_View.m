@@ -140,6 +140,15 @@
         self.store_name.text =store_name;
 
     }
+     /** ID */
+    NSString *store_code=[NSString stringWithFormat:@"%@",Data[@"info_id"]];
+    if ([[MethodCommon judgeStringIsNull:store_code] isEqualToString:@""]) {
+        
+    }else{
+       self.store_ID.text = [NSString stringWithFormat:@"ID:%@",store_code];
+    }
+    
+    
     NSString *category_pic = [NSString stringWithFormat:@"%@",Data[@"category_pic"]];
     if ([PublicMethods isUrl:category_pic]) {
     }else{
@@ -199,7 +208,7 @@
         _store_ID.numberOfLines = 0;
         _store_ID.textColor = UIColorFromRGB(0x666666);
         _store_ID.font = [UIFont systemFontOfSize:12];
-        _store_ID.text = @"ID:eluson123456789";
+        _store_ID.text = @"ID:";
     }
     return _store_ID;
 }

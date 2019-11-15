@@ -81,8 +81,13 @@
     
     if (text.length>0) {
         if (self.goods_price.text.length>0) {
-            
-            [self get_plat_price_rate:self.discount_price.text];
+            if (textField ==  self.goods_price) {
+                [self get_plat_price_rate1:text];
+
+            }else{
+                [self get_plat_price_rate:text];
+
+            }
 //            double price = 0;
 //            double goodPrice = ([self.goods_price.text doubleValue]-[text doubleValue])*plat;
 //            if (goodPrice> [text doubleValue]) {
@@ -100,7 +105,7 @@
         self.Pingtai.text = @"平台价为优惠价+服务费之和";
         self.Pingtai.textColor = UIColorFromRGB(0xCCCCCC);
     }
-    
+
     return returnValue;
 
 }
@@ -114,11 +119,32 @@
 }
 
 -(void)get_plat_price_rate:(NSString *)discount_price{
-    
+
     //get_plat_price_according_goods_price_and_discount_price
     UserModel *model = [UserModel getUseData];
     
     [[FBHAppViewModel shareViewModel]get_plat_price_according_goods_price_and_discount_price:model.merchant_id andstore_id:model.store_id  andgoods_price:[NSString stringWithFormat:@"%@",self.goods_price.text] anddiscount_price:discount_price  Success:^(NSDictionary *resDic) {
+        
+        if ([resDic[@"status"] integerValue]==1) {
+            NSDictionary *DIC=resDic[@"data"];
+            
+            self.Pingtai.text = [NSString stringWithFormat:@"%@",DIC[@"plat_price"]];
+            self.Pingtai.textColor = UIColorFromRGB(0x222222);
+            
+        }else{
+            
+        }
+        
+    } andfailure:^{
+        
+    }];
+}
+-(void)get_plat_price_rate1:(NSString *)discount_price{
+    
+    //get_plat_price_according_goods_price_and_discount_price
+    UserModel *model = [UserModel getUseData];
+    
+    [[FBHAppViewModel shareViewModel]get_plat_price_according_goods_price_and_discount_price:model.merchant_id andstore_id:model.store_id  andgoods_price:discount_price anddiscount_price:[NSString stringWithFormat:@"%@",self.discount_price.text]  Success:^(NSDictionary *resDic) {
         
         if ([resDic[@"status"] integerValue]==1) {
             NSDictionary *DIC=resDic[@"data"];

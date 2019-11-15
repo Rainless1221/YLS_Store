@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -43,14 +43,14 @@
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Voh-Uj-bqH">
                             <rect key="frame" x="10" y="0.0" width="325" height="50"/>
-                            <state key="normal" image="input_arrow_right_blue"/>
+                            <state key="normal" image="input_arrow_right_deepgray"/>
                             <connections>
                                 <action selector="Action:" destination="-1" eventType="touchUpInside" id="h8G-lJ-UNF"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BPo-eW-XKi">
                             <rect key="frame" x="10" y="51" width="325" height="50"/>
-                            <state key="normal" image="input_arrow_right_blue"/>
+                            <state key="normal" image="input_arrow_right_deepgray"/>
                             <connections>
                                 <action selector="zhaoAction:" destination="-1" eventType="touchUpInside" id="kDP-y8-U6P"/>
                             </connections>
@@ -93,6 +93,6 @@
         </view>
     </objects>
     <resources>
-        <image name="input_arrow_right_blue" width="6" height="10"/>
+        <image name="input_arrow_right_deepgray" width="6" height="10"/>
     </resources>
 </document>

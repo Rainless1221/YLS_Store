@@ -365,8 +365,8 @@
     [[FBHAppViewModel shareViewModel]set_payment_password:model.merchant_id andcode:nil andpassword:pass Success:^(NSDictionary *resDic) {
         if ([resDic[@"status"] integerValue] == 1){
             if (self.Passpage == 2 || self.Passpage  == 10){
+                
                 [SVProgressHUD showSuccessWithStatus:resDic[@"message"]];
-
                 [self.navigationController popViewControllerAnimated:YES];
             }else{
                 for (UIViewController *controller in self.navigationController.viewControllers) {

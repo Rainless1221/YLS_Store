@@ -253,7 +253,7 @@
     [[FBHAppViewModel shareViewModel]get_bank_name_by_card_num:model.merchant_id andcard_number:card_number Success:^(NSDictionary *resDic) {
         
         if ([resDic[@"status"] integerValue]==1) {
-            NSDictionary *DIC = resDic[@"data"];
+//            NSDictionary *DIC = resDic[@"data"];
             /** 代号 **/
 //            self.Bank_value = DIC[@"bank_value"];
             /** 名称 **/

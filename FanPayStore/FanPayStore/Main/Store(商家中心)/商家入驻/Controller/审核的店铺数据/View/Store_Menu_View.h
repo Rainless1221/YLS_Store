@@ -68,8 +68,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong,nonatomic)UILabel * DView_text2;
 @property (strong,nonatomic)UILabel * DView_text3;
 @property (strong,nonatomic)UILabel * DView_text4;
+@property (strong,nonatomic)UILabel * DView_text5;
+@property (strong,nonatomic)UILabel * DView_text6;
 @property (strong,nonatomic)UIImageView * DView_Image1;
 @property (strong,nonatomic)UIImageView * DView_Image2;
+@property (strong,nonatomic)UIImageView * DView_Image3;
+@property (strong,nonatomic)UIImageView * DView_Image4;
+@property (assign,nonatomic)CGFloat DImage_Y;
 
 /*高度值*/
 @property (assign,nonatomic)CGFloat SizeHeight;

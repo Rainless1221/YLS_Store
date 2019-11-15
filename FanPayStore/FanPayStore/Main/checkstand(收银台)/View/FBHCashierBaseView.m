@@ -8,10 +8,18 @@
 
 #import "FBHCashierBaseView.h"
 
+@interface FBHCashierBaseView ()
+/*[ 平均优惠力度 ]*/
+@property (strong,nonatomic)YYLabel * Pingju;
+
+@end
+
 @implementation FBHCashierBaseView
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
+        self.today_income_String = @"00";
+        self.cumulative_income_String = @"00";
         [self createUI];
     }
     return self;
@@ -25,7 +33,7 @@
         make.top.mas_offset(15);
         make.left.mas_offset(15);
         make.right.mas_offset(-15);
-        make.height.mas_offset(181);
+        make.height.mas_offset(208.5);
     }];
 //    [self.View2 mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.top.equalTo(self.View1.mas_bottom).offset(15);
@@ -55,7 +63,7 @@
         make.top.equalTo(button_TJ.mas_bottom).offset(15);
         make.left.mas_offset(15);
         make.right.mas_offset(-15);
-        make.height.mas_offset(400);
+        make.height.mas_offset(self.IncomeArray.count*45+100);
     }];
 #pragma mark -- 当前余额：
     UILabel *label1 = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 75, 15)];
@@ -104,6 +112,13 @@
         make.left.right.mas_offset(0);
         make.height.mas_offset(27);
     }];
+#pragma mark - [ 平均优惠力度 ]
+    [self.View1 addSubview:self.Pingju];
+    [self.Pingju mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.current_balance.mas_bottom).offset(13);
+        make.centerX.mas_offset(0);
+        make.size.mas_offset(CGSizeMake(IPHONEWIDTH(180), 24));
+    }];
     
     UILabel *label2 = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 200, 15)];
     label2.text = @"今日营收（元）";
@@ -112,7 +127,7 @@
     label2.textAlignment = 1;
     [self.View1 addSubview:label2];
     [label2 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.current_balance.mas_bottom).offset(30);
+        make.top.equalTo(self.current_balance.mas_bottom).offset(62);
         make.left.mas_offset(0);
         make.size.mas_offset(CGSizeMake((ScreenW-30)/2, 15));
     }];
@@ -124,7 +139,7 @@
     label3.textAlignment = 1;
     [self.View1 addSubview:label3];
     [label3 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.current_balance.mas_bottom).offset(30);
+        make.top.equalTo(self.current_balance.mas_bottom).offset(62);
         make.left.equalTo(label2.mas_right).offset(0);
         make.size.mas_offset(CGSizeMake((ScreenW-30)/2, 15));
     }];
@@ -187,12 +202,12 @@
 //    [self.View2 addSubview:zuixin];
 
 #pragma mark -订单模块
-    CGFloat Bwidth = (ScreenW-50)/4;
+    CGFloat Bwidth = (ScreenW-50)/5;
     CGFloat Bheight = 88;
     
    
-    NSArray *orderArray = @[@"全部",@"待支付",@"已支付",@"已评价"];
-    NSArray *order_imageAry = @[@"icn_b_order_all",@"icn_b_order_tobepaid",@"icn_b_order_paid",@"icn_b_order_evaluated"];
+    NSArray *orderArray = @[@"全部",@"待支付",@"已支付",@"已评价",@"退单/退款"];
+    NSArray *order_imageAry = @[@"icn_b_order_all",@"icn_b_order_tobepaid",@"icn_b_order_paid",@"icn_b_order_evaluated",@"icn_b_order_refund"];
     
     UILabel *centerlabel4= [[UILabel alloc]init];
     centerlabel4.text =@"商家订单";
@@ -206,8 +221,11 @@
     }];
     
     for (int i = 0; i<orderArray.count; i++) {
+        NSInteger index = i % 5;
+        NSInteger page = i / 5;
+        
         FL_Button *thirdBtn = [FL_Button buttonWithType:UIButtonTypeCustom];
-        thirdBtn.frame = CGRectMake(i*Bwidth+10, 35, Bwidth, Bheight);
+        thirdBtn.frame = CGRectMake(index*Bwidth+10, page*Bheight+35, Bwidth, Bheight);
         [thirdBtn setImage:[UIImage imageNamed:order_imageAry[i]] forState:UIControlStateNormal];
         [thirdBtn setTitle:[NSString stringWithFormat:@"%@",orderArray[i]] forState:UIControlStateNormal];
         [thirdBtn setTitleColor:UIColorFromRGB(0x555555) forState:UIControlStateNormal];
@@ -234,7 +252,42 @@
                 make.left.mas_offset(badgeX);
                 make.size.mas_offset(CGSizeMake(badgeW, badgeW));
             }];
+        }else if (i == 2){
+            [thirdBtn addSubview:self.badgeLable1];
+            CGFloat badgeW   = 17;
+            CGSize imageSize = self.thirdBtn.imageView.frame.size;
+            CGFloat imageX   = self.thirdBtn.imageView.frame.origin.x;
+            CGFloat imageY   = self.thirdBtn.imageView.frame.origin.y;
+            
+            CGFloat badgeX = imageX + imageSize.width - badgeW*0.25;
+            CGFloat badgeY = imageY - badgeW*0.5;
+            
+            [self.badgeLable1 mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.mas_offset(badgeY);
+                make.left.mas_offset(badgeX);
+                make.size.mas_offset(CGSizeMake(badgeW, badgeW));
+            }];
+        } else if (i == 4){
+            UIImageView *line = [[UIImageView alloc]initWithFrame:CGRectMake(index*Bwidth+3.5, page*Bheight+55, 4, Bheight-30)];
+//            line.backgroundColor = UIColorFromRGB(0xF6F6F6);
+            line.image = [UIImage imageNamed:@"icn_b_order_cutline"];
+             [self.orderView addSubview:line];
+            [thirdBtn addSubview:self.badgeLable2];
+            CGFloat badgeW   = 17;
+            CGSize imageSize = self.thirdBtn.imageView.frame.size;
+            CGFloat imageX   = self.thirdBtn.imageView.frame.origin.x;
+            CGFloat imageY   = self.thirdBtn.imageView.frame.origin.y;
+            
+            CGFloat badgeX = imageX + imageSize.width - badgeW*0.25;
+            CGFloat badgeY = imageY - badgeW*0.5;
+            
+            [self.badgeLable2 mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.mas_offset(badgeY);
+                make.left.mas_offset(badgeX);
+                make.size.mas_offset(CGSizeMake(badgeW, badgeW));
+            }];
         }
+        
     }
     
 #pragma mark - 筛选数据
@@ -385,8 +438,8 @@
     [self.View3 addSubview:icon1];
     [icon1 mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.top.equalTo(line4.mas_bottom).offset(20);
-        make.top.mas_offset(10 );
-        make.left.mas_offset(11);
+        make.top.mas_offset(14.5);
+        make.left.mas_offset(10.5);
         make.size.mas_offset(CGSizeMake(14, 15));
     }];
  
@@ -416,7 +469,14 @@
         make.size.mas_offset(CGSizeMake(80, 26));
     }];
     
-    
+    UIView *label6_line = [[UIView alloc] init];
+    label6_line.backgroundColor = [UIColor colorWithRed:234/255.0 green:234/255.0 blue:234/255.0 alpha:1.0];
+    [self.View3 addSubview:label6_line];
+    [label6_line mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_offset(44);
+        make.left.right.mas_offset(0);
+        make.height.mas_offset(0.5);
+    }];
     
 //    [self.View3 addSubview:self.total_income];
 //    [self.View3 addSubview:self.total_expense];
@@ -464,8 +524,9 @@
     self.IncomeTableview.dataSource = self;
     self.IncomeTableview.backgroundColor = [UIColor clearColor];
     [self.View3 addSubview:self.IncomeTableview];
-    self.IncomeTableview.defaultNoDataText = @"暂无数据";
-    self.IncomeTableview.defaultNoDataImage = [UIImage imageNamed:@"no_order_tip"];
+    self.IncomeTableview.defaultNoDataText = @"";
+    self.IncomeTableview.defaultNoDataImage = [UIImage imageNamed:@"icn_function_tobedeveloped_title"];
+    self.IncomeTableview.customNoDataView = [UIView new];
     self.IncomeTableview.backgroundView = [UIView new];
     self.IncomeTableview.defaultNoDataViewDidClickBlock = ^(UIView *view) {
         
@@ -473,9 +534,9 @@
     };
     
     [self.IncomeTableview mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(label6.mas_bottom).offset(10);
+        make.top.equalTo(label6_line.mas_bottom).offset(10);
         make.left.right.mas_offset(0);
-        make.bottom.mas_offset(-50);
+        make.bottom.mas_offset(-5);
     }];
     
 }
@@ -551,6 +612,20 @@
         [PublicMethods writeToUserD:@"YES" andKey:@"islook"];
         sender.selected = YES;
         self.current_balance.text = @"****";
+        self.today_income.text = @"****";
+        self.cumulative_income.text = @"****";
+        self.current_balance_String1 = @"****";
+        
+        NSString *protocol = [NSString stringWithFormat:@"%@ 折 [ 平均优惠力度 ]",self.current_balance_String1];
+        NSMutableAttributedString *attri_str = [[NSMutableAttributedString alloc] initWithString:protocol];
+        //设置字体颜色
+        [attri_str setFont:[UIFont systemFontOfSize:12]];
+        attri_str.color = [UIColor colorWithHexString:@"EE4E3E"];
+        NSRange ProRange = [protocol rangeOfString:@"[ 平均优惠力度 ]"];
+        
+        [attri_str setTextHighlightRange:ProRange color:[UIColor colorWithHexString:@"999999"] backgroundColor:[UIColor colorWithHexString:@"EE4E3E"] userInfo:nil];
+        self.Pingju.attributedText = attri_str;
+        self.Pingju.textAlignment = NSTextAlignmentCenter;
         
     }else{
         [PublicMethods writeToUserD:@"NO" andKey:@"islook"];
@@ -560,7 +635,31 @@
         }else{
             self.current_balance.text =  [NSString stringWithFormat:@" %@",self.current_balance_String];
         }
-         
+        if ([[MethodCommon judgeStringIsNull:self.today_income_String] isEqualToString:@""]) {
+            self.today_income.text =  [NSString stringWithFormat:@"+ 00.00"];
+        }else{
+            self.today_income.text =  [NSString stringWithFormat:@"+ %@",self.today_income_String];
+        }
+        if ([[MethodCommon judgeStringIsNull:self.cumulative_income_String] isEqualToString:@""]) {
+            self.cumulative_income.text =  [NSString stringWithFormat:@"+ 00.00"];
+        }else{
+            self.cumulative_income.text =  [NSString stringWithFormat:@"+ %@",self.cumulative_income_String];
+        }
+        
+        self.current_balance_String1 = [NSString  stringWithFormat:@"%@",self.Data[@"average_discount"]];
+        if ([[MethodCommon judgeStringIsNull:self.current_balance_String1] isEqualToString:@""]) {
+            self.current_balance_String1 =@"0.0";
+        }
+        NSString *protocol = [NSString stringWithFormat:@"%@ 折 [ 平均优惠力度 ]",self.current_balance_String1];
+        NSMutableAttributedString *attri_str = [[NSMutableAttributedString alloc] initWithString:protocol];
+        //设置字体颜色
+        [attri_str setFont:[UIFont systemFontOfSize:12]];
+        attri_str.color = [UIColor colorWithHexString:@"EE4E3E"];
+        NSRange ProRange = [protocol rangeOfString:@"[ 平均优惠力度 ]"];
+        
+        [attri_str setTextHighlightRange:ProRange color:[UIColor colorWithHexString:@"999999"] backgroundColor:[UIColor colorWithHexString:@"EE4E3E"] userInfo:nil];
+        self.Pingju.attributedText = attri_str;
+        self.Pingju.textAlignment = NSTextAlignmentCenter;
         
     }
     
@@ -598,25 +697,110 @@
 }
 #pragma mark - 赋值
 - (void)setData:(NSDictionary *)Data{
+    _Data = Data;
     
     /* 当前余额 **/
-    if ([[MethodCommon judgeStringIsNull:[NSString stringWithFormat:@"%@",Data[@"current_balance"]]] isEqualToString:@""]) {
+    NSString *current_balance = [NSString  stringWithFormat:@"%@",Data[@"current_balance"]];
+    if ([[MethodCommon judgeStringIsNull:current_balance] isEqualToString:@""]) {
         self.current_balance_String = [NSString stringWithFormat:@"¥ 00.00"];
     }else{
-        self.current_balance_String = [NSString stringWithFormat:@"¥ %@",Data[@"current_balance"]];
+        self.current_balance_String = [NSString stringWithFormat:@"¥ %@",current_balance];
     }
+   
+#pragma mark - [ 平均优惠力度 ] 赋值
+   self.current_balance_String1 = [NSString  stringWithFormat:@"%@",Data[@"average_discount"]];
+    if ([[MethodCommon judgeStringIsNull:self.current_balance_String1] isEqualToString:@""]) {
+        self.current_balance_String1 =@"0.0";
+    }
+    
+   
+    NSString *protocol = [NSString stringWithFormat:@"%@ 折 [ 平均优惠力度 ]",self.current_balance_String1];
+    NSMutableAttributedString *attri_str = [[NSMutableAttributedString alloc] initWithString:protocol];
+    //设置字体颜色
+    [attri_str setFont:[UIFont systemFontOfSize:12]];
+    attri_str.color = [UIColor colorWithHexString:@"EE4E3E"];
+    NSRange ProRange = [protocol rangeOfString:@"[ 平均优惠力度 ]"];
+
+    [attri_str setTextHighlightRange:ProRange color:[UIColor colorWithHexString:@"999999"] backgroundColor:[UIColor colorWithHexString:@"EE4E3E"] userInfo:nil];
+    self.Pingju.attributedText = attri_str;
+    self.Pingju.textAlignment = NSTextAlignmentCenter;
+
+    
+    
+    /*今日营收（元）*/
+    NSString *today_income = [NSString stringWithFormat:@"%@",Data[@"today_income"]];
+    if ([[MethodCommon judgeStringIsNull:today_income] isEqualToString:@""]) {
+        self.today_income_String = [NSString stringWithFormat:@" 00.00"];
+    }else{
+        self.today_income_String = today_income;
+        self.today_income.text = [NSString stringWithFormat:@"+%@",self.today_income_String];
+    }
+
+    /*累计营收（元）*/
+    NSString *cumulative_income = [NSString stringWithFormat:@"%@",Data[@"cumulative_income"]];
+    if ([[MethodCommon judgeStringIsNull:cumulative_income] isEqualToString:@""]) {
+        self.cumulative_income_String = [NSString stringWithFormat:@" 00.00"];
+    }else{
+        self.cumulative_income_String = cumulative_income;
+        self.cumulative_income.text = [NSString stringWithFormat:@"+%@",self.cumulative_income_String];
+
+    }
+    
     NSString *islook = [PublicMethods readFromUserD:@"islook"];
     if ([islook isEqualToString:@"YES"]) {
         self.current_balance.text = @"****";
+        self.today_income.text = @"****";
+        self.cumulative_income.text = @"****";
+        self.current_balance_String1 = @"****";
     }else{
         self.current_balance.text = self.current_balance_String;
+        
+        if ([[MethodCommon judgeStringIsNull:self.today_income_String] isEqualToString:@""]) {
+            self.today_income.text =  [NSString stringWithFormat:@"+ 00.00"];
+        }else{
+            self.today_income.text =  [NSString stringWithFormat:@"+ %@",self.today_income_String];
+        }
+        if ([[MethodCommon judgeStringIsNull:self.cumulative_income_String] isEqualToString:@""]) {
+            self.cumulative_income.text =  [NSString stringWithFormat:@"+ 00.00"];
+        }else{
+            self.cumulative_income.text =  [NSString stringWithFormat:@"+ %@",self.cumulative_income_String];
+        }
     }
-    /*今日营收（元）*/
-    self.today_income.text = [NSString stringWithFormat:@"+%@",Data[@"today_income"]];
     
-    /*累计营收（元）*/
-    self.cumulative_income.text = [NSString stringWithFormat:@"+%@",Data[@"cumulative_income"]];
     
+    /*待支付*/
+    NSString *num = [NSString stringWithFormat:@"%@",Data[@"order_num_to_be_paid"]];
+    NSInteger order_num = [num integerValue];
+    if (order_num >0) {
+        self.badgeLable.width = order_num>9 ? 24:17;
+        self.badgeLable.text = [NSString stringWithFormat:@"%ld",order_num];
+        self.badgeLable.hidden = NO;
+    }else if (order_num == 0){
+        self.badgeLable.hidden = YES;
+        
+    }
+    
+    /*已支付订单数量*/
+    NSString *num1 = [NSString stringWithFormat:@"%@",Data[@"order_num_have_paid"]];
+    NSInteger order_num1 = [num1 integerValue];
+    if (order_num1 >0) {
+        self.badgeLable1.width = order_num1>9 ? 24:17;
+        self.badgeLable1.text = [NSString stringWithFormat:@"%ld",order_num1];
+        self.badgeLable1.hidden = NO;
+    }else if (order_num1 == 0){
+        self.badgeLable1.hidden = YES;
+        
+    }
+    /*待退款和待退单订单数量*/
+    NSString *num2 = [NSString stringWithFormat:@"%@",Data[@"order_num_wait_to_refund"]];
+    NSInteger order_num2 = [num2 integerValue];
+    if (order_num2 >0) {
+        self.badgeLable2.width = order_num2>9 ? 24:17;
+        self.badgeLable2.text = [NSString stringWithFormat:@"%ld",order_num2];
+        self.badgeLable2.hidden = NO;
+    }else if (order_num2 == 0){
+        self.badgeLable2.hidden = YES;
+    }
     
     /*notice*/
 //    SGAdvertScrollView *NoticeScrollView = [[SGAdvertScrollView alloc]initWithFrame:CGRectMake(10, 0, ScreenW-60, 50)];
@@ -651,7 +835,30 @@
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 41;
+    return 45;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return IPHONEWIDTH(51);
+}
+- (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    UIView *ForFooterIn = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW-30, IPHONEWIDTH(51))];
+    ForFooterIn.backgroundColor = [UIColor whiteColor];
+    UILabel *label = [[UILabel alloc] init];
+    label.numberOfLines = 0;
+    label.font = [UIFont systemFontOfSize:IPHONEWIDTH(12.5)];
+    label.textColor =UIColorFromRGBA(0xDCDCDC, 1);
+    label.textAlignment = 1;
+    if (self.IncomeArray.count>0) {
+        label.text  = @"  更多数据进入详情页查看  ";
+    }else{
+         label.text  = @"  暂无今日数据，更多数据请查看详情页  ";
+    }
+    [ForFooterIn addSubview:label];
+    [label mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_offset(5);
+        make.left.right.bottom.mas_offset(0);
+    }];
+    return ForFooterIn;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     //当手指离开某行时，就让某行的选中状态消失
@@ -834,5 +1041,53 @@
         
     }
     return _badgeLable;
+}
+-(UILabel *)badgeLable1{
+    if (!_badgeLable1) {
+        _badgeLable1 = [[UILabel alloc]init];
+        _badgeLable1.text = @"0";
+        _badgeLable1.textAlignment = NSTextAlignmentCenter;
+        _badgeLable1.textColor = [UIColor redColor];
+        _badgeLable1.font = [UIFont systemFontOfSize:12];
+        _badgeLable1.layer.cornerRadius = 17*0.5;
+        _badgeLable1.clipsToBounds = YES;
+        _badgeLable1.backgroundColor = [UIColor whiteColor];
+        _badgeLable1.layer.borderWidth = 1;
+        _badgeLable1.layer.borderColor = [UIColor redColor].CGColor;
+        [_badgeLable1 sizeToFit];
+        _badgeLable1.hidden = YES;
+        
+    }
+    return _badgeLable1;
+}
+-(UILabel *)badgeLable2{
+    if (!_badgeLable2) {
+        _badgeLable2 = [[UILabel alloc]init];
+        _badgeLable2.text = @"0";
+        _badgeLable2.textAlignment = NSTextAlignmentCenter;
+        _badgeLable2.textColor = [UIColor redColor];
+        _badgeLable2.font = [UIFont systemFontOfSize:12];
+        _badgeLable2.layer.cornerRadius = 17*0.5;
+        _badgeLable2.clipsToBounds = YES;
+        _badgeLable2.backgroundColor = [UIColor whiteColor];
+        _badgeLable2.layer.borderWidth = 1;
+        _badgeLable2.layer.borderColor = [UIColor redColor].CGColor;
+        [_badgeLable2 sizeToFit];
+        _badgeLable2.hidden = YES;
+        
+    }
+    return _badgeLable2;
+}
+-(YYLabel *)Pingju{
+    if (!_Pingju) {
+        _Pingju = [[YYLabel alloc]initWithFrame:CGRectMake(0, 0, 180, 24)];
+        _Pingju.font = [UIFont systemFontOfSize:12];
+        _Pingju.textColor = [UIColor colorWithHexString:@"999999"];
+        _Pingju.layer.cornerRadius = 12;
+        _Pingju.backgroundColor = [UIColor colorWithHexString:@"F9F9F9"];
+        _Pingju.textAlignment = NSTextAlignmentCenter;
+        _Pingju.text = @"[ 平均优惠力度 ]";
+    }
+    return _Pingju;
 }
 @end

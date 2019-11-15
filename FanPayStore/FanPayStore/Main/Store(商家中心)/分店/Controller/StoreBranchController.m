@@ -142,7 +142,7 @@
 //            //保存用户信息
 //            [model1 saveUserData];
             
-            NSString *branch_type = [NSString stringWithFormat:@"%@",UserDict[@"branch_type"]];
+//            NSString *branch_type = [NSString stringWithFormat:@"%@",UserDict[@"branch_type"]];
 //            if ([branch_type isEqualToString:@"2"]){
                 /** 主店 **/
                 //        确定按钮点击回调

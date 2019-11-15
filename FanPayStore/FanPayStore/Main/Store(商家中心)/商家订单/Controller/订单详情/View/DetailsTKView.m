@@ -47,8 +47,8 @@
         make.centerX.mas_offset(0);
         make.bottom.mas_offset(-55);
         make.height.mas_offset(1);
-        make.left.equalTo(self.Button1.mas_right).offset(-10);
-        make.right.equalTo(self.Button2.mas_left).offset(10);
+        make.left.equalTo(self.Button1.mas_right).offset(-22);
+        make.right.equalTo(self.Button2.mas_left).offset(22);
     }];
 }
 -(UIButton *)TKbutton{

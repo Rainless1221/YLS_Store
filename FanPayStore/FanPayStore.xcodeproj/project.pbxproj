@@ -1334,6 +1334,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7CBDD53D22B0E17F00932BDA /* libc++.tbd in Frameworks */,
 				29594EBA23422D2200188E41 /* libstdc++.6.tbd in Frameworks */,
 				7C3E65CD2332232B00ACCF9A /* MobileCoreServices.framework in Frameworks */,
 				7CBDD53522B0E15C00932BDA /* UIKit.framework in Frameworks */,
@@ -1347,7 +1348,6 @@
 				7C3E65C5233222C700ACCF9A /* AssetsLibrary.framework in Frameworks */,
 				7C3E65C3233222BF00ACCF9A /* CoreMotion.framework in Frameworks */,
 				7CBDD52A22B0E0D800932BDA /* libz.tbd in Frameworks */,
-				7CBDD53D22B0E17F00932BDA /* libc++.tbd in Frameworks */,
 				7C3E65BD2332223100ACCF9A /* libsqlite3.0.tbd in Frameworks */,
 				7C3E65C02332227600ACCF9A /* libevent.a in Frameworks */,
 				7C3E65BB2332222800ACCF9A /* libxml2.tbd in Frameworks */,
@@ -4734,6 +4734,9 @@
 							com.apple.Push = {
 								enabled = 1;
 							};
+							com.apple.SafariKeychain = {
+								enabled = 0;
+							};
 						};
 					};
 					7C2F8A21229BC5580036F9F9 = {
@@ -4750,6 +4753,9 @@
 							};
 							com.apple.Push = {
 								enabled = 1;
+							};
+							com.apple.SafariKeychain = {
+								enabled = 0;
 							};
 						};
 					};

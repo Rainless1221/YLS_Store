@@ -34,16 +34,24 @@
 /*当前余额*/
 @property (strong,nonatomic)UILabel * current_balance;
 @property (strong,nonatomic)NSString * current_balance_String;
+@property (strong,nonatomic)NSString * current_balance_String1;
+
 /*今日营收（元）*/
 @property (strong,nonatomic)UILabel * today_income;
+@property (strong,nonatomic)NSString * today_income_String;
+
 /*累计营收（元）*/
 @property (strong,nonatomic)UILabel * cumulative_income;
+@property (strong,nonatomic)NSString * cumulative_income_String;
+
 @property (strong,nonatomic)UIButton * lookButton;
 
 /** 订单*/
 @property (strong,nonatomic)UIView * orderView;
 @property (strong,nonatomic)FL_Button *thirdBtn;
 @property (strong,nonatomic)UILabel * badgeLable;
+@property (strong,nonatomic)UILabel * badgeLable1;
+@property (strong,nonatomic)UILabel * badgeLable2;
 
 
 /*通知喇叭*/

@@ -472,7 +472,7 @@
     _Data = Data;
 
     NSArray *goods = Data[@"goods_info"];
-    NSInteger  goodMen = goods.count;
+//    NSInteger  goodMen = goods.count;
     NSInteger orderV_H = 332;
     
     //1待付款 2已付款 3已评价 4已取消

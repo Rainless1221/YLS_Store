@@ -22,7 +22,7 @@
                         <rect key="frame" x="15" y="42" width="345" height="67.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="新版本" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pbh-mf-gDx">
-                                <rect key="frame" x="10" y="15" width="56" height="22"/>
+                                <rect key="frame" x="10" y="15" width="320" height="22"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -40,18 +40,19 @@
                             <constraint firstItem="Pbh-mf-gDx" firstAttribute="leading" secondItem="Lc0-Yr-abk" secondAttribute="leading" constant="10" id="RKk-El-Cvf"/>
                             <constraint firstItem="8PE-gP-KKK" firstAttribute="leading" secondItem="Lc0-Yr-abk" secondAttribute="leading" constant="10" id="X4Z-5D-l0s"/>
                             <constraint firstItem="8PE-gP-KKK" firstAttribute="top" secondItem="Pbh-mf-gDx" secondAttribute="bottom" constant="5" id="omQ-rI-kGc"/>
+                            <constraint firstAttribute="trailing" secondItem="Pbh-mf-gDx" secondAttribute="trailing" constant="15" id="qph-cb-fFA"/>
                             <constraint firstItem="Pbh-mf-gDx" firstAttribute="top" secondItem="Lc0-Yr-abk" secondAttribute="top" constant="15" id="veJ-1E-qCm"/>
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2018.12.10 08:30" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BVX-5T-cv2">
-                        <rect key="frame" x="31" y="11" width="313" height="31"/>
+                        <rect key="frame" x="31" y="1" width="313" height="41"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="BVX-5T-cv2" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="0Ax-gw-8nh"/>
+                    <constraint firstItem="BVX-5T-cv2" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-10" id="0Ax-gw-8nh"/>
                     <constraint firstAttribute="bottom" secondItem="Lc0-Yr-abk" secondAttribute="bottom" constant="1" id="TQJ-Q9-1Ij"/>
                     <constraint firstAttribute="trailingMargin" secondItem="BVX-5T-cv2" secondAttribute="trailing" constant="15" id="eS7-7f-Igo"/>
                     <constraint firstAttribute="trailing" secondItem="Lc0-Yr-abk" secondAttribute="trailing" constant="15" id="h5y-SD-eWI"/>

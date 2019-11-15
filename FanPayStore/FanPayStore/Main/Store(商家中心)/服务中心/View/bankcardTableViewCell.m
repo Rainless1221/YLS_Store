@@ -121,7 +121,7 @@
     
     
     //银行logo
-    NSString *logoURL = [NSString stringWithFormat:@"%@",BData[@"bank_logo"]];
+//    NSString *logoURL = [NSString stringWithFormat:@"%@",BData[@"bank_logo"]];
 //    [self.BankIcon sd_setImageWithURL:[NSURL URLWithString:logoURL] placeholderImage:[UIImage imageNamed:@""]];
     
     //背景色

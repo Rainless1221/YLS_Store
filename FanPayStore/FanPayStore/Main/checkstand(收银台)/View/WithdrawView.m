@@ -47,7 +47,7 @@
     
     
     self.fuwuLabel.frame = CGRectMake(10, line.bottom, self.shuruView.width-80, 44);
-    self.fuwuLabel.text = @"可提现金额 0元";
+//    self.fuwuLabel.text = @"可提现金额 0元";
     self.fuwuLabel.textColor =UIColorFromRGBA(0xCCCCCC, 1);
     
     self.allButton.frame =CGRectMake(self.shuruView.width - 55, line.bottom, 45, 44);

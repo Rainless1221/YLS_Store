@@ -15,4 +15,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *wintext;
 @property (weak, nonatomic) IBOutlet UIButton *WinButton;
 
+@property (nonatomic, copy) void(^WinActionBlock)(void);
+
 @end

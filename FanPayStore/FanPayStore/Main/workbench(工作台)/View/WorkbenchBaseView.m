@@ -205,12 +205,11 @@
         make.size.mas_offset(CGSizeMake(50, 20));
     }];
     
-    UILabel *statusLabel1 = [[UILabel alloc]initWithFrame:CGRectMake(statusimage.right +10, statusLabel.bottom, 180, 25)];
+    UILabel *statusLabel1 = [[UILabel alloc]initWithFrame:CGRectMake(statusimage.right +10, statusLabel.bottom, IPHONEWIDTH(180), 25)];
     statusLabel1.text = @"商家可根据需要修改营业状态";
     statusLabel1.textColor = UIColorFromRGB(0x999999);
-    statusLabel1.font = [UIFont systemFontOfSize:12];
+    statusLabel1.font = [UIFont systemFontOfSize:IPHONEWIDTH(12)];
     [self.statusView addSubview:statusLabel1];
-
     
 /*修改营业*/
     self.statusBtn2 = [UIButton buttonWithType:UIButtonTypeCustom];

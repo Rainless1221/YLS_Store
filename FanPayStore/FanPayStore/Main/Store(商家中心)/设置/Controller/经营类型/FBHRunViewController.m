@@ -61,7 +61,6 @@
         if ([resDic[@"status"] integerValue] == 1) {
             NSDictionary *DIC = resDic[@"data"];
             
-            
             [self.Data removeAllObjects];
             
             for (NSString *key in DIC) {

@@ -11,7 +11,7 @@
 
 @interface IanAdsStartView : UIView
 
-+ (instancetype)startAdsViewWithBgImageUrl:(NSString *)imageUrl withClickImageAction:(void(^)())action;
++ (instancetype)startAdsViewWithBgImageUrl:(NSString *)imageUrl withClickImageAction:(void(^)(void))action;
 
 - (void)startAnimationTime:(NSUInteger)time WithCompletionBlock:(void(^)(IanAdsStartView *ianStartView))completionHandler;
 

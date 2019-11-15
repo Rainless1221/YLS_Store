@@ -21,6 +21,7 @@
 @property (strong,nonatomic)NSMutableArray * Data;
 @property (strong,nonatomic)MySwitch *bluetooth;
 @property (strong,nonatomic)MySwitch *Sound;
+@property (strong,nonatomic)MySwitch *HeSwitch;
 @end
 
 @implementation SetupViewController
@@ -51,6 +52,8 @@
                         
                         @[@{@"icon":@"icn_msg_cnenter_notice",
                             @"label":@"打印开关",@"cellid":@"4"},],
+                        @[@{@"icon":@"icn_msg_cnenter_notice",
+                            @"label":@"自动核销",@"cellid":@"44"},],
                         @[
                             @{@"icon":@"icn_msg_cnenter_system",
                               @"label":@"常见问题与反馈",@"cellid":@"5"
@@ -72,10 +75,13 @@
         [self.Data addObject:dict];
         
     }
+    
+    [self get_store_auto_confirm_info];
+    
     [self createUI];
     
     [self OFF];
-    
+
 }
 #pragma mark - UI
 -(void)createUI{
@@ -95,6 +101,8 @@
 
     
 }
+
+
 #pragma mark - UITableView
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return self.Data.count;
@@ -117,6 +125,9 @@
             return 1;
             break;
         case 5:
+            return 1;
+            break;
+        case 6:
             return 5;
             break;
         default:
@@ -146,10 +157,10 @@
     ///
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.frame = CGRectMake(ScreenW-50 , 0, 10, 50);
-    [button setImage:[UIImage imageNamed:@"input_arrow_right_blue"] forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:@"input_arrow_right_deepgray"] forState:UIControlStateNormal];
     [view addSubview:button];
     
-    /*语音播报*/
+#pragma mark -   /*语音播报*/
     if (indexPath.section == 3) {
        NSString * Sound = [PublicMethods readFromUserD:@"isShakeOpen"];
         
@@ -195,7 +206,7 @@
         [view addSubview:self.Sound];
         
     }
-    /*打印开关*/
+  #pragma mark -/*打印开关*/
     if (indexPath.section == 4) {
         
         self.bluetooth = [[MySwitch alloc] initWithFrame:CGRectMake(view.width - 74, 10, 64, 32) withGap:0.3 statusChange:^(BOOL OnStatus) {
@@ -269,14 +280,44 @@
         [view addSubview:self.bluetooth];
         
     }
+#pragma mark - / *核销*/
+    if (indexPath.section == 5) {
+        self.HeSwitch = [[MySwitch alloc] initWithFrame:CGRectMake(view.width - 74, 10, 64, 32) withGap:0.3 statusChange:^(BOOL OnStatus) {
+            if(OnStatus){
+                NSLog(@"打开");
+                [self goodVerification:@"1"];
+            }else{
+                NSLog(@"关闭");
+                [self goodVerification:@"0"];
+            }
+            
+        }];
+        /*判读开关滑动展示*/
+        NSString * auto_confirm = [PublicMethods readFromUserD:@"auto_confirm"];
+        if ([auto_confirm isEqualToString:@"NO"]) {
+            self.HeSwitch.OnStatus = NO;
+        }else if([auto_confirm isEqualToString:@"YES"]) {
+            self.HeSwitch.OnStatus = YES;
+            
+        }else{
+            self.HeSwitch.OnStatus = NO;
+        }
+        
+        //设置背景图片
+        [self.HeSwitch setBackgroundImage:[UIImage imageNamed:@"switch_ex_frame"]];
+        [self.HeSwitch setLeftBlockImage:[UIImage imageNamed:@"switch_ex_button"]];
+        [self.HeSwitch setRightBlockImage:[UIImage imageNamed:@"switch_ex_button"]];
+        [view addSubview:self.HeSwitch];
+        
+    }
     /*缓存*/
     UILabel *label_1 = [[UILabel alloc] init];
     label_1.numberOfLines = 0;
     label_1.font = [UIFont systemFontOfSize:16];
-    label_1.textColor = UIColorFromRGB(0x3D8AFF);
+    label_1.textColor = UIColorFromRGB(0x222222);
     label_1.backgroundColor = [UIColor whiteColor];
     label_1.text = cacheString;
-    if (indexPath.section == 5 && indexPath.row == 4) {
+    if (indexPath.section == 6 && indexPath.row == 4) {
         [view addSubview:label_1];
         [label_1 mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.top.mas_offset(0);
@@ -285,9 +326,9 @@
     }
     
     /*横线*/
-    if (indexPath.section == 5) {
+    if (indexPath.section == 6) {
         view.height = 55;
-        if (indexPath.row == 3) {
+        if (indexPath.row == 4) {
             
         }else{
             UIView *line = [[UIView alloc] init];
@@ -313,6 +354,8 @@
     }else if (section == 4){
         return 54;
     }else if (section == 5){
+        return 36;
+    }else if (section == 6){
         return 84;
     }else{
         return 5;
@@ -344,6 +387,14 @@
         [header_View addSubview:label];
         return header_View;
     }else if (section == 5){
+        UILabel *label = [[UILabel alloc] init];
+        label.frame = CGRectMake(24,0,ScreenW-48,36);
+        label.numberOfLines = 0;
+        label.font = [UIFont systemFontOfSize:12];
+        label.text = @"开启自动核销，订单会在6个小时后自动核销";
+        [header_View addSubview:label];
+        return header_View;
+    }else if (section == 6){
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.frame = CGRectMake(15, 20, ScreenW-30, 44);
         [button setTitle:@"退出登录" forState:UIControlStateNormal];
@@ -372,23 +423,25 @@
 //        ReceiptsController *VC = [ReceiptsController new];
 //        [self.navigationController pushViewController:VC animated:NO];
         [self KAP];
-    }else if (indexPath.section == 5 && indexPath.row == 0){
+    }else if (indexPath.section == 5){
+     
+    }else if (indexPath.section == 6 && indexPath.row == 0){
         [self.navigationController pushViewController:[FBHHelpViewController new] animated:NO];
-    }else if (indexPath.section == 5 && indexPath.row == 1){
+    }else if (indexPath.section == 6 && indexPath.row == 1){
         /** Html 页面(用户协议) **/
         FBHinformationViewController *VC = [FBHinformationViewController new];
         VC.Navtitle = @"用户协议";
         VC.agreeUrl = FBHApi_HTML_yonghu;
         [self.navigationController pushViewController:VC animated:NO];
-    }else if (indexPath.section == 5 && indexPath.row == 2){
+    }else if (indexPath.section == 6 && indexPath.row == 2){
         //隐私协议
         FBHinformationViewController *VC = [FBHinformationViewController new];
         VC.Navtitle = @"隐私协议";
         VC.agreeUrl = FBHApi_HTML_Yinsi;
         [self.navigationController pushViewController:VC animated:NO];
-    }else if (indexPath.section == 5 && indexPath.row == 3){
+    }else if (indexPath.section == 6 && indexPath.row == 3){
         [self.navigationController pushViewController:[FBHGYViewController new] animated:NO];
-    }else if (indexPath.section == 5 && indexPath.row == 4){
+    }else if (indexPath.section == 6 && indexPath.row == 4){
         [[WMZAlert shareInstance]showAlertWithType:AlertTypeSystemPush headTitle:@"清除缓存" textTitle:@"确定清除缓存?" leftHandle:^(id anyID) {
             //        取消按钮点击回调
         } rightHandle:^(id anyID) {
@@ -443,6 +496,46 @@
     } andfailure:^{
         
     }];
+}
+#pragma mark - 自动核销事件
+-(void)goodVerification:(NSString *)auto_confirm{
+    
+    UserModel *model = [UserModel getUseData];
+    
+    [[FBHAppViewModel shareViewModel]set_store_auto_confirm:model.merchant_id andstore_id:model.store_id andauto_confirm:auto_confirm Success:^(NSDictionary *resDic) {
+        if ([resDic[@"status"] integerValue]==1){
+           [self get_store_auto_confirm_info];
+        }else{
+            
+        }
+    } andfailure:^{
+        
+    }];
+    
+    
+}
+#pragma mark - 获取核销的状态
+-(void)get_store_auto_confirm_info{
+    UserModel *model = [UserModel getUseData];
+    
+    [[FBHAppViewModel shareViewModel]get_store_auto_confirm_info:model.merchant_id andstore_id:model.store_id Success:^(NSDictionary *resDic) {
+        if ([resDic[@"status"] integerValue]==1){
+             NSDictionary *DIC=resDic[@"data"];
+            //1自动核销 0手动核销
+            NSString *auto_confirm = [NSString stringWithFormat:@"%@",DIC[@"auto_confirm"]];
+            if ([auto_confirm isEqualToString:@"1"]) {
+                   [PublicMethods writeToUserD:@"YES" andKey:@"auto_confirm"];
+            }else{
+                   [PublicMethods writeToUserD:@"NO" andKey:@"auto_confirm"];
+            }
+            
+        }else{
+            
+        }
+    } andfailure:^{
+        
+    }];
+    
 }
 #pragma mark - 清除缓存
 -(void)clearDiskOnCompletion{

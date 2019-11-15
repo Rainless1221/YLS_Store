@@ -38,10 +38,12 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
     self.navigationController.navigationBar.hidden = YES;
-    
+    /**
+     获取店铺的ID
+     */
+    [self get_store_id];
     /*首次启动-退单提醒*/
     RefundView *samView = [[RefundView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     samView.delagate = self;
@@ -57,14 +59,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"收银台";
-
-  
+    /** 获取收银台基本信息 */
     [self merchant_center];
+    /** 某天收支列表 */
+    [self list_checkstand:self.begin_date andEnd:self.end_date];
 
-    [self merchant_center1];
-       [self list_checkstand:self.begin_date andEnd:self.end_date];
-
-    
     /** 是否可见 */
     [self isSetLook];
     /** 没有入驻商铺的界面 **/
@@ -78,9 +77,7 @@
      * 导航栏
      **/
     [self setupNav];
-    
-    
-    
+
     UserModel *model = [UserModel getUseData];
     if ([model.store_id isEqualToString:@""]) {
         self.SJScrollView.hidden = YES;
@@ -95,17 +92,12 @@
     }
     
 }
-#pragma mark - 请求
+#pragma mark - 获取收银台基本信息
 -(void)merchant_center{
-    
-    
     [MBProgressHUD MBProgress:@"数据加载中..."];
-    
     UserModel *model = [UserModel getUseData];
-    
     if ([model.store_id isEqualToString:@""]) {
         [MBProgressHUD hideHUD];
-
         return;
     }
     
@@ -121,6 +113,34 @@
                 NSString *url = [NSString stringWithFormat:@"%@",self.model.store_logo];
                 [self.userImg sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"default"]];
                 
+                /*待支付*/
+                NSString *num = [NSString stringWithFormat:@"%@",DIC[@"order_num_to_be_paid"]];
+                NSInteger order_num = [num integerValue];
+                if (order_num >0) {
+                    [self.tabBarController.tabBar  showBadgeOnItmIndex:0 tabbarNum:4];
+                }else if (order_num == 0){
+                    [self.tabBarController.tabBar  hideBadgeOnItemIndex:0];
+
+                }
+
+                /*已支付订单数量*/
+                NSString *num1 = [NSString stringWithFormat:@"%@",DIC[@"order_num_have_paid"]];
+                NSInteger order_num1 = [num1 integerValue];
+                if (order_num1 >0) {
+                    [self.tabBarController.tabBar  showBadgeOnItmIndex:0 tabbarNum:4];
+                }else if (order_num1 == 0){
+                    [self.tabBarController.tabBar  hideBadgeOnItemIndex:0];
+
+                }
+                /*待退款和待退单订单数量*/
+                NSString *num2 = [NSString stringWithFormat:@"%@",DIC[@"order_num_wait_to_refund"]];
+                NSInteger order_num2 = [num2 integerValue];
+                if (order_num2 >0) {
+                    [self.tabBarController.tabBar  showBadgeOnItmIndex:0 tabbarNum:4];
+                }else if (order_num2 == 0){
+                    [self.tabBarController.tabBar  hideBadgeOnItemIndex:0];
+
+                }
             }else{
                 [SVProgressHUD setMinimumDismissTimeInterval:2];
                 [SVProgressHUD showErrorWithStatus:resDic[@"message"]];
@@ -130,43 +150,43 @@
                 }
             }
             [MBProgressHUD hideHUD];
-
        
     } andfailure:^{
             [MBProgressHUD hideHUD];
     }];
     
-    [[FBHAppViewModel shareViewModel] list_business_center:model.merchant_id andstore_id:model.store_id Success:^(NSDictionary *resDic) {
-        
-        if ([resDic[@"status"] integerValue]==1) {
-            NSDictionary *DIC=resDic[@"data"];
-            /** 保存商家中心信息 */
-            storeBaseModel *model = [storeBaseModel mj_objectWithKeyValues:DIC];
-            [model saveUserData];
-            /*待支付*/
-            NSString *num = [NSString stringWithFormat:@"%@",model.order_num_to_be_paid];
-            NSInteger order_num = [num integerValue];
-            
-            if (order_num >0) {
-                self.FBHCashierView.badgeLable.text = [NSString stringWithFormat:@"%ld",order_num];
-                self.FBHCashierView.badgeLable.hidden = NO;
-                [self.tabBarController.tabBar  showBadgeOnItmIndex:0 tabbarNum:4];
-            }else if (order_num == 0){
-                self.FBHCashierView.badgeLable.hidden = YES;
-                [self.tabBarController.tabBar  hideBadgeOnItemIndex:0];
-
-            }
-         
-        }else{
-          
-        }
-        [MBProgressHUD hideHUD];
-    } andfailure:^{
-        [MBProgressHUD hideHUD];
-    }];
+//    [[FBHAppViewModel shareViewModel] list_business_center:model.merchant_id andstore_id:model.store_id Success:^(NSDictionary *resDic) {
+//
+//        if ([resDic[@"status"] integerValue]==1) {
+//            NSDictionary *DIC=resDic[@"data"];
+//            /** 保存商家中心信息 */
+//            storeBaseModel *model = [storeBaseModel mj_objectWithKeyValues:DIC];
+//            [model saveUserData];
+//            /*待支付*/
+//            NSString *num = [NSString stringWithFormat:@"%@",model.order_num_to_be_paid];
+//            NSInteger order_num = [num integerValue];
+//
+//            if (order_num >0) {
+//                self.FBHCashierView.badgeLable.text = [NSString stringWithFormat:@"%ld",order_num];
+//                self.FBHCashierView.badgeLable.hidden = NO;
+//                [self.tabBarController.tabBar  showBadgeOnItmIndex:0 tabbarNum:4];
+//            }else if (order_num == 0){
+//                self.FBHCashierView.badgeLable.hidden = YES;
+//                [self.tabBarController.tabBar  hideBadgeOnItemIndex:0];
+//
+//            }
+//
+//        }else{
+//
+//        }
+//        [MBProgressHUD hideHUD];
+//    } andfailure:^{
+//        [MBProgressHUD hideHUD];
+//    }];
     
 }
--(void)merchant_center1{
+#pragma mark - 获取店铺ID
+-(void)get_store_id{
     
     UserModel *model = [UserModel getUseData];
     //获取店铺ID
@@ -175,9 +195,7 @@
             if ([resDic[@"status"] integerValue]==1) {
                 NSDictionary *DIC=resDic[@"data"];
                 NSString *storeString = [NSString stringWithFormat:@"%@",DIC[@"store_id"]];
-                
-                
-                
+
                 UserModel *model1=[UserModel mj_objectWithKeyValues:DIC];
                 model1.merchant_id = model.merchant_id;
                 model1.mobile = model.mobile;
@@ -220,29 +238,33 @@
     
     UserModel *model = [UserModel getUseData];
     NSDictionary *dict =@{
-                          @"begin_date":[NSString stringWithFormat:@"%@",begin_date],
-                          @"end_date":[NSString stringWithFormat:@"%@",end_date],
-                          @"type":@"1",
-                          @"consumption_date":[NSString stringWithFormat:@"%@",begin_date],
+//                          @"begin_date":[NSString stringWithFormat:@"%@",begin_date],
+//                          @"end_date":[NSString stringWithFormat:@"%@",end_date],
+//                          @"type":@"1",
+//                          @"consumption_date":[NSString stringWithFormat:@"%@",begin_date],
                           @"page":@"1",
                           @"limit":@"100",
                           };
     
     [[FBHAppViewModel shareViewModel]list_checkstand_consumption:model.merchant_id andstore_id:model.store_id andlistDict:dict Success:^(NSDictionary *resDic) {
-        
         if ([resDic[@"status"] integerValue] == 1) {
             NSDictionary *DIC=resDic[@"data"];
             /** 总营收 **/
-            self.FBHCashierView.total_income.text = [NSString stringWithFormat:@"+%@",DIC[@"total_income"]];
-            self.FBHCashierView.total_expense.text = [NSString stringWithFormat:@"%@",DIC[@"total_expense"]];
-            
+//            self.FBHCashierView.total_income.text = [NSString stringWithFormat:@"+%@",DIC[@"total_income"]];
+//            self.FBHCashierView.total_expense.text = [NSString stringWithFormat:@"%@",DIC[@"total_expense"]];
             [self.FBHCashierView.IncomeArray removeAllObjects];
             NSDictionary *consumption_info = DIC[@"consumption_info"];
             for (NSDictionary *dict in consumption_info) {
                 [self.FBHCashierView.IncomeArray addObject:dict];
             }
+            NSInteger TabCount = self.FBHCashierView.IncomeArray.count >5 ? 5: self.FBHCashierView.IncomeArray.count;
+            [self.FBHCashierView.View3 mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.height.mas_offset(TabCount*45+100);
+            }];
             [self.FBHCashierView.IncomeTableview reloadData];
             
+            self.SJScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, 650+TabCount*45);
+
         }else{
 
         }
@@ -337,20 +359,15 @@
 //    [self.SJScrollView addSubview:self.backgrounImg];
     [self.SJScrollView addSubview:self.FBHCashierView];
 //    [self.FBHCashierView TimeAction:self.FBHCashierView.TimeButton];
-    
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(conversionAction:) name:@"conversion" object:nil];
-    
     /** 版本更新 **/
 //    [self lookup];
    
 }
 //店铺转换
 - (void)conversionAction: (NSNotification *) notification {
-    
     [self merchant_center];
     [self list_checkstand:self.begin_date andEnd:self.end_date];
-    
 }
 /**/
 -(void)labelTouchUpInside{
@@ -446,6 +463,10 @@
     if ([islook isEqualToString:@"YES"]) {
         self.FBHCashierView.lookButton.selected = YES;
         self.FBHCashierView.current_balance.text = @"****";
+        self.FBHCashierView.today_income.text = @"****";
+        self.FBHCashierView.cumulative_income.text = @"****";
+        self.FBHCashierView.current_balance_String1 = @"****";
+
     }else{
         self.FBHCashierView.lookButton.selected = NO;
         NSString *balan = [[NSString alloc]init];
@@ -455,6 +476,32 @@
            balan = [NSString stringWithFormat:@"¥ %@",self.model.current_balance];
         }
         self.FBHCashierView.current_balance.text = balan;
+        
+       NSString * today_income=[NSString stringWithFormat:@"%@",self.model.today_income];
+        if ([[MethodCommon judgeStringIsNull:today_income] isEqualToString:@""]) {
+             self.FBHCashierView.today_income.text =  [NSString stringWithFormat:@"+ 00.00"];
+        }else{
+            self.FBHCashierView.today_income.text =  [NSString stringWithFormat:@"+ %@",today_income];
+        }
+        
+        NSString * cumulative_income=[NSString stringWithFormat:@"%@",self.model.cumulative_income];
+        if ([[MethodCommon judgeStringIsNull:cumulative_income] isEqualToString:@""]) {
+            self.FBHCashierView.cumulative_income.text =  [NSString stringWithFormat:@"+ 00.00"];
+        }else{
+            self.FBHCashierView.cumulative_income.text =  [NSString stringWithFormat:@"+ %@",cumulative_income];
+        }
+        
+        NSString *protocol = [NSString stringWithFormat:@"%@ 折 [ 平均优惠力度 ]",self.FBHCashierView.current_balance_String1];
+        NSMutableAttributedString *attri_str = [[NSMutableAttributedString alloc] initWithString:protocol];
+        //设置字体颜色
+        [attri_str setFont:[UIFont systemFontOfSize:12]];
+        attri_str.color = [UIColor colorWithHexString:@"EE4E3E"];
+        NSRange ProRange = [protocol rangeOfString:@"[ 平均优惠力度 ]"];
+        
+        [attri_str setTextHighlightRange:ProRange color:[UIColor colorWithHexString:@"999999"] backgroundColor:[UIColor colorWithHexString:@"EE4E3E"] userInfo:nil];
+//        self.FBHCashierView.Pingju.attributedText = attri_str;
+//        self.FBHCashierView.Pingju.textAlignment = NSTextAlignmentCenter;
+        
     }
     
 }
@@ -513,6 +560,11 @@
             case 23:
                 
                 VC.status = @"4";VC.isDzhuang = 1;
+                [self.navigationController pushViewController:VC animated:NO];
+                break;
+            case 24:
+                
+                VC.status = @"6";VC.isDzhuang = 1;
                 [self.navigationController pushViewController:VC animated:NO];
                 break;
                 

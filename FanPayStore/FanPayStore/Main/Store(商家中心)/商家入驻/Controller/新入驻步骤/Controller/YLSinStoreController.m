@@ -94,15 +94,15 @@
     }
     
     NSDictionary *dict = @{
-//                           @"store_address":[NSString stringWithFormat:@"%@",addres],
-//                           @"lon":[NSString stringWithFormat:@"%@",self.StoreDataDict[@"lon"]],
-//                           @"lat":[NSString stringWithFormat:@"%@",self.StoreDataDict[@"lat"]],
-//                           @"specific_location":[NSString stringWithFormat:@"%@",self.InStoreView.AView_MenP.text],
-//                           @"business_hours":[NSString stringWithFormat:@"%@",self.StoreDataDict[@"business_hours"]],
-//                           @"business_times":[NSString stringWithFormat:@"%@",self.StoreDataDict[@"business_times"]],
-//                           @"merchant_name":[NSString stringWithFormat:@"%@",self.InStoreView.AView_Name.text],
-//                           @"merchant_mobile":[NSString stringWithFormat:@"%@",self.InStoreView.AView_Phone.text],
-//                           @"merchant_telephone":[NSString stringWithFormat:@"%@",self.InStoreView.AView_GPhone.text],
+                           @"store_address":[NSString stringWithFormat:@"%@",addres],
+                           @"lon":[NSString stringWithFormat:@"%@",self.StoreDataDict[@"lon"]],
+                           @"lat":[NSString stringWithFormat:@"%@",self.StoreDataDict[@"lat"]],
+                           @"specific_location":[NSString stringWithFormat:@"%@",self.InStoreView.AView_MenP.text],
+                           @"business_hours":[NSString stringWithFormat:@"%@",self.StoreDataDict[@"business_hours"]],
+                           @"business_times":[NSString stringWithFormat:@"%@",self.StoreDataDict[@"business_times"]],
+                           @"merchant_name":[NSString stringWithFormat:@"%@",self.InStoreView.AView_Name.text],
+                           @"merchant_mobile":[NSString stringWithFormat:@"%@",self.InStoreView.AView_Phone.text],
+                           @"merchant_telephone":[NSString stringWithFormat:@"%@",self.InStoreView.AView_GPhone.text],
 
                            
                            @"reminder":[NSString stringWithFormat:@"%@",Reminsting],

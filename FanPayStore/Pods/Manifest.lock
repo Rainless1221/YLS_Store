@@ -38,6 +38,9 @@ PODS:
     - SDWebImage/Core (= 4.3.3)
   - SDWebImage/Core (4.3.3)
   - SVProgressHUD (2.2.5)
+  - UMCAnalytics (6.0.5):
+    - UMCCommon
+  - UMCCommon (2.1.1)
   - YYKit (1.0.9):
     - YYKit/no-arc (= 1.0.9)
   - YYKit/no-arc (1.0.9)
@@ -58,6 +61,8 @@ DEPENDENCIES:
   - MOBFoundation
   - SDWebImage
   - SVProgressHUD
+  - UMCAnalytics
+  - UMCCommon
   - YYKit
 
 SPEC REPOS:
@@ -81,6 +86,8 @@ SPEC REPOS:
     - AMap3DMap
     - AMapFoundation
     - AMapSearch
+    - UMCAnalytics
+    - UMCCommon
 
 SPEC CHECKSUMS:
   AFNetworking: 8ac6017b94ea105479f7776e5288e48ae9c59bb4
@@ -100,8 +107,10 @@ SPEC CHECKSUMS:
   MOBFoundation: 5c7cd437320b5252ebe0ca20283cc1ffe66f7669
   SDWebImage: de4d90b5bff3571eae7bd16202b1f43135409fa5
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
+  UMCAnalytics: 045be2cd1ec05aa95ad62405a850757f932e2d59
+  UMCCommon: 971f324a5a99c9d662ae040a815e7e3d7ef8b2a8
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: 5c35c148b48d628a5fe7b61c6a384d49145c96b8
+PODFILE CHECKSUM: 4b6b37b287654d6ce194dee8c35f757a7f3ae7e5
 
 COCOAPODS: 1.8.4

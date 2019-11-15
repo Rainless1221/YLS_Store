@@ -202,7 +202,7 @@
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     MoneyHeaderView *header_View = [[MoneyHeaderView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 70)];
     /**/
-    ysepayModel *model = [ysepayModel getUseData];
+//    ysepayModel *model = [ysepayModel getUseData];
 
     header_View.SetupBlock = ^{
 //        FillInViewController *VC = [FillInViewController new];

@@ -40,10 +40,10 @@
     
     
 #pragma mark - GOODS列表
-    NSArray *goodsArr = @[@{@"goods_name":@"海胆酱焗南瓜",@"goods_price":@"¥35",@"goods_num":@"×1"},
-                          @{@"goods_name":@"黑松露虾仁",@"goods_price":@"¥68",@"goods_num":@"×1"},
-                          @{@"goods_name":@"越式牛仔粒",@"goods_price":@"¥78",@"goods_num":@"×1"}];
-    
+//    NSArray *goodsArr = @[@{@"goods_name":@"海胆酱焗南瓜",@"goods_price":@"¥35",@"goods_num":@"×1"},
+//                          @{@"goods_name":@"黑松露虾仁",@"goods_price":@"¥68",@"goods_num":@"×1"},
+//                          @{@"goods_name":@"越式牛仔粒",@"goods_price":@"¥78",@"goods_num":@"×1"}];
+//
 //    for (int i =0; i<goodsArr.count; i++) {
 //
 //        UILabel *goodsName = [[UILabel alloc]init];
@@ -122,8 +122,6 @@
     _status = status;
     // 判断
     if (_status == DetailsVieWStatus_1) {
-
-     
 #pragma mark -   /*优惠金额*/
         UILabel *label_YH  = [[UILabel alloc] init];
         label_YH.numberOfLines = 0;
@@ -177,7 +175,7 @@
     }else if (_status == DetailsVieWStatus_2){
 
 #pragma mark -   /*退款金额*/
-        self.label_TKBeiZhu.text = @"备注：菜金酒水退款";
+        self.label_TKBeiZhu.text = @"备注：";
         [self addSubview:self.label_TKBeiZhu];
         [self.label_TKBeiZhu mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.equalTo(self.hotelSF.mas_top).offset(-20);
@@ -309,31 +307,47 @@
     
     NSString *service_money = [NSString stringWithFormat:@"%@",Data[@"service_money"]];
     if ([[MethodCommon judgeStringIsNull:service_money] isEqualToString:@""]) {
-        
+         self.hotelFW.text = @"¥";
     }else{
-        self.hotelFW.text = service_money;
+        self.hotelFW.text = [NSString stringWithFormat:@"¥%@",service_money];
 
     }
     
-    
-    NSString  *save_money = [NSString stringWithFormat:@"-¥%@",Data[@"save_money"]];
+     /*优惠*/
+    NSString  *save_money = [NSString stringWithFormat:@"%@",Data[@"save_money"]];
     if ([[MethodCommon judgeStringIsNull:save_money] isEqualToString:@""]) {
-        
+        self.hotelY.text = @"-¥00";
     }else{
-        self.hotelY.text = save_money;
+        self.hotelY.text = [NSString stringWithFormat:@"-¥%@",save_money];
 
     }
     
-     self.TK.text = [NSString stringWithFormat:@"-¥%@",Data[@"save_money"]];;
     
-    
-    NSString *actual_money = [NSString stringWithFormat:@"¥%@",Data[@"actual_money"]];
+    /*实付*/
+    NSString *actual_money = [NSString stringWithFormat:@"%@",Data[@"actual_money"]];
     if ([[MethodCommon judgeStringIsNull:actual_money] isEqualToString:@""]) {
-        
+        self.hotelSF.text = @"¥00";
     }else{
-        self.hotelSF.text = actual_money;
+        self.hotelSF.text = [NSString stringWithFormat:@"¥%@",actual_money];
 
     }
+       /*退款备注*/
+    NSString *refund_remark = [NSString stringWithFormat:@"%@",Data[@"refund_info"][@"refund_remark"]];
+    if ([[MethodCommon judgeStringIsNull:refund_remark] isEqualToString:@""]) {
+        self.label_TKBeiZhu.text = @"备注：";
+    }else{
+        self.label_TKBeiZhu.text = [NSString stringWithFormat: @"备注：%@",refund_remark];
+    }
+    /*退款金额*/
+    NSString *refund_amount = [NSString stringWithFormat:@"%@",Data[@"refund_info"][@"refund_amount"]];
+    if ([[MethodCommon judgeStringIsNull:refund_amount] isEqualToString:@""]) {
+         self.TK.text = [NSString stringWithFormat:@"-¥00"];
+    }else{
+      self.TK.text = [NSString stringWithFormat:@"-¥%@",refund_amount];
+    }
+    
+
+    
 }
 #pragma mark - 懒加载
 -(UILabel *)hotelFW{

@@ -18,7 +18,9 @@
 //我知道了
 - (IBAction)WinAction:(id)sender {
     [self removeFromSuperview];
-    
+    if (self.WinActionBlock) {
+        self.WinActionBlock();
+    }
 }
 
 

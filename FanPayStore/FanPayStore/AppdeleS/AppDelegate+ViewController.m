@@ -340,6 +340,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 //    [self Speaking];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"list_new" object:@""];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"conversion" object:@""];
 
     // Required, iOS 7 Support
     [JPUSHService handleRemoteNotification:userInfo];
@@ -538,7 +539,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
                     }
                 }];
             }
-            [self printe:Dict];
+//            [self printe:Dict];
             
         }
         

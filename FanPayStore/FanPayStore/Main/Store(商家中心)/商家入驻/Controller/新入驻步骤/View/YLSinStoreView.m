@@ -69,7 +69,11 @@
     for (int i = 0; i<8; i++) {
         UIView *Aline = [[UIView alloc]initWithFrame:CGRectMake(10, 50+i*51, AView_backview.width-20, 1)];
         Aline.backgroundColor = [UIColor colorWithRed:234/255.0 green:234/255.0 blue:234/255.0 alpha:1.0];
-        [AView_backview addSubview:Aline];
+        if (i == 7) {
+            
+        }else{
+            [AView_backview addSubview:Aline];
+        }
         
         UILabel *AlabelTixt = [[UILabel alloc]initWithFrame:CGRectMake(10, i*51, 84, 50)];
         AlabelTixt.text = [NSString stringWithFormat:@"%@",ArrayAtixt[i]];
@@ -385,7 +389,7 @@
     }];
    
     /**店铺图片*/
-    self.facade = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, IPHONEWIDTH(103), IPHONEHIGHT(103))];
+    self.facade = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, IPHONEWIDTH(103), IPHONEWIDTH(103))];
     self.facade.image = [UIImage imageNamed:@"btn_add_shop_info_image_normal"];
     self.facade. layer.cornerRadius = 5;
     self.facade.layer.masksToBounds = YES;
@@ -399,7 +403,7 @@
     [self.facade mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(CView_text3.mas_bottom).offset(20.5);
         make.left.mas_offset(10);
-        make.size.mas_offset(CGSizeMake(IPHONEWIDTH(103), IPHONEHIGHT(103)));
+        make.size.mas_offset(CGSizeMake(IPHONEWIDTH(103), IPHONEWIDTH(103)));
     }];
     
     UIView *CView_line2 = [[UIView alloc] init];
@@ -432,7 +436,7 @@
         make.right.mas_offset(0);
     }];
     /**环境图片*/
-    self.environment = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, IPHONEWIDTH(103), IPHONEHIGHT(103))];
+    self.environment = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, IPHONEWIDTH(103), IPHONEWIDTH(103))];
     self.environment.image = [UIImage imageNamed:@"btn_add_shop_info_image_normal"];
     self.environment.userInteractionEnabled = YES;//打开用户交互
     //初始化一个手势
@@ -443,7 +447,7 @@
     [self.environment mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(CView_text5.mas_bottom).offset(20.5);
         make.left.mas_offset(10);
-        make.size.mas_offset(CGSizeMake(IPHONEWIDTH(103), IPHONEHIGHT(103)));
+        make.size.mas_offset(CGSizeMake(IPHONEWIDTH(103), IPHONEWIDTH(103)));
     }];
     
     
@@ -509,7 +513,7 @@
         make.right.mas_offset(0);
     }];
     /**身份证正反*/
-    self.IdCardOn = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, IPHONEWIDTH(103), IPHONEHIGHT(103))];
+    self.IdCardOn = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, IPHONEWIDTH(103), IPHONEWIDTH(103))];
     self.IdCardOn.image = [UIImage imageNamed:@"btn_add_shop_info_image_normal"];
     self.IdCardOn. layer.cornerRadius = 5;
     self.IdCardOn.layer.masksToBounds = YES;
@@ -523,10 +527,10 @@
     [self.IdCardOn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(DView_label3.mas_bottom).offset(20.5);
         make.left.mas_offset(10);
-        make.size.mas_offset(CGSizeMake(IPHONEWIDTH(103), IPHONEHIGHT(103)));
+        make.size.mas_offset(CGSizeMake(IPHONEWIDTH(103), IPHONEWIDTH(103)));
     }];
     
-    self.IdCardUnder = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, IPHONEWIDTH(103), IPHONEHIGHT(103))];
+    self.IdCardUnder = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, IPHONEWIDTH(103), IPHONEWIDTH(103))];
     self.IdCardUnder.image = [UIImage imageNamed:@"btn_add_shop_info_image_normal"];
     self.IdCardUnder. layer.cornerRadius = 5;
     self.IdCardUnder.layer.masksToBounds = YES;
@@ -540,7 +544,7 @@
     [self.IdCardUnder mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(DView_label3.mas_bottom).offset(20.5);
         make.left.equalTo(self.IdCardOn.mas_right).offset(8);
-        make.size.mas_offset(CGSizeMake(IPHONEWIDTH(103), IPHONEHIGHT(103)));
+        make.size.mas_offset(CGSizeMake(IPHONEWIDTH(103), IPHONEWIDTH(103)));
     }];
     
     
@@ -574,7 +578,7 @@
         make.right.mas_offset(0);
     }];
     /**营业执照*/
-    self.business = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, IPHONEWIDTH(103), IPHONEHIGHT(103))];
+    self.business = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, IPHONEWIDTH(103), IPHONEWIDTH(103))];
     self.business.image = [UIImage imageNamed:@"btn_add_shop_info_image_normal"];
     self.business. layer.cornerRadius = 5;
     self.business.layer.masksToBounds = YES;
@@ -588,7 +592,7 @@
     [self.business mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(DView_label5.mas_bottom).offset(20.5);
         make.left.mas_offset(10);
-        make.size.mas_offset(CGSizeMake(IPHONEWIDTH(103), IPHONEHIGHT(103)));
+        make.size.mas_offset(CGSizeMake(IPHONEWIDTH(103), IPHONEWIDTH(103)));
     }];
     
     
@@ -622,7 +626,7 @@
         make.right.mas_offset(0);
     }];
     /**上传经营许可证*/
-    self.license = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, IPHONEWIDTH(103), IPHONEHIGHT(103))];
+    self.license = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, IPHONEWIDTH(103), IPHONEWIDTH(103))];
     self.license.image = [UIImage imageNamed:@"btn_add_shop_info_image_normal"];
     self.license. layer.cornerRadius = 5;
     self.license.layer.masksToBounds = YES;
@@ -636,7 +640,7 @@
     [self.license mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(DView_label7.mas_bottom).offset(20.5);
         make.left.mas_offset(10);
-        make.size.mas_offset(CGSizeMake(IPHONEWIDTH(103), IPHONEHIGHT(103)));
+        make.size.mas_offset(CGSizeMake(IPHONEWIDTH(103), IPHONEWIDTH(103)));
     }];
     
     

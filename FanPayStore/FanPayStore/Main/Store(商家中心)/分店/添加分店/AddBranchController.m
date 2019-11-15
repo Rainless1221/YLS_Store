@@ -90,7 +90,7 @@
             
             
             if ([resDic[@"status"] integerValue]==1) {
-                NSDictionary *DIC = resDic[@"data"];
+//                NSDictionary *DIC = resDic[@"data"];
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"BranchView" object:nil];
                 
                 [self.navigationController popViewControllerAnimated:YES];

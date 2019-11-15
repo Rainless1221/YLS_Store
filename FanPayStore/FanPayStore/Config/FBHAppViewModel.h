@@ -983,4 +983,20 @@
                                                        Success:(void (^)(NSDictionary *resDic))success
                                                     andfailure:(void (^)(void))failure;
 
+#pragma mark -  核销设置
+/**
+ 获取店铺的核销设置 接口
+ */
+-(void)get_store_auto_confirm_info:(NSString *)merchant_id
+                                            andstore_id:(NSString *)store_id
+                                                Success:(void (^)(NSDictionary *resDic))success
+                                                    andfailure:(void (^)(void))failure;
+/**
+设置自动核销或手动核销 接口
+ */
+-(void)set_store_auto_confirm:(NSString *)merchant_id
+                                    andstore_id:(NSString *)store_id
+                        andauto_confirm:(NSString *)auto_confirm
+                           Success:(void (^)(NSDictionary *resDic))success
+                        andfailure:(void (^)(void))failure;
 @end

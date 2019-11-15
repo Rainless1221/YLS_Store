@@ -201,11 +201,11 @@
         _AmountTF = [[UITextField alloc]initWithFrame:CGRectMake(0, 0, 150, 40)];
         _AmountTF.font = [UIFont systemFontOfSize:40];
         _AmountTF.textColor = [UIColor blackColor];
-        _AmountTF.textAlignment =1;
+        _AmountTF.textAlignment = 1;
         _AmountTF.backgroundColor = UIColorFromRGB(0xF6F6F6);
         _AmountTF.text = @"¥";
         _AmountTF.delegate = self;
-
+        _AmountTF.keyboardType = UIKeyboardTypeDecimalPad;
     }
     return _AmountTF;
 }

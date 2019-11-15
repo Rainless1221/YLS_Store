@@ -11,8 +11,9 @@
 
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
-
-
+//7bb22064868e449d7bfd336a0ce8aaa537a803a1
+//商家版
+//eluson://merchant/index/index/
 
 #import "AppDelegate.h"
 #import "AppDelegate+AppLifeCircle.h"
@@ -306,8 +307,8 @@
 #import "MySwitch.h"//自定义开关
 
 #import "QYSDK.h"//七鱼客服
-
-
+#import <UMCommon/UMCommon.h>//友盟统计
+#import <UMAnalytics/MobClick.h>
 
 #pragma mark --------- 一鹿省 -------------------
 #import "YlsCheckstandController.h"

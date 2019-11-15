@@ -22,7 +22,6 @@
     NSString *name=[NSString stringWithFormat:@"%@",Data[@"user_name"]];
     if ([[MethodCommon judgeStringIsNull:name] isEqualToString:@""]) {
         self.user_name.text  = @"";
-
     }else{
          self.user_name.text  = name;
     }
@@ -40,11 +39,14 @@
 /**
  性别
  */
-    
-    if ([Data[@"sex"]  isEqual: @"1"]) {
+    NSString *sex = [NSString stringWithFormat:@"%@",Data[@"sex"]];
+
+    if ([sex  isEqual: @"1"]) {
         self.seximage.image =  [UIImage imageNamed:@"icn_gender_male"];
-    }else{
-        self.seximage.image =  [UIImage imageNamed:@"icn_gender_female"];
+    }else if ([sex isEqualToString:@"0"]){
+         self.seximage.image =  [UIImage imageNamed:@"icn_gender_female"];
+    } else{
+        self.seximage.image =  [UIImage imageNamed:@""];
     }
 
     
@@ -64,7 +66,6 @@
     NSString *merchant_name=[NSString stringWithFormat:@"%@",Data1[@"merchant_name"]];
     if ([[MethodCommon judgeStringIsNull:merchant_name] isEqualToString:@""]) {
         self.user_name.text  = @"";
-
     }else{
         self.user_name.text  = merchant_name;
     }
@@ -78,6 +79,19 @@
     }else{
         self.cityLabel.text  = city;
     }
+    
+    /**
+     性别
+     */
+    NSString *sex = [NSString stringWithFormat:@"%@",Data1[@"sex"]];
+    if ([sex  isEqual: @"1"]) {
+        self.seximage.image =  [UIImage imageNamed:@"icn_gender_male"];
+    }else if ([sex isEqualToString:@"0"]){
+        self.seximage.image =  [UIImage imageNamed:@"icn_gender_female"];
+    } else{
+        self.seximage.image =  [UIImage imageNamed:@""];
+    }
+    
 }
 
 

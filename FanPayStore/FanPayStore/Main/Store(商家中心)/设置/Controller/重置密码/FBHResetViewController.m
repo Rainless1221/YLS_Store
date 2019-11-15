@@ -144,8 +144,8 @@
     }
     
     self.pass.delegate = self;
-    self.codeText.delegate =self;
-    self.MSMButton.backgroundColor = UIColorFromRGB(0x3D8AFF);
+    self.codeText.delegate = self;
+    self.MSMButton.backgroundColor = UIColorFromRGB(0xF7AE2B);
 //    self.determine.backgroundColor = UIColorFromRGB(0xD4E5FF);
     self.codeText.keyboardType = UIKeyboardTypePhonePad;
 
@@ -154,22 +154,23 @@
     self.DeteButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.DeteButton.frame = self.determine.frame;
     self.DeteButton.width = ScreenW-30;
-    CAGradientLayer *gl = [CAGradientLayer layer];
-    gl.frame = CGRectMake(0,0,ScreenW-30,44);
-    gl.startPoint = CGPointMake(0, 0);
-    gl.endPoint = CGPointMake(1, 1);
-    gl.colors = @[(__bridge id)[UIColor colorWithRed:67/255.0 green:193/255.0 blue:255/255.0 alpha:1.0].CGColor,(__bridge id)[UIColor colorWithRed:69/255.0 green:166/255.0 blue:255/255.0 alpha:1.0].CGColor,(__bridge id)[UIColor colorWithRed:61/255.0 green:137/255.0 blue:255/255.0 alpha:1.0].CGColor];
-    gl.locations = @[@(0.0),@(0.5),@(1.0)];
-    gl.cornerRadius = 10;
-    [self.DeteButton.layer addSublayer:gl];
-    
-    self.DeteButton.layer.shadowColor = [UIColor colorWithRed:61/255.0 green:138/255.0 blue:255/255.0 alpha:0.5].CGColor;
-    self.DeteButton.layer.shadowOffset = CGSizeMake(0,4);
-    self.DeteButton.layer.shadowOpacity = 1;
-    self.DeteButton.layer.shadowRadius = 9;
-    
+//    CAGradientLayer *gl = [CAGradientLayer layer];
+//    gl.frame = CGRectMake(0,0,ScreenW-30,44);
+//    gl.startPoint = CGPointMake(0, 0);
+//    gl.endPoint = CGPointMake(1, 1);
+//    gl.colors = @[(__bridge id)[UIColor colorWithRed:67/255.0 green:193/255.0 blue:255/255.0 alpha:1.0].CGColor,(__bridge id)[UIColor colorWithRed:69/255.0 green:166/255.0 blue:255/255.0 alpha:1.0].CGColor,(__bridge id)[UIColor colorWithRed:61/255.0 green:137/255.0 blue:255/255.0 alpha:1.0].CGColor];
+//    gl.locations = @[@(0.0),@(0.5),@(1.0)];
+//    gl.cornerRadius = 10;
+//    [self.DeteButton.layer addSublayer:gl];
+//
+//    self.DeteButton.layer.shadowColor = [UIColor colorWithRed:61/255.0 green:138/255.0 blue:255/255.0 alpha:0.5].CGColor;
+//    self.DeteButton.layer.shadowOffset = CGSizeMake(0,4);
+//    self.DeteButton.layer.shadowOpacity = 1;
+//    self.DeteButton.layer.shadowRadius = 9;
+    self.DeteButton.layer.cornerRadius = 10;
+    self.DeteButton.backgroundColor = UIColorFromRGB(0xF7AE2B);
     [self.DeteButton setTitle:@"确认修改" forState:UIControlStateNormal];
-    [self.DeteButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.DeteButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.DeteButton addTarget:self action:@selector(DETEAction) forControlEvents:UIControlEventTouchUpInside];
     [self.DeteButton.titleLabel setFont:[UIFont systemFontOfSize:18]];
     [self.view addSubview:self.DeteButton];
@@ -178,8 +179,7 @@
 }
 
 #pragma mark ————    textFieldDidChange  ————
-- (void)textFieldDidChange:(UITextField *)textField
-{
+- (void)textFieldDidChange:(UITextField *)textField{
     
     if (textField.text.length >0 ) {
         self.determine.backgroundColor = UIColorFromRGB(0x3D8AFF);
@@ -265,7 +265,7 @@
                 //设置按钮的样式
                 [self.MSMButton setTitle:@"重获验证码" forState:UIControlStateNormal];
                 //                [self.MSMButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-                [self.MSMButton setBackgroundColor:UIColorFromRGB(0x3D89FF)];
+                [self.MSMButton setBackgroundColor:UIColorFromRGB(0xF7AE2B)];
                 self.MSMButton.userInteractionEnabled = YES;
             });
             
@@ -288,7 +288,7 @@
                 
                 [self.MSMButton setTitle:[NSString stringWithFormat:@"%@s",strTime] forState:UIControlStateNormal];
 //                [self.MSMButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-                [self.MSMButton setBackgroundColor:UIColorFromRGB(0xD4E5FF)];
+                [self.MSMButton setBackgroundColor:UIColorFromRGB(0xF4D397)];
                 self.MSMButton.userInteractionEnabled = NO;
                 
             });

@@ -76,7 +76,7 @@
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Vb-Ye-SDm">
                             <rect key="frame" x="10" y="51" width="364" height="50"/>
-                            <state key="normal" image="ico_arrow_right_blue"/>
+                            <state key="normal" image="input_arrow_right_deepgray"/>
                             <connections>
                                 <action selector="agreeUrlAction:" destination="-1" eventType="touchUpInside" id="1cV-oB-Nyc"/>
                             </connections>
@@ -133,6 +133,6 @@
     </objects>
     <resources>
         <image name="WechatIMG20" width="1024" height="1024"/>
-        <image name="ico_arrow_right_blue" width="9" height="9"/>
+        <image name="input_arrow_right_deepgray" width="6" height="10"/>
     </resources>
 </document>

@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong,nonatomic)NSString * preferential_id;
 
 @property (strong,nonatomic)NSMutableDictionary * Dict;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -9,7 +9,9 @@
 #import "FBHDdetailsController.h"
 
 @interface FBHDdetailsController ()<UIScrollViewDelegate,StarEvaluatorDelegate,DetaiOrderDelegate,AmountDelegate,JHCoverViewDelegate>
-
+{
+    double actual_money;
+}
 @property (strong,nonatomic)UIScrollView * SJScrollView;
 @property (strong,nonatomic)UIImageView * backgrounImg;
 @property (nonatomic) CGFloat halfHeight;
@@ -34,7 +36,6 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = YES;
     //    self.navigationController.navigationBar.barTintColor = [UIColor clearColor];
-    
     [self.manage autoConnectLastPeripheralCompletion:^(CBPeripheral *perpheral, NSError *error) {
         if (!error) {
 //            weakSelf.title = [NSString stringWithFormat:@"已连接-%@",perpheral.name];
@@ -61,11 +62,12 @@
         if ([resDic[@"status"] integerValue] == 1) {
             NSDictionary *DIC=resDic[@"data"];
             
-            
             //            self.scrollView.actual_money.text = [NSString stringWithFormat:@"%@",DIC[@"actual_money"]];
             //            self.scrollView.store_address.text = [NSString stringWithFormat:@"%@",DIC[@"store_address"]];
             //            self.scrollView.add_time.text = [NSString stringWithFormat:@"%@",DIC[@"add_time"]];
             //            self.scrollView.save_money.text = [NSString stringWithFormat:@"%@",DIC[@"save_money"]];
+            NSString *money = [NSString stringWithFormat:@"%@",DIC[@"actual_money"]];
+            actual_money = [money doubleValue];
             
             self.DictData = DIC;
             self.QTView.Data = DIC;
@@ -199,29 +201,43 @@
     [self.SJScrollView addSubview:self.TKButton];
 
 #pragma mark - 判断是否可以退款 1表是 0表否
-    NSString *can_refund = [NSString stringWithFormat:@"%@",self.DictData[@"can_refund"]] ;
-    if ([can_refund  isEqualToString:@"0"]) {
-        self.TKView.hidden = YES;
-        self.TKButton.userInteractionEnabled=NO;//交互关闭
-        self.TKButton.alpha=0.5;//透明度
-        self.TKView.height = 10;
-        self.YSView.status = DetailsVieWStatus_1;
-        self.YSView.height = goodsArr.count*55+230;
+    if (self.status == 2) {
+        NSString *can_refund = [NSString stringWithFormat:@"%@",self.DictData[@"can_refund"]];
+        if ([can_refund  isEqualToString:@"0"]) {
+            self.TKButton.userInteractionEnabled = NO;//交互关闭
+            self.TKButton.alpha=0.5;//透明度
+//            self.TKView.hidden = YES;
+//            self.TKView.height = IPHONEHIGHT(10);
+//            self.YSView.status = DetailsVieWStatus_1;
+//            self.YSView.height = goodsArr.count*55+230;
 
-    }else if ([can_refund  isEqualToString:@"1"]){
-        self.TKView.height = 120;
-        self.YSView.status = DetailsVieWStatus_2;
-        self.YSView.height = goodsArr.count*55+300;
-
+        }else if ([can_refund  isEqualToString:@"1"]){
+            self.TKButton.userInteractionEnabled = YES;//交互开启
+//            self.TKView.hidden = YES;
+//            self.TKView.height = IPHONEHIGHT(10);
+//            self.YSView.status = DetailsVieWStatus_1;
+//            self.YSView.height = goodsArr.count*55+230;
+            
+        }else{
+            self.TKButton.userInteractionEnabled = NO;//交互关闭
+            self.TKButton.alpha=0.5;//透明度
+//            self.TKView.hidden = YES;
+//            self.TKView.height = IPHONEHIGHT(10);
+//            self.YSView.status = DetailsVieWStatus_1;
+//            self.YSView.height = goodsArr.count*55+230;
+            
+        }
     }else{
-        self.TKView.hidden = YES;
-        self.TKButton.userInteractionEnabled=NO;//交互关闭
+        self.TKButton.userInteractionEnabled = NO;//交互关闭
         self.TKButton.alpha=0.5;//透明度
-        self.TKView.height = 10;
-        self.YSView.status = DetailsVieWStatus_1;
-        self.YSView.height = goodsArr.count*55+230;
-
+        
+//        self.TKView.hidden = YES;
+//        self.TKView.height = IPHONEHIGHT(10);
+//        self.YSView.status = DetailsVieWStatus_1;
+//        self.YSView.height = goodsArr.count*55+230;
+        
     }
+    
     /*本版本不是上退款、先隐藏*/
 //    self.TKButton.height = 0.01;
 //    self.TKButton.hidden = YES;
@@ -231,6 +247,11 @@
     //0全部、1待付款、2待使用、3待评价、4已评价、5已取消、6待退单、7退单完成、8退单失败、9待退款、10退款完成、11退款失败） 传入2，获取2,3的订单信息； 传入6，获取6,7,8的订单信息 传入9
     if (self.status == 4) {
 
+        self.TKView.hidden = YES;
+        self.TKView.height = IPHONEHIGHT(10);
+        self.YSView.status = DetailsVieWStatus_1;
+        self.YSView.height = goodsArr.count*55+230;
+        
         self.YSView.top = self.TKView.bottom -10;
         self.TKButton.top = self.YSView.bottom +20;
         self.QTView.top = self.TKButton.bottom +20;
@@ -238,6 +259,11 @@
         self.SJScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, self.YSView.height+self.QTView.height+self.PLView.height+340);
         
     }else if (self.status == 2){
+        self.TKView.hidden = YES;
+        self.TKView.height = IPHONEHIGHT(10);
+        self.YSView.status = DetailsVieWStatus_1;
+        self.YSView.height = goodsArr.count*55+230;
+        
         self.PLView.hidden = YES;
         self.YSView.top = self.TKView.bottom -10;
         self.TKButton.top = self.YSView.bottom +20;
@@ -246,19 +272,49 @@
         self.SJScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, self.TKView.height+self.YSView.height+self.QTView.height+240);
         
     }else if (self.status == 8 || self.status == 6 || self.status == 7 ){
-        self.PLView.hidden = YES;
-        self.TKButton.userInteractionEnabled=NO;//交互关闭
-        self.TKButton.alpha=0.5;//透明度
+        self.TKView.hidden = YES;
+        self.TKView.height = IPHONEHIGHT(10);
+        self.YSView.status = DetailsVieWStatus_1;
+        self.YSView.height = goodsArr.count*55+230;
         
+        self.PLView.hidden = YES;
         self.YSView.top = self.TKView.bottom -10;
         self.TKButton.top = self.YSView.bottom +20;
         self.QTView.top = self.TKButton.bottom +20;
         self.PLView.top = self.QTView.bottom +20;
         self.SJScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, self.TKView.height+self.YSView.height+self.QTView.height+240);
         
-    }else{
-        self.PLView.hidden = YES;
+    }else if (self.status == 9 || self.status == 10 || self.status == 11 ){
+        self.TKView.hidden = NO;
+        self.TKView.height = IPHONEHIGHT(122);
+        self.YSView.status = DetailsVieWStatus_2;
+        self.YSView.height = goodsArr.count*55+310;
+        if (self.status == 10) {
+            [self.TKView.Button2 setTitle:@"到账成功" forState:UIControlStateSelected];
+            self.TKView.Button2.selected = YES;
 
+        }else{
+             [self.TKView.Button2 setTitle:@"到账失败" forState:UIControlStateSelected];
+            self.TKView.Button2.selected = YES;
+
+        }
+        
+        self.PLView.hidden = YES;
+    
+        self.YSView.top = self.TKView.bottom -10;
+        self.TKButton.top = self.YSView.bottom +20;
+        self.QTView.top = self.TKButton.bottom +20;
+        self.PLView.top = self.QTView.bottom +20;
+        self.SJScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, self.TKView.height+self.YSView.height+self.QTView.height+240);
+        
+        
+    }else{
+        self.TKView.hidden = YES;
+        self.TKView.height = IPHONEHIGHT(10);
+        self.YSView.status = DetailsVieWStatus_1;
+        self.YSView.height = goodsArr.count*55+230;
+        
+        self.PLView.hidden = YES;
         self.YSView.top = self.TKView.bottom -10;
         self.TKButton.top = self.YSView.bottom +20;
         self.QTView.top = self.TKButton.bottom +20;
@@ -267,7 +323,8 @@
         
     }
     
-
+  
+    
     
     return;
     
@@ -1035,17 +1092,24 @@
 -(void)AmountAction{
     _AmountView.AmountTF.text = @"¥";
     [self.view.window addSubview:self.AmountView];
-
 //     [[UIApplication sharedApplication].keyWindow addSubview:self.AmountView];
 }
 #pragma mark - 确认退款
 -(void)AmountConfirm{
-    
     NSString *number = [self.AmountView.AmountTF.text stringByReplacingOccurrencesOfString:@"¥" withString:@""];
-    
-    if (number==nil||number.length==0) {
+    if (number==nil || number.length==0) {
         [SVProgressHUD setMinimumDismissTimeInterval:2];
         [SVProgressHUD showErrorWithStatus:@"请输入退款金额"];
+        return;
+    }
+    if ([number doubleValue]<=0) {
+        [SVProgressHUD setMinimumDismissTimeInterval:2];
+        [SVProgressHUD showErrorWithStatus:@"请输入大于0的金额"];
+        return;
+    }
+    if ([number doubleValue]>actual_money) {
+        [SVProgressHUD setMinimumDismissTimeInterval:2];
+        [SVProgressHUD showErrorWithStatus:@"请输入小于订单金额"];
         return;
     }
     [self.AmountView removeFromSuperview];
@@ -1066,6 +1130,14 @@
     
     coverView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2];
     [self.view.window addSubview:coverView];
+}
+/**
+ 忘记密码
+ */
+- (void)forgetPassWordCoverView:(JHCoverView *)control
+{
+    //    JHForgetPWViewController *forgetControl = [[JHForgetPWViewController alloc] init];
+    [self.navigationController pushViewController:[PaymentViewController new] animated:YES];
 }
 /**
  JHCoverViewDelegate的代理方法,密码输入错误
@@ -1118,6 +1190,7 @@
     [[FBHAppViewModel shareViewModel]merchant_refund:Model.merchant_id andstore_id:Model.store_id andjoinDict:Dict  Success:^(NSDictionary *resDic) {
         if ([resDic[@"status"] integerValue] == 1) {
 //            NSDictionary *DIC=resDic[@"data"];
+            [self merchant_center];
             [SVProgressHUD showSuccessWithStatus:resDic[@"message"]];
 
         }else{
@@ -1186,7 +1259,7 @@
 }
 -(DetailsTKView *)TKView{
     if (!_TKView) {
-        _TKView = [[DetailsTKView alloc]initWithFrame:CGRectMake(30, 114, ScreenW-60, 120)];
+        _TKView = [[DetailsTKView alloc]initWithFrame:CGRectMake(30, 104+STATUS_BAR_HEIGHT, ScreenW-60, 120)];
         _TKView.backgroundColor = [UIColor whiteColor];
         _TKView.layer.shadowOffset = CGSizeMake(0,2);
         _TKView.layer.shadowOpacity = 1;
@@ -1199,7 +1272,7 @@
 }
 -(DetailsYSView *)YSView{
     if (!_YSView) {
-        _YSView = [[DetailsYSView alloc]initWithFrame:CGRectMake(15,self.TKView.bottom-10, ScreenW-30, 400)];
+        _YSView = [[DetailsYSView alloc]initWithFrame:CGRectMake(15,self.TKView.bottom-IPHONEHIGHT(10), ScreenW-30, 400)];
         _YSView.backgroundColor = [UIColor whiteColor];
         _YSView.layer.shadowOffset = CGSizeMake(0,2);
         _YSView.layer.shadowOpacity = 1;

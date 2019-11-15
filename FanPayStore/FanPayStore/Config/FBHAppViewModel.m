@@ -2381,8 +2381,6 @@
     
 }
 #pragma mark - 收银台
-
-
 /**
  获取收银台基本信息
  */
@@ -2402,7 +2400,7 @@
     NSString *process = [NSString stringWithFormat:@"%@%@",merchant_id,timestamp];
     [dic setValue:[MD5Sign MD5:process] forKey:@"process"];
     
-    [YBHttpTool post:@"merchant_checkstand/get_checkstand_info" params:dic success:^(NSDictionary *obj) {
+    [YBHttpTool post:@"yls_merchant_checkstand/get_checkstand_info" params:dic success:^(NSDictionary *obj) {
         success(obj);
         
     } failure:^(NSError *error) {
@@ -2428,11 +2426,11 @@
     [dic setValue:merchant_id forKey:@"merchant_id"];
     [dic setValue:store_id forKey:@"store_id"];
     
-    [dic setValue:Dict[@"begin_date"] forKey:@"begin_date"];
-    [dic setValue:Dict[@"end_date"] forKey:@"end_date"];
-    [dic setValue:Dict[@"type"] forKey:@"type"];
-    [dic setValue:Dict[@"consumption_date"] forKey:@"consumption_date"];
-    [dic setValue:Dict[@"account_interval"] forKey:@"account_interval"];
+//    [dic setValue:Dict[@"begin_date"] forKey:@"begin_date"];
+//    [dic setValue:Dict[@"end_date"] forKey:@"end_date"];
+//    [dic setValue:Dict[@"type"] forKey:@"type"];
+//    [dic setValue:Dict[@"consumption_date"] forKey:@"consumption_date"];
+//    [dic setValue:Dict[@"account_interval"] forKey:@"account_interval"];
     [dic setValue:Dict[@"page"] forKey:@"page"];
     [dic setValue:Dict[@"limit"] forKey:@"limit"];
     
@@ -2444,7 +2442,7 @@
     NSString *process = [NSString stringWithFormat:@"%@%@",merchant_id,timestamp];
     [dic setValue:[MD5Sign MD5:process] forKey:@"process"];
     
-    [YBHttpTool post:@"merchant_checkstand/list_checkstand_consumption" params:dic success:^(NSDictionary *obj) {
+    [YBHttpTool post:@"yls_merchant_checkstand/list_checkstand_consumption" params:dic success:^(NSDictionary *obj) {
         success(obj);
         
     } failure:^(NSError *error) {
@@ -4004,5 +4002,73 @@
         failure();
         
     }];
+}
+
+#pragma mark -  核销设置
+/**
+ 获取店铺的核销设置 接口
+ */
+-(void)get_store_auto_confirm_info:(NSString *)merchant_id
+                       andstore_id:(NSString *)store_id
+                           Success:(void (^)(NSDictionary *resDic))success
+                        andfailure:(void (^)(void))failure{
+    
+    //里层的parameter
+    NSMutableDictionary *dic=[NSMutableDictionary dictionary];
+    [dic setValue:merchant_id forKey:@"merchant_id"];
+    [dic setValue:store_id forKey:@"store_id"];
+
+    
+    UserModel *model = [UserModel getUseData];
+    [dic setValue:model.token forKey:@"token"];
+    
+    NSString *timestamp = [FBHAppViewModel currentTimeStr];
+    [dic setValue:timestamp forKey:@"timestamp"];
+    NSString *process = [NSString stringWithFormat:@"%@%@",merchant_id,timestamp];
+    [dic setValue:[MD5Sign MD5:process] forKey:@"process"];
+    
+    [YBHttpTool post:@"service_center/get_store_auto_confirm_info" params:dic success:^(NSDictionary *obj) {
+        success(obj);
+        
+    } failure:^(NSError *error) {
+        failure();
+        
+    }];
+    
+    
+}
+
+/**
+ 设置自动核销或手动核销 接口
+ */
+-(void)set_store_auto_confirm:(NSString *)merchant_id
+                  andstore_id:(NSString *)store_id
+              andauto_confirm:(NSString *)auto_confirm
+                      Success:(void (^)(NSDictionary *resDic))success
+                   andfailure:(void (^)(void))failure{
+    //里层的parameter
+    NSMutableDictionary *dic=[NSMutableDictionary dictionary];
+    [dic setValue:merchant_id forKey:@"merchant_id"];
+    [dic setValue:store_id forKey:@"store_id"];
+    [dic setValue:auto_confirm forKey:@"auto_confirm"];
+
+    
+    UserModel *model = [UserModel getUseData];
+    [dic setValue:model.token forKey:@"token"];
+    
+    NSString *timestamp = [FBHAppViewModel currentTimeStr];
+    [dic setValue:timestamp forKey:@"timestamp"];
+    NSString *process = [NSString stringWithFormat:@"%@%@",merchant_id,timestamp];
+    [dic setValue:[MD5Sign MD5:process] forKey:@"process"];
+    
+    [YBHttpTool post:@"service_center/set_store_auto_confirm" params:dic success:^(NSDictionary *obj) {
+        success(obj);
+        
+    } failure:^(NSError *error) {
+        failure();
+        
+    }];
+    
+    
 }
 @end

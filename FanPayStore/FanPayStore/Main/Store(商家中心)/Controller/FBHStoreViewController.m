@@ -64,6 +64,8 @@
 //    [self discount_goods];
     self.cust_type = 4;
     [self get_completion_ysepay_mer_info];
+    
+    
     /**
      *  导航栏
      */
@@ -254,6 +256,7 @@
         
     }];
 }
+
 #pragma mark - 导航栏
 -(void)setupNav{
     UIView *NavView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 44+STATUS_BAR_HEIGHT)];

@@ -68,18 +68,18 @@
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xed-n7-37N">
                             <rect key="frame" x="105" y="25" width="230" height="0.0"/>
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                            <color key="textColor" red="0.23921568627450979" green="0.54117647058823526" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U2t-fm-8dn">
                             <rect key="frame" x="110" y="76" width="209" height="0.0"/>
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                            <color key="textColor" red="0.23921568627450979" green="0.54117647058823526" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WCZ-sA-MyV">
                             <rect key="frame" x="85" y="56" width="250" height="40"/>
-                            <state key="normal" image="input_arrow_right_blue"/>
+                            <state key="normal" image="input_arrow_right_deepgray"/>
                             <connections>
                                 <action selector="BingbangAction:" destination="-1" eventType="touchUpInside" id="5Yw-6b-mHH"/>
                             </connections>
@@ -87,7 +87,7 @@
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="点击重置" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kL6-9n-6vb">
                             <rect key="frame" x="253.5" y="117" width="65.5" height="20"/>
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                            <color key="textColor" red="0.23921568627450979" green="0.54117647058823526" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zMw-8D-faz">
@@ -108,14 +108,14 @@
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xwl-P5-2Kc">
                             <rect key="frame" x="90" y="104" width="245" height="46"/>
-                            <state key="normal" image="input_arrow_right_blue"/>
+                            <state key="normal" image="input_arrow_right_deepgray"/>
                             <connections>
                                 <action selector="ResetAction:" destination="-1" eventType="touchUpInside" id="uKZ-Jr-bv2"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T7d-8v-LHt">
                             <rect key="frame" x="85" y="155" width="250" height="45"/>
-                            <state key="normal" image="input_arrow_right_blue"/>
+                            <state key="normal" image="input_arrow_right_deepgray"/>
                             <connections>
                                 <action selector="withdrawalAction:" destination="-1" eventType="touchUpInside" id="bnN-we-ljH"/>
                             </connections>
@@ -205,6 +205,6 @@
         </view>
     </objects>
     <resources>
-        <image name="input_arrow_right_blue" width="6" height="10"/>
+        <image name="input_arrow_right_deepgray" width="6" height="10"/>
     </resources>
 </document>
