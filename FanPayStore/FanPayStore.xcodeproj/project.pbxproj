@@ -451,6 +451,7 @@
 		7CF2954523040D5D0079314B /* BingYuanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CF2954423040D5D0079314B /* BingYuanViewController.m */; };
 		7CF7D10322BB567F00F1B6B2 /* StatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CF7D10222BB567F00F1B6B2 /* StatusViewController.m */; };
 		7CF886A5229FAA3300BD01EF /* RegisteredView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CF886A4229FAA3300BD01EF /* RegisteredView.m */; };
+		7CFEE31323822201000BEA48 /* YLSGoodsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CFEE31223822201000BEA48 /* YLSGoodsCell.m */; };
 		94A6A85976090D8F8A34FFB2 /* libPods-FanPayStore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 992D47992A55869244F27CFD /* libPods-FanPayStore.a */; };
 /* End PBXBuildFile section */
 
@@ -1317,6 +1318,8 @@
 		7CF7D10222BB567F00F1B6B2 /* StatusViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StatusViewController.m; sourceTree = "<group>"; };
 		7CF886A3229FAA3300BD01EF /* RegisteredView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegisteredView.h; sourceTree = "<group>"; };
 		7CF886A4229FAA3300BD01EF /* RegisteredView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisteredView.m; sourceTree = "<group>"; };
+		7CFEE31123822201000BEA48 /* YLSGoodsCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YLSGoodsCell.h; sourceTree = "<group>"; };
+		7CFEE31223822201000BEA48 /* YLSGoodsCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YLSGoodsCell.m; sourceTree = "<group>"; };
 		992D47992A55869244F27CFD /* libPods-FanPayStore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FanPayStore.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B93667AAFD62E87A11887E11 /* Pods-FanPayStore.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FanPayStore.debug.xcconfig"; path = "Target Support Files/Pods-FanPayStore/Pods-FanPayStore.debug.xcconfig"; sourceTree = "<group>"; };
 		E75CF21782D8E4C50283CD70 /* Pods-FanPayStore.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FanPayStore.release.xcconfig"; path = "Target Support Files/Pods-FanPayStore/Pods-FanPayStore.release.xcconfig"; sourceTree = "<group>"; };
@@ -1642,6 +1645,7 @@
 		297A15F5229C14FF000800AF /* 列表 */ = {
 			isa = PBXGroup;
 			children = (
+				7CFEE310238221BF000BEA48 /* view */,
 				297A15F8229C1524000800AF /* FBHCPViewController.h */,
 				297A15F7229C1524000800AF /* FBHCPViewController.m */,
 			);
@@ -4663,6 +4667,15 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		7CFEE310238221BF000BEA48 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				7CFEE31123822201000BEA48 /* YLSGoodsCell.h */,
+				7CFEE31223822201000BEA48 /* YLSGoodsCell.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
 		E86BEE5E444A7C8185E962F9 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -4994,6 +5007,7 @@
 				7CBDD50922AFA6D000932BDA /* JWBluetoothManage.m in Sources */,
 				7C3E6593232F245F00ACCF9A /* StoreStatus_View.m in Sources */,
 				7C2F8D4A229CE6870036F9F9 /* CertificateCardController.m in Sources */,
+				7CFEE31323822201000BEA48 /* YLSGoodsCell.m in Sources */,
 				7C2F8D5C229CE7EA0036F9F9 /* PeriodView.m in Sources */,
 				297A158F229C07CA000800AF /* FBHregisteredViewController.m in Sources */,
 				7C2F8B6E229BC9400036F9F9 /* WMZAlert.m in Sources */,

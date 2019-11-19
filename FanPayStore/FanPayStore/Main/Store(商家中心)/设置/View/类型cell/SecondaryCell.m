@@ -25,7 +25,7 @@
         /* icon */
         self.icon = [UIButton buttonWithType:UIButtonTypeCustom];
         [self.icon setImage:[UIImage imageNamed:@"btn_check_box_normal"] forState:UIControlStateNormal];
-        [self.icon setImage:[UIImage imageNamed:@"btn_check_box_pressed"] forState:UIControlStateSelected];
+        [self.icon setImage:[UIImage imageNamed:@"btn_product_label_select_yellow"] forState:UIControlStateSelected];
         [self.icon addTarget:self action:@selector(SeleAction:) forControlEvents:UIControlEventTouchUpInside];
         self.icon.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
 

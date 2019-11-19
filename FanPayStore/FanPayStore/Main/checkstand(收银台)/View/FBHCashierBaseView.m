@@ -784,7 +784,8 @@
     NSString *num1 = [NSString stringWithFormat:@"%@",Data[@"order_num_have_paid"]];
     NSInteger order_num1 = [num1 integerValue];
     if (order_num1 >0) {
-        self.badgeLable1.width = order_num1>9 ? 24:17;
+        self.badgeLable1.width = order_num1>9 ? order_num1>99 ? 32 : 24 : 17;
+//        self.badgeLable1.width = order_num1>99 ? 32:24;
         self.badgeLable1.text = [NSString stringWithFormat:@"%ld",order_num1];
         self.badgeLable1.hidden = NO;
     }else if (order_num1 == 0){
@@ -795,7 +796,9 @@
     NSString *num2 = [NSString stringWithFormat:@"%@",Data[@"order_num_wait_to_refund"]];
     NSInteger order_num2 = [num2 integerValue];
     if (order_num2 >0) {
-        self.badgeLable2.width = order_num2>9 ? 24:17;
+        self.badgeLable2.width = order_num2>9 ? order_num2>99 ? 32 : 24 : 17;
+//        self.badgeLable2.width = order_num2>9 ? 24:17;
+//        self.badgeLable2.width = order_num2>99 ? 32:24;
         self.badgeLable2.text = [NSString stringWithFormat:@"%ld",order_num2];
         self.badgeLable2.hidden = NO;
     }else if (order_num2 == 0){
@@ -874,7 +877,6 @@
     if (!_View1) {
         _View1 = [[UIView alloc]init];
         _View1.backgroundColor = [UIColor whiteColor];
-        
         _View1.layer.shadowColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.1].CGColor;
         _View1.layer.shadowOffset = CGSizeMake(0,2);
         _View1.layer.shadowOpacity = 1;
@@ -901,8 +903,6 @@
         _today_income.font = [UIFont systemFontOfSize:15];
         _today_income.textAlignment = 1;
         //        _today_income.text = @"14228.00";
-        
-
     }
     return _today_income;
 }

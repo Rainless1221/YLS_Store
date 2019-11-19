@@ -113,7 +113,7 @@
     self.NavLabl = navLabel;
     //按钮
     UIButton *thirdBtn1 = [UIButton buttonWithType:UIButtonTypeCustom];
-    thirdBtn1.frame = CGRectMake(10, STATUS_BAR_HEIGHT, 44, 44);
+    thirdBtn1.frame = CGRectMake(0, STATUS_BAR_HEIGHT, 44, 44);
     [thirdBtn1 setImage:[UIImage imageNamed:@"icn_nav_back_black_normal"] forState:UIControlStateNormal];
     [thirdBtn1 addTarget:self action:@selector(LethAction) forControlEvents:UIControlEventTouchUpInside];
     [NavView addSubview:thirdBtn1];
@@ -122,7 +122,7 @@
     
     //打印按钮
     UIButton *DayinButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    DayinButton.frame = CGRectMake(NavView.width-60, STATUS_BAR_HEIGHT, 50, 44);
+    DayinButton.frame = CGRectMake(NavView.width-50, STATUS_BAR_HEIGHT, 50, 44);
     [DayinButton setImage:[UIImage imageNamed:@"icn_printer_black"] forState:UIControlStateNormal];
     [DayinButton addTarget:self action:@selector(printe) forControlEvents:UIControlEventTouchUpInside];
     [DayinButton setTitleColor:UIColorFromRGBA(0x222222, 1) forState:UIControlStateNormal];
@@ -142,7 +142,7 @@
     UILabel *navLabel = [[UILabel alloc]init];
     navLabel.text = self.navigationTitle;
     navLabel.font = [UIFont systemFontOfSize:26];
-    navLabel.textColor = [UIColor whiteColor];
+    navLabel.textColor = [UIColor blackColor];
     navLabel.textAlignment = NSTextAlignmentCenter;
     [self.SJScrollView addSubview:navLabel];
     [navLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -155,7 +155,7 @@
     UILabel *navLabel1 = [[UILabel alloc]init];
     navLabel1.text = @"感谢使用一鹿省，祝您生活愉快。";
     navLabel1.font = [UIFont systemFontOfSize:12];
-    navLabel1.textColor = [UIColor whiteColor];
+    navLabel1.textColor = [UIColor blackColor];
     navLabel1.textAlignment = NSTextAlignmentCenter;
     [self.SJScrollView addSubview:navLabel1];
     [navLabel1 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -242,7 +242,7 @@
 //    self.TKButton.height = 0.01;
 //    self.TKButton.hidden = YES;
 
-    self.PLView.height = goodsArr.count*50+(d)*110 +(f)*35 +290;
+    self.PLView.height = goodsArr.count*50+(d)*110 +(f)*35 +220;
 #pragma mark - 判断
     //0全部、1待付款、2待使用、3待评价、4已评价、5已取消、6待退单、7退单完成、8退单失败、9待退款、10退款完成、11退款失败） 传入2，获取2,3的订单信息； 传入6，获取6,7,8的订单信息 传入9
     if (self.status == 4) {
@@ -323,9 +323,8 @@
         
     }
     
-  
-    
-    
+//    self.TKButton.userInteractionEnabled = YES;//交互关闭
+//    self.TKButton.alpha=1;//透明度
     return;
     
 #pragma mark - 商品信息
@@ -1251,7 +1250,7 @@
 -(UIImageView *)backgrounImg{
     if (!_backgrounImg) {
         _backgrounImg = [[UIImageView alloc]initWithFrame:CGRectMake(0, -44, ScreenW, 260)];
-        _backgrounImg.image = [UIImage imageNamed:@"bg_order_detail_top"];
+        _backgrounImg.image = [UIImage imageNamed:@"bg_index_top_scene-1"];
         
         _backgrounImg.layer.shadowColor = UIColorFromRGB(0x47D2FF).CGColor;
     }
@@ -1296,19 +1295,19 @@
 }
 -(DetailsQTView *)QTView{
     if (!_QTView) {
-        _QTView = [[DetailsQTView alloc]initWithFrame:CGRectMake(15, self.TKButton.bottom+20, ScreenW-30, 400)];
+        _QTView = [[DetailsQTView alloc]initWithFrame:CGRectMake(15, self.TKButton.bottom+20, ScreenW-30, 430)];
         _QTView.backgroundColor = [UIColor whiteColor];
         _QTView.layer.shadowOffset = CGSizeMake(0,2);
         _QTView.layer.shadowOpacity = 1;
         _QTView.layer.shadowRadius = 8;
         _QTView.layer.cornerRadius = 5;
-        _QTView.layer.shadowColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.1].CGColor;
+        _QTView.layer.shadowColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.3].CGColor;
     }
     return _QTView;
 }
 -(DetailsPLView *)PLView{
     if (!_PLView) {
-        _PLView = [[DetailsPLView alloc]initWithFrame:CGRectMake(15, self.QTView.bottom+20, ScreenW-30, 469)];
+        _PLView = [[DetailsPLView alloc]initWithFrame:CGRectMake(15, self.QTView.bottom+20, ScreenW-30, 439)];
         _PLView.backgroundColor = [UIColor whiteColor];
         _PLView.layer.shadowOffset = CGSizeMake(0,2);
         _PLView.layer.shadowOpacity = 1;

@@ -11,6 +11,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DetailsQTView : UIView
+{
+    NSString *_Phone;
+}
 @property (strong,nonatomic)UILabel * store_address;//店铺地址
 @property (strong,nonatomic)UILabel * user_info;//消费者信息
 @property (strong,nonatomic)UILabel * remark;//备注

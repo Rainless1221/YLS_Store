@@ -30,20 +30,20 @@
         make.top.mas_offset(0);
         make.bottom.mas_offset(-15);
     }];
-    NSInteger coun = (ScreenW - 30)/13;
+    NSInteger coun = (ScreenW - 33)/15;
     for (int i = 0; i<coun; i++) {
         UIView *view_1 = [[UIView alloc] init];
         view_1.backgroundColor = UIColorFromRGB(0xF6F6F6);
-        view_1.layer.shadowColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.1].CGColor;
-        view_1.layer.shadowOffset = CGSizeMake(0,2);
+        view_1.layer.shadowColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.2].CGColor;
+        view_1.layer.shadowOffset = CGSizeMake(0,0);
         view_1.layer.shadowOpacity = 1;
         view_1.layer.shadowRadius = 2;
         view_1.layer.cornerRadius = 5;
         [self.orderView addSubview:view_1];
         [view_1 mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.mas_offset(5);
-            make.left.mas_offset(i*13+5);
-            make.size.mas_offset(CGSizeMake(9, 13));
+            make.bottom.mas_offset(7);
+            make.left.mas_offset(i*15+10);
+            make.size.mas_offset(CGSizeMake(7, 13));
         }];
         
     }
@@ -1112,33 +1112,42 @@
     NSInteger orderV_H = 280;
     
     
-    
 //0全部、1待付款、2待使用、3待评价、4已评价、5已取消、6待退单、7退单完成、8退单失败、9待退款、10退款完成、11退款失败） 传入2，获取2,3的订单信息； 传入6，获取6,7,8的订单信息 传入9
     NSInteger status = [Data[@"order_status"] integerValue];
+//    NSInteger pay_status = [Data[@"pay_status"] integerValue];//支付状态 0 未支付，1 已支付
+//    NSInteger trade_status = [Data[@"trade_status"] integerValue];//交易状态 0 进行中 1.已完成(未核销)，2.已结算（已核销），3.已分佣,4 已取消
+//    NSInteger eval_status = [Data[@"eval_status"] integerValue];//评价状态 0 未评价，1.已评价
+    NSString *order_status_txt = [NSString stringWithFormat:@"%@",Data[@"order_status_txt"]];
+    
+    if ([[MethodCommon judgeStringIsNull:order_status_txt] isEqualToString:@""]) {
+        order_status_txt =@"";
+    }
+    [self.iconBtn setTitle:order_status_txt forState:UIControlStateNormal];
+
     if ( status == 1) {
-        [self.iconBtn setTitle:@"订单待支付" forState:UIControlStateNormal];
+//        [self.iconBtn setTitle:@"订单待支付" forState:UIControlStateNormal];
         [self.iconBtn setImage:[UIImage imageNamed:@"icn_order_to_be_paid"] forState:UIControlStateNormal];
 
     }else if (status == 2){
-        [self.iconBtn setTitle:@"订单已支付" forState:UIControlStateNormal];
+//        [self.iconBtn setTitle:@"订单已支付" forState:UIControlStateNormal];
         [self.iconBtn setImage:[UIImage imageNamed:@"icn_order_paid"] forState:UIControlStateNormal];
 
     }else if(status == 3){
-        [self.iconBtn setTitle:@"订单已支付" forState:UIControlStateNormal];
+//        [self.iconBtn setTitle:@"订单已支付" forState:UIControlStateNormal];
         [self.iconBtn setImage:[UIImage imageNamed:@"icn_order_paid"] forState:UIControlStateNormal];
 
     }else if (status == 4){
-        [self.iconBtn setTitle:@"订单已评价" forState:UIControlStateNormal];
+//        [self.iconBtn setTitle:@"订单已评价" forState:UIControlStateNormal];
         [self.iconBtn setImage:[UIImage imageNamed:@"icn_order_complete"] forState:UIControlStateNormal];
         orderV_H = 380;
         
     }else if(status == 5){
-        [self.iconBtn setTitle:@"订单已取消" forState:UIControlStateNormal];
+//        [self.iconBtn setTitle:@"订单已取消" forState:UIControlStateNormal];
         [self.iconBtn setImage:[UIImage imageNamed:@"icn_order_cancel"] forState:UIControlStateNormal];
         orderV_H = 280;
 
     }else if(status == 6){
-        [self.iconBtn setTitle:@"订单退款" forState:UIControlStateNormal];
+//        [self.iconBtn setTitle:@"订单退款" forState:UIControlStateNormal];
         [self.iconBtn setImage:[UIImage imageNamed:@"icn_order_refund"] forState:UIControlStateNormal];
         orderV_H = 270;
         /*
@@ -1153,30 +1162,25 @@
         
 
     }else if(status == 7){
-        [self.iconBtn setTitle:@"订单退款" forState:UIControlStateNormal];
+//        [self.iconBtn setTitle:@"订单退款" forState:UIControlStateNormal];
         [self.iconBtn setImage:[UIImage imageNamed:@"icn_order_refund"] forState:UIControlStateNormal];
         orderV_H = 295;
         self.refundTime.text = @"退款成功";
 
     }else if(status == 8){
          orderV_H = 295;
-        [self.iconBtn setTitle:@"订单退款" forState:UIControlStateNormal];
+//        [self.iconBtn setTitle:@"订单退款" forState:UIControlStateNormal];
         [self.iconBtn setImage:[UIImage imageNamed:@"icn_order_refund"] forState:UIControlStateNormal];
         self.refundTime.text = @"退款失败";
 
     }else if(status == 9){
         orderV_H = 390;
-        [self.iconBtn setTitle:@"订单退款" forState:UIControlStateNormal];
-        [self.iconBtn setImage:[UIImage imageNamed:@"icn_order_refund"] forState:UIControlStateNormal];
-        self.label_TKtype.text = @"退款处理中";
-    }else if(status == 10){
-        orderV_H = 390;
-        [self.iconBtn setTitle:@"订单退款" forState:UIControlStateNormal];
+//        [self.iconBtn setTitle:@"订单退款" forState:UIControlStateNormal];
         [self.iconBtn setImage:[UIImage imageNamed:@"icn_order_refund"] forState:UIControlStateNormal];
         self.label_TKtype.text = @"退款完成";
     }else if(status == 11){
         orderV_H = 390;
-        [self.iconBtn setTitle:@"订单退款" forState:UIControlStateNormal];
+//        [self.iconBtn setTitle:@"订单退款" forState:UIControlStateNormal];
         [self.iconBtn setImage:[UIImage imageNamed:@"icn_order_refund"] forState:UIControlStateNormal];
         self.label_TKtype.text = @"退款失败";
     }else{

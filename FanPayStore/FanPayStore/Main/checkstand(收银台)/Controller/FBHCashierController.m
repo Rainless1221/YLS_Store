@@ -27,11 +27,11 @@
 
 @property (strong,nonatomic)CashierModel * model;
 @property(nonatomic,assign) BOOL IsStore;
-
-
 /*收支*/
 @property (strong,nonatomic)NSString * begin_date;
 @property (strong,nonatomic)NSString * end_date;
+/*退单数据*/
+@property (strong,nonatomic)NSMutableArray * RefundData;
 @end
 
 @implementation FBHCashierController
@@ -44,11 +44,7 @@
      获取店铺的ID
      */
     [self get_store_id];
-    /*首次启动-退单提醒*/
-    RefundView *samView = [[RefundView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    samView.delagate = self;
-//    [[UIApplication sharedApplication].keyWindow addSubview:samView];
-    
+   
 }
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
@@ -59,6 +55,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"收银台";
+    [self refund_order_num];
+
     /** 获取收银台基本信息 */
     [self merchant_center];
     /** 某天收支列表 */
@@ -271,6 +269,50 @@
     } andfailure:^{
         
     }];
+}
+#pragma mark - 退款数量单独请求
+-(void)refund_order_num{
+    UserModel *model = [UserModel getUseData];
+    
+    NSDictionary *Dict = @{
+                           @"order_status":@"6",
+                           @"begin_date":@"",//[NSString stringWithFormat:@"%@",self.begin_date],
+                           @"end_date":@"",//[NSString stringWithFormat:@"%@",self.end_date],
+                           @"page":@"1",
+                           @"limit":@"50",
+                           };
+    
+    [[FBHAppViewModel shareViewModel]list_merchant_orders:model.merchant_id andstore_id:model.store_id andorders:Dict Success:^(NSDictionary *resDic) {
+        
+        if ([resDic[@"status"] integerValue] == 1) {
+            NSDictionary *DIC = resDic[@"data"];
+            
+            /*退款数量*/
+            NSString *num = [NSString stringWithFormat:@"%@",DIC[@"pending_refund_order_num"]];
+            NSInteger order_num = [num integerValue];
+            if (order_num >0) {
+                for (NSDictionary *dict in DIC[@"order_info"]) {
+                    NSString *order_status = [NSString stringWithFormat:@"%@",dict[@"order_status"]];
+                    if ([order_status integerValue] == 6) {
+                        [self.RefundData addObject:dict];
+                    }
+                }
+                if (self.RefundData.count>0) {
+                    [self RefundApp:self.RefundData];
+                }
+                
+            }else if (order_num == 0){
+                
+            }
+            
+            
+        }else{
+            
+        }
+    } andfailure:^{
+        
+    }];
+    
 }
 #pragma mark - 导航栏
 -(void)setupNav{
@@ -581,6 +623,21 @@
     VC.status = @"6";VC.isDzhuang = 1;
     [self.navigationController pushViewController:VC animated:NO];
 }
+#pragma mark - 退单、首次进入app
+-(void)RefundApp:(NSMutableArray *)Data{
+    /*首次启动-退单提醒*/
+    RefundView *samView = [[RefundView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    samView.delagate = self;
+    samView.Data = Data;
+    [[UIApplication sharedApplication].keyWindow addSubview:samView];
+}
+-(void)LookDetaButton:(NSInteger)order{
+    FBHDdetailsController *VC = [FBHDdetailsController new];
+    VC.status = 6;
+    VC.order_id = self.RefundData[order][@"order_id"];
+    VC.navigationTitle = [NSString stringWithFormat:@"%@",self.RefundData[order][@"order_status_txt"]];
+    [self.navigationController pushViewController:VC animated:NO];
+}
 #pragma mark - ScrollViewDelegate
 // 滑动时要执行的代码
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -659,5 +716,11 @@
         
     }
     return _FBHCashierView;
+}
+-(NSMutableArray *)RefundData{
+    if (!_RefundData) {
+        _RefundData = [NSMutableArray array];
+    }
+    return _RefundData;
 }
 @end

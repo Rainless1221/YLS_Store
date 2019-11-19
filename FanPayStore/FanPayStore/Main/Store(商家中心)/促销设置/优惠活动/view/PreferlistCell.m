@@ -27,15 +27,14 @@
     
     [self.CellBase addSubview:self.PreferLabel_day];
     [self.PreferLabel_day mas_makeConstraints:^(MASConstraintMaker *make) {
-        //self.PreferLabel.right+45,20,194,24
         make.top.mas_offset(20);
-        make.right.mas_offset(-10);
+        make.left.equalTo(self.PreferLabel.mas_right).offset(45);
         make.size.mas_offset(CGSizeMake(autoScaleW(194), 24));
     }];
     [self.CellBase addSubview:self.PreferLabel_time];
     [self.PreferLabel_time mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.PreferLabel_day.mas_bottom).offset(10);
-        make.left.equalTo(self.PreferLabel_day.mas_left).offset(0);
+        make.left.equalTo(self.PreferLabel_day.mas_left).offset(5);
         make.right.mas_offset(-10);
     }];
     
@@ -63,7 +62,7 @@
         
         NSString *expiry = [NSString stringWithFormat:@"%@",Data[@"begin_date"]];
         NSArray *array = [expiry componentsSeparatedByString:@"-"];
-        NSString *protocol = [NSString stringWithFormat:@"%@ 月 %@ 日 00:00 开始",array[1],array[2]];
+        NSString *protocol = [NSString stringWithFormat:@"  %@ 月 %@ 日 00:00 开始",array[1],array[2]];
         NSMutableAttributedString *attri_str = [[NSMutableAttributedString alloc] initWithString:protocol];
         //设置字体颜色
         [attri_str setFont:[UIFont systemFontOfSize:15]];
@@ -76,12 +75,12 @@
         [attri_str setTextHighlightRange:ProRange1 color:[UIColor colorWithHexString:@"96AFCC"] backgroundColor:[UIColor whiteColor] userInfo:nil];
         [attri_str setTextHighlightRange:ProRange2 color:[UIColor colorWithHexString:@"96AFCC"] backgroundColor:[UIColor whiteColor] userInfo:nil];
         self.PreferLabel_day.attributedText = attri_str;
-        self.PreferLabel_day.textAlignment = 1;
+//        self.PreferLabel_day.textAlignment = 1;
         self.PreferLabel_day.layer.borderWidth = 1;
         _PreferLabel_day.backgroundColor = [UIColor colorWithRed:235/255.0 green:243/255.0 blue:255/255.0 alpha:1.0];
 
     }else{
-        NSString *protocol = [NSString stringWithFormat:@"活动剩余：%@ 天 %@ 时 %@ 分",Data[@"remainder_days"],Data[@"remainder_hours"],Data[@"remainder_minutes"]];
+        NSString *protocol = [NSString stringWithFormat:@"  活动剩余: %@ 天 %@ 时 %@ 分",Data[@"remainder_days"],Data[@"remainder_hours"],Data[@"remainder_minutes"]];
         NSMutableAttributedString *attri_str = [[NSMutableAttributedString alloc] initWithString:protocol];
         //设置字体颜色
         [attri_str setFont:[UIFont systemFontOfSize:15]];
@@ -96,7 +95,7 @@
         [attri_str setTextHighlightRange:ProRange2 color:[UIColor colorWithHexString:@"666666"] backgroundColor:[UIColor whiteColor] userInfo:nil];
         [attri_str setTextHighlightRange:ProRange3 color:[UIColor colorWithHexString:@"666666"] backgroundColor:[UIColor whiteColor] userInfo:nil];
         self.PreferLabel_day.attributedText = attri_str;
-        self.PreferLabel_day.textAlignment = 1;
+//        self.PreferLabel_day.textAlignment = 1;
         self.PreferLabel_day.layer.borderWidth = 0;
         _PreferLabel_day.backgroundColor = [UIColor colorWithRed:247/255.0 green:247/255.0 blue:247/255.0 alpha:1.0];
 
@@ -201,7 +200,6 @@
         _PreferLabel.textColor = [UIColor whiteColor];
         _PreferLabel.font = [UIFont systemFontOfSize:28];
         _PreferLabel.textAlignment = 1;
-        
         
     }
     return _PreferLabel;

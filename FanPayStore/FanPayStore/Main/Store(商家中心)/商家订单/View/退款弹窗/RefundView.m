@@ -38,24 +38,21 @@
     [self addSubview:Button];
    
     
-    NSArray *Array = @[
-                                        @{@"order":@"345678908",@"Pra":@"900",@"Time":@"2019-10-22 11:02",@"Goods":@"鲍鱼捞饭等 共8件商品",},
-                                        @{@"order":@"345678900",@"Pra":@"130",@"Time":@"2018-12-12 11:02",@"Goods":@"鲍鱼捞饭等 共3件商品",},
-                                        @{@"order":@"345678955",@"Pra":@"100",@"Time":@"2018-12-2 11:02",@"Goods":@"鲍鱼捞饭等 共2件商品",},
-                                        ];
-    for (int i =0; i<Array.count; i++) {
-        _Refun_View = [[UIView alloc]initWithFrame:CGRectMake(15+i*ScreenW, 64, ScreenW-30,  500)];
-        _Refun_View.backgroundColor = [UIColor whiteColor];
-        _Refun_View.layer.cornerRadius = 6;
-        _Refun_View.clipsToBounds = YES;
-        [self.RScrollView addSubview:self.Refun_View];
-        [self OrderUI:Array[i]];
-    }
-    
+   
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setImage:[UIImage imageNamed:@"suspension_layer_btn_close_normal"] forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(BtnAction) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:button];
+    [button mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.mas_offset(0);
+//        make.top.equalTo(self.Refun_View.mas_bottom).offset(5);
+        make.bottom.mas_offset(-47);
+        make.width.height.mas_offset(50);
+    }];
     
 }
 #pragma mark - 每单UI
--(void)OrderUI:(NSDictionary *)Data{
+-(void)OrderUI:(NSDictionary *)Data andI:(NSInteger)i{
     
     UIView *view = [[UIView alloc] init];
     view.frame = CGRectMake(0, 0, ScreenW-30, 60);
@@ -94,9 +91,9 @@
     for (int i = 0; i<Arr.count; i++) {
         
         UILabel *label = [[UILabel alloc] init];
-        label.frame = CGRectMake(0,90+i*30,90,30);
+        label.frame = CGRectMake(22,90+i*30,90,30);
         label.numberOfLines = 0;
-        label.textAlignment = 2;
+//        label.textAlignment = 2;
         label.font = [UIFont systemFontOfSize:15];
         label.text= [NSString stringWithFormat:@"%@",Arr[i]];
         [self.Refun_View addSubview:label];
@@ -109,7 +106,7 @@
     [self.Refun_View addSubview:self.lable_text1];
     [self.lable_text1 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(90);
-        make.left.mas_equalTo(90);
+        make.left.mas_equalTo(95);
         make.right.mas_equalTo(0);
         make.height.mas_equalTo(30);
     }];
@@ -120,7 +117,7 @@
     [self.Refun_View addSubview:self.lable_text2];
     [self.lable_text2 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lable_text1.mas_bottom).offset(0);
-        make.left.mas_equalTo(90);
+        make.left.mas_equalTo(95);
         make.right.mas_equalTo(0);
         make.height.mas_equalTo(30);
     }];
@@ -131,33 +128,26 @@
     [self.Refun_View addSubview:self.lable_text3];
     [self.lable_text3 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lable_text2.mas_bottom).offset(0);
-        make.left.mas_equalTo(90);
+        make.left.mas_equalTo(95);
         make.right.mas_equalTo(0);
         make.height.mas_equalTo(30);
     }];
     
     
     
-    
     _lable_text4 = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.Refun_View.width-44, 30)];
-    _lable_text4.numberOfLines = 0;
+    _lable_text4.numberOfLines = 2;
     _lable_text4.font = [UIFont systemFontOfSize:15];
     _lable_text4.textColor = [UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:1.0];
     [self.Refun_View addSubview:self.lable_text4];
     [self.lable_text4 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lable_text3.mas_bottom).offset(15);
         make.left.mas_equalTo(22);
-        make.right.mas_equalTo(-22);
-        make.height.mas_equalTo(30);
-        
-        
+        make.right.mas_equalTo(-60);
+//        make.height.mas_equalTo(30);
     }];
     
-#pragma mark - 赋值
-    self.lable_text1.text = [NSString stringWithFormat:@"%@",Data[@"order"]];
-    self.lable_text2.text = [NSString stringWithFormat:@"%@",Data[@"Pra"]];
-    self.lable_text3.text = [NSString stringWithFormat:@"%@",Data[@"Time"]];
-    self.lable_text4.text = [NSString stringWithFormat:@"%@",Data[@"Goods"]];
+
     
     
     /*剩余：*/
@@ -188,11 +178,13 @@
     DetaButton.layer.cornerRadius = 10;
     DetaButton.status = FLAlignmentStatusRight;
     DetaButton.fl_padding = 10;
+    DetaButton.tag = i;
+    [DetaButton addTarget:self action:@selector(DetaButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.Refun_View addSubview:DetaButton];
     [DetaButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(200);
+        make.top.equalTo(self.lable_text4.mas_bottom).offset(10);
         make.right.mas_equalTo(-10);
-        make.height.mas_equalTo(44);
+        make.height.mas_equalTo(22);
     }];
     
     
@@ -216,6 +208,8 @@
     refunButton.titleLabel.font = [UIFont systemFontOfSize:18];
     refunButton.backgroundColor = [UIColor colorWithRed:255/255.0 green:105/255.0 blue:105/255.0 alpha:1.0];
     refunButton.layer.cornerRadius = 10;
+    refunButton.tag = i;
+    [refunButton addTarget:self action:@selector(refunButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.Refun_View addSubview:refunButton];
     [refunButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.mas_equalTo(-40);
@@ -225,15 +219,15 @@
     }];
     
     
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setImage:[UIImage imageNamed:@"suspension_layer_btn_close_normal"] forState:UIControlStateNormal];
-    [button addTarget:self action:@selector(BtnAction) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:button];
-    [button mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.mas_offset(0);
-        make.top.equalTo(self.Refun_View.mas_bottom).offset(5);
-        make.width.height.mas_offset(50);
-    }];
+   
+    
+    NSArray *arr = Data[@"goods_info"];
+#pragma mark - 详细赋值
+    self.lable_text1.text = [NSString stringWithFormat:@"%@",Data[@"order_sn"]];
+    self.lable_text2.text = [NSString stringWithFormat:@"%@",Data[@"refund_amount"]];
+    self.lable_text3.text = [NSString stringWithFormat:@"%@",Data[@"add_time"]];
+    self.lable_text4.text = [NSString stringWithFormat:@"%@ 等    共%lu件商品",Data[@"goods_info"][0][@"goods_name"],arr.count];
+    
 }
 -(void)BtnAction{
     [self removeFromSuperview];
@@ -257,6 +251,37 @@
     if (self.delagate && [self.delagate respondsToSelector:@selector(LookOrder)]) {
         [self.delagate LookOrder];
     }
+}
+#pragma mark - 查看详情
+-(void)DetaButtonAction:(UIButton *)sender{
+    [self removeFromSuperview];
+    if (self.delagate && [self.delagate respondsToSelector:@selector(LookDetaButton:)]) {
+        [self.delagate LookDetaButton:sender.tag];
+    }
+}
+#pragma mark - 确定退款
+-(void)refunButtonAction:(UIButton *)sender{
+    [self removeFromSuperview];
+    
+}
+#pragma mark - 赋值
+-(void)setData:(NSMutableArray *)Data{
+     _pageControl.numberOfPages = Data.count;
+    _RScrollView.contentSize = CGSizeMake(ScreenW*Data.count, ScreenH);
+    NSArray *Array = @[
+                       @{@"order":@"345678908",@"Pra":@"900",@"Time":@"2019-10-22 11:02",@"Goods":@"鲍鱼捞饭等 共8件商品",},
+                       @{@"order":@"345678900",@"Pra":@"130",@"Time":@"2018-12-12 11:02",@"Goods":@"鲍鱼捞饭等 共3件商品",},
+                       @{@"order":@"345678955",@"Pra":@"100",@"Time":@"2018-12-2 11:02",@"Goods":@"鲍鱼捞饭等 共2件商品",},
+                       ];
+    for (int i =0; i<Data.count; i++) {
+        _Refun_View = [[UIView alloc]initWithFrame:CGRectMake(15+i*ScreenW, 64, ScreenW-30,  500)];
+        _Refun_View.backgroundColor = [UIColor whiteColor];
+        _Refun_View.layer.cornerRadius = 6;
+        _Refun_View.clipsToBounds = YES;
+        [self.RScrollView addSubview:self.Refun_View];
+        [self OrderUI:Data[i] andI:i];
+    }
+    
 }
 #pragma mark - 懒加载
 -(UIScrollView *)RScrollView{

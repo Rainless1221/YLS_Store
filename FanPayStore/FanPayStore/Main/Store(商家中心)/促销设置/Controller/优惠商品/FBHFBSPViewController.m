@@ -296,6 +296,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     SZCollectionViewCell *cell = (SZCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"SZCollectionViewCell" forIndexPath:indexPath];
     cell.backgroundColor = [UIColor whiteColor];
+    cell.layer.cornerRadius = 5;
     cell.Data = self.gooddata[indexPath.row];
     
     for (NSIndexPath *indexPath in self.indexPatharray) {
@@ -322,15 +323,15 @@
 //}
 //设置每个item的UIEdgeInsets
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
-    return UIEdgeInsetsMake(5, 15, 0, 15);
+    return UIEdgeInsetsMake(10, 15, 10, 15);
 }
 //设置每个item水平间距
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
-    return 5;
+    return 10;
 }
 //设置每个item垂直间距
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section{
-    return 5;
+    return 10;
 }
 //头部
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{

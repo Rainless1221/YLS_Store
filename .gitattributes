@@ -11,3 +11,5 @@ FanPayStore/Pods/JCore/libjcore-ios-1.1.7.a filter=lfs diff=lfs merge=lfs -text
 FanPayStore/Pods/JPush/libjpush-ios-3.0.8.a filter=lfs diff=lfs merge=lfs -text
 FanPayStore/Pods/MOBFoundation/MOBFoundation.framework/MOBFoundation filter=lfs diff=lfs merge=lfs -text
 FanPayStore/Pods/YYKit/Vendor/WebP.framework/WebP filter=lfs diff=lfs merge=lfs -text
+FanPayStore/Pods/UMCCommon/UMCommon.framework/Versions/A/UMCommon filter=lfs diff=lfs merge=lfs -text
+FanPayStore/Pods/UMCAnalytics/UMAnalytics.framework/Versions/A/UMAnalytics filter=lfs diff=lfs merge=lfs -text

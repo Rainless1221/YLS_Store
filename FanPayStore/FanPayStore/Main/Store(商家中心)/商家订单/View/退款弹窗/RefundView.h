@@ -12,6 +12,7 @@
 @optional
 //方法必须实现
 -(void)LookOrder;
+-(void)LookDetaButton:(NSInteger)order;
 
 
 @end
@@ -27,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong,nonatomic)UILabel * lable_text4;
 /*代理*/
 @property(nonatomic,weak)id<RefundDelegate>delagate;
+@property (strong,nonatomic)NSMutableArray * Data;
 @end
 
 NS_ASSUME_NONNULL_END

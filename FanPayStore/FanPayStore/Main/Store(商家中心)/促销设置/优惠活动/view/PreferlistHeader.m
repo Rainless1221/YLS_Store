@@ -191,7 +191,7 @@
     //截止日期
     NSString *expiry = [NSString stringWithFormat:@"%@",Data[@"expiry_date"]];
     NSArray *array = [expiry componentsSeparatedByString:@" "];
-    self.expiry_date.text = [NSString stringWithFormat:@"%@",array[0]];
+    self.expiry_date.text = [NSString stringWithFormat:@"截止：%@",array[0]];
     //订单数
     self.order_num.text = [NSString stringWithFormat:@"%@",Data[@"order_num"]];
     //成交额 订单金额

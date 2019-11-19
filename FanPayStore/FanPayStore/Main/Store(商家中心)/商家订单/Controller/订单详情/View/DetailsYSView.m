@@ -12,7 +12,7 @@
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        
+        self.clipsToBounds=YES;
         [self createUI];
         
     }
@@ -28,6 +28,15 @@
     label.text = @"订单信息";
     [self addSubview:label];
     
+    UIImageView *iocn = [[UIImageView alloc]init];
+    iocn.image = [UIImage imageNamed:@"input_arrow_right_deepgray"];
+    [self addSubview:iocn];
+    [iocn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(label.mas_centerY).offset(0);
+        make.right.mas_offset(-10);
+        make.size.mas_offset(CGSizeMake(6, 9.9));
+    }];
+    
     UIView *view_line_1 = [[UIView alloc] init];
     view_line_1.backgroundColor = UIColorFromRGB(0xEAEAEA);
     [self addSubview:view_line_1];
@@ -37,8 +46,56 @@
         make.right.mas_offset(@(-10));
         make.height.mas_equalTo(0.5);
     }];
+    NSInteger lineW = (ScreenW-50)/9;
+    for (int i=0; i<=lineW; i++) {
+        UIView *line = [[UIView alloc]initWithFrame:CGRectMake(i*9+9, 0, 5, 0.5)];
+        line.backgroundColor = UIColorFromRGBA(0xFFFFFF, 0.7);
+        [view_line_1 addSubview:line];
+    }
+    UIView *view_1 = [[UIView alloc] init];
+    view_1.backgroundColor = UIColorFromRGB(0xF6F6F6);
+    view_1.layer.shadowColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.22].CGColor;
+    view_1.layer.shadowOffset = CGSizeMake(0,0);
+    view_1.layer.shadowOpacity = 1;
+    view_1.layer.shadowRadius = 2;
+    view_1.layer.cornerRadius = 5;
+    [self addSubview:view_1];
+    [view_1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(view_line_1.mas_centerY).offset(0);
+        make.left.mas_offset(-5);
+        make.size.mas_offset(CGSizeMake(10, 9));
+    }];
+    UIView *view_11 = [[UIView alloc] init];
+    view_11.backgroundColor = UIColorFromRGB(0xF6F6F6);
+    view_11.layer.shadowColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.22].CGColor;
+    view_11.layer.shadowOffset = CGSizeMake(0,0);
+    view_11.layer.shadowOpacity = 1;
+    view_11.layer.shadowRadius = 2;
+    view_11.layer.cornerRadius = 5;
+    [self addSubview:view_11];
+    [view_11 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(view_line_1.mas_centerY).offset(0);
+        make.right.mas_offset(5);
+        make.size.mas_offset(CGSizeMake(10, 9));
+    }];
     
-    
+    NSInteger coun = (ScreenW - 33)/15;
+    for (int i = 0; i<coun; i++) {
+        UIView *view_1 = [[UIView alloc] init];
+        view_1.backgroundColor = UIColorFromRGB(0xF6F6F6);
+        view_1.layer.shadowColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.2].CGColor;
+        view_1.layer.shadowOffset = CGSizeMake(0,0);
+        view_1.layer.shadowOpacity = 1;
+        view_1.layer.shadowRadius = 2;
+        view_1.layer.cornerRadius = 5;
+        [self addSubview:view_1];
+        [view_1 mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.mas_offset(7);
+            make.left.mas_offset(i*15+10);
+            make.size.mas_offset(CGSizeMake(7, 13));
+        }];
+        
+    }
 #pragma mark - GOODS列表
 //    NSArray *goodsArr = @[@{@"goods_name":@"海胆酱焗南瓜",@"goods_price":@"¥35",@"goods_num":@"×1"},
 //                          @{@"goods_name":@"黑松露虾仁",@"goods_price":@"¥68",@"goods_num":@"×1"},
@@ -111,9 +168,13 @@
         make.right.mas_offset(@(-10));
         make.height.mas_equalTo(0.5);
     }];
-    
+    for (int i=0; i<=lineW; i++) {
+        UIView *line = [[UIView alloc]initWithFrame:CGRectMake(i*9+9, 0, 5, 0.5)];
+        line.backgroundColor = UIColorFromRGBA(0xFFFFFF, 0.7);
+        [view_line_2 addSubview:line];
+    }
 
-    
+   
    
 
     
@@ -170,12 +231,43 @@
             make.right.mas_offset(@(-10));
             make.height.mas_equalTo(0.5);
         }];
-        
+        NSInteger lineW = (ScreenW-50)/9;
+        for (int i=0; i<=lineW; i++) {
+            UIView *line = [[UIView alloc]initWithFrame:CGRectMake(i*9+9, 0, 5, 0.5)];
+            line.backgroundColor = UIColorFromRGBA(0xFFFFFF, 0.7);
+            [view_line_4 addSubview:line];
+        }
     
+        UIView *view_111 = [[UIView alloc] init];
+        view_111.backgroundColor = UIColorFromRGB(0xF6F6F6);
+        view_111.layer.shadowColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.3].CGColor;
+        view_111.layer.shadowOffset = CGSizeMake(0,0);
+        view_111.layer.shadowOpacity = 1;
+        view_111.layer.shadowRadius = 2;
+        view_111.layer.cornerRadius = 5;
+        [self addSubview:view_111];
+        [view_111 mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(view_line_4.mas_centerY).offset(0);
+            make.left.mas_offset(-5);
+            make.size.mas_offset(CGSizeMake(10, 9));
+        }];
+        UIView *view_1111 = [[UIView alloc] init];
+        view_1111.backgroundColor = UIColorFromRGB(0xF6F6F6);
+        view_1111.layer.shadowColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.3].CGColor;
+        view_1111.layer.shadowOffset = CGSizeMake(0,0);
+        view_1111.layer.shadowOpacity = 1;
+        view_1111.layer.shadowRadius = 2;
+        view_1111.layer.cornerRadius = 5;
+        [self addSubview:view_1111];
+        [view_1111 mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(view_line_4.mas_centerY).offset(0);
+            make.right.mas_offset(5);
+            make.size.mas_offset(CGSizeMake(10, 9));
+        }];
+        
     }else if (_status == DetailsVieWStatus_2){
 
 #pragma mark -   /*退款金额*/
-        self.label_TKBeiZhu.text = @"备注：";
         [self addSubview:self.label_TKBeiZhu];
         [self.label_TKBeiZhu mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.equalTo(self.hotelSF.mas_top).offset(-20);
@@ -206,7 +298,12 @@
             make.right.mas_offset(@(-10));
             make.height.mas_equalTo(0.5);
         }];
-        
+        NSInteger lineW = (ScreenW-50)/9;
+        for (int i=0; i<=lineW; i++) {
+            UIView *line = [[UIView alloc]initWithFrame:CGRectMake(i*9+9, 0, 5, 0.5)];
+            line.backgroundColor = UIColorFromRGBA(0xFFFFFF, 0.7);
+            [self.view_line_3 addSubview:line];
+        }
         
 #pragma mark -   /*优惠金额*/
         UILabel *label_YH  = [[UILabel alloc] init];
@@ -256,8 +353,41 @@
             make.right.mas_offset(@(-10));
             make.height.mas_equalTo(0.5);
         }];
+        for (int i=0; i<=lineW; i++) {
+            UIView *line = [[UIView alloc]initWithFrame:CGRectMake(i*9+9, 0, 5, 0.5)];
+            line.backgroundColor = UIColorFromRGBA(0xFFFFFF, 0.7);
+            [view_line_4 addSubview:line];
+        }
+        
+        UIView *view_111 = [[UIView alloc] init];
+        view_111.backgroundColor = UIColorFromRGB(0xF6F6F6);
+        view_111.layer.shadowColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.3].CGColor;
+        view_111.layer.shadowOffset = CGSizeMake(0,0);
+        view_111.layer.shadowOpacity = 1;
+        view_111.layer.shadowRadius = 2;
+        view_111.layer.cornerRadius = 5;
+        [self addSubview:view_111];
+        [view_111 mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(view_line_4.mas_centerY).offset(0);
+            make.left.mas_offset(-5);
+            make.size.mas_offset(CGSizeMake(10, 9));
+        }];
+        UIView *view_1111 = [[UIView alloc] init];
+        view_1111.backgroundColor = UIColorFromRGB(0xF6F6F6);
+        view_1111.layer.shadowColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.3].CGColor;
+        view_1111.layer.shadowOffset = CGSizeMake(0,0);
+        view_1111.layer.shadowOpacity = 1;
+        view_1111.layer.shadowRadius = 2;
+        view_1111.layer.cornerRadius = 5;
+        [self addSubview:view_1111];
+        [view_1111 mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(view_line_4.mas_centerY).offset(0);
+            make.right.mas_offset(5);
+            make.size.mas_offset(CGSizeMake(10, 9));
+        }];
         
     }
+    
     
     
 }
@@ -276,7 +406,7 @@
         [goodsName mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_offset(80+35*i);
             make.left.mas_offset(10);
-            make.size.mas_offset(CGSizeMake(self.width/2, 25));
+            make.size.mas_offset(CGSizeMake(self.width/1.6, 25));
         }];
         
         
@@ -287,7 +417,7 @@
         [self addSubview:goods_price];
         [goods_price mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_offset(80+35*i);
-            make.left.equalTo(goodsName.mas_right).offset(10);
+            make.left.equalTo(goodsName.mas_right).offset(15);
             make.size.mas_offset(CGSizeMake(self.width/4, 25));
         }];
         

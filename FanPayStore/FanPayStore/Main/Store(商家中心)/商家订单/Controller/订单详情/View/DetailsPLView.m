@@ -81,12 +81,7 @@
 //        make.height.mas_equalTo(50);
     }];
     
-    
-    
-    
-    
-    
-   
+
     
     
 }
@@ -100,19 +95,23 @@
 }
 #pragma mark - 赋值
 - (void)setData:(NSDictionary *)Data{
-    
     NSDictionary *evaluate_info = Data[@"evaluate_info"];
-    NSString *evaluate_content = [NSString stringWithFormat:@"%@",evaluate_info[@"evaluate_content"]];
     
-//    NSString *protocol = @"团建选了他家，果然没失望，古色古香的装修很吸引人，一楼大厅有舒服的沙发和大长桌，大家可以在那里玩桌游，早上提供的早餐也是颜值很高，超出预期，很不错的团建之选。";
+#pragma mark - 评论语
+    NSString *evaluate_content = [NSString stringWithFormat:@"%@",evaluate_info[@"evaluate_content"]];
+    if ([[MethodCommon judgeStringIsNull:evaluate_content] isEqualToString:@""]) {
+        evaluate_content = @"  ";
+    }
     NSMutableAttributedString *attri_str = [[NSMutableAttributedString alloc] initWithString:evaluate_content];
     attri_str.lineSpacing = 5;
     self.evaluate_content.attributedText = attri_str;
+    self.evaluate_content.height = self.evaluate_content.height +100;
     
-    
-    
-    
+#pragma mark - 评分
     NSString *score = [NSString stringWithFormat:@"%@",evaluate_info[@"evaluate_score"]];
+    if ([[MethodCommon judgeStringIsNull:score] isEqualToString:@""]) {
+        score = @"0";
+    }
     self.starEvaluator.currentValue = [score integerValue];
     self.star.text =  [NSString stringWithFormat:@"%@分",score];
     
@@ -143,13 +142,13 @@
     NSInteger tagMun = tagsarray.count;
     int f = ceil(tagMun / 3.0);
     
-    /** 标签 */
-    UIView *evaluateView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.width, tagMun*30)];
+#pragma mark -    /** 标签 */
+    UIView *evaluateView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.width, tagMun*28)];
     [self addSubview:evaluateView];
     [evaluateView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.evaluate_content.mas_bottom).offset(0);
         make.right.left.mas_offset(0);
-        make.height.mas_offset(tagMun*30);
+        make.height.mas_offset(tagMun*28);
     }];
     
     for (int i =0; i<tagMun; i++) {
@@ -171,26 +170,20 @@
         evaluate_tags.layer.borderWidth = 1;
         evaluate_tags.layer.cornerRadius = 14;
         evaluate_tags.textAlignment = 1;
-        //        [ScoreView addSubview:evaluate_tags];
-        //        [evaluate_tags mas_makeConstraints:^(MASConstraintMaker *make) {
-        //            make.top.equalTo(huifu.mas_top).offset(autoScaleW(30)*y-(d*autoScaleW(100)) -(f*35)-(goodMun*42));
-        //            make.left.mas_offset(autoScaleW(105)*x+10);
-        //            make.size.mas_offset(CGSizeMake(autoScaleW(100), 28));
-        //        }];
-        
+
         
         static UIButton *recordBtn =nil;
         
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        CGRect rect = [tabstring boundingRectWithSize:CGSizeMake(evaluateView.width -20, 30) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName:btn.titleLabel.font} context:nil];
+        CGRect rect = [tabstring boundingRectWithSize:CGSizeMake(evaluateView.width -20, 28) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName:btn.titleLabel.font} context:nil];
         [btn setTitleColor:UIColorFromRGB(0xF7AE2B) forState:UIControlStateNormal];
-        CGFloat BtnW = rect.size.width + 20;
-        CGFloat BtnH = rect.size.height + 10;
+        CGFloat BtnW = rect.size.width + 10;
+        CGFloat BtnH = rect.size.height + 2;
         btn.layer.masksToBounds = YES;
         btn.layer.cornerRadius = BtnH/2;
         btn.layer.borderColor = UIColorFromRGB(0xF7AE2B).CGColor;
         btn.layer.borderWidth = 1;
-        
+        btn.titleLabel.font = [UIFont systemFontOfSize:14];
         if (i == 0){
             btn.frame = CGRectMake(10, 10, BtnW, BtnH);
         }else{
@@ -218,7 +211,7 @@
     
     
     
-    
+#pragma mark - 图片
     UIView *picView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.width, autoScaleW(110)*d)];
     picView.backgroundColor = [UIColor whiteColor];
     [self addSubview:picView];
@@ -227,7 +220,6 @@
         make.right.left.mas_offset(0);
         make.height.mas_offset(autoScaleW(110)*d);
     }];
-    
     
     /** 评论图片 **/
     for (int i=0 ; i<imageMun; i++) {
@@ -252,7 +244,7 @@
     
     
     
-    
+#pragma mark - 评价的商品
     NSArray *goodsArr = Data[@"goods_info"];
 
     /** 评价的商品 */
@@ -313,7 +305,7 @@
         _evaluate_content.font = [UIFont systemFontOfSize:14];
         _evaluate_content.numberOfLines = 0;
         _evaluate_content.preferredMaxLayoutWidth = self.width-20;//设置最大宽度
-        _evaluate_content.layer.cornerRadius = 5;
+        _evaluate_content.layer.cornerRadius = 6;
     }
     return _evaluate_content ;
 }

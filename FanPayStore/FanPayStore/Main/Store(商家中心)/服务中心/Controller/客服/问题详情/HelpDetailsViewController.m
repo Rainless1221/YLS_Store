@@ -108,7 +108,7 @@
     /**内容*/
      NSString *labelText=[NSString stringWithFormat:@"%@ ",self.Data[@"answer"]];
     
-//    CustomLabel *label = [[CustomLabel alloc] initWithFrame:CGRectMake(15,74,ScreenW-30,100)];
+//    UILabel *label = [[UILabel alloc] init];
     CustomLabel *label = [[CustomLabel alloc] init];
     label.numberOfLines = 0;
     label.backgroundColor = [UIColor whiteColor];
@@ -125,7 +125,9 @@
         make.height.mas_offset( view.bottom-74);
     }];
     label.attributedText = attrStr;
-    self.ScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, view.bottom);
+//    CGSize size = [label sizeThatFits:CGSizeMake(ScreenW-30, MAXFLOAT)];
+
+    self.ScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, view.bottom+70);
 
     
 //    NSString * htmlString =@"<html><body> Some html string \n <font size=\"13\" color=\"red\">This is some text!</font> </body></html>";

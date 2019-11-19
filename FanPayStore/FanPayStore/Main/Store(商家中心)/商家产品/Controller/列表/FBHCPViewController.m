@@ -12,6 +12,7 @@
 #import "CHDeleTableViewCell.h"
 #import "TheLabeView.h"
 #import "labelView.h"
+#import "YLSGoodsCell.h"//商品单元
 
 #define  TheLabe_H 36
 
@@ -445,6 +446,7 @@
     [tableView registerNib:[UINib nibWithNibName:@"CHTableViewCellT" bundle:nil] forCellReuseIdentifier:@"CHTableViewCellT"];
     [tableView registerNib:[UINib nibWithNibName:@"CHDeleTableViewCell" bundle:nil] forCellReuseIdentifier:@"CHDeleTableViewCell"];
     [tableView registerNib:[UINib nibWithNibName:@"CHDeleTableViewCell" bundle:nil] forCellReuseIdentifier:@"CHDeleTableViewCell"];
+//    [tableView registerClass:[YLSGoodsCell class] forCellReuseIdentifier:@"YLSGoodsCell"];
     [self.view addSubview:tableView];
     self.goodsTableView = tableView;
     
@@ -481,6 +483,8 @@
     [tableView registerNib:[UINib nibWithNibName:@"CHTableViewCell" bundle:nil] forCellReuseIdentifier:@"CHTableViewCell"];
     [tableView registerNib:[UINib nibWithNibName:@"CHDeleTableViewCell" bundle:nil] forCellReuseIdentifier:@"CHDeleTableViewCell"];
     [tableView registerNib:[UINib nibWithNibName:@"CHDeleTableViewCell" bundle:nil] forCellReuseIdentifier:@"CHDeleTableViewCell"];
+    [tableView registerClass:[YLSGoodsCell class] forCellReuseIdentifier:@"YLSGoodsCell"];
+
     [self.view addSubview:tableView];
     self.shopsTableView = tableView;
     
@@ -577,39 +581,61 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == self.goodsTableView) {
-        CHTableViewCellT *cell = [tableView dequeueReusableCellWithIdentifier:@"CHTableViewCellT"];
-        cell.backgroundColor  = MainbackgroundColor;
+        YLSGoodsCell * cell = [tableView dequeueReusableCellWithIdentifier:@"YLSGoodsCell"];
+        cell = [[YLSGoodsCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"YLSGoodsCell"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.Data = self.gooddata[indexPath.row];
-
-        //下架
-        cell.saleBlock = ^{
-             [self sale_type:@"2" andgoods_id:[NSString stringWithFormat:@"%@",self.gooddata[indexPath.row][@"goods_id"]]];
-        };
-        //编辑
-        cell.editorBlock = ^{
+        cell.backgroundColor  = MainbackgroundColor;
+        cell.status = GoodsStatus_1;
+        cell.BianjiBlock = ^{
             FBHCPfabuViewController *VC = [FBHCPfabuViewController new];
-//            VC.Data = self.gooddata[indexPath.row];
             VC.goodId = self.gooddata[indexPath.row][@"goods_id"];
             [self.navigationController pushViewController:VC animated:NO];
         };
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.SoldBlock = ^{
+             [self sale_type:@"2" andgoods_id:[NSString stringWithFormat:@"%@",self.gooddata[indexPath.row][@"goods_id"]]];
+        };
+        
         return cell;
+        
+//        CHTableViewCellT *cell = [tableView dequeueReusableCellWithIdentifier:@"CHTableViewCellT"];
+//        cell.backgroundColor  = MainbackgroundColor;
+//        cell.Data = self.gooddata[indexPath.row];
+//
+//        //下架
+//        cell.saleBlock = ^{
+//             [self sale_type:@"2" andgoods_id:[NSString stringWithFormat:@"%@",self.gooddata[indexPath.row][@"goods_id"]]];
+//        };
+//        //编辑
+//        cell.editorBlock = ^{
+//            FBHCPfabuViewController *VC = [FBHCPfabuViewController new];
+////            VC.Data = self.gooddata[indexPath.row];
+//            VC.goodId = self.gooddata[indexPath.row][@"goods_id"];
+//            [self.navigationController pushViewController:VC animated:NO];
+//        };
+//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//        return cell;
         
         
         
     }else if (tableView == self.shopsTableView){
-        CHTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CHTableViewCell"];
-        cell.goodname.text = [NSString stringWithFormat:@"%@",self.shopdata[indexPath.row]];
-        cell.backgroundColor  = MainbackgroundColor;
-
-        cell.Data = self.shopdata[indexPath.row];
         
-        //上架
-        cell.onlineBlock = ^{
+        YLSGoodsCell * cell = [tableView dequeueReusableCellWithIdentifier:@"YLSGoodsCell"];
+        cell = [[YLSGoodsCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"YLSGoodsCell"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.Data = self.shopdata[indexPath.row];
+        cell.backgroundColor  = MainbackgroundColor;
+        cell.status = GoodsStatus_2;
+        
+        cell.BianjiBlock = ^{
+            FBHCPfabuViewController *VC = [FBHCPfabuViewController new];
+            VC.goodId = self.shopdata[indexPath.row][@"goods_id"];
+            [self.navigationController pushViewController:VC animated:NO];
+        };
+        cell.PutawayBlock = ^{
             [self sale_type:@"1" andgoods_id:[NSString stringWithFormat:@"%@",self.shopdata[indexPath.row][@"goods_id"]]];
         };
         
-        //删除
         cell.DeleteBlock = ^{
             NSMutableArray *goodsArr = [NSMutableArray array];
             [goodsArr addObject:self.shopdata[indexPath.row][@"goods_id"]];
@@ -621,17 +647,46 @@
             
             samView.DeleteCardBlock = ^{
                 [self Delete_goods:goodsArr];
-
+                
             };
             [[UIApplication sharedApplication].keyWindow addSubview:samView];
         };
-        //编辑
-        cell.BianjiBlock = ^{
-            FBHCPfabuViewController *VC = [FBHCPfabuViewController new];
-            VC.goodId = self.shopdata[indexPath.row][@"goods_id"];
-            [self.navigationController pushViewController:VC animated:NO];
-        };
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        
+//        CHTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CHTableViewCell"];
+//        cell.goodname.text = [NSString stringWithFormat:@"%@",self.shopdata[indexPath.row]];
+//        cell.backgroundColor  = MainbackgroundColor;
+//
+//        cell.Data = self.shopdata[indexPath.row];
+//
+//        //上架
+//        cell.onlineBlock = ^{
+//            [self sale_type:@"1" andgoods_id:[NSString stringWithFormat:@"%@",self.shopdata[indexPath.row][@"goods_id"]]];
+//        };
+//
+//        //删除
+//        cell.DeleteBlock = ^{
+//            NSMutableArray *goodsArr = [NSMutableArray array];
+//            [goodsArr addObject:self.shopdata[indexPath.row][@"goods_id"]];
+//            DeleteView *samView = [[DeleteView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+//            samView.deleteIcon.image = [UIImage imageNamed:@"icn_alert"];
+//            samView.deleteLabel.text = @"删除提醒";
+//            NSString *card_number = [NSString stringWithFormat:@"您是否要将本商品删除。"];
+//            samView.deleteText.text = card_number;
+//
+//            samView.DeleteCardBlock = ^{
+//                [self Delete_goods:goodsArr];
+//
+//            };
+//            [[UIApplication sharedApplication].keyWindow addSubview:samView];
+//        };
+//        //编辑
+//        cell.BianjiBlock = ^{
+//            FBHCPfabuViewController *VC = [FBHCPfabuViewController new];
+//            VC.goodId = self.shopdata[indexPath.row][@"goods_id"];
+//            [self.navigationController pushViewController:VC animated:NO];
+//        };
+//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
         return cell;
         
@@ -706,7 +761,10 @@
     if (tableView == self.deleTableView) {
         return 170;
     }
-    return 202;
+    YLSGoodsCell * cell = (YLSGoodsCell *)[tableView.dataSource tableView:tableView cellForRowAtIndexPath:indexPath];
+    //直接返回cell 高度
+    return [cell getCellHeight];
+//    return 202;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 45;
@@ -830,7 +888,6 @@
     }
     
 }
-
 #pragma mark - GET
 -(NSMutableArray *)shopdata{
     if (!_shopdata) {

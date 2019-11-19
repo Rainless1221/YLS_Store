@@ -85,7 +85,7 @@
             }
             
             [self.orderTableView reloadData];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"conversion" object:@""];
+//            [[NSNotificationCenter defaultCenter] postNotificationName:@"conversion" object:@""];
 
            
             
@@ -179,7 +179,7 @@
     [NavView addSubview:navLabel];
     
     
-    UIButton *leftbutton=[[UIButton alloc]initWithFrame:CGRectMake(ScreenW-85, STATUS_BAR_HEIGHT, 80, 44)];
+    UIButton *leftbutton=[[UIButton alloc]initWithFrame:CGRectMake(ScreenW-48, STATUS_BAR_HEIGHT, 48, 44)];
     [leftbutton setTitleColor:UIColorFromRGB(0x3D8AFF) forState:UIControlStateNormal];
     [leftbutton setImage:[UIImage imageNamed:@"icn_calendar_black"] forState:UIControlStateNormal];
     leftbutton.layer.cornerRadius = 14;
@@ -188,7 +188,7 @@
     //    UIBarButtonItem *rightitem=[[UIBarButtonItem alloc]initWithCustomView:leftbutton];
     //    self.navigationItem.rightBarButtonItem=rightitem;
     
-    UIButton *righbutton=[[UIButton alloc]initWithFrame:CGRectMake(0, STATUS_BAR_HEIGHT, 60, 44)];
+    UIButton *righbutton=[[UIButton alloc]initWithFrame:CGRectMake(0, STATUS_BAR_HEIGHT, 40, 44)];
     //    [righbutton setTitle:@"返回" forState:UIControlStateNormal];
     [righbutton setTitleColor:UIColorFromRGB(0xFFFFFF) forState:UIControlStateNormal];
     [righbutton setImage:[UIImage imageNamed:@"icn_nav_back_black_normal"] forState:UIControlStateNormal];
@@ -594,30 +594,48 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.backgroundColor = [UIColor clearColor];
     NSString *order_status = [NSString new];
+    NSString *pay_status = [NSString new];
+    NSString *trade_status = [NSString new];
+    NSString *eval_status = [NSString new];
+
     if (indexPath.section == 0) {
         order_status = [NSString stringWithFormat:@"%@",self.Data[indexPath.row][@"order_status"]];
-
+        //支付状态 0 未支付，1 已支付
+         pay_status =  [NSString stringWithFormat:@"%@",self.Data[indexPath.row][@"pay_status"]];
+        //交易状态 0 进行中 1.已完成(未核销)，2.已结算（已核销），3.已分佣,4 已取消
+         trade_status =  [NSString stringWithFormat:@"%@",self.Data[indexPath.row][@"trade_status"]];
+        //评价状态 0 未评价，1.已评价
+         eval_status = [NSString stringWithFormat:@"%@",self.Data[indexPath.row][@"eval_status"]];
+        
     }else if(indexPath.section == 1){
         order_status = [NSString stringWithFormat:@"%@",self.DataC[indexPath.row][@"order_status"]];
-
+        //支付状态 0 未支付，1 已支付
+         pay_status =  [NSString stringWithFormat:@"%@",self.DataC[indexPath.row][@"pay_status"]];
+        //交易状态 0 进行中 1.已完成(未核销)，2.已结算（已核销），3.已分佣,4 已取消
+         trade_status =  [NSString stringWithFormat:@"%@",self.DataC[indexPath.row][@"trade_status"]];
+        //评价状态 0 未评价，1.已评价
+         eval_status = [NSString stringWithFormat:@"%@",self.DataC[indexPath.row][@"eval_status"]];
+        
     }else{
         order_status = [NSString stringWithFormat:@"%@",self.DataS[indexPath.row][@"order_status"]];
-
+        //支付状态 0 未支付，1 已支付
+         pay_status =  [NSString stringWithFormat:@"%@",self.DataS[indexPath.row][@"pay_status"]];
+        //交易状态 0 进行中 1.已完成(未核销)，2.已结算（已核销），3.已分佣,4 已取消
+         trade_status =  [NSString stringWithFormat:@"%@",self.DataS[indexPath.row][@"trade_status"]];
+        //评价状态 0 未评价，1.已评价
+         eval_status = [NSString stringWithFormat:@"%@",self.DataS[indexPath.row][@"eval_status"]];
     }
 //0全部、1待付款、2待使用、3待评价、4已评价、5已取消、6待退单、7退单完成、8退单失败、9待退款、10退款完成、11退款失败） 传入2，获取2,3的订单信息； 传入6，获取6,7,8的订单信息 传入9
     if ([order_status isEqualToString: @"1"] ){
         cell.status = OrderVieWStatus_1;
 
-    }
-    else if ([order_status isEqualToString: @"2"]){
+    }else if ([order_status isEqualToString: @"2"]){
         cell.status = OrderVieWStatus_2;
         
-    }
-    else if ([order_status isEqualToString: @"3"]){
+    }else if ([order_status isEqualToString: @"3"]){
         cell.status = OrderVieWStatus_3;
 
-    }
-    else if ([order_status isEqualToString: @"4"]){
+    }else if ([order_status isEqualToString: @"4"]){
         cell.status = OrderVieWStatus_4;
 
     }else if ([order_status isEqualToString: @"5"]){
@@ -728,99 +746,84 @@
     FBHDdetailsController *VC = [FBHDdetailsController new];
     NSString *order_status = [NSString new];
     NSString *order_id = [NSString new];
+    NSString *order_status_txt = [NSString new];
     if (indexPath.section == 0) {
         order_status = [NSString stringWithFormat:@"%@",self.Data[indexPath.row][@"order_status"]];
         order_id = [NSString stringWithFormat:@"%@",self.Data[indexPath.row][@"order_id"]];
+        order_status_txt = [NSString stringWithFormat:@"%@",self.Data[indexPath.row][@"order_status_txt"]];
     }else if(indexPath.section == 1){
         order_status = [NSString stringWithFormat:@"%@",self.DataC[indexPath.row][@"order_status"]];
         order_id = [NSString stringWithFormat:@"%@",self.DataC[indexPath.row][@"order_id"]];
+        order_status_txt = [NSString stringWithFormat:@"%@",self.DataC[indexPath.row][@"order_status_txt"]];
+
     }else{
         order_status = [NSString stringWithFormat:@"%@",self.DataS[indexPath.row][@"order_status"]];
         order_id = [NSString stringWithFormat:@"%@",self.DataS[indexPath.row][@"order_id"]];
+        order_status_txt = [NSString stringWithFormat:@"%@",self.DataS[indexPath.row][@"order_status_txt"]];
+
     }
+    
+    VC.order_id = order_id;
+    VC.navigationTitle = order_status_txt;
     
     switch ([order_status integerValue]) {
         case 0:
             VC.status = 0;
-            VC.order_id = order_id;
-            VC.navigationTitle = @"订单已完成";
             [self.navigationController pushViewController:VC animated:NO];
             
             break;
         case 1:
             VC.status = 1;
-            VC.order_id = order_id;
-            VC.navigationTitle = @"待支付";
             [self.navigationController pushViewController:VC animated:NO];
             
             break;
         case 2:
             VC.status = 2;
-            VC.order_id = order_id;
-            VC.navigationTitle = @"订单已支付";
             [self.navigationController pushViewController:VC animated:NO];
             
             break;
         case 3:
             VC.status = 3;
-            VC.order_id = order_id;
-            VC.navigationTitle = @"订单待评价";
             [self.navigationController pushViewController:VC animated:NO];
             
             break;
         case 4:
             VC.status = 4;
-            VC.order_id = order_id;
-            VC.navigationTitle = @"订单已评价";
             [self.navigationController pushViewController:VC animated:NO];
             
             break;
         case 5:
             VC.status = 5;
-            VC.order_id = order_id;
-            VC.navigationTitle = @"订单已取消";
             [self.navigationController pushViewController:VC animated:NO];
             
             break;
         case 6:
             VC.status = 6;
-            VC.order_id = order_id;
-            VC.navigationTitle = @"订单已完成";
             [self.navigationController pushViewController:VC animated:NO];
             
             break;
         case 7:
             VC.status = 7;
-            VC.order_id = order_id;
-            VC.navigationTitle = @"订单已完成";
             [self.navigationController pushViewController:VC animated:NO];
             
             break;
         case 8:
             VC.status = 8;
-            VC.order_id = order_id;
-            VC.navigationTitle = @"订单已完成";
             [self.navigationController pushViewController:VC animated:NO];
             
             break;
         case 9:
             VC.status = 9;
-            VC.order_id = order_id;
-            VC.navigationTitle = @"订单已完成";
             [self.navigationController pushViewController:VC animated:NO];
             
             break;
         case 10:
             VC.status = 10;
-            VC.order_id = order_id;
-            VC.navigationTitle = @"订单已完成";
             [self.navigationController pushViewController:VC animated:NO];
             
             break;
         case 11:
             VC.status = 11;
-            VC.order_id = order_id;
-            VC.navigationTitle = @"订单已完成";
             [self.navigationController pushViewController:VC animated:NO];
             
             break;

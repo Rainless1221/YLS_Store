@@ -48,17 +48,17 @@
         self.goods_count.text = [NSString stringWithFormat:@"%@",Data[@"goods_count"]];
 
     //价格
-    NSString *str = [NSString stringWithFormat:@"￥%@ ",Data[@"goods_price"]];
+    NSString *str = [NSString stringWithFormat:@" ￥%@  ",Data[@"goods_price"]];
     NSMutableAttributedString *mutStr = [[NSMutableAttributedString alloc]initWithString:str];
-    NSRange range = NSMakeRange(0, 1);
+    NSRange range = NSMakeRange(0, 2);
     [mutStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13] range:range];
     self.goods_price.attributedText = mutStr;
     
     
     
-    NSString *str1 = [NSString stringWithFormat:@"￥%@ ",Data[@"discount_price"]];
+    NSString *str1 = [NSString stringWithFormat:@"  ￥%@  ",Data[@"discount_price"]];
     NSMutableAttributedString *mutStr1 = [[NSMutableAttributedString alloc]initWithString:str1];
-    NSRange range1 = NSMakeRange(0, 1);
+    NSRange range1 = NSMakeRange(0, 2);
     [mutStr1 addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:10] range:range1];
     self.discount_price.attributedText = mutStr1;
 
