@@ -516,10 +516,11 @@
     bottomView.backgroundColor = [UIColor whiteColor];
     //全选
     UIButton *QXbutton = [UIButton buttonWithType:UIButtonTypeCustom];
-    QXbutton.frame = CGRectMake(15, 0, 90, 49);
+    QXbutton.frame = CGRectMake(0, 0, 90, 49);
     [QXbutton setImage:[UIImage imageNamed:@"btn_check_box_normal"] forState:UIControlStateNormal];
-    [QXbutton setImage:[UIImage imageNamed:@"btn_check_box_pressed"] forState:UIControlStateSelected];
-    [QXbutton setTitle:@"全选" forState:UIControlStateNormal];
+    [QXbutton setImage:[UIImage imageNamed:@"btn_product_label_select_yellow"] forState:UIControlStateSelected];
+    [QXbutton setTitle:@" 全选" forState:UIControlStateNormal];
+    QXbutton.titleLabel.font = [UIFont systemFontOfSize:14];
     [QXbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [QXbutton addTarget:self action:@selector(BtnAction:) forControlEvents:UIControlEventTouchUpInside];
 
@@ -532,8 +533,9 @@
     UIButton *Dbutton = [UIButton buttonWithType:UIButtonTypeCustom];
     Dbutton.frame = CGRectMake(ScreenW - 77, 9, 62, 32);
     [Dbutton setTitle:@"删除" forState:UIControlStateNormal];
-    [Dbutton setTitleColor:UIColorFromRGB(0x3D8AFF) forState:UIControlStateNormal];
-    Dbutton.layer.borderColor = [UIColorFromRGB(0x3D8AFF) CGColor];
+    Dbutton.titleLabel.font = [UIFont systemFontOfSize:14];
+    [Dbutton setTitleColor:UIColorFromRGB(0xF7AE2B) forState:UIControlStateNormal];
+    Dbutton.layer.borderColor = [UIColorFromRGB(0xF7AE2B) CGColor];
     Dbutton.layer.cornerRadius = 16;
     Dbutton.layer.borderWidth = 1;
     [Dbutton addTarget:self action:@selector(DeleteButtonAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -556,7 +558,7 @@
         //移除元素,防止覆盖
         [self.goodsTableView removeFromSuperview];
     }
-    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 52+TheLabe_H, ScreenW, ScreenH-52-STATUS_BAR_HEIGHT-(kIs_iPhoneX ? 144:94)) style:UITableViewStylePlain];
+    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 52+TheLabe_H, ScreenW, ScreenH-102-STATUS_BAR_HEIGHT-(kIs_iPhoneX ? 144:94)) style:UITableViewStylePlain];
     tableView.backgroundColor  = MainbackgroundColor;
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     tableView.delegate = self;
@@ -565,6 +567,8 @@
     /** 允许多选 **/
     tableView.allowsMultipleSelection = YES;
     [tableView registerNib:[UINib nibWithNibName:@"CHDeleTableViewCell" bundle:nil] forCellReuseIdentifier:@"CHDeleTableViewCell"];
+    [tableView registerClass:[YLSGoodsCell class] forCellReuseIdentifier:@"YLSGoodsCell"];
+
     [self.view addSubview:tableView];
     self.deleTableView = tableView;
     [self.deleTableView setEditing:YES animated:YES];
@@ -573,7 +577,6 @@
 }
 #pragma mark - table
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    return self.tableView.marrData.count;
     if (tableView == self.goodsTableView) {
         return self.gooddata.count;
     }
@@ -584,9 +587,9 @@
         YLSGoodsCell * cell = [tableView dequeueReusableCellWithIdentifier:@"YLSGoodsCell"];
         cell = [[YLSGoodsCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"YLSGoodsCell"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.status = GoodsStatus_1;
         cell.Data = self.gooddata[indexPath.row];
         cell.backgroundColor  = MainbackgroundColor;
-        cell.status = GoodsStatus_1;
         cell.BianjiBlock = ^{
             FBHCPfabuViewController *VC = [FBHCPfabuViewController new];
             VC.goodId = self.gooddata[indexPath.row][@"goods_id"];
@@ -623,9 +626,9 @@
         YLSGoodsCell * cell = [tableView dequeueReusableCellWithIdentifier:@"YLSGoodsCell"];
         cell = [[YLSGoodsCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"YLSGoodsCell"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.status = GoodsStatus_2;
         cell.Data = self.shopdata[indexPath.row];
         cell.backgroundColor  = MainbackgroundColor;
-        cell.status = GoodsStatus_2;
         
         cell.BianjiBlock = ^{
             FBHCPfabuViewController *VC = [FBHCPfabuViewController new];
@@ -693,9 +696,16 @@
         
         
     }else{
-       CHDeleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CHDeleTableViewCell"];
-        cell.backgroundColor  = MainbackgroundColor;
+        
+        YLSGoodsCell * cell = [tableView dequeueReusableCellWithIdentifier:@"YLSGoodsCell"];
+        cell = [[YLSGoodsCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"YLSGoodsCell"];
+        cell.status = GoodsStatus_3;
         cell.Data = self.shopdata[indexPath.row];
+        cell.backgroundColor  = MainbackgroundColor;
+        
+//       CHDeleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CHDeleTableViewCell"];
+//        cell.backgroundColor  = MainbackgroundColor;
+//        cell.Data = self.shopdata[indexPath.row];
 
         /** 判断下 */
         if (cell.isSelected == YES) {
@@ -703,7 +713,6 @@
         }else{
             cell.accessoryType = UITableViewCellAccessoryNone;
         }
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
         return cell;
     }
@@ -758,9 +767,9 @@
     return headerview;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (tableView == self.deleTableView) {
-        return 170;
-    }
+//    if (tableView == self.deleTableView) {
+//        return 170;
+//    }
     YLSGoodsCell * cell = (YLSGoodsCell *)[tableView.dataSource tableView:tableView cellForRowAtIndexPath:indexPath];
     //直接返回cell 高度
     return [cell getCellHeight];
@@ -882,7 +891,6 @@
             [self.deleTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:idx inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
         }];
     }else{
-        
         [self.deleTableView reloadData];
 
     }

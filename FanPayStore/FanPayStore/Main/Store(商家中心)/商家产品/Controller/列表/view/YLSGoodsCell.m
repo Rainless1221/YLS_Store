@@ -202,7 +202,10 @@
 }
 #pragma mark - 删除
 -(void)GoodsDelete{
-    
+    [self.GoodsView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_offset(50);
+        make.right.mas_offset(50);
+    }];
 }
 #pragma mark - 高度
 - (CGFloat)getCellHeight {
@@ -237,6 +240,46 @@
         self.DeleteBlock();
     }
 }
+-(void)layoutSubviews
+{
+    for (UIControl *control in self.subviews){
+        if ([control isMemberOfClass:NSClassFromString(@"UITableViewCellEditControl")]){
+            for (UIView *v in control.subviews)
+            {
+                if ([v isKindOfClass: [UIImageView class]]) {
+                    UIImageView *img=(UIImageView *)v;
+                    if (self.selected) {
+                        img.image=[UIImage imageNamed:@"btn_product_label_select_yellow"];
+                    }else
+                    {
+                        img.image=[UIImage imageNamed:@"btn_check_box_disable"];
+                    }
+                }
+            }
+        }
+    }
+    [super layoutSubviews];
+}
+//适配第一次图片为空的情况
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+    [super setEditing:editing animated:animated];
+    for (UIControl *control in self.subviews){
+        if ([control isMemberOfClass:NSClassFromString(@"UITableViewCellEditControl")]){
+            for (UIView *v in control.subviews)
+            {
+                if ([v isKindOfClass: [UIImageView class]]) {
+                    UIImageView *img=(UIImageView *)v;
+                    if (!self.selected) {
+                        img.image=[UIImage imageNamed:@"btn_check_box_disable"];
+                    }
+                }
+            }
+        }
+    }
+    
+}
+
 #pragma mark - 赋值
 -(void)setData:(NSDictionary *)Data{
     //图片
@@ -251,24 +294,24 @@
     self.GoodsNmage.text = goods_name;
     
     //价格
-    NSString *goods_price = [NSString stringWithFormat:@"%@",Data[@"goods_price"]];
-    if ([[MethodCommon judgeStringIsNull:goods_price] isEqualToString:@""]) {
-        goods_price = @" ¥ 0.00 ";
+    NSString *discount_price = [NSString stringWithFormat:@"%@",Data[@"discount_price"]];
+    if ([[MethodCommon judgeStringIsNull:discount_price] isEqualToString:@""]) {
+        discount_price = @" ¥ 0.00 ";
     }else{
-        goods_price = [NSString stringWithFormat:@" ¥ %@ ",goods_price];
+        discount_price = [NSString stringWithFormat:@" ¥ %@ ",discount_price];
     }
-    NSMutableAttributedString *mutStr = [[NSMutableAttributedString alloc]initWithString:goods_price];
+    NSMutableAttributedString *mutStr = [[NSMutableAttributedString alloc]initWithString:discount_price];
     NSRange range = NSMakeRange(0, 2);
     [mutStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:15] range:range];
     self.GoodsPrice.attributedText = mutStr;
     
-    NSString *discount_price = [NSString stringWithFormat:@"%@",Data[@"discount_price"]];
-    if ([[MethodCommon judgeStringIsNull:discount_price] isEqualToString:@""]) {
-        discount_price = @"     ¥ 0.00  ";
+    NSString *goods_price = [NSString stringWithFormat:@"%@",Data[@"goods_price"]];
+    if ([[MethodCommon judgeStringIsNull:goods_price] isEqualToString:@""]) {
+        goods_price = @"     ¥ 0.00  ";
     }else{
-        discount_price = [NSString stringWithFormat:@"  ¥ %@  ",discount_price];
+        goods_price = [NSString stringWithFormat:@"  ¥ %@  ",goods_price];
     }
-    NSMutableAttributedString *mutStr1 = [[NSMutableAttributedString alloc]initWithString:discount_price];
+    NSMutableAttributedString *mutStr1 = [[NSMutableAttributedString alloc]initWithString:goods_price];
     NSRange range1 = NSMakeRange(0, 3);
     [mutStr1 addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:12] range:range1];
     self.GoodsPrice1.attributedText = mutStr1;
@@ -310,7 +353,11 @@
         make.width.mas_offset(size1.width + 15);
     }];
     
-    self.GoodsView.height = self.GoodsPrice1.bottom+80+size.height+(size1.height >0 ? size1.height+15:5);
+    if (self.status == GoodsStatus_3) {
+        self.GoodsView.height = self.GoodsPrice1.bottom+25+size.height+(size1.height >0 ? size1.height+15:5);
+    }else{
+        self.GoodsView.height = self.GoodsPrice1.bottom+80+size.height+(size1.height >0 ? size1.height+15:5);
+    }
     
 }
 #pragma mark - 懒加载

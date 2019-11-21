@@ -489,8 +489,8 @@
 //            [SVProgressHUD showSuccessWithStatus:resDic[@"message"]];
 
         }else{
-            [SVProgressHUD setMinimumDismissTimeInterval:2];
-            [SVProgressHUD showErrorWithStatus:resDic[@"message"]];
+//            [SVProgressHUD setMinimumDismissTimeInterval:2];
+//            [SVProgressHUD showErrorWithStatus:resDic[@"message"]];
         }
         
     } andfailure:^{

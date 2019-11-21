@@ -67,8 +67,9 @@
     DeleteBtn.frame = CGRectMake(15, affirmBtn.bottom+20, ScreenW-30, 44);
     [DeleteBtn setTitle:@"删除" forState:UIControlStateNormal];
     [DeleteBtn.titleLabel setFont:[UIFont systemFontOfSize:18]];
-    [DeleteBtn setTitleColor:UIColorFromRGB(0xFFFFFF) forState:UIControlStateNormal];
-    DeleteBtn.backgroundColor = UIColorFromRGB(0xFF6969);
+    [DeleteBtn setTitleColor:UIColorFromRGB(0xF7AE2B) forState:UIControlStateNormal];
+    DeleteBtn.layer.borderColor = UIColorFromRGB(0xF7AE2B).CGColor;
+    DeleteBtn.layer.borderWidth = 1;
     DeleteBtn.layer.cornerRadius = 10;
     [DeleteBtn addTarget:self action:@selector(DeleteAction) forControlEvents:UIControlEventTouchUpInside];
 

@@ -187,7 +187,7 @@
     [self.ViewTwo addSubview:label3];
     
     UILabel *label4 = [[UILabel alloc]initWithFrame:CGRectMake(10, label3.bottom+10, 250, 33)];
-    label4.text = @"可以修改或者删除现有的标签。点“编辑”，可以拖拽调整标签顺序。";
+    label4.text = @"可以修改或者删除现有的标签。\n点“编辑”，可以拖拽调整标签顺序。";
     label4.numberOfLines = 0;
     label4.textColor= UIColorFromRGB(0xCCCCCC);
     label4.font = [UIFont systemFontOfSize:13];

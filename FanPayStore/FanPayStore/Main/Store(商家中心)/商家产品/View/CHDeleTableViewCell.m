@@ -62,7 +62,7 @@
                 if ([v isKindOfClass: [UIImageView class]]) {
                     UIImageView *img=(UIImageView *)v;
                     if (self.selected) {
-                        img.image=[UIImage imageNamed:@"btn_check_box_pressed"];
+                        img.image=[UIImage imageNamed:@"btn_product_label_select_yellow"];
                     }else
                     {
                         img.image=[UIImage imageNamed:@"btn_check_box_disable"];

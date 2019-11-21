@@ -145,7 +145,7 @@
     DetailButton.layer.cornerRadius = 16;
     DetailButton.layer.borderWidth = 1;
     DetailButton.layer.borderColor = [UIColorFromRGB(0xF7AE2B) CGColor];
-    [DetailButton addTarget:self action:@selector(DetailAction) forControlEvents:UIControlEventTouchUpInside];
+    [DetailButton addTarget:self action:@selector(contactAction) forControlEvents:UIControlEventTouchUpInside];
     [self.orderView addSubview:DetailButton];
     [DetailButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.mas_offset(-25);
@@ -448,7 +448,13 @@
 -(void)evaluation{
     [self.iconBtn setTitle:@"订单已评价" forState:UIControlStateNormal];
     
-    
+    self.HexiaoBtn.selected = YES;
+    [self.orderView addSubview:self.HexiaoBtn];
+    [self.HexiaoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_offset(-15);
+        make.top.mas_offset(49);
+        make.size.mas_offset(CGSizeMake(50, 25));
+    }];
     
     /*删除*/
     UIButton *DeleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -592,6 +598,13 @@
 
     [self.iconBtn setTitle:@"订单退款" forState:UIControlStateNormal];
 
+    [self.orderView addSubview:self.HexiaoBtn];
+    [self.HexiaoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_offset(-15);
+        make.top.mas_offset(49);
+        make.size.mas_offset(CGSizeMake(50, 25));
+    }];
+    
     /*确认退款*/
     UIButton *DeleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [DeleteButton setTitle:@"确认退款" forState:UIControlStateNormal];
@@ -722,6 +735,13 @@
     
     [self.iconBtn setTitle:@"订单退款" forState:UIControlStateNormal];
     
+    [self.orderView addSubview:self.HexiaoBtn];
+    [self.HexiaoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_offset(-15);
+        make.top.mas_offset(49);
+        make.size.mas_offset(CGSizeMake(50, 25));
+    }];
+    
     /*删除*/
     UIButton *DeleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [DeleteButton setTitle:@"删除" forState:UIControlStateNormal];
@@ -835,6 +855,13 @@
     
     [self.iconBtn setTitle:@"订单退款" forState:UIControlStateNormal];
     
+    self.HexiaoBtn.selected = YES;
+    [self.orderView addSubview:self.HexiaoBtn];
+    [self.HexiaoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_offset(-15);
+        make.top.mas_offset(49);
+        make.size.mas_offset(CGSizeMake(50, 25));
+    }];
     
     /*删除*/
     UIButton *DeleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -1103,6 +1130,134 @@
         [self.delagate Refused:self.Data];
     }
 }
+/*联系*/
+-(void)contactAction{
+    NSString *telephoneNumber = self.user_mobile;
+    NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel:%@",telephoneNumber];
+    UIApplication *application = [UIApplication sharedApplication];
+    NSURL *URL = [NSURL URLWithString:str];
+    if (@available(iOS 10.0, *)) {
+        [application openURL:URL options:@{} completionHandler:^(BOOL success) {
+            //OpenSuccess=选择 呼叫 为 1  选择 取消 为0
+            NSLog(@"OpenSuccess=%d",success);
+            
+        }];
+    } else {
+        // Fallback on earlier versions
+    }
+}
+/**
+ 倒计时
+ 
+ */
+- (void)countDownWithTime:(NSString *)TimeString{
+    
+    NSString *store_pic = [NSString stringWithFormat:@"%@",TimeString];
+    // 用指定字符串分割字符串，返回一个数组
+    NSArray *array = [store_pic componentsSeparatedByString:@":"];
+    /*时*/
+    NSString * when= [NSString stringWithFormat:@"%@",array[0]];
+    /*分*/
+    NSString *points = [NSString stringWithFormat:@"%@",array[1]];
+    /*秒*/
+    NSString *seconds = [NSString stringWithFormat:@"%@",array[2]];
+    
+    
+    
+    
+    __block NSInteger timeout1 = [when integerValue]; // 倒计时时间
+    __block NSInteger timeout2 = [points integerValue]; // 倒计时时间
+    __block NSInteger timeout3 = [seconds integerValue]; // 倒计时时间
+
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    
+    dispatch_source_t _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,queue);
+    
+    dispatch_source_set_timer(_timer,dispatch_walltime(NULL, 0),1.0*NSEC_PER_SEC, 0); // 每秒执行
+    
+    dispatch_source_set_event_handler(_timer, ^{
+#pragma mark - 计算时
+#pragma mark - 计算分
+      
+#pragma mark - 计算秒
+        if(timeout3<=0){ //倒计时结束，关闭
+            timeout2--;
+            
+            if(timeout2<=0){
+                timeout1--;
+
+                if (timeout1<=0){
+                    dispatch_source_cancel(_timer);
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        
+                        self.PaymentTime.text = [NSString stringWithFormat:@"剩余支付时间 00:00:00"];
+                    });
+                }else{
+                    timeout3 = 60;
+                    int seconds3 = timeout3 % 60;
+                    NSString *strTime3 = [NSString stringWithFormat:@"%.2d", seconds3];
+                    if (seconds3 < 10) {
+                        strTime3 = [NSString stringWithFormat:@"%.2d", seconds3];
+                    }
+                    int seconds1 = timeout1 % 60;
+                    NSString *strTime1 = [NSString stringWithFormat:@"%.2d", seconds1];
+                    int seconds2 = timeout2 % 60;
+                    NSString *strTime2 = [NSString stringWithFormat:@"%.2d", seconds2];
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        //设置界面的按钮显示 根据自己需求设置
+                        self.PaymentTime.text = [NSString stringWithFormat:@"剩余支付时间%@:%@:%@",strTime1,strTime2,strTime3];
+                    });
+                    timeout3--;
+                }
+                
+                
+            }else{
+                timeout3 = 60;
+                int seconds3 = timeout3 % 60;
+                NSString *strTime3 = [NSString stringWithFormat:@"%.2d", seconds3];
+                if (seconds3 < 10) {
+                    strTime3 = [NSString stringWithFormat:@"%.2d", seconds3];
+                }
+                int seconds1 = timeout1 % 60;
+                NSString *strTime1 = [NSString stringWithFormat:@"%.2d", seconds1];
+                int seconds2 = timeout2 % 60;
+                NSString *strTime2 = [NSString stringWithFormat:@"%.2d", seconds2];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    //设置界面的按钮显示 根据自己需求设置
+                    self.PaymentTime.text = [NSString stringWithFormat:@"剩余支付时间%@:%@:%@",strTime1,strTime2,strTime3];
+                });
+                timeout3--;
+            }
+           
+
+            
+        }else{
+            
+            int seconds3 = timeout3 % 60;
+            NSString *strTime3 = [NSString stringWithFormat:@"%.2d", seconds3];
+            if (seconds3 < 10) {
+                strTime3 = [NSString stringWithFormat:@"%.2d", seconds3];
+            }
+            int seconds1 = timeout1 % 60;
+            NSString *strTime1 = [NSString stringWithFormat:@"%.2d", seconds1];
+            int seconds2 = timeout2 % 60;
+            NSString *strTime2 = [NSString stringWithFormat:@"%.2d", seconds2];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //设置界面的按钮显示 根据自己需求设置
+                self.PaymentTime.text = [NSString stringWithFormat:@"剩余支付时间%@:%@:%@",strTime1,strTime2,strTime3];
+            });
+            timeout3--;
+            
+        }
+        
+    });
+    
+    dispatch_resume(_timer);
+}
 #pragma mark - 赋值
 -(void)setData:(NSDictionary *)Data{
     _Data = Data;
@@ -1113,40 +1268,41 @@
     
     
 //0全部、1待付款、2待使用、3待评价、4已评价、5已取消、6待退单、7退单完成、8退单失败、9待退款、10退款完成、11退款失败） 传入2，获取2,3的订单信息； 传入6，获取6,7,8的订单信息 传入9
-    NSInteger status = [Data[@"order_status"] integerValue];
+//    NSInteger status = [Data[@"order_status"] integerValue];
 //    NSInteger pay_status = [Data[@"pay_status"] integerValue];//支付状态 0 未支付，1 已支付
-//    NSInteger trade_status = [Data[@"trade_status"] integerValue];//交易状态 0 进行中 1.已完成(未核销)，2.已结算（已核销），3.已分佣,4 已取消
+    NSInteger trade_status = [Data[@"trade_status"] integerValue];//交易状态 0 进行中 1.已完成(未核销)，2.已结算（已核销），3.已分佣,4 已取消
 //    NSInteger eval_status = [Data[@"eval_status"] integerValue];//评价状态 0 未评价，1.已评价
     NSString *order_status_txt = [NSString stringWithFormat:@"%@",Data[@"order_status_txt"]];
-    
+    NSString *refund_status = [NSString stringWithFormat:@"%@",Data[@"refund_status"]];
+
     if ([[MethodCommon judgeStringIsNull:order_status_txt] isEqualToString:@""]) {
         order_status_txt =@"";
     }
     [self.iconBtn setTitle:order_status_txt forState:UIControlStateNormal];
 
-    if ( status == 1) {
+    if ( _status == OrderVieWStatus_1) {
 //        [self.iconBtn setTitle:@"订单待支付" forState:UIControlStateNormal];
         [self.iconBtn setImage:[UIImage imageNamed:@"icn_order_to_be_paid"] forState:UIControlStateNormal];
 
-    }else if (status == 2){
+    }else if (_status == OrderVieWStatus_2){
 //        [self.iconBtn setTitle:@"订单已支付" forState:UIControlStateNormal];
         [self.iconBtn setImage:[UIImage imageNamed:@"icn_order_paid"] forState:UIControlStateNormal];
 
-    }else if(status == 3){
+    }else if(_status == OrderVieWStatus_3){
 //        [self.iconBtn setTitle:@"订单已支付" forState:UIControlStateNormal];
         [self.iconBtn setImage:[UIImage imageNamed:@"icn_order_paid"] forState:UIControlStateNormal];
 
-    }else if (status == 4){
+    }else if (_status == OrderVieWStatus_4){
 //        [self.iconBtn setTitle:@"订单已评价" forState:UIControlStateNormal];
         [self.iconBtn setImage:[UIImage imageNamed:@"icn_order_complete"] forState:UIControlStateNormal];
         orderV_H = 380;
         
-    }else if(status == 5){
+    }else if(_status == OrderVieWStatus_5){
 //        [self.iconBtn setTitle:@"订单已取消" forState:UIControlStateNormal];
         [self.iconBtn setImage:[UIImage imageNamed:@"icn_order_cancel"] forState:UIControlStateNormal];
         orderV_H = 280;
 
-    }else if(status == 6){
+    }else if(_status == OrderVieWStatus_6){
 //        [self.iconBtn setTitle:@"订单退款" forState:UIControlStateNormal];
         [self.iconBtn setImage:[UIImage imageNamed:@"icn_order_refund"] forState:UIControlStateNormal];
         orderV_H = 270;
@@ -1161,30 +1317,31 @@
         self.refundTime.text = [NSString stringWithFormat:@"退款中，剩余：%@",remaining_process_refund_time];
         
 
-    }else if(status == 7){
+    }else if(_status == OrderVieWStatus_7){
 //        [self.iconBtn setTitle:@"订单退款" forState:UIControlStateNormal];
         [self.iconBtn setImage:[UIImage imageNamed:@"icn_order_refund"] forState:UIControlStateNormal];
         orderV_H = 295;
-        self.refundTime.text = @"退款成功";
+        self.refundTime.text = order_status_txt;//@"退款成功";
 
-    }else if(status == 8){
+    }else if(_status == OrderVieWStatus_7){
          orderV_H = 295;
 //        [self.iconBtn setTitle:@"订单退款" forState:UIControlStateNormal];
         [self.iconBtn setImage:[UIImage imageNamed:@"icn_order_refund"] forState:UIControlStateNormal];
-        self.refundTime.text = @"退款失败";
+        self.refundTime.text =order_status_txt;// @"退款失败";
 
-    }else if(status == 9){
+    }else if(_status == OrderVieWStatus_8){
         orderV_H = 390;
 //        [self.iconBtn setTitle:@"订单退款" forState:UIControlStateNormal];
         [self.iconBtn setImage:[UIImage imageNamed:@"icn_order_refund"] forState:UIControlStateNormal];
-        self.label_TKtype.text = @"退款完成";
-    }else if(status == 11){
+        self.label_TKtype.text = ([refund_status integerValue]==3) ? @"退款完成":order_status_txt;//@"退款完成";
+    }else if(_status == OrderVieWStatus_8){
         orderV_H = 390;
 //        [self.iconBtn setTitle:@"订单退款" forState:UIControlStateNormal];
         [self.iconBtn setImage:[UIImage imageNamed:@"icn_order_refund"] forState:UIControlStateNormal];
-        self.label_TKtype.text = @"退款失败";
+        self.label_TKtype.text = ([refund_status integerValue]==3) ? @"退款完成":order_status_txt;//@"退款失败";
     }else{
-        orderV_H = 380;
+        orderV_H = 390;
+        self.label_TKtype.text = ([refund_status integerValue]==3) ? @"退款完成":order_status_txt;//@"退款失败";
 
     }
     
@@ -1299,7 +1456,9 @@
     /*待支付订单的剩余支付时间 remaining_payment_time*/
     NSString *remaining_payment_time = [NSString stringWithFormat:@"%@",Data[@"remaining_payment_time"]];
     if ([[MethodCommon judgeStringIsNull:remaining_payment_time] isEqualToString:@""]) {
-        remaining_payment_time = @"剩余支付时间";
+        remaining_payment_time = @"00:00:00";
+    }else{
+        [self countDownWithTime:remaining_payment_time];
     }
     self.PaymentTime.text = [NSString stringWithFormat:@"剩余支付时间%@",remaining_payment_time];
     
@@ -1316,6 +1475,19 @@
         self.label_TKBeiZhu.text = @"备注：";
     }else{
        self.label_TKBeiZhu.text = [NSString stringWithFormat:@"备注：%@",refund_remark];
+    }
+    
+    /*消费者手机号*/
+    self.user_mobile = [NSString stringWithFormat:@"%@",Data[@"user_mobile"]];
+    
+    
+    /*是否核销*/
+    if (trade_status ==0) {
+        self.HexiaoBtn.selected = NO;
+    }else if (trade_status ==1) {
+        self.HexiaoBtn.selected = NO;
+    }else{
+        self.HexiaoBtn.selected = YES;
     }
     
 }

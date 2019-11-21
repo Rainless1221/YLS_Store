@@ -73,6 +73,7 @@
             self.QTView.Data = DIC;
             self.YSView.Data = DIC;
             self.PLView.Data = DIC;
+//           [self.YSView removeFromSuperview];
             [self createUI];
             
         }else{
@@ -206,35 +207,21 @@
         if ([can_refund  isEqualToString:@"0"]) {
             self.TKButton.userInteractionEnabled = NO;//交互关闭
             self.TKButton.alpha=0.5;//透明度
-//            self.TKView.hidden = YES;
-//            self.TKView.height = IPHONEHIGHT(10);
-//            self.YSView.status = DetailsVieWStatus_1;
-//            self.YSView.height = goodsArr.count*55+230;
+
 
         }else if ([can_refund  isEqualToString:@"1"]){
             self.TKButton.userInteractionEnabled = YES;//交互开启
-//            self.TKView.hidden = YES;
-//            self.TKView.height = IPHONEHIGHT(10);
-//            self.YSView.status = DetailsVieWStatus_1;
-//            self.YSView.height = goodsArr.count*55+230;
-            
+
         }else{
             self.TKButton.userInteractionEnabled = NO;//交互关闭
             self.TKButton.alpha=0.5;//透明度
-//            self.TKView.hidden = YES;
-//            self.TKView.height = IPHONEHIGHT(10);
-//            self.YSView.status = DetailsVieWStatus_1;
-//            self.YSView.height = goodsArr.count*55+230;
+
             
         }
     }else{
         self.TKButton.userInteractionEnabled = NO;//交互关闭
         self.TKButton.alpha=0.5;//透明度
-        
-//        self.TKView.hidden = YES;
-//        self.TKView.height = IPHONEHIGHT(10);
-//        self.YSView.status = DetailsVieWStatus_1;
-//        self.YSView.height = goodsArr.count*55+230;
+
         
     }
     
@@ -242,84 +229,113 @@
 //    self.TKButton.height = 0.01;
 //    self.TKButton.hidden = YES;
 
-    self.PLView.height = goodsArr.count*50+(d)*110 +(f)*35 +220;
+   self.PLView.height = goodsArr.count*50+(d)*110 +(f)*35 +220;
 #pragma mark - 判断
     //0全部、1待付款、2待使用、3待评价、4已评价、5已取消、6待退单、7退单完成、8退单失败、9待退款、10退款完成、11退款失败） 传入2，获取2,3的订单信息； 传入6，获取6,7,8的订单信息 传入9
-    if (self.status == 4) {
+    //退款是否
+    NSArray *refund_info = self.DictData[@"refund_info"];
+    NSString *refund_status = [NSString stringWithFormat:@"%@",self.DictData[@"refund_status"]];
+    //评论是否
+    NSString *eval_status = [NSString stringWithFormat:@"%@",self.DictData[@"eval_status"]];
+    
+    if ([refund_status isEqualToString:@"3"]) {
+        [self.TKView.Button2 setTitle:@"到账成功" forState:UIControlStateSelected];
+        self.TKView.Button2.selected = YES;
+    }else if ([refund_status isEqualToString:@"1"]){
+        self.TKView.Button2.selected = NO;
+    }else if ([refund_status isEqualToString:@"2"]){
+        self.TKView.Button2.selected = NO;
+    }else if ([refund_status isEqualToString:@"4"]){
+        [self.TKView.Button2 setTitle:@"退款已取消" forState:UIControlStateSelected];
+        self.TKView.Button2.selected = YES;
+    }else{
+        self.TKView.Button2.selected = NO;
+    }
+    
+    /**1、判断是否有退款*/
+//    self.TKView.hidden = refund_info.count>0 ? NO:YES;
+//    self.TKView.height =  refund_info.count>0 ? IPHONEHIGHT(122) : IPHONEHIGHT(10);
+//    self.YSView.status = refund_info.count>0 ? DetailsVieWStatus_2:DetailsVieWStatus_1;
+//    self.YSView.height = goodsArr.count*55+ (refund_info.count >0 ? 310:230);
+    
+    if ([refund_status isEqualToString:@"0"] || [refund_status isEqualToString:@"4"]) {
+        self.TKView.hidden = YES;
+        self.TKView.height = IPHONEHIGHT(10);
 
-        self.TKView.hidden = YES;
-        self.TKView.height = IPHONEHIGHT(10);
         self.YSView.status = DetailsVieWStatus_1;
-        self.YSView.height = goodsArr.count*55+230;
-        
-        self.YSView.top = self.TKView.bottom -10;
-        self.TKButton.top = self.YSView.bottom +20;
-        self.QTView.top = self.TKButton.bottom +20;
-        self.PLView.top = self.QTView.bottom +20;
-        self.SJScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, self.YSView.height+self.QTView.height+self.PLView.height+340);
-        
-    }else if (self.status == 2){
-        self.TKView.hidden = YES;
-        self.TKView.height = IPHONEHIGHT(10);
-        self.YSView.status = DetailsVieWStatus_1;
-        self.YSView.height = goodsArr.count*55+230;
-        
-        self.PLView.hidden = YES;
-        self.YSView.top = self.TKView.bottom -10;
-        self.TKButton.top = self.YSView.bottom +20;
-        self.QTView.top = self.TKButton.bottom +20;
-        self.PLView.top = self.QTView.bottom +20;
-        self.SJScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, self.TKView.height+self.YSView.height+self.QTView.height+240);
-        
-    }else if (self.status == 8 || self.status == 6 || self.status == 7 ){
-        self.TKView.hidden = YES;
-        self.TKView.height = IPHONEHIGHT(10);
-        self.YSView.status = DetailsVieWStatus_1;
-        self.YSView.height = goodsArr.count*55+230;
-        
-        self.PLView.hidden = YES;
-        self.YSView.top = self.TKView.bottom -10;
-        self.TKButton.top = self.YSView.bottom +20;
-        self.QTView.top = self.TKButton.bottom +20;
-        self.PLView.top = self.QTView.bottom +20;
-        self.SJScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, self.TKView.height+self.YSView.height+self.QTView.height+240);
-        
-    }else if (self.status == 9 || self.status == 10 || self.status == 11 ){
+         self.YSView.height = goodsArr.count*55+230;
+    }else{
         self.TKView.hidden = NO;
         self.TKView.height = IPHONEHIGHT(122);
+
         self.YSView.status = DetailsVieWStatus_2;
-        self.YSView.height = goodsArr.count*55+310;
-        if (self.status == 10) {
-            [self.TKView.Button2 setTitle:@"到账成功" forState:UIControlStateSelected];
-            self.TKView.Button2.selected = YES;
+         self.YSView.height = goodsArr.count*55+310;
+    }
 
-        }else{
-             [self.TKView.Button2 setTitle:@"到账失败" forState:UIControlStateSelected];
-            self.TKView.Button2.selected = YES;
-
-        }
-        
-        self.PLView.hidden = YES;
     
+    /**2、判断是否有评论*/
+    self.PLView.hidden = ([eval_status integerValue]==1) ? NO:YES;
+    
+    if (self.status == 4) {
+
+
+
         self.YSView.top = self.TKView.bottom -10;
         self.TKButton.top = self.YSView.bottom +20;
         self.QTView.top = self.TKButton.bottom +20;
         self.PLView.top = self.QTView.bottom +20;
-        self.SJScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, self.TKView.height+self.YSView.height+self.QTView.height+240);
+        self.SJScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, self.YSView.height+self.QTView.height+self.PLView.height+240+(refund_info.count>0 ? 130:20));
+        
+    }else if (self.status == 2){
+
+
+        self.PLView.hidden = ([eval_status integerValue]==1) ? NO:YES;
+        self.YSView.top = self.TKView.bottom -10;
+        self.TKButton.top = self.YSView.bottom +20;
+        self.QTView.top = self.TKButton.bottom +20;
+        self.PLView.top = self.QTView.bottom +20;
+        self.SJScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, self.TKView.height+self.YSView.height+self.QTView.height+240+(([eval_status integerValue]==1) ? self.PLView.height:0));
+        
+    }else if (self.status == 8 || self.status == 6 || self.status == 7 ){
+
+
+        self.PLView.hidden = ([eval_status integerValue]==1) ? NO:YES;
+        self.YSView.top = self.TKView.bottom -10;
+        self.TKButton.top = self.YSView.bottom +20;
+        self.QTView.top = self.TKButton.bottom +20;
+        self.PLView.top = self.QTView.bottom +20;
+        self.SJScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, self.TKView.height+self.YSView.height+self.QTView.height+240+(([eval_status integerValue]==1) ? self.PLView.height:0));
+        
+    }else if (self.status == 9 || self.status == 10 || self.status == 11 ){
+
+//        if (self.status == 10) {
+//            [self.TKView.Button2 setTitle:@"到账成功" forState:UIControlStateSelected];
+//            self.TKView.Button2.selected = YES;
+//
+//        }else{
+//             [self.TKView.Button2 setTitle:@"到账失败" forState:UIControlStateSelected];
+//            self.TKView.Button2.selected = YES;
+//
+//        }
+        
+        self.PLView.hidden = ([eval_status integerValue]==1) ? NO:YES;
+
+        self.YSView.top = self.TKView.bottom -10;
+        self.TKButton.top = self.YSView.bottom +20;
+        self.QTView.top = self.TKButton.bottom +20;
+        self.PLView.top = self.QTView.bottom +20;
+        self.SJScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, self.TKView.height+self.YSView.height+self.QTView.height+240+(([eval_status integerValue]==1) ? self.PLView.height:0));
         
         
     }else{
-        self.TKView.hidden = YES;
-        self.TKView.height = IPHONEHIGHT(10);
-        self.YSView.status = DetailsVieWStatus_1;
-        self.YSView.height = goodsArr.count*55+230;
-        
-        self.PLView.hidden = YES;
+       
+
+        self.PLView.hidden = ([eval_status integerValue]==1) ? NO:YES;
         self.YSView.top = self.TKView.bottom -10;
         self.TKButton.top = self.YSView.bottom +20;
         self.QTView.top = self.TKButton.bottom +20;
         self.PLView.top = self.QTView.bottom +20;
-        self.SJScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, self.TKView.height+self.YSView.height+self.QTView.height+240);
+        self.SJScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, self.TKView.height+self.YSView.height+self.QTView.height+240+(([eval_status integerValue]==1) ? self.PLView.height:0));
         
     }
     
@@ -1089,7 +1105,10 @@
 }
 #pragma mark - 提交退款
 -(void)AmountAction{
+    _AmountView = [[DetailsAmountView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, ScreenH)];
+    _AmountView.delagate = self;
     _AmountView.AmountTF.text = @"¥";
+    [_AmountView.AmountTF becomeFirstResponder];
     [self.view.window addSubview:self.AmountView];
 //     [[UIApplication sharedApplication].keyWindow addSubview:self.AmountView];
 }
@@ -1331,11 +1350,11 @@
     }
     return _TKButton;
 }
--(DetailsAmountView *)AmountView{
-    if (!_AmountView) {
-        _AmountView = [[DetailsAmountView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, ScreenH)];
-        _AmountView.delagate = self;
-    }
-    return _AmountView;
-}
+//-(DetailsAmountView *)AmountView{
+//    if (!_AmountView) {
+//        _AmountView = [[DetailsAmountView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, ScreenH)];
+//        _AmountView.delagate = self;
+//    }
+//    return _AmountView;
+//}
 @end

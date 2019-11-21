@@ -85,9 +85,8 @@
             }
             
             [self.orderTableView reloadData];
-//            [[NSNotificationCenter defaultCenter] postNotificationName:@"conversion" object:@""];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"OrderConversino" object:nil];
 
-           
             
         }else{
             [SVProgressHUD setMinimumDismissTimeInterval:2];
@@ -597,6 +596,7 @@
     NSString *pay_status = [NSString new];
     NSString *trade_status = [NSString new];
     NSString *eval_status = [NSString new];
+    NSString *refund_status = [NSString new];
 
     if (indexPath.section == 0) {
         order_status = [NSString stringWithFormat:@"%@",self.Data[indexPath.row][@"order_status"]];
@@ -606,7 +606,8 @@
          trade_status =  [NSString stringWithFormat:@"%@",self.Data[indexPath.row][@"trade_status"]];
         //评价状态 0 未评价，1.已评价
          eval_status = [NSString stringWithFormat:@"%@",self.Data[indexPath.row][@"eval_status"]];
-        
+        //退款状态 0 未退款 1发起退款中 2.退款已确认，3退款已完成，4.退款已取消
+        refund_status = [NSString stringWithFormat:@"%@",self.Data[indexPath.row][@"refund_status"]];
     }else if(indexPath.section == 1){
         order_status = [NSString stringWithFormat:@"%@",self.DataC[indexPath.row][@"order_status"]];
         //支付状态 0 未支付，1 已支付
@@ -615,7 +616,8 @@
          trade_status =  [NSString stringWithFormat:@"%@",self.DataC[indexPath.row][@"trade_status"]];
         //评价状态 0 未评价，1.已评价
          eval_status = [NSString stringWithFormat:@"%@",self.DataC[indexPath.row][@"eval_status"]];
-        
+        //退款状态 0 未退款 1发起退款中 2.退款已确认，3退款已完成，4.退款已取消
+        refund_status = [NSString stringWithFormat:@"%@",self.DataC[indexPath.row][@"refund_status"]];
     }else{
         order_status = [NSString stringWithFormat:@"%@",self.DataS[indexPath.row][@"order_status"]];
         //支付状态 0 未支付，1 已支付
@@ -624,22 +626,44 @@
          trade_status =  [NSString stringWithFormat:@"%@",self.DataS[indexPath.row][@"trade_status"]];
         //评价状态 0 未评价，1.已评价
          eval_status = [NSString stringWithFormat:@"%@",self.DataS[indexPath.row][@"eval_status"]];
+        //退款状态 0 未退款 1发起退款中 2.退款已确认，3退款已完成，4.退款已取消
+        refund_status = [NSString stringWithFormat:@"%@",self.DataS[indexPath.row][@"refund_status"]];
     }
 //0全部、1待付款、2待使用、3待评价、4已评价、5已取消、6待退单、7退单完成、8退单失败、9待退款、10退款完成、11退款失败） 传入2，获取2,3的订单信息； 传入6，获取6,7,8的订单信息 传入9
     if ([order_status isEqualToString: @"1"] ){
-        cell.status = OrderVieWStatus_1;
+        if ([refund_status isEqualToString:@"0"] || [refund_status isEqualToString:@"4"]) {
+            cell.status = OrderVieWStatus_1;
+        }else{
+            cell.status = OrderVieWStatus_8;
+        }
 
     }else if ([order_status isEqualToString: @"2"]){
-        cell.status = OrderVieWStatus_2;
+        if ([refund_status isEqualToString:@"0"] || [refund_status isEqualToString:@"4"]) {
+            cell.status = OrderVieWStatus_2;
+        }else{
+            cell.status = OrderVieWStatus_8;
+        }
         
     }else if ([order_status isEqualToString: @"3"]){
-        cell.status = OrderVieWStatus_3;
+        if ([refund_status isEqualToString:@"0"] || [refund_status isEqualToString:@"4"]) {
+            cell.status = OrderVieWStatus_3;
+        }else{
+            cell.status = OrderVieWStatus_8;
+        }
 
     }else if ([order_status isEqualToString: @"4"]){
-        cell.status = OrderVieWStatus_4;
+        if ([refund_status isEqualToString:@"0"] || [refund_status isEqualToString:@"4"]) {
+            cell.status = OrderVieWStatus_4;
+        }else{
+            cell.status = OrderVieWStatus_8;
+        }
 
     }else if ([order_status isEqualToString: @"5"]){
-        cell.status = OrderVieWStatus_5;
+        if ([refund_status isEqualToString:@"0"] || [refund_status isEqualToString:@"4"]) {
+            cell.status = OrderVieWStatus_5;
+        }else{
+            cell.status = OrderVieWStatus_8;
+        }
         
     }else if ([order_status isEqualToString: @"6"]){
          cell.status = OrderVieWStatus_6;
@@ -663,6 +687,8 @@
         cell.status = OrderVieWStatus_8;
         
     }
+   
+    
     if (indexPath.section == 0) {
         cell.delagate = self;
         cell.Data = self.Data[indexPath.row];

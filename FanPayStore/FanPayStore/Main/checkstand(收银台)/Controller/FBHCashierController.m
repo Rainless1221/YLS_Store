@@ -44,7 +44,8 @@
      获取店铺的ID
      */
     [self get_store_id];
-   
+    [self get_store_application_info];
+    
 }
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
@@ -55,7 +56,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"收银台";
-    [self refund_order_num];
+//    [self refund_order_num];
 
     /** 获取收银台基本信息 */
     [self merchant_center];
@@ -77,7 +78,8 @@
     [self setupNav];
 
     UserModel *model = [UserModel getUseData];
-    if ([model.store_id isEqualToString:@""]) {
+    NSString *store_id = [NSString stringWithFormat:@"%@",model.store_id];
+    if ([[MethodCommon judgeStringIsNull:store_id] isEqualToString:@""]) {
         self.SJScrollView.hidden = YES;
         self.NavView.hidden = YES;
         self.NoDataView.hidden = NO;
@@ -94,7 +96,8 @@
 -(void)merchant_center{
     [MBProgressHUD MBProgress:@"数据加载中..."];
     UserModel *model = [UserModel getUseData];
-    if ([model.store_id isEqualToString:@""]) {
+    NSString *store_id = [NSString stringWithFormat:@"%@",model.store_id];
+    if ([[MethodCommon judgeStringIsNull:store_id] isEqualToString:@""]) {
         [MBProgressHUD hideHUD];
         return;
     }
@@ -261,7 +264,7 @@
             }];
             [self.FBHCashierView.IncomeTableview reloadData];
             
-            self.SJScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, 650+TabCount*45);
+            self.SJScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, 750+TabCount*45);
 
         }else{
 
@@ -313,6 +316,30 @@
         
     }];
     
+}
+#pragma mark - 店铺申请信息
+-(void)get_store_application_info{
+    UserModel *model = [UserModel getUseData];
+    [[FBHAppViewModel shareViewModel]get_store_application_info:model.merchant_id Success:^(NSDictionary *resDic) {
+        if ([resDic[@"status"] integerValue]==1){
+            
+            NSString *message = [NSString stringWithFormat:@"%@",resDic[@"message"]];
+            if ([message isEqualToString:@"没有申请信息，请先入驻"]) {
+                [PublicMethods writeToUserD:@"2" andKey:@"get_store_application_info"];
+                return ;
+            }
+            [PublicMethods writeToUserD:@"1" andKey:@"get_store_application_info"];
+            
+            NSDictionary *DIC = resDic[@"data"][@"application_info"];
+            insert_storeM *model = [insert_storeM mj_objectWithKeyValues:DIC];
+            //保存
+            [model saveUserData];
+            
+            
+        }
+    } andfailure:^{
+        
+    }];
 }
 #pragma mark - 导航栏
 -(void)setupNav{
@@ -402,6 +429,7 @@
     [self.SJScrollView addSubview:self.FBHCashierView];
 //    [self.FBHCashierView TimeAction:self.FBHCashierView.TimeButton];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(conversionAction:) name:@"conversion" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(OrdAction:) name:@"OrderConversino" object:nil];
     /** 版本更新 **/
 //    [self lookup];
    
@@ -410,6 +438,9 @@
 - (void)conversionAction: (NSNotification *) notification {
     [self merchant_center];
     [self list_checkstand:self.begin_date andEnd:self.end_date];
+}
+- (void)OrdAction: (NSNotification *) notification {
+    [self merchant_center];
 }
 /**/
 -(void)labelTouchUpInside{
@@ -665,14 +696,15 @@
 - (void)dealloc {
     //单条移除观察者
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"conversion" object:nil];
-    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"OrderConversino" object:nil];
+
 }
 #pragma mark - Get
 -(UIScrollView *)SJScrollView{
     if (!_SJScrollView) {
         _SJScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
         _SJScrollView.backgroundColor = UIColorFromRGB(0xF6F6F6);
-        _SJScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, 980);
+        _SJScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, 1080);
         _SJScrollView.delegate = self;
         
         MJRefreshGifHeader *header = [MJRefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(ViewheaderRereshing)];

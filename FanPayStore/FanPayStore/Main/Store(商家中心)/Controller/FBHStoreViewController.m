@@ -173,8 +173,6 @@
 //
 //    }];
     
-    
-    
 }
 -(void)discount_goods{
     UserModel *model = [UserModel getUseData];
@@ -369,9 +367,9 @@
     [self get_ysepay_merchant_info];
 }
 #pragma mark - 模块事件
-
 -(void)pushViewcontroler:(NSInteger )Btntag{
     UserModel *model = [UserModel getUseData];
+    NSString *store_id = [NSString stringWithFormat:@"%@",model.store_id];
     
     FBHOrderViewController*VC = [FBHOrderViewController new];
     NSString *branch_type =[PublicMethods  readFromUserD:@"branch_type"];
@@ -381,7 +379,7 @@
 
     switch (Btntag) {
         case 10:
-            if ([model.store_id isEqualToString:@""]) {
+            if ([[MethodCommon judgeStringIsNull:store_id] isEqualToString:@""]) {
                 /** 未入驻店铺 **/
                 [self.navigationController pushViewController:[StepsViewController new] animated:NO];
             }else{
@@ -392,7 +390,7 @@
             break;
             
         case 11:
-            if ([model.store_id isEqualToString:@""]){
+            if ([[MethodCommon judgeStringIsNull:store_id] isEqualToString:@""]){
                 [self store];
                 return;
             }
@@ -402,7 +400,7 @@
             break;
             
         case 12:
-            if ([model.store_id isEqualToString:@""]){
+            if ([[MethodCommon judgeStringIsNull:store_id] isEqualToString:@""]){
                 [self store];
                 return;
             }
@@ -410,7 +408,7 @@
             [self.navigationController pushViewController:[FBHCPViewController new] animated:NO];
             break;
         case 13:
-            if ([model.store_id isEqualToString:@""]){
+            if ([[MethodCommon judgeStringIsNull:store_id] isEqualToString:@""]){
                 [self store];
                 return;
             }
@@ -419,7 +417,7 @@
             break;
         
         case 20:
-            if ([model.store_id isEqualToString:@""]){
+            if ([[MethodCommon judgeStringIsNull:store_id] isEqualToString:@""]){
                 [self store];
                 return;
             }
@@ -430,7 +428,7 @@
             [self.navigationController pushViewController:VC animated:NO];
             break;
         case 21:
-            if ([model.store_id isEqualToString:@""]){
+            if ([[MethodCommon judgeStringIsNull:store_id] isEqualToString:@""]){
                 [self store];
                 return;
             }
@@ -438,7 +436,7 @@
             [self.navigationController pushViewController:VC animated:NO];
             break;
         case 22:
-            if ([model.store_id isEqualToString:@""]){
+            if ([[MethodCommon judgeStringIsNull:store_id] isEqualToString:@""]){
                 [self store];
                 return;
             }
@@ -446,7 +444,7 @@
             [self.navigationController pushViewController:VC animated:NO];
             break;
         case 23:
-            if ([model.store_id isEqualToString:@""]){
+            if ([[MethodCommon judgeStringIsNull:store_id] isEqualToString:@""]){
                 [self store];
                 return;
             }
@@ -455,7 +453,7 @@
             break;
             
         case 30:
-            if ([model.store_id isEqualToString:@""]){
+            if ([[MethodCommon judgeStringIsNull:store_id] isEqualToString:@""]){
                 [self store];
                 return;
             }
@@ -464,7 +462,7 @@
             break;
         case 31:
              /** 分店切换 **/
-            if ([model.store_id isEqualToString:@""]){
+            if ([[MethodCommon judgeStringIsNull:store_id] isEqualToString:@""]){
                 [self store];
                 return;
             }
@@ -485,7 +483,7 @@
         case 322:
             
             /** 提现认证 **/
-            if ([model.store_id isEqualToString:@""]){
+            if ([[MethodCommon judgeStringIsNull:store_id] isEqualToString:@""]){
                 [self store];
                 return;
             }
@@ -516,7 +514,7 @@
         case 32:
             
             /** 银行卡 **/
-            if ([model.store_id isEqualToString:@""]){
+            if ([[MethodCommon judgeStringIsNull:store_id] isEqualToString:@""]){
                 [self store];
                 return;
             }
@@ -525,7 +523,7 @@
 
             break;
         case 33:
-            if ([model.store_id isEqualToString:@""]){
+            if ([[MethodCommon judgeStringIsNull:store_id] isEqualToString:@""]){
                 [self store];
                 return;
             }
@@ -534,7 +532,7 @@
             break;
         case 34:
             /** 加盟代理 **/
-            if ([model.store_id isEqualToString:@""]){
+            if ([[MethodCommon judgeStringIsNull:store_id] isEqualToString:@""]){
                 [self store];
                 return;
             }

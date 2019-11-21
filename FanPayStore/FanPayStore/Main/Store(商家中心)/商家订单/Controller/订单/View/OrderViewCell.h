@@ -52,7 +52,7 @@ typedef enum{
 @property (strong,nonatomic)UILabel * label_TKmoney;// 退款
 @property (strong,nonatomic)UILabel * label_TKtype;// 退款状态
 @property (strong,nonatomic)UIButton * HexiaoBtn;//未核销
-
+@property (strong,nonatomic)NSString * user_mobile;//消费者手机号
 //数据
 @property (strong,nonatomic)NSDictionary * Data;
 /*代理*/

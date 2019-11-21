@@ -257,9 +257,9 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     //当手指离开某行时，就让某行的选中状态消失
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-//    YLSAddFacilityController *VC = [YLSAddFacilityController new];
-//    VC.Data = self.dataSource[indexPath.row];
-//    [self.navigationController pushViewController:VC animated:NO];
+    YLSAddFacilityController *VC = [YLSAddFacilityController new];
+    VC.Data = self.dataSource[indexPath.row];
+    [self.navigationController pushViewController:VC animated:NO];
 
     
 }
@@ -353,7 +353,7 @@
 //
 //        [_EquipmentTableView registerClass:[HotelOrderCell class] forCellReuseIdentifier:@"HotelOrderCell"];
 //        [_EquipmentTableView registerClass:[TheHotelCell class] forCellReuseIdentifier:@"TheHotelCell"];
-        
+        _EquipmentTableView.customNoDataView = [UIView new];
         _EquipmentTableView.separatorStyle = UITableViewCellSelectionStyleNone;
     }
     return _EquipmentTableView;

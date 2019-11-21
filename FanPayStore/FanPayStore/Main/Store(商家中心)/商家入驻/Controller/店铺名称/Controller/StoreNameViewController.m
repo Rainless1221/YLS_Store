@@ -31,7 +31,7 @@
 #pragma mark - 导航栏
 -(void)setupNav{
     UIButton *leftbutton= [UIButton buttonWithType:UIButtonTypeCustom];
-    leftbutton.frame = CGRectMake(0, 0, autoScaleW(70), 40);
+    leftbutton.frame = CGRectMake(0, 0, 60, 40);
     [leftbutton setTitle:@"马上开店" forState:UIControlStateNormal];
     [leftbutton setTitle:@"确定" forState:UIControlStateSelected];
     [leftbutton setTitleColor:UIColorFromRGB(0xF7AE2B) forState:UIControlStateNormal];

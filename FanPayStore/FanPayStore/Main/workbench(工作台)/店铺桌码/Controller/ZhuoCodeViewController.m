@@ -84,6 +84,7 @@
 
     UIButton *leftbutton=[[UIButton alloc]initWithFrame:CGRectMake(10, 0, 60, 28)];
     [leftbutton setTitle:@"清空" forState:UIControlStateNormal];
+    leftbutton.titleLabel.font = [UIFont systemFontOfSize:14];
     [leftbutton setTitleColor:UIColorFromRGB(0xF7AE2B) forState:UIControlStateNormal];
     [leftbutton addTarget:self action:@selector(RighAction) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *rightitem=[[UIBarButtonItem alloc]initWithCustomView:leftbutton];
@@ -429,6 +430,7 @@
     DeleteView *samView = [[DeleteView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     samView.deleteIcon.image = [UIImage imageNamed:@"icn_alert"];
     samView.deleteLabel.text = @"清空桌面二维码";
+    [samView.deleteButton setTitle:@"确定" forState:UIControlStateNormal];
     NSString *card_number = [NSString stringWithFormat:@"确定要将清空店铺所有桌面二维码吗？"];
     samView.deleteText.text = card_number;
     

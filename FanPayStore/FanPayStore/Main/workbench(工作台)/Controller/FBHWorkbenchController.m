@@ -66,7 +66,8 @@
     [self setupNav];
     
     UserModel *model = [UserModel getUseData];
-    if ([model.store_id isEqualToString:@""]) {
+    NSString *store_id = [NSString stringWithFormat:@"%@",model.store_id];
+    if ([[MethodCommon judgeStringIsNull:store_id] isEqualToString:@""]) {
         self.FBHScrollView.hidden = YES;
         self.NavView.hidden = YES;
         self.NoDataView.hidden = NO;
@@ -125,7 +126,7 @@
             model1.token = model.token;
             
             [model1 saveUserData];
-            if ([storeString isEqualToString:@""]) {
+            if ([[MethodCommon judgeStringIsNull:storeString] isEqualToString:@""]){
                 self.FBHScrollView.hidden = YES;
                 self.NavView.hidden = YES;
                 self.NoDataView.hidden = NO;
@@ -162,7 +163,7 @@
             
             NSString *message = [NSString stringWithFormat:@"%@",resDic[@"message"]];
             if ([message isEqualToString:@"没有申请信息，请先入驻"]) {
-                [PublicMethods writeToUserD:@"1" andKey:@"get_store_application_info"];
+                [PublicMethods writeToUserD:@"2" andKey:@"get_store_application_info"];
                 return ;
             }
             [PublicMethods writeToUserD:@"1" andKey:@"get_store_application_info"];
@@ -171,7 +172,6 @@
             insert_storeM *model = [insert_storeM mj_objectWithKeyValues:DIC];
             //保存
             [model saveUserData];
-            
             
             
         }

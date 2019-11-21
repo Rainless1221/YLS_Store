@@ -188,6 +188,7 @@
     [self.store_category mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.category_pic.mas_top).offset(0);
         make.left.equalTo(self.category_pic.mas_right).offset(10);
+        make.right.mas_offset(-5);
         make.height.mas_offset(15);
     }];
     /* 粉丝*/

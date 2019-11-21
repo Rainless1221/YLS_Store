@@ -50,11 +50,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationItem.title = @"商家信息";
     [self.view addSubview:self.ScrollView];
-//YBWeakSelf
+YBWeakSelf
 //    /*商家基本信息*/
 //    self.Store_View = [[StoreStatus_View alloc]initWithFrame:CGRectMake(15, 75, self.view.width - 30, 202)];
 //    self.Store_View.backgroundColor = [UIColor whiteColor];
+//    self.Store_View.layer.shadowColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.1].CGColor;
+//    self.Store_View.layer.shadowOffset = CGSizeMake(0,5);
+//    self.Store_View.layer.shadowOpacity = 1;
+//    self.Store_View.layer.shadowRadius = 10;
+//    self.Store_View.layer.cornerRadius = 5;
+//
 //    [self.ScrollView addSubview:self.Store_View];
 //    self.Store_View.StoreNameBlock = ^{
 //        StoreNameViewController *NameVC = [StoreNameViewController new];
@@ -64,6 +71,7 @@
 //    /*菜单*/
 //    self.Store_Menu_View = [[Store_Menu_View alloc]initWithFrame:CGRectMake(15, self.Store_View.bottom +20, self.view.width - 30, 100)];
 //    self.Store_Menu_View.backgroundColor = [UIColor whiteColor];
+//    self.Store_Menu_View.layer.cornerRadius = 5;
 //    self.Store_Menu_View.delagate = self;
 //    _TypeView = self.Store_Menu_View.TypeView;
 //    [self.ScrollView addSubview:self.Store_Menu_View];
@@ -127,7 +135,7 @@
     [NavView addSubview:navLabel];
     //按钮
     UIButton *thirdBtn1 = [UIButton buttonWithType:UIButtonTypeCustom];
-    thirdBtn1.frame = CGRectMake(10, STATUS_BAR_HEIGHT, 44, 44);
+    thirdBtn1.frame = CGRectMake(0, STATUS_BAR_HEIGHT, 47, 44);
     [thirdBtn1 setImage:[UIImage imageNamed:@"icn_nav_back_black_normal"] forState:UIControlStateNormal];
     [thirdBtn1 addTarget:self action:@selector(LethAction) forControlEvents:UIControlEventTouchUpInside];
     [NavView addSubview:thirdBtn1];
@@ -141,37 +149,47 @@
 #pragma mark - 去编辑
 -(void)editorAction:(NSInteger)Typeinteger{
     
+    StoreInformationController *InformationVC = [StoreInformationController new];
+    InformationVC.Data_dict = self.StoreData2;
+    CertificateCardController *CardVC = [CertificateCardController new];
+    CardVC.Data_dict = self.StoreData3;
+    
+    
    YLSinStoreController *VC  = [YLSinStoreController new];
     VC.Data = self.StoreData;
     
     if (Typeinteger == 0) {
-        VC.NavString = @"店铺信息";
-        VC.Typeyint = 0;
+//        VC.NavString = @"店铺信息";
+//        VC.Typeyint = 0;
+//
+//        [self.navigationController pushViewController:VC animated:NO];
+        [self.navigationController pushViewController:InformationVC animated:NO];
 
-        [self.navigationController pushViewController:VC animated:NO];
-
-
+        
     }else if (Typeinteger == 1){
-        VC.NavString = @"温馨提示";
-        VC.Typeyint = 1;
-
-        [self.navigationController pushViewController:VC animated:NO];
+//        VC.NavString = @"温馨提示";
+//        VC.Typeyint = 1;
+//
+//        [self.navigationController pushViewController:VC animated:NO];
+        [self.navigationController pushViewController:InformationVC animated:NO];
 
     }else if (Typeinteger == 2){
-        VC.NavString = @"店铺图片";
-        VC.Typeyint = 2;
-
-        [self.navigationController pushViewController:VC animated:NO];
+//        VC.NavString = @"店铺图片";
+//        VC.Typeyint = 2;
+//
+//        [self.navigationController pushViewController:VC animated:NO];
+        [self.navigationController pushViewController:InformationVC animated:NO];
 
     }else if (Typeinteger == 3){
-        VC.NavString = @"证件图片";
-        VC.Typeyint = 3;
-
-        [self.navigationController pushViewController:VC animated:NO];
+//        VC.NavString = @"证件图片";
+//        VC.Typeyint = 3;
+//
+//        [self.navigationController pushViewController:VC animated:NO];
+        [self.navigationController pushViewController:CardVC animated:NO];
 
     }else{
 
-        [self.navigationController pushViewController:VC animated:NO];
+//        [self.navigationController pushViewController:VC animated:NO];
 
     }
     

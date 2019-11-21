@@ -732,7 +732,8 @@
     }];
     //business_permit_pic
     NSString *business_permit_pic = [NSString stringWithFormat:@"%@",Data[@"business_permit_pic"]];
-    [self.DView_Image4 setImageWithURL:[NSURL URLWithString:business_permit_pic] placeholder:[UIImage imageNamed:@"pic_default_avatar"]];
+    NSArray *businessArray = [business_permit_pic componentsSeparatedByString:@","];
+    [self.DView_Image4 setImageWithURL:[NSURL URLWithString:businessArray[0]] placeholder:[UIImage imageNamed:@"pic_default_avatar"]];
     [self.DView_Image4 mas_updateConstraints:^(MASConstraintMaker *make) {
         make.size.mas_offset(CGSizeMake(self.DView.width-20, 165));
     }];

@@ -26,7 +26,7 @@
         FL_Button *thirdBtn = [FL_Button buttonWithType:UIButtonTypeCustom];
         thirdBtn.frame = CGRectMake(self.width/4*i, 0, self.width/4, 75);
         [thirdBtn setTitle:[NSString stringWithFormat:@"%@",menuArray[i]] forState:UIControlStateNormal];
-        [thirdBtn setImage:[UIImage imageNamed:@"btn_check_box_normal"] forState:UIControlStateNormal];
+        [thirdBtn setImage:[UIImage imageNamed:@"icn_business_info_record_undone"] forState:UIControlStateNormal];
         [thirdBtn setImage:[UIImage imageNamed:@"icn_business_info_record_done"] forState:UIControlStateSelected];
         [thirdBtn setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
         [thirdBtn setTitleColor:UIColorFromRGB(0x222222) forState:UIControlStateSelected];

@@ -378,7 +378,7 @@
     if ([IsXieyi isEqualToString:@"1"]) {
         Button.selected = YES;
     }
-    /*阅读并同意《翻呗花商家入驻协议》*/
+    /*阅读并同意《一鹿省商家入驻协议》*/
     UILabel *label_xieyi = [[UILabel alloc] init];
     label_xieyi.frame = CGRectMake(Button.right+5,view5.bottom,186.5,57);
     label_xieyi.numberOfLines = 0;
@@ -390,7 +390,7 @@
     
     UIButton *Button_xieyi = [UIButton buttonWithType:UIButtonTypeCustom];
     Button_xieyi.frame = CGRectMake(label_xieyi.right+5, view5.bottom, 186, 57);
-    [Button_xieyi setTitle:@"《翻呗花商家入驻协议》" forState:UIControlStateNormal];
+    [Button_xieyi setTitle:@"《一鹿省商家入驻协议》" forState:UIControlStateNormal];
     [Button_xieyi.titleLabel setFont:[UIFont systemFontOfSize:autoScaleW(12)]];
     [Button_xieyi setTitleColor:UIColorFromRGB(0x3D8AFF) forState:UIControlStateNormal];
     [Button_xieyi addTarget:self action:@selector(Button_xieyiAction:) forControlEvents:UIControlEventTouchUpInside];

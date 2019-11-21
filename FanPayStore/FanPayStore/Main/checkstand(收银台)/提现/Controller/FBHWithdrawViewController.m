@@ -17,6 +17,7 @@
 {
     double F;
     NSString *_fee_payable;
+    NSString *_today_withdrawable_amount;
 }
 @property (strong,nonatomic)WithdrawWinView * WinView;//提现成功弹出View
 @property (strong,nonatomic)UIScrollView * SJScrollView;
@@ -60,8 +61,17 @@
             NSDictionary *DIC=resDic[@"data"];
             /** 可提现金额 */
             self.scrollView.dangqiM.text = [NSString stringWithFormat:@"%@",DIC[@"withdrawable_cash"]];
-            self.scrollView.fuwuLabel.text = [NSString stringWithFormat:@"可提现金额 %@元",DIC[@"withdrawable_cash"]];
+            _today_withdrawable_amount = [NSString stringWithFormat:@"%@",DIC[@"today_withdrawable_amount"]];
+            self.scrollView.fuwuLabel.text = [NSString stringWithFormat:@"今日可提现额度为 %@元",_today_withdrawable_amount];
 
+            /** 提现问题提示 若无问题 则为空字符串*/
+            NSString *tip = [NSString stringWithFormat:@"%@",DIC[@"tip"]];
+            if ([[MethodCommon judgeStringIsNull:tip] isEqualToString:@""]) {
+                
+            }else{
+                [SVProgressHUD setMinimumDismissTimeInterval:2];
+                [SVProgressHUD showErrorWithStatus:resDic[@"tip"]];
+            }
             /** 我的银行卡信息 */
             [self.bankData removeAllObjects];
 //            self.bankData =DIC[@"bank_card_info"];
@@ -798,7 +808,7 @@
         _scrollView.fuwuLabel.text = [NSString stringWithFormat:@"服务费: %.2lf元",fuwu];
     }else{
         self.scrollView.fuwuLabel.textColor =UIColorFromRGBA(0xCCCCCC, 1);
-        _scrollView.fuwuLabel.text =[NSString stringWithFormat:@"可提现金额 %@元",self.scrollView.dangqiM.text];
+        _scrollView.fuwuLabel.text =[NSString stringWithFormat:@"今日可提现额度为 %@元",_today_withdrawable_amount];
     }
     return YES;
 }
