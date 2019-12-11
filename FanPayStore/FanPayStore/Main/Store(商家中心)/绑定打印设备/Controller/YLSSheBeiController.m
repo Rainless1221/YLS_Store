@@ -154,12 +154,14 @@
      1 ：云打印
      2 :   蓝牙打印
      */
+    storeBaseModel *model = [storeBaseModel getUseData];
+
     NSString * isbluetooth1 = [PublicMethods readFromUserD:@"YunLanSound"];
-    if ([isbluetooth1 isEqualToString:@"1"]) {
+    if ([model.choice_printer isEqualToString:@"1"]) {
         self.LanisButton.hidden = YES;
         self.YunisButton.hidden = NO;
 
-    }else if([isbluetooth1 isEqualToString:@"2"]) {
+    }else if([model.choice_printer isEqualToString:@"2"]) {
         self.LanisButton.hidden = NO;
         self.YunisButton.hidden = YES;
 
@@ -176,6 +178,7 @@
 }
 #pragma mark - 添加成功返回
 - (void)conversionAction: (NSNotification *) notification {
+    storeBaseModel *model = [storeBaseModel getUseData];
     NSString * isbluetooth1 = [PublicMethods readFromUserD:@"YunLanSound"];
     if ([isbluetooth1 isEqualToString:@"1"]) {
         self.LanisButton.hidden = YES;

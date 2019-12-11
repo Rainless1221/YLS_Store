@@ -21,8 +21,7 @@
   
 
 }
-- (void)popToBack
-{
+- (void)popToBack{
     [self popViewControllerAnimated:YES];
 }
 #pragma mark - private methods

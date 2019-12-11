@@ -155,6 +155,7 @@
 #import "YLSRegisteredController.h"//注册商家
 #import "YLSAddProductController.h"//发布产品
 #import "YLSCommodityAttriController.h"//商品属性
+#import "BindingPayController.h"//绑定支付宝
 
 
 
@@ -262,6 +263,7 @@
 #import "YLSAddDuiGongCertification.h"
 #import "YLSCertifH5Controller.h"
 #import "YLSSheBeiController.h"
+#import "BrandNewOrderCell.h"//全新的订单样式
 
 
 

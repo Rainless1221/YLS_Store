@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)SetTime:(UITextField *)Time;
 -(void)SetReminder:(NSMutableArray*)Array;
 -(void)SetImageDelegate:(UIImageView*)Image;
+-(void)SetSLDelegate:(NSInteger)SLint;
 @end
 
 @interface YLSinStoreView : UIView<UITextFieldDelegate,SelectedReminDelegate>

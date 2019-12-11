@@ -15,7 +15,7 @@
     
     if(self){
         //默认选中On状态
-        _OnStatus = YES;
+        _OnStatus = NO;
         _Gap = gap;
         _Width=frame.size.width;
         _Height=frame.size.height;
@@ -51,7 +51,7 @@
         _myBlock=block;
         
         //默认选中On状态
-        _OnStatus = YES;
+        _OnStatus = NO;
         _Gap=gap;
         _Width=frame.size.width;
         _Height=frame.size.height;

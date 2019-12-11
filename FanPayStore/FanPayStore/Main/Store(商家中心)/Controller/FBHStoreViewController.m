@@ -348,7 +348,8 @@
     
     //conversion
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(conversionAction:) name:@"conversion" object:nil];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(conversionAction1:) name:@"business_center" object:nil];
+
     [self.view addSubview:self.branch_typeButton];
     [self.branch_typeButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_offset(-15);
@@ -365,6 +366,9 @@
     [self.SJScrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     [self ViewheaderRereshing];
     [self get_ysepay_merchant_info];
+}
+- (void)conversionAction1: (NSNotification *) notification {
+    [self merchant_center];
 }
 #pragma mark - 模块事件
 -(void)pushViewcontroler:(NSInteger )Btntag{
@@ -551,6 +555,14 @@
             /** 版本更新 **/
             [self lookup];
             break;
+        case 38:
+            /** 绑定支付宝 **/
+            if ([[MethodCommon judgeStringIsNull:store_id] isEqualToString:@""]){
+                [self store];
+                return;
+            }
+            [self.navigationController pushViewController:[BindingPayController new] animated:NO];
+            break;
         case 39:
             /** 反馈 **/
             [self.navigationController pushViewController:[FeedbackViewController new] animated:NO];
@@ -571,77 +583,7 @@
 -(void)store{
     [self.navigationController pushViewController:[StepsViewController new] animated:NO];
 }
-//#pragma mark - 获取应用在 appStore的信息
-//-(void)lookup{
-//
-//    NSString *urlString = @"http://itunes.apple.com/lookup?id=1465861059";
-//    //自己应用在App Store里的地址
-//    NSURL *url = [NSURL URLWithString:urlString];
-//    //这个URL地址是该app在iTunes connect里面的相关配置信息。其中id是该app在app store唯一的ID编号。
-//    NSString *jsonResponseString = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
-//    NSData *data = [jsonResponseString dataUsingEncoding:NSUTF8StringEncoding];
-//
-//    //    解析json数据
-//    id json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-//    NSArray *array = json[@"results"];
-//    for (NSDictionary *dic in array) {
-//        NSString *newVersion = [dic valueForKey:@"version"];// appStore 的版本号
-//        NSLog(@"appStore 的版本号 :%@",newVersion);
-//        NSLog(@"appStore 的版本信息 :%@",dic);
-//        //        self.banben.text = [NSString stringWithFormat:@"v%@",newVersion];
-//
-//        /**
-//         * 本地版本
-//         */
-//        NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
-//        NSString *appCurVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
-//        NSLog(@"当前应用软件版本:%@",appCurVersion);
-//
-//        /**
-//         版本更新内容
-//         */
-//
-//        NSString *title = [NSString stringWithFormat:@"%@",[dic valueForKey:@"releaseNotes"]];
-//
-//        if (newVersion == appCurVersion) {
-//            [SVProgressHUD showSuccessWithStatus:@"目前已是最新版本"];
-//        }else{
-//
-//            [[WMZAlert shareInstance]showAlertWithType:AlertTypeNornal sueprVC:self leftTitle:@"前往更新" rightTitle:@"下次提示" headTitle:@"商户端最新版本" textTitle:title headTitleColor:[UIColor blackColor] textTitleColor:[UIColor blackColor] backColor:[UIColor whiteColor] okBtnColor:UIColorFromRGB(0x3D8AFF) cancelBtnColor:UIColorFromRGB(0x3D8AFF) leftHandle:^(id anyID) {
-//                NSString *url = [dic valueForKey:@"trackViewUrl"];
-//                [[UIApplication sharedApplication]openURL:[NSURL URLWithString:url]];
-//            } rightHandle:^(id anyID) {
-//
-//            }];
-//
-//        }
-//
-//
-//    }
-//
-//
-//}
-//#pragma mark - 获取版本信息
-//-(void)get_mer_version_info{
-//    UserModel *model=[UserModel getUseData];
-//    [[FBHAppViewModel shareViewModel]get_mer_version_info:model.merchant_id Success:^(NSDictionary *resDic) {
-//        if ([resDic[@"status"] integerValue]==1) {
-//            /**
-//             * 本地版本
-//             */
-//            NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
-//
-//            NSString *appCurVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
-//            NSLog(@"当前应用软件版本:%@",appCurVersion);
-//
-//        }else{
-//
-//        }
-//    } andfailure:^{
-//
-//    }];
-//
-//}
+
 #pragma mark - ScrollViewDelegate
 // 滑动时要执行的代码
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -662,7 +604,6 @@
 }
 
 -(void)ViewheaderRereshing{
-
     [self merchant_center];
     [self get_completion_ysepay_mer_info];
     [self.SJScrollView.mj_header endRefreshing];
@@ -670,6 +611,7 @@
 - (void)dealloc {
     //单条移除观察者
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"conversion" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"business_center" object:nil];
 
 }
 #pragma mark - Get

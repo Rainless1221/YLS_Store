@@ -255,25 +255,34 @@
         if(OnStatus){
             NSLog(@"打开");
             [PublicMethods writeToUserD:@"2" andKey:@"YunLanSound"];
-
+            /*打开接口*/
+            [self shutdownRestart:@"2"];
         }else{
             NSLog(@"关闭");
             [PublicMethods writeToUserD:@"0" andKey:@"YunLanSound"];
-
-            
+            [self shutdownRestart:@"0"];
         }
         [[NSNotificationCenter defaultCenter] postNotificationName:@"YunLanSound" object:nil];
 
     }];
     /*判读开关滑动展示*/
-    NSString * isbluetooth = [PublicMethods readFromUserD:@"YunLanSound"];
-    if ([isbluetooth isEqualToString:@"2"]) {
+//    NSString * isbluetooth = [PublicMethods readFromUserD:@"YunLanSound"];
+//    if ([isbluetooth isEqualToString:@"2"]) {
+//        self.Sound.OnStatus = YES;
+//    }else if([isbluetooth isEqualToString:@"0"]) {
+//        self.Sound.OnStatus = NO;
+//    }else{
+//        self.Sound.OnStatus = NO;
+//
+//    }
+    
+     storeBaseModel *model = [storeBaseModel getUseData];
+    if ([model.choice_printer isEqualToString:@"2"]) {
         self.Sound.OnStatus = YES;
-    }else if([isbluetooth isEqualToString:@"0"]) {
+    }else if([model.choice_printer isEqualToString:@"1"]) {
         self.Sound.OnStatus = NO;
     }else{
         self.Sound.OnStatus = NO;
-  
     }
     //设置背景图片
     [self.Sound setBackgroundImage:[UIImage imageNamed:@"switch_ex_frame"]];
@@ -357,6 +366,26 @@
     }];
     
     
+}
+#pragma mark - 开关
+-(void)shutdownRestart:(NSString *)type{
+    UserModel *Model = [UserModel getUseData];
+    
+    [[FBHAppViewModel shareViewModel]store_printer_choice:Model.merchant_id andstore_id:Model.store_id andchoice_printer:type Success:^(NSDictionary *resDic) {
+        if ([resDic[@"status"] integerValue]==1) {
+            [SVProgressHUD showSuccessWithStatus:resDic[@"message"]];
+
+        }else{
+            [SVProgressHUD setMinimumDismissTimeInterval:2];
+            [SVProgressHUD showErrorWithStatus:resDic[@"message"]];
+        }
+    } andfailure:^{
+        
+    }];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"business_center" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"YunLanSound" object:nil];
+
 }
 #pragma mark - UI
 - (void) _createTableView{

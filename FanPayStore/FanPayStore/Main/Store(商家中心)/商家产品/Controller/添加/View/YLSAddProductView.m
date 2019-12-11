@@ -257,13 +257,17 @@
     }];
     
     self.TheLabelButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.TheLabelButton.frame = CGRectMake(85, 9, 140, 32);
     [self.TheLabelButton setTitle:@"请选择商品标签" forState:UIControlStateNormal];
     self.TheLabelButton.titleLabel.font = [UIFont systemFontOfSize:15];
+    [self.TheLabelButton addTarget:self action:@selector(LabelAction) forControlEvents:UIControlEventTouchUpInside];
     [self.TheLabelButton setTitleColor:UIColorFromRGB(0xCCCCCC) forState:UIControlStateNormal];
     [self.TheLabelView addSubview:self.TheLabelButton];
     [self.TheLabelButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_offset(0);
-        make.left.equalTo(label6.mas_right).offset(10);
+//        make.left.equalTo(label6.mas_right).offset(10);
+        make.left.mas_offset(85);
+        make.height.mas_offset(32);
     }];
     
 #pragma mark - 商品属性
@@ -299,12 +303,13 @@
     self.AttributelButton.titleLabel.font = [UIFont systemFontOfSize:15];
     [self.AttributelButton setTitleColor:UIColorFromRGB(0xCCCCCC) forState:UIControlStateNormal];
     self.AttributelButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [self.AttributelButton addTarget:self action:@selector(AttributeAction) forControlEvents:UIControlEventTouchUpInside];
     [self.AttributeView addSubview:self.AttributelButton];
     [self.AttributelButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_offset(0);
         make.left.equalTo(label6.mas_right).offset(10);
         make.height.mas_offset(50);
-        make.right.mas_offset(0);
+        make.right.mas_offset(-24);
     }];
     
 #pragma mark - 商品类型
@@ -331,15 +336,19 @@
     for (int i=0; i<3; i++) {
         NSString *typetitle = [NSString stringWithFormat:@"%@",buttonArray[i]];
         UIButton *typeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [typeButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [typeButton setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
         [typeButton setTitleColor:UIColorFromRGB(0xF7AE2B) forState:UIControlStateSelected];
         typeButton.titleLabel.font = [UIFont systemFontOfSize:15];
         [typeButton setTitle:typetitle forState:UIControlStateNormal];
         typeButton.layer.borderWidth = 1;
-        typeButton.layer.borderColor = UIColorFromRGB(0xF7AE2B).CGColor;
+        typeButton.layer.borderColor = UIColorFromRGB(0xDCDCDC).CGColor;
         typeButton.layer.cornerRadius = 16;
         typeButton.tag = i+1;
         [typeButton addTarget:self action:@selector(TypeAction:) forControlEvents:UIControlEventTouchUpInside];
+        if (i == 0) {
+            typeButton.selected = YES;
+            typeButton.layer.borderColor = UIColorFromRGB(0xF7AE2B).CGColor;
+        }
         [self.GoodTypeView addSubview:typeButton];
         [typeButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.mas_offset(0);
@@ -384,11 +393,40 @@
 }
 #pragma mark - 选择标签事件
 -(void)LabelAction:(UITapGestureRecognizer *)tap{
-  
+    if (self.delagate && [self.delagate respondsToSelector:@selector(andTheLabel)]) {
+        [self.delagate andTheLabel];
+    }
+}
+-(void)LabelAction{
+    if (self.delagate && [self.delagate respondsToSelector:@selector(andTheLabel)]) {
+        [self.delagate andTheLabel];
+    }
+}
+#pragma mark - 选择属性事件
+-(void)AttributeAction:(UITapGestureRecognizer *)tap{
+    if (self.delagate && [self.delagate respondsToSelector:@selector(andAttribute)]) {
+        [self.delagate andAttribute];
+    }
+}
+-(void)AttributeAction{
+    if (self.delagate && [self.delagate respondsToSelector:@selector(andAttribute)]) {
+        [self.delagate andAttribute];
+    }
 }
 #pragma mark - 选择类型事件
 -(void)TypeAction:(UIButton  *)tap{
-    
+    for (int i = 0; i<3; i++) {
+        
+        if (tap.tag == i+1) {
+            UIButton *but = (UIButton *)[self viewWithTag:i+1];
+            but.selected = YES;
+             but.layer.borderColor = UIColorFromRGB(0xF7AE2B).CGColor;
+            continue;
+        }
+        UIButton *but = (UIButton *)[self viewWithTag:i+1];
+        but.layer.borderColor = UIColorFromRGB(0xDCDCDC).CGColor;
+        but.selected = NO;
+    }
 }
 #pragma mark - UITextFieldDelegate
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
@@ -450,6 +488,8 @@
         _AttributeView = [[UIView alloc]init];
         _AttributeView.backgroundColor = [UIColor whiteColor];
         _AttributeView.layer.cornerRadius = 5;
+        UITapGestureRecognizer *tapGesturRecognizer=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(AttributeAction:)];
+        [_AttributeView addGestureRecognizer:tapGesturRecognizer];
     }
     return _AttributeView;
 }

@@ -251,6 +251,9 @@
 - (void) cityPickerController:(GYZChooseCityController *)chooseCityController didSelectCity:(GYZCity *)city
 {
     [self.thirdBtn setTitle:city.cityName forState:UIControlStateNormal];
+    self.locationcity = [NSString stringWithFormat:@"%@",city.cityName];
+//    [self actionSearchAroundAt:CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude)];
+    [self POIKeywordsSearch:city.cityName];
     [self.navigationController popViewControllerAnimated:YES];
 
 }

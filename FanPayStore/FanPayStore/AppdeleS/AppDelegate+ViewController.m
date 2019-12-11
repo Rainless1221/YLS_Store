@@ -244,7 +244,7 @@
     // 如需继续使用 pushConfig.plist 文件声明 appKey 等配置内容，请依旧使用 [JPUSHService setupWithOption:launchOptions] 方式初始化。
     [JPUSHService setupWithOption:launchOptions appKey:kAppKey_JPush
                           channel:@"App Store"
-                 apsForProduction:YES
+                 apsForProduction:NO
             advertisingIdentifier:advertisingId];
     
 
@@ -309,7 +309,6 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 // iOS 10 Support
 - (void)jpushNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler {
     
-
     // Required
     NSDictionary * userInfo = response.notification.request.content.userInfo;
     if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
@@ -330,8 +329,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 }
 #pragma mark - 在后台推送处理
 //- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
-- (void)application:(UIApplication *)application didReceiveRemoteNotification: (NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler NS_AVAILABLE_IOS(7_0) __TVOS_PROHIBITED
-{
+- (void)application:(UIApplication *)application didReceiveRemoteNotification: (NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler NS_AVAILABLE_IOS(7_0) __TVOS_PROHIBITED{
 //    if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
 //        // 程序运行时收到通知，先弹出消息框
 //        NSLog(@"程序在前台");
@@ -411,7 +409,6 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 }
 
 
-
 - (void)application:(UIApplication *)application handleActionWithIdentifier:(nullable NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo withResponseInfo:(NSDictionary *)responseInfo completionHandler:(void(^)())completionHandler NS_AVAILABLE_IOS(9_0) {
     
 
@@ -425,6 +422,19 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 
 - (void)goToMssageViewControllerWith:(NSDictionary*)userInfo {
     // 用于处理点击消息跳转某个界面
+    NSString *type = userInfo[@"type"];
+    if ([type isEqualToString:@"cashier"]) {
+        self.MainTabBar.selectedIndex = 2;//打开相应的主页面
+        UINavigationController *na = self.MainTabBar.viewControllers[2];//获取打开的导航控制器
+        
+        FBHinformViewController *VC = [FBHinformViewController new];
+        VC.navigationItemText = @"收银台";
+        VC.news_type = @"4";
+        [na pushViewController:VC animated:YES]; //推送到相应的界面
+    }
+    
+    
+
 }
 
 #pragma mark - 打印

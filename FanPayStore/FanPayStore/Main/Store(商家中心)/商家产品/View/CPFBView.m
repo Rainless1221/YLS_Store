@@ -80,7 +80,7 @@
     double plat = [price doubleValue];
     
     if (text.length>0) {
-        if (self.goods_price.text.length>0) {
+//        if (self.goods_price.text.length>0) {
             if (textField ==  self.goods_price) {
                 [self get_plat_price_rate1:text];
 
@@ -99,7 +99,7 @@
 //            self.Pingtai.textColor = UIColorFromRGB(0x222222);
             
             
-        }
+//        }
     
     }else {
         self.Pingtai.text = @"平台价为优惠价+服务费之和";
@@ -132,7 +132,9 @@
             self.Pingtai.textColor = UIColorFromRGB(0x222222);
             
         }else{
-            
+            self.Pingtai.text = [NSString stringWithFormat:@"%@",resDic[@"message"]];
+            self.Pingtai.textColor = UIColorFromRGB(0xCCCCCC);
+
         }
         
     } andfailure:^{
@@ -146,14 +148,16 @@
     
     [[FBHAppViewModel shareViewModel]get_plat_price_according_goods_price_and_discount_price:model.merchant_id andstore_id:model.store_id  andgoods_price:discount_price anddiscount_price:[NSString stringWithFormat:@"%@",self.discount_price.text]  Success:^(NSDictionary *resDic) {
         
-        if ([resDic[@"status"] integerValue]==1) {
+    if ([resDic[@"status"] integerValue]==1) {
             NSDictionary *DIC=resDic[@"data"];
             
             self.Pingtai.text = [NSString stringWithFormat:@"%@",DIC[@"plat_price"]];
             self.Pingtai.textColor = UIColorFromRGB(0x222222);
             
         }else{
-            
+            self.Pingtai.text = [NSString stringWithFormat:@"%@",resDic[@"message"]];
+            self.Pingtai.textColor = UIColorFromRGB(0xCCCCCC);
+
         }
         
     } andfailure:^{

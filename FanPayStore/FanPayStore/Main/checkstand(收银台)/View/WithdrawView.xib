@@ -23,7 +23,7 @@
                     <rect key="frame" x="53" y="114" width="269" height="43"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="36"/>
-                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I18-uF-Ubr">
@@ -37,11 +37,11 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icn_withdraw_bank" translatesAutoresizingMaskIntoConstraints="NO" id="edt-Uc-xIp">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icn_withdraw_bank-1" translatesAutoresizingMaskIntoConstraints="NO" id="edt-Uc-xIp">
                             <rect key="frame" x="23" y="57" width="28" height="27"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icn_withdraw_amount" translatesAutoresizingMaskIntoConstraints="NO" id="PRd-HU-0Hz">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icn_withdraw_amount-1" translatesAutoresizingMaskIntoConstraints="NO" id="PRd-HU-0Hz">
                             <rect key="frame" x="23" y="102" width="28" height="29"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
@@ -49,7 +49,9 @@
                             <rect key="frame" x="298" y="165" width="31" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                            <state key="normal" title="全部"/>
+                            <state key="normal" title="全部">
+                                <color key="titleColor" red="0.96862745100000003" green="0.68235294120000001" blue="0.16862745100000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
                             <connections>
                                 <action selector="allAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="tR1-Wk-jjz"/>
                             </connections>
@@ -73,7 +75,7 @@
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pSx-Mi-0vq">
                             <rect key="frame" x="298" y="57" width="6" height="22"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" image="input_arrow_right_blue"/>
+                            <state key="normal" image="input_arrow_right_deepgray"/>
                         </button>
                         <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入提现金额" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vOm-JL-s2y">
                             <rect key="frame" x="69" y="104" width="220" height="37"/>
@@ -89,8 +91,8 @@
                             <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4JQ-Rv-2gb">
-                            <rect key="frame" x="23" y="169" width="33" height="16"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="今日可提现额度为" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4JQ-Rv-2gb">
+                            <rect key="frame" x="23" y="169" width="107" height="16"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <nil key="textColor"/>
@@ -166,11 +168,11 @@
                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="tag_calendar_today" translatesAutoresizingMaskIntoConstraints="NO" id="XSu-7O-RSq">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icn_list_styletype_dot_yellow" translatesAutoresizingMaskIntoConstraints="NO" id="XSu-7O-RSq">
                     <rect key="frame" x="16" y="642" width="20" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="tag_calendar_today" translatesAutoresizingMaskIntoConstraints="NO" id="lrd-wl-q9K">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icn_list_styletype_dot_yellow" translatesAutoresizingMaskIntoConstraints="NO" id="lrd-wl-q9K">
                     <rect key="frame" x="15" y="704" width="20" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
@@ -178,7 +180,7 @@
                     <rect key="frame" x="53" y="67" width="194" height="24"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="提现额度说明" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PZ0-FY-bNw">
@@ -195,7 +197,7 @@
                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="tag_calendar_today" translatesAutoresizingMaskIntoConstraints="NO" id="d68-rK-VbL" userLabel="Tisiimag3">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icn_list_styletype_dot_yellow" translatesAutoresizingMaskIntoConstraints="NO" id="d68-rK-VbL" userLabel="Tisiimag3">
                     <rect key="frame" x="15" y="758" width="20" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
@@ -213,7 +215,7 @@
                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="tag_calendar_today" translatesAutoresizingMaskIntoConstraints="NO" id="gil-lf-4L8">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icn_list_styletype_dot_yellow" translatesAutoresizingMaskIntoConstraints="NO" id="gil-lf-4L8">
                     <rect key="frame" x="17" y="836" width="20" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
@@ -255,10 +257,10 @@
     </objects>
     <resources>
         <image name="bg_withdraw_account_amount-1" width="345" height="155"/>
+        <image name="icn_list_styletype_dot_yellow" width="6" height="5"/>
         <image name="icn_message_warning" width="15" height="15"/>
-        <image name="icn_withdraw_amount" width="24" height="24"/>
-        <image name="icn_withdraw_bank" width="24" height="24"/>
-        <image name="input_arrow_right_blue" width="6" height="10"/>
-        <image name="tag_calendar_today" width="48" height="48"/>
+        <image name="icn_withdraw_amount-1" width="24" height="24"/>
+        <image name="icn_withdraw_bank-1" width="24" height="24"/>
+        <image name="input_arrow_right_deepgray" width="6" height="10"/>
     </resources>
 </document>

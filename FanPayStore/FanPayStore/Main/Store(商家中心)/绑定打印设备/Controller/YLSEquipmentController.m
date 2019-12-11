@@ -194,14 +194,15 @@
             [PublicMethods writeToUserD:@"0" andKey:@"YunLanSound"];
         }
         [self OFF];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"YunLanSound" object:nil];
     }];
     
     /*判读开关滑动展示*/
+    storeBaseModel *model = [storeBaseModel getUseData];
+
     NSString * isbluetooth = [PublicMethods readFromUserD:@"YunLanSound"];
-    if ([isbluetooth isEqualToString:@"1"]) {
+    if ([model.choice_printer isEqualToString:@"1"]) {
         self.Sound.OnStatus = YES;
-    }else if([isbluetooth isEqualToString:@"0"]) {
+    }else if([model.choice_printer isEqualToString:@"0"]) {
         self.Sound.OnStatus = NO;
     }else{
         self.Sound.OnStatus = NO;
@@ -297,12 +298,12 @@
 #pragma mark - 控制开关
 -(void)OFF{
     /*判读外面打印开关*/
-    NSString * isbluetooth = [PublicMethods readFromUserD:@"isbluetooth"];
-    if ([isbluetooth isEqualToString:@"NO"]) {
-        /*关闭接口*/
-        [self shutdownRestart:@"2"];
-        return;
-    }
+//    NSString * isbluetooth = [PublicMethods readFromUserD:@"isbluetooth"];
+//    if ([isbluetooth isEqualToString:@"NO"]) {
+//        /*关闭接口*/
+//        [self shutdownRestart:@"0"];
+//        return;
+//    }
     /*判读开关滑动展示
      0 ：为关闭打印
      1 ：云打印
@@ -314,9 +315,10 @@
         [self shutdownRestart:@"1"];
     }else if([YunLanSound isEqualToString:@"2"]) {
         /*关闭接口*/
-        [self shutdownRestart:@"2"];
+        [self shutdownRestart:@"0"];
     }else{
-        
+        /*关闭接口*/
+        [self shutdownRestart:@"0"];
     }
     
 }
@@ -324,10 +326,10 @@
 -(void)shutdownRestart:(NSString *)type{
     UserModel *Model = [UserModel getUseData];
     
-    [[FBHAppViewModel shareViewModel]shutdownRestart:Model.merchant_id andstore_id:Model.store_id andresponse_type:type Success:^(NSDictionary *resDic) {
+    [[FBHAppViewModel shareViewModel]store_printer_choice:Model.merchant_id andstore_id:Model.store_id andchoice_printer:type Success:^(NSDictionary *resDic) {
         if ([resDic[@"status"] integerValue]==1) {
             [SVProgressHUD showSuccessWithStatus:resDic[@"message"]];
-            
+
         }else{
             [SVProgressHUD setMinimumDismissTimeInterval:2];
             [SVProgressHUD showErrorWithStatus:resDic[@"message"]];
@@ -335,6 +337,10 @@
     } andfailure:^{
         
     }];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"business_center" object:nil];
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"YunLanSound" object:nil];
+
 }
 - (void)dealloc {
     //单条移除观察者

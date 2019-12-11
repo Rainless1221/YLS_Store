@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.0.9</string>
+	<string>2.0.10</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -58,7 +58,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>2</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSApplicationQueriesSchemes</key>
@@ -109,15 +109,9 @@
 	<string>需要蓝牙打印，是否许允此App使用蓝牙</string>
 	<key>NSCameraUsageDescription</key>
 	<string>需要扫描二维码或拍照进行连接绑定设备，是否允许打开相机？</string>
-	<key>NSLocationAlawaysUsageDescription</key>
-	<true/>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>需要获取个人位置进行定位商铺位置，是否允许此App获取你的定位？</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>需要获取个人位置进行定位商铺位置，是否允许此App获取你的定位？</string>
-	<key>NSLocationAlwaysUsageDescription string</key>
-	<string>用于导航或路径规划</string>
-	<key>NSLocationUsageDescription</key>
 	<string>需要获取个人位置进行定位商铺位置，是否允许此App获取你的定位？</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>需要获取个人位置进行定位商铺位置，是否允许此App获取你的定位？</string>
@@ -131,10 +125,8 @@
 	<string>需要蓝牙打印，是否许允此App使用蓝牙</string>
 	<key>UIBackgroundModes</key>
 	<array>
-		<string>audio</string>
 		<string>bluetooth-central</string>
 		<string>bluetooth-peripheral</string>
-		<string>location</string>
 		<string>remote-notification</string>
 	</array>
 	<key>UIMainStoryboardFile</key>

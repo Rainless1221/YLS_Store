@@ -644,7 +644,7 @@
 -(void)MoreAction{
     //    [self.navigationController pushViewController:[FBHGoodsListController new] animated:YES];
 }
-#pragma mark - 订单
+#pragma mark - 订单（分类、产品、 营销设置）
 -(void)OrderButtonAction:(NSInteger)Btntag{
 
     if (Btntag == 0) {
@@ -706,7 +706,7 @@
                     [self store];
                     return;
                 }
-                /** 翻呗设置 **/
+                /** 营销设置 **/
                 [self.navigationController pushViewController:[MarketingController new] animated:NO];
                 break;
                 

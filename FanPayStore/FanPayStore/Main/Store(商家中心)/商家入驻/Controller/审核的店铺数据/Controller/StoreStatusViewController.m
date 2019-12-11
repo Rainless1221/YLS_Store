@@ -52,7 +52,7 @@
     [super viewDidLoad];
     self.navigationItem.title = @"商家信息";
     [self.view addSubview:self.ScrollView];
-YBWeakSelf
+//YBWeakSelf
 //    /*商家基本信息*/
 //    self.Store_View = [[StoreStatus_View alloc]initWithFrame:CGRectMake(15, 75, self.view.width - 30, 202)];
 //    self.Store_View.backgroundColor = [UIColor whiteColor];
@@ -81,7 +81,7 @@ YBWeakSelf
 //
 //
 //    self.Store_Menu_View.SizeHejightBlock = ^(CGFloat Height) {
-//        weakSelf.Store_Menu_View.height = weakSelf.Store_Menu_View.SizeHeight;
+//        weakSelf.Store_Menu_View.height = weakSelf.Store_Menu_View.SizeHeight+20;
 //        weakSelf.ScrollView.contentSize = CGSizeMake(SCREEN_WIDTH,  weakSelf.Store_Menu_View.SizeHeight+330);
 //    };
 
@@ -159,33 +159,33 @@ YBWeakSelf
     VC.Data = self.StoreData;
     
     if (Typeinteger == 0) {
-//        VC.NavString = @"店铺信息";
-//        VC.Typeyint = 0;
-//
-//        [self.navigationController pushViewController:VC animated:NO];
-        [self.navigationController pushViewController:InformationVC animated:NO];
+        VC.NavString = @"店铺信息";
+        VC.Typeyint = 0;
+
+        [self.navigationController pushViewController:VC animated:NO];
+//        [self.navigationController pushViewController:InformationVC animated:NO];
 
         
     }else if (Typeinteger == 1){
-//        VC.NavString = @"温馨提示";
-//        VC.Typeyint = 1;
-//
-//        [self.navigationController pushViewController:VC animated:NO];
-        [self.navigationController pushViewController:InformationVC animated:NO];
+        VC.NavString = @"温馨提示";
+        VC.Typeyint = 1;
+
+        [self.navigationController pushViewController:VC animated:NO];
+//        [self.navigationController pushViewController:InformationVC animated:NO];
 
     }else if (Typeinteger == 2){
-//        VC.NavString = @"店铺图片";
-//        VC.Typeyint = 2;
-//
-//        [self.navigationController pushViewController:VC animated:NO];
-        [self.navigationController pushViewController:InformationVC animated:NO];
+        VC.NavString = @"店铺图片";
+        VC.Typeyint = 2;
+
+        [self.navigationController pushViewController:VC animated:NO];
+//        [self.navigationController pushViewController:InformationVC animated:NO];
 
     }else if (Typeinteger == 3){
-//        VC.NavString = @"证件图片";
-//        VC.Typeyint = 3;
-//
-//        [self.navigationController pushViewController:VC animated:NO];
-        [self.navigationController pushViewController:CardVC animated:NO];
+        VC.NavString = @"证件图片";
+        VC.Typeyint = 3;
+
+        [self.navigationController pushViewController:VC animated:NO];
+//        [self.navigationController pushViewController:CardVC animated:NO];
 
     }else{
 

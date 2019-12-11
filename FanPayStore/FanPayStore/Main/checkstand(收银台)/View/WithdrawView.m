@@ -68,19 +68,19 @@
 #pragma mark - 提示
     self.TisiLabel1.frame = CGRectMake(15, self.notarizeButton.bottom+48, 150, 18);
     
-    self.Tisiimag1.frame = CGRectMake(16, self.TisiLabel1.bottom+15, 10, 10);
+    self.Tisiimag1.frame = CGRectMake(16, self.TisiLabel1.bottom+18, 5, 5);
     self.TisiLabel2.frame = CGRectMake(30, self.TisiLabel1.bottom+15, 150, 15);
     self.TisiLabel3.frame = CGRectMake(30, self.TisiLabel2.bottom, ScreenW-60, 30);
     
-    self.Tisiimag2.frame = CGRectMake(16, self.TisiLabel3.bottom+17, 10, 10);
+    self.Tisiimag2.frame = CGRectMake(16, self.TisiLabel3.bottom+19, 5, 5);
     self.TisiLabel4.frame = CGRectMake(30, self.TisiLabel3.bottom+15, 150, 15);
     self.TisiLabel5.frame = CGRectMake(30, self.TisiLabel4.bottom, ScreenW-60, 37);
     
-    self.Tisiimag3.frame = CGRectMake(16, self.TisiLabel5.bottom+17, 10, 10);
+    self.Tisiimag3.frame = CGRectMake(16, self.TisiLabel5.bottom+19, 5, 5);
     self.TisiLabel6.frame = CGRectMake(30, self.TisiLabel5.bottom+15, 150, 15);
     self.TisiLabel7.frame = CGRectMake(30, self.TisiLabel6.bottom, ScreenW-55, 45);
     
-    self.Tisiimag4.frame = CGRectMake(16, self.TisiLabel7.bottom+17, 10, 10);
+    self.Tisiimag4.frame = CGRectMake(16, self.TisiLabel7.bottom+19, 5, 5);
     self.TisiLabel8.frame = CGRectMake(30, self.TisiLabel7.bottom+15, 150, 15);
     self.TisiLabel9.frame = CGRectMake(30, self.TisiLabel8.bottom+7, ScreenW-45, 50);
     

@@ -151,13 +151,13 @@
     [label_paid_type mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.mas_equalTo(-12);
         make.left.mas_offset(10);
-        make.size.mas_offset(CGSizeMake(90, 70));
+        make.size.mas_offset(CGSizeMake(90, 57));
     }];
     [self addSubview:self.hotelSF];
     [self.hotelSF mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.mas_equalTo(-12);
         make.right.mas_offset(-10);
-        make.height.mas_offset(70);
+        make.height.mas_offset(57);
     }];
     UIView *view_line_2 = [[UIView alloc] init];
     view_line_2.backgroundColor = UIColorFromRGB(0xEAEAEA);
@@ -174,126 +174,152 @@
         [view_line_2 addSubview:line];
     }
 
-   
-   
-
+    
+    
+    self.view_line_4 = [[UIView alloc] init];
+    self.view_line_4.backgroundColor = UIColorFromRGB(0xEAEAEA);
+    [self addSubview:self.view_line_4];
+    [self.view_line_4 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_offset(95+35);
+        make.left.mas_offset(@(10));
+        make.right.mas_offset(@(-10));
+        make.height.mas_equalTo(0.5);
+    }];
+#pragma mark -   /*服务费用*/
+    self.label_FW  = [[UILabel alloc] init];
+    self.label_FW.numberOfLines = 0;
+    self.label_FW.font = [UIFont fontWithName:@"American Typewriter" size: 14];
+    self.label_FW.textColor = [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1.0];
+    self.label_FW.text = @"服务费用";
+    self.label_FW.textAlignment = 0;
+    [self addSubview:self.label_FW];
+    [self.label_FW mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view_line_4.mas_bottom).offset(19);
+        make.left.mas_offset(10);
+        make.size.mas_offset(CGSizeMake(90, 13));
+    }];
+    
+    [self addSubview:self.hotelFW];
+    [self.hotelFW mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view_line_4.mas_bottom).offset(19);
+        make.right.mas_offset(-10);
+    }];
+    
+#pragma mark -   /*优惠金额*/
+    self.label_YH  = [[UILabel alloc] init];
+    self.label_YH.numberOfLines = 0;
+    self.label_YH.font = [UIFont fontWithName:@"American Typewriter" size: 14];
+    self.label_YH.textColor = [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1.0];
+    self.label_YH.text = @"优惠金额";
+    self.label_YH.textAlignment = 0;
+    [self addSubview:self.label_YH];
+    [self.label_YH mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.label_FW.mas_bottom).offset(11.5);
+        make.left.mas_offset(10);
+        make.size.mas_offset(CGSizeMake(90, 13));
+    }];
+    [self addSubview:self.hotelY];
+    [self.hotelY mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.label_FW.mas_bottom).offset(11.5);
+        make.right.mas_offset(-10);
+    }];
+    
     
 }
 -(void)setStatus:(DetailsVieWStatus)status{
     _status = status;
     // 判断
     if (_status == DetailsVieWStatus_1) {
-#pragma mark -   /*优惠金额*/
-        UILabel *label_YH  = [[UILabel alloc] init];
-        label_YH.numberOfLines = 0;
-        label_YH.font = [UIFont fontWithName:@"American Typewriter" size: 14];
-        label_YH.textColor = [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1.0];
-        label_YH.text = @"优惠金额";
-        label_YH.textAlignment = 0;
-        [self addSubview:label_YH];
-        [label_YH mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self.hotelSF.mas_top).offset(-20);
-            make.left.mas_offset(10);
-            make.size.mas_offset(CGSizeMake(90, 13));
-        }];
+//#pragma mark -   /*优惠金额*/
+//        UILabel *label_YH  = [[UILabel alloc] init];
+//        label_YH.numberOfLines = 0;
+//        label_YH.font = [UIFont fontWithName:@"American Typewriter" size: 14];
+//        label_YH.textColor = [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1.0];
+//        label_YH.text = @"优惠金额";
+//        label_YH.textAlignment = 0;
+//        [self addSubview:label_YH];
+//        [label_YH mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.bottom.equalTo(self.hotelSF.mas_top).offset(-20);
+//            make.left.mas_offset(10);
+//            make.size.mas_offset(CGSizeMake(90, 13));
+//        }];
         
-        [self addSubview:self.hotelY];
-        [self.hotelY mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self.hotelSF.mas_top).offset(-20);
-            make.right.mas_offset(-10);
-        }];
+//        [self addSubview:self.hotelY];
+//        [self.hotelY mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.bottom.equalTo(self.hotelSF.mas_top).offset(-20);
+//            make.right.mas_offset(-10);
+//        }];
         
-#pragma mark -   /*服务费用*/
-        UILabel *label_FW  = [[UILabel alloc] init];
-        label_FW.numberOfLines = 0;
-        label_FW.font = [UIFont fontWithName:@"American Typewriter" size: 14];
-        label_FW.textColor = [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1.0];
-        label_FW.text = @"服务费用";
-        label_FW.textAlignment = 0;
-        [self addSubview:label_FW];
-        [label_FW mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(label_YH.mas_top).offset(-20);
-            make.left.mas_offset(10);
-            make.size.mas_offset(CGSizeMake(90, 13));
-        }];
-        [self addSubview:self.hotelFW];
-        [self.hotelFW mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(label_YH.mas_top).offset(-20);
-            make.right.mas_offset(-10);
-        }];
+//#pragma mark -   /*服务费用*/
+//        UILabel *label_FW  = [[UILabel alloc] init];
+//        label_FW.numberOfLines = 0;
+//        label_FW.font = [UIFont fontWithName:@"American Typewriter" size: 14];
+//        label_FW.textColor = [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1.0];
+//        label_FW.text = @"服务费用";
+//        label_FW.textAlignment = 0;
+//        [self addSubview:label_FW];
+//        [label_FW mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.bottom.equalTo(label_YH.mas_top).offset(-20);
+//            make.left.mas_offset(10);
+//            make.size.mas_offset(CGSizeMake(90, 13));
+//        }];
         
-        UIView *view_line_4 = [[UIView alloc] init];
-        view_line_4.backgroundColor = UIColorFromRGB(0xEAEAEA);
-        [self addSubview:view_line_4];
-        [view_line_4 mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo( label_FW.mas_top).offset(-10);
-            make.left.mas_offset(@(10));
-            make.right.mas_offset(@(-10));
-            make.height.mas_equalTo(0.5);
-        }];
-        NSInteger lineW = (ScreenW-50)/9;
-        for (int i=0; i<=lineW; i++) {
-            UIView *line = [[UIView alloc]initWithFrame:CGRectMake(i*9+9, 0, 5, 0.5)];
-            line.backgroundColor = UIColorFromRGBA(0xFFFFFF, 0.7);
-            [view_line_4 addSubview:line];
-        }
-    
-        UIView *view_111 = [[UIView alloc] init];
-        view_111.backgroundColor = UIColorFromRGB(0xF6F6F6);
-        view_111.layer.shadowColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.3].CGColor;
-        view_111.layer.shadowOffset = CGSizeMake(0,0);
-        view_111.layer.shadowOpacity = 1;
-        view_111.layer.shadowRadius = 2;
-        view_111.layer.cornerRadius = 5;
-        [self addSubview:view_111];
-        [view_111 mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(view_line_4.mas_centerY).offset(0);
-            make.left.mas_offset(-5);
-            make.size.mas_offset(CGSizeMake(10, 9));
-        }];
-        UIView *view_1111 = [[UIView alloc] init];
-        view_1111.backgroundColor = UIColorFromRGB(0xF6F6F6);
-        view_1111.layer.shadowColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.3].CGColor;
-        view_1111.layer.shadowOffset = CGSizeMake(0,0);
-        view_1111.layer.shadowOpacity = 1;
-        view_1111.layer.shadowRadius = 2;
-        view_1111.layer.cornerRadius = 5;
-        [self addSubview:view_1111];
-        [view_1111 mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(view_line_4.mas_centerY).offset(0);
-            make.right.mas_offset(5);
-            make.size.mas_offset(CGSizeMake(10, 9));
-        }];
+//        [self addSubview:self.hotelFW];
+//        [self.hotelFW mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.bottom.equalTo(label_YH.mas_top).offset(-20);
+//            make.right.mas_offset(-10);
+//        }];
+//
+//        UIView *view_line_4 = [[UIView alloc] init];
+//        view_line_4.backgroundColor = UIColorFromRGB(0xEAEAEA);
+//        [self addSubview:view_line_4];
+//        [view_line_4 mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.bottom.equalTo( label_FW.mas_top).offset(-10);
+//            make.left.mas_offset(@(10));
+//            make.right.mas_offset(@(-10));
+//            make.height.mas_equalTo(0.5);
+//        }];
+//        NSInteger lineW = (ScreenW-50)/9;
+//        for (int i=0; i<=lineW; i++) {
+//            UIView *line = [[UIView alloc]initWithFrame:CGRectMake(i*9+9, 0, 5, 0.5)];
+//            line.backgroundColor = UIColorFromRGBA(0xFFFFFF, 0.7);
+//            [view_line_4 addSubview:line];
+//        }
+//
+//        UIView *view_111 = [[UIView alloc] init];
+//        view_111.backgroundColor = UIColorFromRGB(0xF6F6F6);
+//        view_111.layer.shadowColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.3].CGColor;
+//        view_111.layer.shadowOffset = CGSizeMake(0,0);
+//        view_111.layer.shadowOpacity = 1;
+//        view_111.layer.shadowRadius = 2;
+//        view_111.layer.cornerRadius = 5;
+//        [self addSubview:view_111];
+//        [view_111 mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.centerY.equalTo(view_line_4.mas_centerY).offset(0);
+//            make.left.mas_offset(-5);
+//            make.size.mas_offset(CGSizeMake(10, 9));
+//        }];
+//        UIView *view_1111 = [[UIView alloc] init];
+//        view_1111.backgroundColor = UIColorFromRGB(0xF6F6F6);
+//        view_1111.layer.shadowColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.3].CGColor;
+//        view_1111.layer.shadowOffset = CGSizeMake(0,0);
+//        view_1111.layer.shadowOpacity = 1;
+//        view_1111.layer.shadowRadius = 2;
+//        view_1111.layer.cornerRadius = 5;
+//        [self addSubview:view_1111];
+//        [view_1111 mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.centerY.equalTo(view_line_4.mas_centerY).offset(0);
+//            make.right.mas_offset(5);
+//            make.size.mas_offset(CGSizeMake(10, 9));
+//        }];
         
     }else if (_status == DetailsVieWStatus_2){
 
-#pragma mark -   /*退款金额*/
-        [self addSubview:self.label_TKBeiZhu];
-        [self.label_TKBeiZhu mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self.hotelSF.mas_top).offset(-20);
-            make.left.mas_offset(10);
-            make.right.mas_offset(0);
-        }];
-        
-        self.label_TK.text = @"退款金额";
-        [self addSubview:self.label_TK];
-        [self.label_TK mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self.label_TKBeiZhu.mas_top).offset(-11);
-            make.left.mas_offset(10);
-//            make.size.mas_offset(CGSizeMake(90, 44));
-        }];
-        
-        [self addSubview:self.TK];
-        [self.TK mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self.label_TKBeiZhu.mas_top).offset(-11);
-            make.right.mas_offset(-10);
-//            make.height.mas_offset(44);
-        }];
         self.view_line_3 = [[UIView alloc] init];
         self.view_line_3.backgroundColor = UIColorFromRGB(0xEAEAEA);
         [self addSubview:self.view_line_3];
         [self.view_line_3 mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo( self.hotelSF.mas_top).offset(-77);
+            make.top.equalTo( self.view_line_4.mas_bottom).offset(77);
             make.left.mas_offset(@(10));
             make.right.mas_offset(@(-10));
             make.height.mas_equalTo(0.5);
@@ -305,89 +331,67 @@
             [self.view_line_3 addSubview:line];
         }
         
-#pragma mark -   /*优惠金额*/
-        UILabel *label_YH  = [[UILabel alloc] init];
-        label_YH.numberOfLines = 0;
-        label_YH.font = [UIFont fontWithName:@"American Typewriter" size: 14];
-        label_YH.textColor = [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1.0];
-        label_YH.text = @"优惠金额";
-        label_YH.textAlignment = 0;
-        [self addSubview:label_YH];
-        [label_YH mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self.view_line_3.mas_top).offset(-20);
+#pragma mark -   /*退款金额*/
+        self.label_TK.text = @"退款金额";
+        [self addSubview:self.label_TK];
+        [self.label_TK mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.view_line_3.mas_bottom).offset(19.5);
             make.left.mas_offset(10);
-            make.size.mas_offset(CGSizeMake(90, 13));
         }];
         
-        [self addSubview:self.hotelY];
-        [self.hotelY mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self.view_line_3.mas_top).offset(-20);
+        [self addSubview:self.TK];
+        [self.TK mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.view_line_3.mas_bottom).offset(19.5);
             make.right.mas_offset(-10);
+           
         }];
-        
-#pragma mark -   /*服务费用*/
-        UILabel *label_FW  = [[UILabel alloc] init];
-        label_FW.numberOfLines = 0;
-        label_FW.font = [UIFont fontWithName:@"American Typewriter" size: 14];
-        label_FW.textColor = [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1.0];
-        label_FW.text = @"服务费用";
-        label_FW.textAlignment = 0;
-        [self addSubview:label_FW];
-        [label_FW mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(label_YH.mas_top).offset(-20);
+        [self addSubview:self.label_TKBeiZhu];
+        [self.label_TKBeiZhu mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.label_TK.mas_bottom).offset(11.5);
             make.left.mas_offset(10);
-            make.size.mas_offset(CGSizeMake(90, 13));
-        }];
-        [self addSubview:self.hotelFW];
-        [self.hotelFW mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(label_YH.mas_top).offset(-20);
-            make.right.mas_offset(-10);
         }];
         
-        UIView *view_line_4 = [[UIView alloc] init];
-        view_line_4.backgroundColor = UIColorFromRGB(0xEAEAEA);
-        [self addSubview:view_line_4];
-        [view_line_4 mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo( label_FW.mas_top).offset(-10);
-            make.left.mas_offset(@(10));
-            make.right.mas_offset(@(-10));
-            make.height.mas_equalTo(0.5);
-        }];
-        for (int i=0; i<=lineW; i++) {
-            UIView *line = [[UIView alloc]initWithFrame:CGRectMake(i*9+9, 0, 5, 0.5)];
-            line.backgroundColor = UIColorFromRGBA(0xFFFFFF, 0.7);
-            [view_line_4 addSubview:line];
+//#pragma mark -   /*优惠金额*/
+//        UILabel *label_YH  = [[UILabel alloc] init];
+//        label_YH.numberOfLines = 0;
+//        label_YH.font = [UIFont fontWithName:@"American Typewriter" size: 14];
+//        label_YH.textColor = [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1.0];
+//        label_YH.text = @"优惠金额";
+//        label_YH.textAlignment = 0;
+//        [self addSubview:label_YH];
+//        [label_YH mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.bottom.equalTo(self.view_line_3.mas_top).offset(-20);
+//            make.left.mas_offset(10);
+//            make.size.mas_offset(CGSizeMake(90, 13));
+//        }];
+        
+//        [self addSubview:self.hotelY];
+//        [self.hotelY mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.bottom.equalTo(self.view_line_3.mas_top).offset(-20);
+//            make.right.mas_offset(-10);
+//        }];
+        
+//#pragma mark -   /*服务费用*/
+//        UILabel *label_FW  = [[UILabel alloc] init];
+//        label_FW.numberOfLines = 0;
+//        label_FW.font = [UIFont fontWithName:@"American Typewriter" size: 14];
+//        label_FW.textColor = [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1.0];
+//        label_FW.text = @"服务费用";
+//        label_FW.textAlignment = 0;
+//        [self addSubview:label_FW];
+//        [label_FW mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.bottom.equalTo(label_YH.mas_top).offset(-20);
+//            make.left.mas_offset(10);
+//            make.size.mas_offset(CGSizeMake(90, 13));
+//        }];
+//        [self addSubview:self.hotelFW];
+//        [self.hotelFW mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.bottom.equalTo(label_YH.mas_top).offset(-20);
+//            make.right.mas_offset(-10);
+//        }];
+        
+       
         }
-        
-        UIView *view_111 = [[UIView alloc] init];
-        view_111.backgroundColor = UIColorFromRGB(0xF6F6F6);
-        view_111.layer.shadowColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.3].CGColor;
-        view_111.layer.shadowOffset = CGSizeMake(0,0);
-        view_111.layer.shadowOpacity = 1;
-        view_111.layer.shadowRadius = 2;
-        view_111.layer.cornerRadius = 5;
-        [self addSubview:view_111];
-        [view_111 mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(view_line_4.mas_centerY).offset(0);
-            make.left.mas_offset(-5);
-            make.size.mas_offset(CGSizeMake(10, 9));
-        }];
-        UIView *view_1111 = [[UIView alloc] init];
-        view_1111.backgroundColor = UIColorFromRGB(0xF6F6F6);
-        view_1111.layer.shadowColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.3].CGColor;
-        view_1111.layer.shadowOffset = CGSizeMake(0,0);
-        view_1111.layer.shadowOpacity = 1;
-        view_1111.layer.shadowRadius = 2;
-        view_1111.layer.cornerRadius = 5;
-        [self addSubview:view_1111];
-        [view_1111 mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(view_line_4.mas_centerY).offset(0);
-            make.right.mas_offset(5);
-            make.size.mas_offset(CGSizeMake(10, 9));
-        }];
-        
-    }
-    
     
     
 }
@@ -433,6 +437,49 @@
             make.size.mas_offset(CGSizeMake(self.width/4, 25));
         }];
     }
+    
+   
+    [self.view_line_4 mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_offset(95+35*goodsArr.count);
+    }];
+    self.view_line_4.top = 95+35*goodsArr.count;
+    
+    NSInteger lineW = (ScreenW-50)/9;
+    for (int i=0; i<=lineW; i++) {
+        UIView *line = [[UIView alloc]initWithFrame:CGRectMake(i*9+9, 0, 5, 0.5)];
+        line.backgroundColor = UIColorFromRGBA(0xFFFFFF, 0.7);
+        [self.view_line_4 addSubview:line];
+    }
+    
+    UIView *view_111 = [[UIView alloc] init];
+    view_111.backgroundColor = UIColorFromRGB(0xF6F6F6);
+    view_111.layer.shadowColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.3].CGColor;
+    view_111.layer.shadowOffset = CGSizeMake(0,0);
+    view_111.layer.shadowOpacity = 1;
+    view_111.layer.shadowRadius = 2;
+    view_111.layer.cornerRadius = 5;
+    [self addSubview:view_111];
+    [view_111 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.view_line_4.mas_centerY).offset(0);
+        make.left.mas_offset(-5);
+        make.size.mas_offset(CGSizeMake(10, 9));
+    }];
+    UIView *view_1111 = [[UIView alloc] init];
+    view_1111.backgroundColor = UIColorFromRGB(0xF6F6F6);
+    view_1111.layer.shadowColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.3].CGColor;
+    view_1111.layer.shadowOffset = CGSizeMake(0,0);
+    view_1111.layer.shadowOpacity = 1;
+    view_1111.layer.shadowRadius = 2;
+    view_1111.layer.cornerRadius = 5;
+    [self addSubview:view_1111];
+    [view_1111 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.view_line_4.mas_centerY).offset(0);
+        make.right.mas_offset(5);
+        make.size.mas_offset(CGSizeMake(10, 9));
+    }];
+    
+    
+    
     
     
     NSString *service_money = [NSString stringWithFormat:@"%@",Data[@"service_money"]];

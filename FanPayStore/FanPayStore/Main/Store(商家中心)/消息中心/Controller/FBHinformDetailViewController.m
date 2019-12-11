@@ -28,7 +28,7 @@
      */
     [self createUI];
     [self detail:self.news_id];
-    
+    [self news_read];
     /*
      "add_time" = "07-08 10:34";
      "has_detail" = 1;
@@ -61,7 +61,32 @@
     }];
     
 }
-
+#pragma mark - 已读
+-(void)news_read{
+    UserModel *model = [UserModel getUseData];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    //店铺ID
+    if ([[MethodCommon judgeStringIsNull:[NSString stringWithFormat:@"%@",model.store_id]] isEqualToString:@""]) {
+        
+    }else{
+        [dict setObject:model.store_id forKey:@"store_id"];
+    }
+    //消息ID
+    [dict setObject:self.news_id forKey:@"news_id"];
+    
+    
+    [[FBHAppViewModel shareViewModel]set_news_read:model.merchant_id andDict:dict Success:^(NSDictionary *resDic) {
+        
+        if ([resDic[@"status"] integerValue]==1){
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"list_new" object:@""];
+            
+        }
+        
+    } andfailure:^{
+        
+    }];
+    
+}
 #pragma mark - UI
 -(void)createUI{
     [self.view addSubview:self.SJScrollView];
@@ -82,7 +107,7 @@
     self.add_time.text = [NSString stringWithFormat:@"%@",Data[@"add_time"]];
     
     
-    if (kStringIsEmpty(Data[@"news_pic"])) {
+    if ([[MethodCommon judgeStringIsNull:Data[@"news_pic"]] isEqualToString:@""]) {
         self.news_pic.height = 0;
         self.news_content.mj_y = self.news_pic.bottom;
         self.BaseView.height = 362.5- 170;
@@ -94,6 +119,9 @@
     }
     self.news_content.text = [NSString stringWithFormat:@"%@",Data[@"news_content"]];
     [self.news_content sizeToFit];
+    
+    
+    self.BaseView.height = self.news_content.bottom +20;
 }
 #pragma mark - 懒加载
 -(UIScrollView *)SJScrollView{

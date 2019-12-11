@@ -46,6 +46,7 @@
     [self get_store_id];
     [self get_store_application_info];
     
+    
 }
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
@@ -396,7 +397,7 @@
     
     /** 收银细则 **/
     UIButton *thirdBtn1 = [UIButton buttonWithType:UIButtonTypeCustom];
-    thirdBtn1.frame = CGRectMake(ScreenW-16-80, STATUS_BAR_HEIGHT, 80, 44);
+    thirdBtn1.frame = CGRectMake(ScreenW-83, STATUS_BAR_HEIGHT, 83, 44);
     [thirdBtn1 addTarget:self action:@selector(rightAction) forControlEvents:UIControlEventTouchUpInside];
     [thirdBtn1 setTitle:@"收银细则" forState:UIControlStateNormal];
     [thirdBtn1 setTitleColor:UIColorFromRGB(0xF7AE2B) forState:UIControlStateNormal];
@@ -744,7 +745,6 @@
     if (!_FBHCashierView) {
         _FBHCashierView =[[ FBHCashierBaseView alloc]initWithFrame:CGRectMake(0, 44, ScreenW, 935)];
         _FBHCashierView.delagate = self;
-        
         
     }
     return _FBHCashierView;

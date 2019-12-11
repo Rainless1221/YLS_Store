@@ -8,7 +8,7 @@
 
 #import "FBHOrderViewController.h"
 
-@interface FBHOrderViewController ()<UITableViewDelegate,UITableViewDataSource,OrderCellDelegate,OrderDelegate,HotelOrderDelegate,OrderCellDelegate1,OrderCellDelegate2>
+@interface FBHOrderViewController ()<UITableViewDelegate,UITableViewDataSource,OrderCellDelegate,BrandNewDelegate,OrderDelegate,HotelOrderDelegate,OrderCellDelegate1,OrderCellDelegate2>
 /** 列表 **/
 @property (strong,nonatomic)UITableView * orderTableView;
 /** 菜单栏 */
@@ -19,6 +19,7 @@
 @property (strong,nonatomic)NSMutableArray * DataS;
 /** 分页 */
 @property (assign,nonatomic)NSInteger page;
+@property (assign,nonatomic)NSInteger ZSint;
 
 @end
 
@@ -177,15 +178,11 @@
     navLabel.centerX = NavView.centerX;
     [NavView addSubview:navLabel];
     
-    
     UIButton *leftbutton=[[UIButton alloc]initWithFrame:CGRectMake(ScreenW-48, STATUS_BAR_HEIGHT, 48, 44)];
     [leftbutton setTitleColor:UIColorFromRGB(0x3D8AFF) forState:UIControlStateNormal];
     [leftbutton setImage:[UIImage imageNamed:@"icn_calendar_black"] forState:UIControlStateNormal];
     leftbutton.layer.cornerRadius = 14;
     [leftbutton addTarget:self action:@selector(RighAction) forControlEvents:UIControlEventTouchUpInside];
-    
-    //    UIBarButtonItem *rightitem=[[UIBarButtonItem alloc]initWithCustomView:leftbutton];
-    //    self.navigationItem.rightBarButtonItem=rightitem;
     
     UIButton *righbutton=[[UIButton alloc]initWithFrame:CGRectMake(0, STATUS_BAR_HEIGHT, 40, 44)];
     //    [righbutton setTitle:@"返回" forState:UIControlStateNormal];
@@ -196,7 +193,6 @@
     
     [NavView addSubview:righbutton];
     [NavView addSubview:leftbutton];
-    
     
     [self.view addSubview:NavView];
 }
@@ -585,130 +581,155 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-
-    OrderViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"OrderViewCell"];
-    //            if (!cell) {
-    cell=[[OrderViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"OrderViewCell"];
-    //            }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.backgroundColor = [UIColor clearColor];
-    NSString *order_status = [NSString new];
-    NSString *pay_status = [NSString new];
-    NSString *trade_status = [NSString new];
-    NSString *eval_status = [NSString new];
-    NSString *refund_status = [NSString new];
-
+    BrandNewOrderCell * cell1= [tableView dequeueReusableCellWithIdentifier:@"BrandNewOrderCell"];
+    cell1=[[BrandNewOrderCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"BrandNewOrderCell"];
+    cell1.delagate = self;
+    cell1.selectionStyle = UITableViewCellSelectionStyleNone;
     if (indexPath.section == 0) {
-        order_status = [NSString stringWithFormat:@"%@",self.Data[indexPath.row][@"order_status"]];
-        //支付状态 0 未支付，1 已支付
-         pay_status =  [NSString stringWithFormat:@"%@",self.Data[indexPath.row][@"pay_status"]];
-        //交易状态 0 进行中 1.已完成(未核销)，2.已结算（已核销），3.已分佣,4 已取消
-         trade_status =  [NSString stringWithFormat:@"%@",self.Data[indexPath.row][@"trade_status"]];
-        //评价状态 0 未评价，1.已评价
-         eval_status = [NSString stringWithFormat:@"%@",self.Data[indexPath.row][@"eval_status"]];
-        //退款状态 0 未退款 1发起退款中 2.退款已确认，3退款已完成，4.退款已取消
-        refund_status = [NSString stringWithFormat:@"%@",self.Data[indexPath.row][@"refund_status"]];
+        cell1.Data = self.Data[indexPath.row];
     }else if(indexPath.section == 1){
-        order_status = [NSString stringWithFormat:@"%@",self.DataC[indexPath.row][@"order_status"]];
-        //支付状态 0 未支付，1 已支付
-         pay_status =  [NSString stringWithFormat:@"%@",self.DataC[indexPath.row][@"pay_status"]];
-        //交易状态 0 进行中 1.已完成(未核销)，2.已结算（已核销），3.已分佣,4 已取消
-         trade_status =  [NSString stringWithFormat:@"%@",self.DataC[indexPath.row][@"trade_status"]];
-        //评价状态 0 未评价，1.已评价
-         eval_status = [NSString stringWithFormat:@"%@",self.DataC[indexPath.row][@"eval_status"]];
-        //退款状态 0 未退款 1发起退款中 2.退款已确认，3退款已完成，4.退款已取消
-        refund_status = [NSString stringWithFormat:@"%@",self.DataC[indexPath.row][@"refund_status"]];
+        
+        cell1.Data = self.DataC[indexPath.row];
     }else{
-        order_status = [NSString stringWithFormat:@"%@",self.DataS[indexPath.row][@"order_status"]];
-        //支付状态 0 未支付，1 已支付
-         pay_status =  [NSString stringWithFormat:@"%@",self.DataS[indexPath.row][@"pay_status"]];
-        //交易状态 0 进行中 1.已完成(未核销)，2.已结算（已核销），3.已分佣,4 已取消
-         trade_status =  [NSString stringWithFormat:@"%@",self.DataS[indexPath.row][@"trade_status"]];
-        //评价状态 0 未评价，1.已评价
-         eval_status = [NSString stringWithFormat:@"%@",self.DataS[indexPath.row][@"eval_status"]];
-        //退款状态 0 未退款 1发起退款中 2.退款已确认，3退款已完成，4.退款已取消
-        refund_status = [NSString stringWithFormat:@"%@",self.DataS[indexPath.row][@"refund_status"]];
+        
+        cell1.Data = self.DataS[indexPath.row];
     }
-//0全部、1待付款、2待使用、3待评价、4已评价、5已取消、6待退单、7退单完成、8退单失败、9待退款、10退款完成、11退款失败） 传入2，获取2,3的订单信息； 传入6，获取6,7,8的订单信息 传入9
-    if ([order_status isEqualToString: @"1"] ){
-        if ([refund_status isEqualToString:@"0"] || [refund_status isEqualToString:@"4"]) {
-            cell.status = OrderVieWStatus_1;
-        }else{
-            cell.status = OrderVieWStatus_8;
-        }
-
-    }else if ([order_status isEqualToString: @"2"]){
-        if ([refund_status isEqualToString:@"0"] || [refund_status isEqualToString:@"4"]) {
-            cell.status = OrderVieWStatus_2;
-        }else{
-            cell.status = OrderVieWStatus_8;
-        }
-        
-    }else if ([order_status isEqualToString: @"3"]){
-        if ([refund_status isEqualToString:@"0"] || [refund_status isEqualToString:@"4"]) {
-            cell.status = OrderVieWStatus_3;
-        }else{
-            cell.status = OrderVieWStatus_8;
-        }
-
-    }else if ([order_status isEqualToString: @"4"]){
-        if ([refund_status isEqualToString:@"0"] || [refund_status isEqualToString:@"4"]) {
-            cell.status = OrderVieWStatus_4;
-        }else{
-            cell.status = OrderVieWStatus_8;
-        }
-
-    }else if ([order_status isEqualToString: @"5"]){
-        if ([refund_status isEqualToString:@"0"] || [refund_status isEqualToString:@"4"]) {
-            cell.status = OrderVieWStatus_5;
-        }else{
-            cell.status = OrderVieWStatus_8;
-        }
-        
-    }else if ([order_status isEqualToString: @"6"]){
-         cell.status = OrderVieWStatus_6;
-        
-    }else if ([order_status isEqualToString: @"7"]){
-        cell.status = OrderVieWStatus_7;
-        
-    }else if ([order_status isEqualToString: @"8"]){
-        cell.status = OrderVieWStatus_7;
-        
-    }else if ([order_status isEqualToString: @"9"]){
-        cell.status = OrderVieWStatus_8;
-        
-    }else if ([order_status isEqualToString: @"10"]){
-        cell.status = OrderVieWStatus_8;
-        
-    }else if ([order_status isEqualToString: @"11"]){
-        cell.status = OrderVieWStatus_8;
-        
-    }else{
-        cell.status = OrderVieWStatus_8;
-        
-    }
-   
+//    cell1.order_id = 2;
+//    if (indexPath.row == self.ZSint) {
+//        cell1.order_id = 1;
+//    }
+//    cell1.TheRestBlock = ^{
+//        self.ZSint = indexPath.row;
+//        [self.orderTableView reloadData];
+//    };
+    return cell1;
     
-    if (indexPath.section == 0) {
-        cell.delagate = self;
-        cell.Data = self.Data[indexPath.row];
-    }else if(indexPath.section == 1){
-        
-        cell.delagate = self;
-        cell.Data = self.DataC[indexPath.row];
-    }else{
-        
-        cell.delagate = self;
-        cell.Data = self.DataS[indexPath.row];
-    }
-    return cell;
+
+    
+//    OrderViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"OrderViewCell"];
+//    //            if (!cell) {
+//    cell=[[OrderViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"OrderViewCell"];
+//    //            }
+//    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//    cell.backgroundColor = [UIColor clearColor];
+//    NSString *order_status = [NSString new];
+//    NSString *pay_status = [NSString new];
+//    NSString *trade_status = [NSString new];
+//    NSString *eval_status = [NSString new];
+//    NSString *refund_status = [NSString new];
+//
+//    if (indexPath.section == 0) {
+//        order_status = [NSString stringWithFormat:@"%@",self.Data[indexPath.row][@"order_status"]];
+//        //支付状态 0 未支付，1 已支付
+//         pay_status =  [NSString stringWithFormat:@"%@",self.Data[indexPath.row][@"pay_status"]];
+//        //交易状态 0 进行中 1.已完成(未核销)，2.已结算（已核销），3.已分佣,4 已取消
+//         trade_status =  [NSString stringWithFormat:@"%@",self.Data[indexPath.row][@"trade_status"]];
+//        //评价状态 0 未评价，1.已评价
+//         eval_status = [NSString stringWithFormat:@"%@",self.Data[indexPath.row][@"eval_status"]];
+//        //退款状态 0 未退款 1发起退款中 2.退款已确认，3退款已完成，4.退款已取消
+//        refund_status = [NSString stringWithFormat:@"%@",self.Data[indexPath.row][@"refund_status"]];
+//    }else if(indexPath.section == 1){
+//        order_status = [NSString stringWithFormat:@"%@",self.DataC[indexPath.row][@"order_status"]];
+//        //支付状态 0 未支付，1 已支付
+//         pay_status =  [NSString stringWithFormat:@"%@",self.DataC[indexPath.row][@"pay_status"]];
+//        //交易状态 0 进行中 1.已完成(未核销)，2.已结算（已核销），3.已分佣,4 已取消
+//         trade_status =  [NSString stringWithFormat:@"%@",self.DataC[indexPath.row][@"trade_status"]];
+//        //评价状态 0 未评价，1.已评价
+//         eval_status = [NSString stringWithFormat:@"%@",self.DataC[indexPath.row][@"eval_status"]];
+//        //退款状态 0 未退款 1发起退款中 2.退款已确认，3退款已完成，4.退款已取消
+//        refund_status = [NSString stringWithFormat:@"%@",self.DataC[indexPath.row][@"refund_status"]];
+//    }else{
+//        order_status = [NSString stringWithFormat:@"%@",self.DataS[indexPath.row][@"order_status"]];
+//        //支付状态 0 未支付，1 已支付
+//         pay_status =  [NSString stringWithFormat:@"%@",self.DataS[indexPath.row][@"pay_status"]];
+//        //交易状态 0 进行中 1.已完成(未核销)，2.已结算（已核销），3.已分佣,4 已取消
+//         trade_status =  [NSString stringWithFormat:@"%@",self.DataS[indexPath.row][@"trade_status"]];
+//        //评价状态 0 未评价，1.已评价
+//         eval_status = [NSString stringWithFormat:@"%@",self.DataS[indexPath.row][@"eval_status"]];
+//        //退款状态 0 未退款 1发起退款中 2.退款已确认，3退款已完成，4.退款已取消
+//        refund_status = [NSString stringWithFormat:@"%@",self.DataS[indexPath.row][@"refund_status"]];
+//    }
+////0全部、1待付款、2待使用、3待评价、4已评价、5已取消、6待退单、7退单完成、8退单失败、9待退款、10退款完成、11退款失败） 传入2，获取2,3的订单信息； 传入6，获取6,7,8的订单信息 传入9
+//    if ([order_status isEqualToString: @"1"] ){
+//        if ([refund_status isEqualToString:@"0"] || [refund_status isEqualToString:@"4"]) {
+//            cell.status = OrderVieWStatus_1;
+//        }else{
+//            cell.status = OrderVieWStatus_8;
+//        }
+//
+//    }else if ([order_status isEqualToString: @"2"]){
+//        if ([refund_status isEqualToString:@"0"] || [refund_status isEqualToString:@"4"]) {
+//            cell.status = OrderVieWStatus_2;
+//        }else{
+//            cell.status = OrderVieWStatus_8;
+//        }
+//
+//    }else if ([order_status isEqualToString: @"3"]){
+//        if ([refund_status isEqualToString:@"0"] || [refund_status isEqualToString:@"4"]) {
+//            cell.status = OrderVieWStatus_3;
+//        }else{
+//            cell.status = OrderVieWStatus_8;
+//        }
+//
+//    }else if ([order_status isEqualToString: @"4"]){
+//        if ([refund_status isEqualToString:@"0"] || [refund_status isEqualToString:@"4"]) {
+//            cell.status = OrderVieWStatus_4;
+//        }else{
+//            cell.status = OrderVieWStatus_8;
+//        }
+//
+//    }else if ([order_status isEqualToString: @"5"]){
+//        if ([refund_status isEqualToString:@"0"] || [refund_status isEqualToString:@"4"]) {
+//            cell.status = OrderVieWStatus_5;
+//        }else{
+//            cell.status = OrderVieWStatus_8;
+//        }
+//
+//    }else if ([order_status isEqualToString: @"6"]){
+//         cell.status = OrderVieWStatus_6;
+//
+//    }else if ([order_status isEqualToString: @"7"]){
+//        cell.status = OrderVieWStatus_7;
+//
+//    }else if ([order_status isEqualToString: @"8"]){
+//        cell.status = OrderVieWStatus_7;
+//
+//    }else if ([order_status isEqualToString: @"9"]){
+//        cell.status = OrderVieWStatus_8;
+//
+//    }else if ([order_status isEqualToString: @"10"]){
+//        cell.status = OrderVieWStatus_8;
+//
+//    }else if ([order_status isEqualToString: @"11"]){
+//        cell.status = OrderVieWStatus_8;
+//
+//    }else{
+//        cell.status = OrderVieWStatus_8;
+//
+//    }
+//
+//
+//    if (indexPath.section == 0) {
+//        cell.delagate = self;
+//        cell.Data = self.Data[indexPath.row];
+//    }else if(indexPath.section == 1){
+//
+//        cell.delagate = self;
+//        cell.Data = self.DataC[indexPath.row];
+//    }else{
+//
+//        cell.delagate = self;
+//        cell.Data = self.DataS[indexPath.row];
+//    }
+//    return cell;
     
     
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 //    NSString *order_status = [NSString stringWithFormat:@"%@",self.Data[indexPath.row][@"order_status"]];
 
-    OrderViewCell * cell = (OrderViewCell *)[tableView.dataSource tableView:tableView cellForRowAtIndexPath:indexPath];
+//    OrderViewCell * cell = (OrderViewCell *)[tableView.dataSource tableView:tableView cellForRowAtIndexPath:indexPath];
+    BrandNewOrderCell * cell = (BrandNewOrderCell *)[tableView.dataSource tableView:tableView cellForRowAtIndexPath:indexPath];
     //直接返回cell 高度
     return [cell getCellHeight];
     

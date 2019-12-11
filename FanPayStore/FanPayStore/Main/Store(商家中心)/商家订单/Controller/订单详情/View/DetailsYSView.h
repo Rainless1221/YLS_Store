@@ -15,13 +15,18 @@ typedef enum{
 }DetailsVieWStatus;
 
 @interface DetailsYSView : UIView
+@property (strong,nonatomic)UILabel * label_FW;// 服务费用标题
 @property (strong,nonatomic)UILabel * hotelFW;// 服务费用
+
+@property (strong,nonatomic)UILabel * label_YH;// 翻呗优惠标题
 @property (strong,nonatomic)UILabel * hotelY;// 翻呗优惠
+
 @property (strong,nonatomic)UILabel * hotelSF;// 实付
 @property (strong,nonatomic)UILabel * label_TK;// 退款
 @property (strong,nonatomic)UILabel * label_TKBeiZhu;// 退款备注
 @property (strong,nonatomic)UILabel * TK;//
 @property (strong,nonatomic)UIView *view_line_3;
+@property (strong,nonatomic)UIView *view_line_4;
 
 @property (nonatomic,assign)DetailsVieWStatus status;
 

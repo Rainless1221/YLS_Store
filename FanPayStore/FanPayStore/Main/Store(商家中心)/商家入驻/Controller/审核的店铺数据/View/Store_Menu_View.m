@@ -76,7 +76,7 @@
         
     }
     
-    self.SizeHeight = 290+100;
+    self.SizeHeight = 390;
     self.TypeView =0;
 #pragma mark ———————— 店铺信息 ————————
     [self addSubview:self.AView];
@@ -386,7 +386,7 @@
         make.top.mas_offset(52);
         make.bottom.mas_offset(-52);
     }];
-    self.DView_text1 = [[UILabel alloc]initWithFrame:CGRectMake(10,20, 60, 13)];
+    self.DView_text1 = [[UILabel alloc]initWithFrame:CGRectMake(10,20, 200, 13)];
     self.DView_text1.text = @"身份证照片";
     self.DView_text1.textColor = UIColorFromRGB(0x222222);
     self.DView_text1.font = [UIFont systemFontOfSize:15];
@@ -394,9 +394,8 @@
     [self.DView_text1 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_offset(20);
         make.left.mas_offset(10);
-        make.right.mas_offset(0);
     }];
-    self.DView_text2 = [[UILabel alloc]initWithFrame:CGRectMake(10,self.DView_text1.bottom+10, 60, 13)];
+    self.DView_text2 = [[UILabel alloc]initWithFrame:CGRectMake(10,self.DView_text1.bottom+10, 250, 13)];
     self.DView_text2.text = @"手持身份证正面、反面照片";
     self.DView_text2.textColor = UIColorFromRGB(0xCCCCCC);
     self.DView_text2.font = [UIFont systemFontOfSize:13];
@@ -404,8 +403,8 @@
     [self.DView_text2 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.DView_text1.mas_bottom).offset(10);
         make.left.mas_offset(10);
-        make.right.mas_offset(0);
     }];
+    
     /**
      身份证照片
      */
@@ -431,7 +430,7 @@
         make.size.mas_offset(CGSizeMake(103, 103));
     }];
     
-    UIView *DView_line1 = [[UIView alloc] init];
+    UIView *DView_line1 = [[UIView alloc] initWithFrame:CGRectMake(10,self.DView_Image1.bottom+20,self.DView.width-20,1)];
     DView_line1.backgroundColor = [UIColor colorWithRed:234/255.0 green:234/255.0 blue:234/255.0 alpha:1.0];
     [self.DView addSubview:DView_line1];
     [DView_line1 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -461,17 +460,17 @@
         make.right.mas_offset(0);
     }];
     
-    self.DView_Image3 = [[UIImageView alloc] initWithFrame:CGRectMake(10,self.DView_text4.bottom+25,103,103)];
+    self.DView_Image3 = [[UIImageView alloc] initWithFrame:CGRectMake(10,self.DView_text4.bottom+20,103,103)];
     self.DView_Image3.image = [UIImage imageNamed:@"pic_default_avatar"];
     self.DView_Image3.layer.cornerRadius = 6;
     self.DView_Image3.layer.masksToBounds = YES;
     [self.DView addSubview:self.DView_Image3];
     [self.DView_Image3 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.DView_text4.mas_bottom).offset(10);
+        make.top.equalTo(self.DView_text4.mas_bottom).offset(20);
         make.left.mas_offset(10);
         make.size.mas_offset(CGSizeMake(103, 103));
     }];
-    UIView *DView_line2 = [[UIView alloc] init];
+    UIView *DView_line2 = [[UIView alloc] initWithFrame:CGRectMake(10, self.DView_Image3.bottom+20, self.DView.width-20, 1)];
     DView_line2.backgroundColor = [UIColor colorWithRed:234/255.0 green:234/255.0 blue:234/255.0 alpha:1.0];
     [self.DView addSubview:DView_line2];
     [DView_line2 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -502,16 +501,18 @@
         make.right.mas_offset(0);
     }];
     
-    self.DView_Image4 = [[UIImageView alloc] initWithFrame:CGRectMake(10,self.DView_text6.bottom+25,103,103)];
+    self.DView_Image4 = [[UIImageView alloc] initWithFrame:CGRectMake(10,self.DView_text6.bottom+20,103,103)];
     self.DView_Image4.image = [UIImage imageNamed:@"pic_default_avatar"];
     self.DView_Image4.layer.cornerRadius = 6;
     self.DView_Image4.layer.masksToBounds = YES;
     [self.DView addSubview:self.DView_Image4];
     [self.DView_Image4 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.DView_text6.mas_bottom).offset(10);
+        make.top.equalTo(self.DView_text6.mas_bottom).offset(20);
         make.left.mas_offset(10);
         make.size.mas_offset(CGSizeMake(103, 103));
     }];
+    
+    self.DImage_Y = self.DView_Image4.bottom;
     
 }
 #pragma mark - /*切换*/
@@ -726,19 +727,37 @@
 
     //business_license_pic
     NSString *business_license_pic = [NSString stringWithFormat:@"%@",Data[@"business_license_pic"]];
-    [self.DView_Image3 setImageWithURL:[NSURL URLWithString:business_license_pic] placeholder:[UIImage imageNamed:@"pic_default_avatar"]];
-    [self.DView_Image3 mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.size.mas_offset(CGSizeMake(self.DView.width-20,165));
-    }];
+    if ([[MethodCommon judgeStringIsNull:business_license_pic] isEqualToString:@""]) {
+        
+    }else{
+        [self.DView_Image3 setImageWithURL:[NSURL URLWithString:business_license_pic] placeholder:[UIImage imageNamed:@"pic_default_avatar"]];
+//        self.DView_Image3.height = 165;
+//        self.DView_Image3.width = self.DView.width-20;
+//        [self.DView_Image3 mas_updateConstraints:^(MASConstraintMaker *make) {
+//            make.size.mas_offset(CGSizeMake(self.DView.width-20,165));
+//        }];
+//        self.DImage_Y =  self.DImage_Y+52;
+    }
+    
     //business_permit_pic
     NSString *business_permit_pic = [NSString stringWithFormat:@"%@",Data[@"business_permit_pic"]];
     NSArray *businessArray = [business_permit_pic componentsSeparatedByString:@","];
-    [self.DView_Image4 setImageWithURL:[NSURL URLWithString:businessArray[0]] placeholder:[UIImage imageNamed:@"pic_default_avatar"]];
-    [self.DView_Image4 mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.size.mas_offset(CGSizeMake(self.DView.width-20, 165));
-    }];
+    if ([[MethodCommon judgeStringIsNull:business_permit_pic] isEqualToString:@""]) {
+
+    }else{
+        [self.DView_Image4 setImageWithURL:[NSURL URLWithString:businessArray[0]] placeholder:[UIImage imageNamed:@"pic_default_avatar"]];
+//        self.DView_Image4.top = self.DView_text6.bottom+20;
+//        self.DView_Image4.height = 165;
+//        self.DView_Image4.width = self.DView.width-20;
+//        [self.DView_Image4 mas_updateConstraints:^(MASConstraintMaker *make) {
+//            make.top.equalTo(self.DView_text6.mas_bottom).offset(20);
+//            make.size.mas_offset(CGSizeMake(self.DView.width-20, 165));
+//        }];
+//        self.DImage_Y =  self.DImage_Y+52;
+    }
     
-    self.DImage_Y = self.DView_Image4.bottom+(165-103)+(165-103);
+//    self.DImage_Y = self.DView_Image4.bottom;
+
 }
 #pragma mark - 懒加载
 -(UIView *)Menu_line{

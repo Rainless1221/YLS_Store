@@ -882,7 +882,25 @@
        andresponse_type:(NSString *)response_type
            Success:(void (^)(NSDictionary *resDic))success
         andfailure:(void (^)(void))failure;
-
+/**
+app打印机开关状态设置
+ 开关命令：1开启，2关闭
+ */
+-(void)store_printer_open:(NSString *)merchant_id
+              andstore_id:(NSString *)store_id
+           andopen_status:(NSString *)open_status
+                  Success:(void (^)(NSDictionary *resDic))success
+               andfailure:(void (^)(void))failure;
+/**
+app打印设备切换
+ 重设默认打印设备
+ 默认选中切换状态：1表云打印，2表蓝牙打印
+ */
+-(void)store_printer_choice:(NSString *)merchant_id
+              andstore_id:(NSString *)store_id
+           andchoice_printer:(NSString *)choice_printer
+                  Success:(void (^)(NSDictionary *resDic))success
+               andfailure:(void (^)(void))failure;
 /**
  商家打印机 进行打印 接口
  */
@@ -999,4 +1017,18 @@
                         andauto_confirm:(NSString *)auto_confirm
                            Success:(void (^)(NSDictionary *resDic))success
                         andfailure:(void (^)(void))failure;
+#pragma mark -  绑定支付宝账户接口
+/**
+  绑定支付宝账户接口
+ */
+-(void)insert_alipay_account:(NSString *)merchant_id
+              andjoinDict:(NSDictionary *)Dict
+                      Success:(void (^)(NSDictionary *resDic))success
+                   andfailure:(void (^)(void))failure;
+/**
+ 获取支付宝信息接口
+ */
+-(void)list_merchant_alipay_account:(NSString *)merchant_id
+                     Success:(void (^)(NSDictionary *resDic))success
+                  andfailure:(void (^)(void))failure;
 @end

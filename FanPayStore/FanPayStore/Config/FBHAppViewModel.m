@@ -3625,6 +3625,71 @@
     }];
 }
 /**
+ app打印机开关状态设置
+ 开关命令：1开启，2关闭
+ */
+-(void)store_printer_open:(NSString *)merchant_id
+              andstore_id:(NSString *)store_id
+         andopen_status:(NSString *)open_status
+                  Success:(void (^)(NSDictionary *resDic))success
+               andfailure:(void (^)(void))failure{
+    //里层的parameter
+    NSMutableDictionary *dic=[NSMutableDictionary dictionary];
+    [dic setValue:merchant_id forKey:@"merchant_id"];
+    [dic setValue:store_id forKey:@"store_id"];
+    [dic setValue:open_status forKey:@"open_status"];
+    
+    UserModel *model = [UserModel getUseData];
+    [dic setValue:model.token forKey:@"token"];
+    
+    NSString *timestamp = [FBHAppViewModel currentTimeStr];
+    [dic setValue:timestamp forKey:@"timestamp"];
+    NSString *process = [NSString stringWithFormat:@"%@%@",merchant_id,timestamp];
+    [dic setValue:[MD5Sign MD5:process] forKey:@"process"];
+    
+    [YBHttpTool post:@"yls_merchant_center/store_printer_open" params:dic success:^(NSDictionary *obj) {
+        success(obj);
+        
+    } failure:^(NSError *error) {
+        failure();
+        
+    }];
+}
+/**
+ app打印设备切换
+ 重设默认打印设备
+ 默认选中切换状态：1表云打印，2表蓝牙打印
+ */
+-(void)store_printer_choice:(NSString *)merchant_id
+                andstore_id:(NSString *)store_id
+          andchoice_printer:(NSString *)choice_printer
+                    Success:(void (^)(NSDictionary *resDic))success
+                 andfailure:(void (^)(void))failure{
+    
+    //里层的parameter
+    NSMutableDictionary *dic=[NSMutableDictionary dictionary];
+    [dic setValue:merchant_id forKey:@"merchant_id"];
+    [dic setValue:store_id forKey:@"store_id"];
+    [dic setValue:choice_printer forKey:@"choice_printer"];
+    
+    UserModel *model = [UserModel getUseData];
+    [dic setValue:model.token forKey:@"token"];
+    
+    NSString *timestamp = [FBHAppViewModel currentTimeStr];
+    [dic setValue:timestamp forKey:@"timestamp"];
+    NSString *process = [NSString stringWithFormat:@"%@%@",merchant_id,timestamp];
+    [dic setValue:[MD5Sign MD5:process] forKey:@"process"];
+    
+    [YBHttpTool post:@"yls_merchant_center/store_printer_choice" params:dic success:^(NSDictionary *obj) {
+        success(obj);
+        
+    } failure:^(NSError *error) {
+        failure();
+        
+    }];
+    
+}
+/**
  商家打印机 进行打印 接口
  */
 -(void)YlyReceipts:(NSString *)merchant_id
@@ -4062,6 +4127,75 @@
     [dic setValue:[MD5Sign MD5:process] forKey:@"process"];
     
     [YBHttpTool post:@"service_center/set_store_auto_confirm" params:dic success:^(NSDictionary *obj) {
+        success(obj);
+        
+    } failure:^(NSError *error) {
+        failure();
+        
+    }];
+    
+    
+}
+#pragma mark -  绑定支付宝账户接口
+/**
+ 绑定支付宝账户接口
+ */
+-(void)insert_alipay_account:(NSString *)merchant_id
+                  andjoinDict:(NSDictionary *)Dict
+                      Success:(void (^)(NSDictionary *resDic))success
+                   andfailure:(void (^)(void))failure{
+    
+    
+    //里层的parameter
+    NSMutableDictionary *dic=[NSMutableDictionary dictionary];
+    [dic setValue:merchant_id forKey:@"merchant_id"];
+    
+    for (NSString *key in Dict) {
+        //        NSLog(@"%@",key);
+        [dic setValue:Dict[key] forKey:key];
+    }
+    
+    UserModel *model = [UserModel getUseData];
+    [dic setValue:model.token forKey:@"token"];
+    
+    NSString *timestamp = [FBHAppViewModel currentTimeStr];
+    [dic setValue:timestamp forKey:@"timestamp"];
+    NSString *process = [NSString stringWithFormat:@"%@%@",merchant_id,timestamp];
+    [dic setValue:[MD5Sign MD5:process] forKey:@"process"];
+    
+    [YBHttpTool post:@"service_center/insert_alipay_account" params:dic success:^(NSDictionary *obj) {
+        success(obj);
+        
+    } failure:^(NSError *error) {
+        failure();
+        
+    }];
+    
+    
+    
+}
+/**
+ 获取支付宝信息接口
+ */
+-(void)list_merchant_alipay_account:(NSString *)merchant_id
+                            Success:(void (^)(NSDictionary *resDic))success
+                         andfailure:(void (^)(void))failure{
+    
+    
+    //里层的parameter
+    NSMutableDictionary *dic=[NSMutableDictionary dictionary];
+    [dic setValue:merchant_id forKey:@"merchant_id"];
+
+    
+    UserModel *model = [UserModel getUseData];
+    [dic setValue:model.token forKey:@"token"];
+    
+    NSString *timestamp = [FBHAppViewModel currentTimeStr];
+    [dic setValue:timestamp forKey:@"timestamp"];
+    NSString *process = [NSString stringWithFormat:@"%@%@",merchant_id,timestamp];
+    [dic setValue:[MD5Sign MD5:process] forKey:@"process"];
+    
+    [YBHttpTool post:@"service_center/list_merchant_alipay_account" params:dic success:^(NSDictionary *obj) {
         success(obj);
         
     } failure:^(NSError *error) {

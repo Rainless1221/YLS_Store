@@ -25,7 +25,45 @@
 @end
 
 @implementation SetupViewController
+-(void)viewWillAppear:(BOOL)animated{
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"business_center" object:nil];
+   
+}
+#pragma mark - 请求数据
+-(void)merchant_center{
+    
+    [MBProgressHUD MBProgress:@"数据加载中..."];
+    
+    UserModel *model = [UserModel getUseData];
+    
+    if ([model.store_id isEqualToString:@""]) {
+        [MBProgressHUD hideHUD];
+        
+        return;
+    }
+    /**
+     获取商家中心的信息（商家中心显示的信息）
+     */
+    [[FBHAppViewModel shareViewModel] yls_list_business_center:model.merchant_id andstore_id:model.store_id Success:^(NSDictionary *resDic) {
+        
+        if ([resDic[@"status"] integerValue]==1) {
+            NSDictionary *DIC=resDic[@"data"];
+            /** 保存商家中心信息 */
+            storeBaseModel *model = [storeBaseModel mj_objectWithKeyValues:DIC];
+            [model saveUserData];
+            [self.SetUptable reloadData];
+        }else{
+//            [SVProgressHUD setMinimumDismissTimeInterval:2];
+//            [SVProgressHUD showErrorWithStatus:resDic[@"message"]];
+       
+        }
+        [MBProgressHUD hideHUD];
+    } andfailure:^{
+        [MBProgressHUD hideHUD];
+    }];
 
+    
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"设置";
@@ -52,8 +90,8 @@
                         
                         @[@{@"icon":@"icn_msg_cnenter_notice",
                             @"label":@"打印开关",@"cellid":@"4"},],
-                        @[@{@"icon":@"icn_msg_cnenter_notice",
-                            @"label":@"自动核销",@"cellid":@"44"},],
+//                        @[@{@"icon":@"icn_msg_cnenter_notice",
+//                            @"label":@"自动核销",@"cellid":@"44"},],
                         @[
                             @{@"icon":@"icn_msg_cnenter_system",
                               @"label":@"常见问题与反馈",@"cellid":@"5"
@@ -76,11 +114,11 @@
         
     }
     
-    [self get_store_auto_confirm_info];
-    
+//    [self get_store_auto_confirm_info];
+     [self merchant_center];
     [self createUI];
     
-    [self OFF];
+//    [self OFF];
 
 }
 #pragma mark - UI
@@ -124,10 +162,8 @@
         case 4:
             return 1;
             break;
+
         case 5:
-            return 1;
-            break;
-        case 6:
             return 5;
             break;
         default:
@@ -212,7 +248,8 @@
         self.bluetooth = [[MySwitch alloc] initWithFrame:CGRectMake(view.width - 74, 10, 64, 32) withGap:0.3 statusChange:^(BOOL OnStatus) {
             if(OnStatus){
                 NSLog(@"开关 打开");
-
+                /*打开接口*/
+                [self shutdownRestart:@"1"];
                 [PublicMethods writeToUserD:@"YES" andKey:@"isbluetooth"];
                 NSUserDefaults* userDefault = [[NSUserDefaults alloc] initWithSuiteName:@"group.StoreAV"];
                 [userDefault setObject:@"YES" forKey:@"isbluetooth"];
@@ -236,7 +273,8 @@
                 }
             }else{
                 NSLog(@"开关  关闭");
-
+                /*关闭接口*/
+                [self shutdownRestart:@"2"];
                 [PublicMethods writeToUserD:@"NO" andKey:@"isbluetooth"];
                 NSUserDefaults* userDefault = [[NSUserDefaults alloc] initWithSuiteName:@"group.StoreAV"];
                 [userDefault setObject:@"NO" forKey:@"isbluetooth"];
@@ -248,27 +286,28 @@
             /**
              控制开关
              */
-            [self OFF];
+//            [self OFF];
         }];
         /*判读开关滑动展示*/
+        storeBaseModel *model = [storeBaseModel getUseData];
         NSString * isbluetooth = [PublicMethods readFromUserD:@"isbluetooth"];
-        if ([isbluetooth isEqualToString:@"NO"]) {
+        if ([model.open_status isEqualToString:@"2"]) {
             self.bluetooth.OnStatus = NO;
-        }else if([isbluetooth isEqualToString:@"YES"]) {
+        }else if([model.open_status isEqualToString:@"1"]) {
             self.bluetooth.OnStatus = YES;
 
         }else{
             self.bluetooth.OnStatus = NO;
             [self.manage autoConnectLastPeripheralCompletion:^(CBPeripheral *perpheral, NSError *error) {
-                
+
                 if (!error) {
                     dispatch_async(dispatch_get_main_queue(), ^{
                     });
                 }else{
-                    
+
                 }
             }];
-            
+
         }
 
 
@@ -281,35 +320,35 @@
         
     }
 #pragma mark - / *核销*/
-    if (indexPath.section == 5) {
-        self.HeSwitch = [[MySwitch alloc] initWithFrame:CGRectMake(view.width - 74, 10, 64, 32) withGap:0.3 statusChange:^(BOOL OnStatus) {
-            if(OnStatus){
-                NSLog(@"打开");
-                [self goodVerification:@"1"];
-            }else{
-                NSLog(@"关闭");
-                [self goodVerification:@"0"];
-            }
-            
-        }];
-        /*判读开关滑动展示*/
-        NSString * auto_confirm = [PublicMethods readFromUserD:@"auto_confirm"];
-        if ([auto_confirm isEqualToString:@"NO"]) {
-            self.HeSwitch.OnStatus = NO;
-        }else if([auto_confirm isEqualToString:@"YES"]) {
-            self.HeSwitch.OnStatus = YES;
-            
-        }else{
-            self.HeSwitch.OnStatus = NO;
-        }
-        
-        //设置背景图片
-        [self.HeSwitch setBackgroundImage:[UIImage imageNamed:@"switch_ex_frame"]];
-        [self.HeSwitch setLeftBlockImage:[UIImage imageNamed:@"switch_ex_button"]];
-        [self.HeSwitch setRightBlockImage:[UIImage imageNamed:@"switch_ex_button"]];
-        [view addSubview:self.HeSwitch];
-        
-    }
+//    if (indexPath.section == 5) {
+//        self.HeSwitch = [[MySwitch alloc] initWithFrame:CGRectMake(view.width - 74, 10, 64, 32) withGap:0.3 statusChange:^(BOOL OnStatus) {
+//            if(OnStatus){
+//                NSLog(@"打开");
+//                [self goodVerification:@"1"];
+//            }else{
+//                NSLog(@"关闭");
+//                [self goodVerification:@"0"];
+//            }
+//
+//        }];
+//        /*判读开关滑动展示*/
+//        NSString * auto_confirm = [PublicMethods readFromUserD:@"auto_confirm"];
+//        if ([auto_confirm isEqualToString:@"NO"]) {
+//            self.HeSwitch.OnStatus = NO;
+//        }else if([auto_confirm isEqualToString:@"YES"]) {
+//            self.HeSwitch.OnStatus = YES;
+//
+//        }else{
+//            self.HeSwitch.OnStatus = NO;
+//        }
+//
+//        //设置背景图片
+//        [self.HeSwitch setBackgroundImage:[UIImage imageNamed:@"switch_ex_frame"]];
+//        [self.HeSwitch setLeftBlockImage:[UIImage imageNamed:@"switch_ex_button"]];
+//        [self.HeSwitch setRightBlockImage:[UIImage imageNamed:@"switch_ex_button"]];
+//        [view addSubview:self.HeSwitch];
+//
+//    }
     /*缓存*/
     UILabel *label_1 = [[UILabel alloc] init];
     label_1.numberOfLines = 0;
@@ -317,7 +356,7 @@
     label_1.textColor = UIColorFromRGB(0x222222);
     label_1.backgroundColor = [UIColor whiteColor];
     label_1.text = cacheString;
-    if (indexPath.section == 6 && indexPath.row == 4) {
+    if (indexPath.section == 5 && indexPath.row == 4) {
         [view addSubview:label_1];
         [label_1 mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.top.mas_offset(0);
@@ -326,7 +365,7 @@
     }
     
     /*横线*/
-    if (indexPath.section == 6) {
+    if (indexPath.section == 5) {
         view.height = 55;
         if (indexPath.row == 4) {
             
@@ -354,8 +393,6 @@
     }else if (section == 4){
         return 54;
     }else if (section == 5){
-        return 36;
-    }else if (section == 6){
         return 84;
     }else{
         return 5;
@@ -386,15 +423,17 @@
         label.text = @"请保持手机蓝牙开启，并连接订单的打印机，否则无法打印平 台订单";
         [header_View addSubview:label];
         return header_View;
-    }else if (section == 5){
-        UILabel *label = [[UILabel alloc] init];
-        label.frame = CGRectMake(24,0,ScreenW-48,36);
-        label.numberOfLines = 0;
-        label.font = [UIFont systemFontOfSize:12];
-        label.text = @"开启自动核销，订单会在6个小时后自动核销";
-        [header_View addSubview:label];
-        return header_View;
-    }else if (section == 6){
+    }
+//    else if (section == 5){
+//        UILabel *label = [[UILabel alloc] init];
+//        label.frame = CGRectMake(24,0,ScreenW-48,36);
+//        label.numberOfLines = 0;
+//        label.font = [UIFont systemFontOfSize:12];
+//        label.text = @"开启自动核销，订单会在6个小时后自动核销";
+//        [header_View addSubview:label];
+//        return header_View;
+//    }
+    else if (section == 5){
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.frame = CGRectMake(15, 20, ScreenW-30, 44);
         [button setTitle:@"退出登录" forState:UIControlStateNormal];
@@ -422,26 +461,26 @@
     }else if (indexPath.section == 4){
 //        ReceiptsController *VC = [ReceiptsController new];
 //        [self.navigationController pushViewController:VC animated:NO];
-        [self KAP];
-    }else if (indexPath.section == 5){
+//        [self KAP];
+    }else if (indexPath.section == 55){
      
-    }else if (indexPath.section == 6 && indexPath.row == 0){
+    }else if (indexPath.section == 5 && indexPath.row == 0){
         [self.navigationController pushViewController:[FBHHelpViewController new] animated:NO];
-    }else if (indexPath.section == 6 && indexPath.row == 1){
+    }else if (indexPath.section == 5 && indexPath.row == 1){
         /** Html 页面(用户协议) **/
         FBHinformationViewController *VC = [FBHinformationViewController new];
         VC.Navtitle = @"用户协议";
         VC.agreeUrl = FBHApi_HTML_yonghu;
         [self.navigationController pushViewController:VC animated:NO];
-    }else if (indexPath.section == 6 && indexPath.row == 2){
+    }else if (indexPath.section == 5 && indexPath.row == 2){
         //隐私协议
         FBHinformationViewController *VC = [FBHinformationViewController new];
         VC.Navtitle = @"隐私协议";
         VC.agreeUrl = FBHApi_HTML_Yinsi;
         [self.navigationController pushViewController:VC animated:NO];
-    }else if (indexPath.section == 6 && indexPath.row == 3){
+    }else if (indexPath.section == 5 && indexPath.row == 3){
         [self.navigationController pushViewController:[FBHGYViewController new] animated:NO];
-    }else if (indexPath.section == 6 && indexPath.row == 4){
+    }else if (indexPath.section == 5 && indexPath.row == 4){
         [[WMZAlert shareInstance]showAlertWithType:AlertTypeSystemPush headTitle:@"清除缓存" textTitle:@"确定清除缓存?" leftHandle:^(id anyID) {
             //        取消按钮点击回调
         } rightHandle:^(id anyID) {
@@ -457,12 +496,12 @@
 #pragma mark - 控制开关
 -(void)OFF{
     /*判读外面打印开关*/
-    NSString * isbluetooth = [PublicMethods readFromUserD:@"isbluetooth"];
-    if ([isbluetooth isEqualToString:@"NO"]) {
-        /*关闭接口*/
-        [self shutdownRestart:@"2"];
-        return;
-    }
+//    NSString * isbluetooth = [PublicMethods readFromUserD:@"isbluetooth"];
+//    if ([isbluetooth isEqualToString:@"NO"]) {
+//        /*关闭接口*/
+//        [self shutdownRestart:@"2"];
+//        return;
+//    }
     /*判读开关滑动展示
      0 ：为关闭打印
      1 ：云打印
@@ -484,18 +523,21 @@
 -(void)shutdownRestart:(NSString *)type{
     UserModel *Model = [UserModel getUseData];
     
-    [[FBHAppViewModel shareViewModel]shutdownRestart:Model.merchant_id andstore_id:Model.store_id andresponse_type:type Success:^(NSDictionary *resDic) {
+    
+    [[FBHAppViewModel shareViewModel]store_printer_open:Model.merchant_id andstore_id:Model.store_id andopen_status:type Success:^(NSDictionary *resDic) {
         if ([resDic[@"status"] integerValue]==1) {
-//            [SVProgressHUD showSuccessWithStatus:resDic[@"message"]];
-
+//                        [SVProgressHUD showSuccessWithStatus:resDic[@"message"]];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"business_center" object:nil];
+            
         }else{
-//            [SVProgressHUD setMinimumDismissTimeInterval:2];
-//            [SVProgressHUD showErrorWithStatus:resDic[@"message"]];
+//                        [SVProgressHUD setMinimumDismissTimeInterval:2];
+//                        [SVProgressHUD showErrorWithStatus:resDic[@"message"]];
         }
         
     } andfailure:^{
         
     }];
+    
 }
 #pragma mark - 自动核销事件
 -(void)goodVerification:(NSString *)auto_confirm{

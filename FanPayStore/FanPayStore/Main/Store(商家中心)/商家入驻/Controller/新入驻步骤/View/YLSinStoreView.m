@@ -7,6 +7,7 @@
 //
 
 #import "YLSinStoreView.h"
+#import "SLView.h"
 
 @implementation YLSinStoreView
 
@@ -385,9 +386,24 @@
     [CView_text3 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(CView_text2.mas_bottom).offset(10);
         make.left.mas_offset(10);
-        make.right.mas_offset(0);
+//        make.right.mas_offset(0);
     }];
-   
+    SLView *ShiLC1 = [[SLView alloc]initWithFrame:CGRectMake(CView_text3.right,  CView_text2.top, 100, 15)];
+    [self.CView_backview addSubview:ShiLC1];
+    [ShiLC1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(CView_text2.mas_bottom).offset(11);
+        make.left.equalTo(CView_text3.mas_right).offset(10);
+    }];
+    UIButton *ShiLC1_btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    ShiLC1_btn.backgroundColor = UIColorFromRGBA(0x222222, 0.1);
+    [ShiLC1_btn addTarget:self action:@selector(SLButtonAtion:) forControlEvents:UIControlEventTouchUpInside];
+    ShiLC1_btn.tag = 1;
+    [self.CView_backview addSubview:ShiLC1_btn];
+    [ShiLC1_btn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(CView_text2.mas_bottom).offset(11);
+        make.left.equalTo(CView_text3.mas_right).offset(10);
+        make.size.mas_offset(CGSizeMake(80, 15));
+    }];
     /**店铺图片*/
     self.facade = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, IPHONEWIDTH(103), IPHONEWIDTH(103))];
     self.facade.image = [UIImage imageNamed:@"btn_add_shop_info_image_normal"];
@@ -433,7 +449,23 @@
     [CView_text5 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(CView_text4.mas_bottom).offset(10);
         make.left.mas_offset(10);
-        make.right.mas_offset(0);
+//        make.right.mas_offset(0);
+    }];
+    SLView *ShiLC11 = [[SLView alloc]initWithFrame:CGRectMake(CView_text5.right,  CView_text4.top, 100, 15)];
+    [self.CView_backview addSubview:ShiLC11];
+    [ShiLC11 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(CView_text4.mas_bottom).offset(11);
+        make.left.equalTo(CView_text5.mas_right).offset(10);
+    }];
+    UIButton *ShiLC11_btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    ShiLC11_btn.backgroundColor = UIColorFromRGBA(0x222222, 0.1);
+    [ShiLC11_btn addTarget:self action:@selector(SLButtonAtion:) forControlEvents:UIControlEventTouchUpInside];
+    ShiLC11_btn.tag = 2;
+    [self.CView_backview addSubview:ShiLC11_btn];
+    [ShiLC11_btn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(CView_text4.mas_bottom).offset(11);
+        make.left.equalTo(CView_text5.mas_right).offset(10);
+        make.size.mas_offset(CGSizeMake(80, 15));
     }];
     /**环境图片*/
     self.environment = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, IPHONEWIDTH(103), IPHONEWIDTH(103))];
@@ -510,7 +542,23 @@
     [DView_label3 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(DView_label2.mas_bottom).offset(10);
         make.left.mas_offset(10);
-        make.right.mas_offset(0);
+//        make.right.mas_offset(0);
+    }];
+    SLView *ShiL1 = [[SLView alloc]initWithFrame:CGRectMake(DView_label2.right,  DView_label3.top, 100, 15)];
+    [DView_backview addSubview:ShiL1];
+    [ShiL1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(DView_label2.mas_bottom).offset(11);
+        make.left.equalTo(DView_label3.mas_right).offset(10);
+    }];
+    UIButton *ShiL1_btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    ShiL1_btn.backgroundColor = UIColorFromRGBA(0x222222, 0.1);
+    [ShiL1_btn addTarget:self action:@selector(SLButtonAtion:) forControlEvents:UIControlEventTouchUpInside];
+    ShiL1_btn.tag = 3;
+    [DView_backview addSubview:ShiL1_btn];
+    [ShiL1_btn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(DView_label2.mas_bottom).offset(11);
+        make.left.equalTo(DView_label3.mas_right).offset(10);
+        make.size.mas_offset(CGSizeMake(80, 15));
     }];
     /**身份证正反*/
     self.IdCardOn = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, IPHONEWIDTH(103), IPHONEWIDTH(103))];
@@ -575,7 +623,23 @@
     [DView_label5 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(DView_label4.mas_bottom).offset(10);
         make.left.mas_offset(10);
-        make.right.mas_offset(0);
+//        make.right.mas_offset(0);
+    }];
+    SLView *ShiL11 = [[SLView alloc]initWithFrame:CGRectMake(DView_label5.right,  DView_label4.top, 100, 15)];
+    [DView_backview addSubview:ShiL11];
+    [ShiL11 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(DView_label4.mas_bottom).offset(11);
+        make.left.equalTo(DView_label5.mas_right).offset(10);
+    }];
+    UIButton *ShiL11_btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    ShiL11_btn.backgroundColor = UIColorFromRGBA(0x222222, 0.1);
+    [ShiL11_btn addTarget:self action:@selector(SLButtonAtion:) forControlEvents:UIControlEventTouchUpInside];
+    ShiL11_btn.tag = 4;
+    [DView_backview addSubview:ShiL11_btn];
+    [ShiL11_btn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(DView_label4.mas_bottom).offset(11);
+        make.left.equalTo(DView_label5.mas_right).offset(10);
+        make.size.mas_offset(CGSizeMake(80, 15));
     }];
     /**营业执照*/
     self.business = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, IPHONEWIDTH(103), IPHONEWIDTH(103))];
@@ -623,7 +687,23 @@
     [DView_label7 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(DView_label6.mas_bottom).offset(10);
         make.left.mas_offset(10);
-        make.right.mas_offset(0);
+//        make.right.mas_offset(0);
+    }];
+    SLView *ShiL111 = [[SLView alloc]initWithFrame:CGRectMake(DView_label7.right,  DView_label6.top, 100, 15)];
+    [DView_backview addSubview:ShiL111];
+    [ShiL111 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(DView_label6.mas_bottom).offset(11);
+        make.left.equalTo(DView_label7.mas_right).offset(10);
+    }];
+    UIButton *ShiL111_btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    ShiL111_btn.backgroundColor = UIColorFromRGBA(0x222222, 0.1);
+    [ShiL111_btn addTarget:self action:@selector(SLButtonAtion:) forControlEvents:UIControlEventTouchUpInside];
+    ShiL111_btn.tag = 5;
+    [DView_backview addSubview:ShiL111_btn];
+    [ShiL111_btn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(DView_label6.mas_bottom).offset(11);
+        make.left.equalTo(DView_label7.mas_right).offset(10);
+        make.size.mas_offset(CGSizeMake(80, 15));
     }];
     /**上传经营许可证*/
     self.license = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, IPHONEWIDTH(103), IPHONEWIDTH(103))];
@@ -1026,6 +1106,13 @@
     NSString *door_face_pic = [NSString stringWithFormat:@"%@",Data[@"door_face_pic"]];
     [self.facade setImageWithURL:[NSURL URLWithString:door_face_pic] placeholder:[UIImage imageNamed:@"pic_default_avatar"]];
 
+    /** 店内环境照片 */
+    NSString *store_environment_pics = [NSString stringWithFormat:@"%@",Data[@"store_environment_pics"]];
+    // 用指定字符串分割字符串，返回一个数组
+    NSArray *environment_picsArray = [store_environment_pics componentsSeparatedByString:@","];
+    
+    [self.environment setImageWithURL:[NSURL URLWithString:environment_picsArray[0]] placeholder:[UIImage imageNamed:@"pic_default_avatar"]];
+
 #pragma mark ———————— 证件数据
     /** 身份证照片 */
     NSString *card_pic = [NSString stringWithFormat:@"%@",Data[@"hand_held_ID_card_pic"]];
@@ -1034,6 +1121,16 @@
     
     [self.IdCardOn setImageWithURL:[NSURL URLWithString:CardArray[0]] placeholder:[UIImage imageNamed:@"pic_default_avatar"]];
     [self.IdCardUnder setImageWithURL:[NSURL URLWithString:CardArray[1]] placeholder:[UIImage imageNamed:@"pic_default_avatar"]];
+    /*营业执照图片*/
+    NSString *business_license_pic = [NSString stringWithFormat:@"%@",Data[@"business_license_pic"]];
+    NSArray *licenseArray = [business_license_pic componentsSeparatedByString:@","];
+    [self.business setImageWithURL:[NSURL URLWithString:licenseArray[0]] placeholder:[UIImage imageNamed:@"pic_default_avatar"]];
+    
+    /*经营许可证图片*/
+    NSString *business_permit_pic = [NSString stringWithFormat:@"%@",Data[@"business_permit_pic"]];
+    NSArray *permitArray = [business_permit_pic componentsSeparatedByString:@","];
+    [self.license setImageWithURL:[NSURL URLWithString:permitArray[0]] placeholder:[UIImage imageNamed:@"pic_default_avatar"]];
+    
 }
 -(void)setReminData:(NSArray *)ReminData{
     _ReminData = ReminData;
@@ -1126,6 +1223,13 @@
     
     if (self.delagate && [self.delagate respondsToSelector:@selector(SetReminder:)]) {
         [self.delagate SetReminder:Aray];
+        
+    }
+}
+-(void)SLButtonAtion:(UIButton *)sender{
+
+    if (self.delagate && [self.delagate respondsToSelector:@selector(SetSLDelegate:)]) {
+        [self.delagate SetSLDelegate:sender.tag];
         
     }
 }

@@ -23,8 +23,8 @@
 @implementation FBHinformViewController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.page = 1;
-    [self merchant_center];
+//    self.page = 1;
+//    [self merchant_center];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -235,7 +235,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSString *has_detail = [NSString stringWithFormat:@"%@",self.Data[indexPath.row][@"has_detail"]];
     
-    if ([has_detail isEqualToString:@"1"]) {
+//    if ([has_detail isEqualToString:@"1"]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"list_new" object:@""];
 
         /** 有详情 **/
@@ -246,10 +246,10 @@
         VC.Data =self.Data[indexPath.row];
         [self.navigationController pushViewController:VC animated:NO];
 
-    }else{
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"list_new" object:@""];
-
-    }
+//    }else{
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"list_new" object:@""];
+//
+//    }
 
 }
 

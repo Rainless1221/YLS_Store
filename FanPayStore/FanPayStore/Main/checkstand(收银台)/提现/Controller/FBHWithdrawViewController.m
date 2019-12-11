@@ -13,15 +13,17 @@
 #import "JHCoverView.h"//提现密码输入
 #import "Payment_passwordViewController.h"
 
-@interface FBHWithdrawViewController ()<UIScrollViewDelegate,JHCoverViewDelegate,UITextFieldDelegate>
+@interface FBHWithdrawViewController ()<UIScrollViewDelegate,JHCoverViewDelegate,UITextFieldDelegate,WithdrawDelegate>
 {
     double F;
     NSString *_fee_payable;
+    NSString *_service_charges_max;
     NSString *_today_withdrawable_amount;
 }
 @property (strong,nonatomic)WithdrawWinView * WinView;//提现成功弹出View
 @property (strong,nonatomic)UIScrollView * SJScrollView;
 @property (strong,nonatomic)WithdrawView * scrollView;
+@property (strong,nonatomic)FBHWithdraw * YLSWithdrawView;
 /** 银行卡信息 */
 @property (strong,nonatomic)NSMutableArray * bankData;
 /** 银行卡ID */
@@ -34,6 +36,8 @@
 @property (assign,nonatomic)BOOL isPay_pwd;
 /** 最低提现额度 */
 @property (strong,nonatomic)NSString * one_time;
+/** 最高提现额度 */
+@property (strong,nonatomic)NSString * Maxone_time;
 /** 短信验证码 */
 @property (strong,nonatomic)NSString * mobile_codeString;
 
@@ -59,6 +63,8 @@
         
         if ([resDic[@"status"] integerValue] == 1) {
             NSDictionary *DIC=resDic[@"data"];
+            self.YLSWithdrawView.Data = DIC;
+            
             /** 可提现金额 */
             self.scrollView.dangqiM.text = [NSString stringWithFormat:@"%@",DIC[@"withdrawable_cash"]];
             _today_withdrawable_amount = [NSString stringWithFormat:@"%@",DIC[@"today_withdrawable_amount"]];
@@ -85,7 +91,9 @@
             self.scrollView.fuwu.text = [NSString stringWithFormat:@"（收取 %.2lf%@服务费）",F*100,@"%"];
             /*代付费用*/
             _fee_payable = [NSString stringWithFormat:@"%@",DIC[@"fee_payable"]];
-            
+            /*服务费最高金额*/
+            _service_charges_max = [NSString stringWithFormat:@"%@",DIC[@"service_charges_max"]];
+
 #pragma mark - 说明文本
             //withdraw_amount_limit_one_day 一个商户每日最多能提现的金额
             //withdraw_total_amount_limit_one_day 所有商户每日最多能提现的金额
@@ -117,9 +125,14 @@
             //withdraw_amount_limit_one_day 一个商户每日最多能提现的金额
             //withdraw_total_amount_limit_one_day 所有商户每日最多能提现的金额
             NSString *withdraw_max_limit_one_time = [NSString stringWithFormat:@"%@",DIC[@"withdraw_max_limit_one_time"]];
+            
             NSString *withdraw_amount_limit_one_day = [NSString stringWithFormat:@"%@",DIC[@"withdraw_amount_limit_one_day"]];
             if ([[MethodCommon judgeStringIsNull:withdraw_max_limit_one_time] isEqualToString:@""]) {
                 withdraw_max_limit_one_time = @"20000";
+                self.Maxone_time = @"20000";
+            }else{
+                self.Maxone_time = withdraw_max_limit_one_time;
+
             }
             if ([[MethodCommon judgeStringIsNull:withdraw_amount_limit_one_day] isEqualToString:@""]) {
                 withdraw_amount_limit_one_day = @"100000";
@@ -240,7 +253,7 @@
 }
 #pragma mark - 导航栏
 -(void)setupNav{
-    UIButton *leftbutton=[[UIButton alloc]initWithFrame:CGRectMake(0, 0, 70, 28)];
+    UIButton *leftbutton=[[UIButton alloc]initWithFrame:CGRectMake(0, 0, 66, 28)];
     [leftbutton setTitle:@"提现记录" forState:UIControlStateNormal];
     [leftbutton setTitleColor:UIColorFromRGB(0xF7AE2B) forState:UIControlStateNormal];
     leftbutton.layer.cornerRadius = 14;
@@ -256,7 +269,7 @@
 -(void)createUI{
     [self.view addSubview:self.SJScrollView];
     [self.SJScrollView addSubview:self.scrollView];
-    
+//    [self.SJScrollView addSubview:self.YLSWithdrawView];
 }
 #pragma mark - 认证情况是否跳转
 -(void)ifToVC{
@@ -343,14 +356,25 @@
     tipView.selebankBlock = ^(NSInteger row) {
     
         NSString *title = [NSString stringWithFormat:@"%@",self.bankData[row][@"affiliated_bank"]];
+        if ([[MethodCommon judgeStringIsNull:title] isEqualToString:@""]) {
+            title = [NSString stringWithFormat:@"%@",self.bankData[row][@"affiliated_bank_name"]];
+        }
         [self.scrollView.cardTextButton setTitle:title forState:UIControlStateNormal];
+        self.YLSWithdrawView.cardName.text = [NSString stringWithFormat:@"%@",title];
         
         NSString *url = self.bankData[row][@"affiliated_bank_logo"];
         [self.scrollView.cardTextButton sd_setImageWithURL:[NSURL URLWithString:url] forState:UIControlStateNormal];
+        [self.YLSWithdrawView.card setImageWithURL:[NSURL URLWithString:url] placeholder:[UIImage imageNamed:@""]];
+
         //银行卡ID
         self.bankid = self.bankData[row][@"bank_card_id"];
+        self.YLSWithdrawView.bankid = self.bankData[row][@"bank_card_id"];
         //银行卡名称
-        self.bankName = [NSString stringWithFormat:@" %@",self.bankData[row][@"affiliated_bank"]];
+        NSString *affiliated_bank = [NSString stringWithFormat:@" %@",self.bankData[row][@"affiliated_bank"]];
+        if ([[MethodCommon judgeStringIsNull:affiliated_bank] isEqualToString:@""]) {
+            affiliated_bank = [NSString stringWithFormat:@"%@",self.bankData[row][@"affiliated_bank_name"]];
+        }
+        self.bankName = affiliated_bank;
     };
     [self.view.window addSubview:tipView];
 
@@ -359,8 +383,8 @@
 -(void)allAction{
     double fuwu = [self.scrollView.dangqiM.text doubleValue];
     fuwu = fuwu*F+[_fee_payable doubleValue];
-    if (fuwu>27) {
-        fuwu = 27;
+    if (fuwu>[_service_charges_max doubleValue]) {
+        fuwu = [_service_charges_max doubleValue];
     }
     self.scrollView.fuwuLabel.textColor =UIColorFromRGBA(0x222222, 1);
     _scrollView.fuwuLabel.text = [NSString stringWithFormat:@"服务费: %.2lf元",fuwu];
@@ -383,12 +407,14 @@
         [SVProgressHUD setMinimumDismissTimeInterval:2];
         [SVProgressHUD showErrorWithStatus:status];
         return;
-    }else if (jiner>20000){
-        NSString *status = [NSString stringWithFormat:@"输入金额请小于20000元"];
-        [SVProgressHUD setMinimumDismissTimeInterval:2];
-        [SVProgressHUD showErrorWithStatus:status];
-        return;
-    }else if (jiner>dangqian){
+    }
+//    else if (jiner>[self.Maxone_time doubleValue]){
+//        NSString *status = [NSString stringWithFormat:@"输入金额请小于%@元",self.Maxone_time];
+//        [SVProgressHUD setMinimumDismissTimeInterval:2];
+//        [SVProgressHUD showErrorWithStatus:status];
+//        return;
+//    }
+    else if (jiner>dangqian){
         NSString *status = [NSString stringWithFormat:@"输入金额请小于当前余额"];
         [SVProgressHUD setMinimumDismissTimeInterval:2];
         [SVProgressHUD showErrorWithStatus:status];
@@ -669,8 +695,8 @@
     /** 提示 **/
     double fuwu = [self.scrollView.JEField.text doubleValue];
     fuwu = fuwu*F+[_fee_payable doubleValue];
-    if (fuwu>27) {
-        fuwu = 27;
+    if (fuwu>[_service_charges_max doubleValue]) {
+        fuwu = [_service_charges_max doubleValue];
     }
     coverView.tisi.text = [NSString stringWithFormat:@"提现金额，%@元。服务费%.2lf元",self.scrollView.JEField.text,fuwu];
     double siji = [self.scrollView.JEField.text doubleValue];
@@ -739,9 +765,9 @@
         [SVProgressHUD setMinimumDismissTimeInterval:2];
         [SVProgressHUD showErrorWithStatus:status];
         return;
-    }else if (jiner>20000){
+    }else if (jiner>[self.Maxone_time doubleValue]){
         [SVProgressHUD setMinimumDismissTimeInterval:2];
-        [SVProgressHUD showErrorWithStatus:@"输入金额请小于20000元"];
+        [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"输入金额请小于%@元",self.Maxone_time]];
         return;
     }
     
@@ -793,15 +819,15 @@
     NSLog(@"textField4 - 正在编辑, 当前输入框内容为: %@",text);
     if (text.length>0){
         double fuwu = [text doubleValue];
-        if (fuwu>20000) {
-            text = @"20000";
+        if (fuwu>[self.Maxone_time doubleValue]) {
+            text = self.Maxone_time;
         }else if (fuwu<10){
-            
+
         }
         
         fuwu = fuwu*F+[_fee_payable doubleValue];
-        if (fuwu>27) {
-            fuwu = 27;
+        if (fuwu>[_service_charges_max doubleValue]) {
+            fuwu = [_service_charges_max doubleValue];
         }
         
         self.scrollView.fuwuLabel.textColor =UIColorFromRGBA(0x222222, 1);
@@ -817,7 +843,7 @@
     if (!_SJScrollView) {
         _SJScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
         _SJScrollView.backgroundColor = UIColorFromRGB(0xF6F6F6);
-        _SJScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, 910);
+        _SJScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, 1100);
         _SJScrollView.delegate = self;
     }
     return _SJScrollView;
@@ -853,5 +879,12 @@
         _bankData = [NSMutableArray array];
     }
     return _bankData;
+}
+-(FBHWithdraw *)YLSWithdrawView{
+    if (!_YLSWithdrawView) {
+        _YLSWithdrawView = [[FBHWithdraw alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 1200)];
+        _YLSWithdrawView.delagate = self;
+    }
+    return _YLSWithdrawView;
 }
 @end

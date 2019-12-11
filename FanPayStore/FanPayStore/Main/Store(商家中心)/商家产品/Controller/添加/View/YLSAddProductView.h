@@ -9,8 +9,17 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
+@protocol AddProductDelegate<NSObject>
+//方法可实现的
+@optional
+//方法必须实现
+-(void)andTheLabel;
+-(void)andAttribute;
+@end
 
 @interface YLSAddProductView : UIView<UITextFieldDelegate>
+/*代理*/
+@property(nonatomic,weak)id<AddProductDelegate>delagate;
 /*goodsView*/
 @property (strong,nonatomic)   UIView * GoodsView;
 @property (strong,nonatomic)   UIView * PINGView;

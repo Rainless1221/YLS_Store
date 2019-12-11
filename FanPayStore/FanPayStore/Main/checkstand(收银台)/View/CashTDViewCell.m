@@ -18,7 +18,11 @@
     [self.iconImage sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"pic_default_avatar"]];
     
     /**  */
-    self.TextLabl.text = [NSString stringWithFormat:@"%@",Data[@"affiliated_bank"]];
+    NSString *affiliated_bank =  [NSString stringWithFormat:@"%@",Data[@"affiliated_bank"]];
+    if ([[MethodCommon judgeStringIsNull:affiliated_bank] isEqualToString:@""]) {
+        affiliated_bank = [NSString stringWithFormat:@"%@",Data[@"affiliated_bank_name"]];
+    }
+    self.TextLabl.text = affiliated_bank;
     
 }
 - (IBAction)SeleAction:(UIButton *)sender {

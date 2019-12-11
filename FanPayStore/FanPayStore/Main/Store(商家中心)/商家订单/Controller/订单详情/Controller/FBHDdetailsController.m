@@ -74,6 +74,7 @@
             self.YSView.Data = DIC;
             self.PLView.Data = DIC;
 //           [self.YSView removeFromSuperview];
+            self.NavLabl.text = [NSString stringWithFormat:@"%@",DIC[@"order_status_txt"]];
             [self createUI];
             
         }else{
@@ -112,6 +113,7 @@
     navLabel.textAlignment = NSTextAlignmentCenter;
     [NavView addSubview:navLabel];
     self.NavLabl = navLabel;
+    self.NavLabl.text = [NSString stringWithFormat:@"%@",self.DictData[@"order_status_txt"]];
     //按钮
     UIButton *thirdBtn1 = [UIButton buttonWithType:UIButtonTypeCustom];
     thirdBtn1.frame = CGRectMake(0, STATUS_BAR_HEIGHT, 44, 44);
@@ -263,13 +265,13 @@
         self.TKView.height = IPHONEHIGHT(10);
 
         self.YSView.status = DetailsVieWStatus_1;
-         self.YSView.height = goodsArr.count*55+230;
+         self.YSView.height = goodsArr.count*35+240;
     }else{
         self.TKView.hidden = NO;
         self.TKView.height = IPHONEHIGHT(122);
 
         self.YSView.status = DetailsVieWStatus_2;
-         self.YSView.height = goodsArr.count*55+310;
+         self.YSView.height = goodsArr.count*35+317;
     }
 
     

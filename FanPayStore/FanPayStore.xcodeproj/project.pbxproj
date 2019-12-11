@@ -352,6 +352,10 @@
 		7C55A4F022D33C26002584C4 /* StoreInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C55A4EF22D33C26002584C4 /* StoreInformation.m */; };
 		7C55A4F322D33CA0002584C4 /* StoreReminController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C55A4F222D33CA0002584C4 /* StoreReminController.m */; };
 		7C55A4F622D34397002584C4 /* StoreRemin.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C55A4F522D34397002584C4 /* StoreRemin.m */; };
+		7C621072238CD892002BDBCA /* BindingPayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C621071238CD892002BDBCA /* BindingPayController.m */; };
+		7C621076238CF133002BDBCA /* YLSAddPayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C621075238CF133002BDBCA /* YLSAddPayViewController.m */; };
+		7C621079238CFABC002BDBCA /* PayTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C621078238CFABC002BDBCA /* PayTableViewCell.m */; };
+		7C7003BE23868333002BD599 /* BrandNewOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C7003BD23868333002BD599 /* BrandNewOrderCell.m */; };
 		7C71BD1B236A722300E3CDA9 /* YLSRegisteredController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C71BD1A236A722300E3CDA9 /* YLSRegisteredController.m */; };
 		7C71BD20236AAEDF00E3CDA9 /* YLSAddProductView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C71BD1F236AAEDF00E3CDA9 /* YLSAddProductView.m */; };
 		7C71BD23236AB5EE00E3CDA9 /* YLSAddProductController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C71BD22236AB5EE00E3CDA9 /* YLSAddProductController.m */; };
@@ -372,6 +376,7 @@
 		7CA45EA12338777300D2AF9B /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CA45EA02338777300D2AF9B /* FeedbackViewController.m */; };
 		7CA45EA423389F1A00D2AF9B /* Feedback_View.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CA45EA323389F1A00D2AF9B /* Feedback_View.m */; };
 		7CA77EF8230E954700814B7A /* UITabBar+badge.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CA77EF7230E954700814B7A /* UITabBar+badge.m */; };
+		7CAFFEB7239609ED000FA095 /* SLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CAFFEB6239609ED000FA095 /* SLView.m */; };
 		7CB548C22318F3A9002F03C3 /* GetLaunchImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CB548BE2318F3A9002F03C3 /* GetLaunchImage.m */; };
 		7CB548C32318F3A9002F03C3 /* IanAdsStartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CB548BF2318F3A9002F03C3 /* IanAdsStartView.m */; };
 		7CB548C42318F3A9002F03C3 /* IanClickImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CB548C12318F3A9002F03C3 /* IanClickImageView.m */; };
@@ -1132,6 +1137,14 @@
 		7C55A4F222D33CA0002584C4 /* StoreReminController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreReminController.m; sourceTree = "<group>"; };
 		7C55A4F422D34397002584C4 /* StoreRemin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreRemin.h; sourceTree = "<group>"; };
 		7C55A4F522D34397002584C4 /* StoreRemin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreRemin.m; sourceTree = "<group>"; };
+		7C621070238CD892002BDBCA /* BindingPayController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BindingPayController.h; sourceTree = "<group>"; };
+		7C621071238CD892002BDBCA /* BindingPayController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BindingPayController.m; sourceTree = "<group>"; };
+		7C621074238CF133002BDBCA /* YLSAddPayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YLSAddPayViewController.h; sourceTree = "<group>"; };
+		7C621075238CF133002BDBCA /* YLSAddPayViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YLSAddPayViewController.m; sourceTree = "<group>"; };
+		7C621077238CFABC002BDBCA /* PayTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PayTableViewCell.h; sourceTree = "<group>"; };
+		7C621078238CFABC002BDBCA /* PayTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PayTableViewCell.m; sourceTree = "<group>"; };
+		7C7003BC23868333002BD599 /* BrandNewOrderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BrandNewOrderCell.h; sourceTree = "<group>"; };
+		7C7003BD23868333002BD599 /* BrandNewOrderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BrandNewOrderCell.m; sourceTree = "<group>"; };
 		7C71BD19236A722300E3CDA9 /* YLSRegisteredController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YLSRegisteredController.h; sourceTree = "<group>"; };
 		7C71BD1A236A722300E3CDA9 /* YLSRegisteredController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YLSRegisteredController.m; sourceTree = "<group>"; };
 		7C71BD1E236AAEDF00E3CDA9 /* YLSAddProductView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YLSAddProductView.h; sourceTree = "<group>"; };
@@ -1167,6 +1180,8 @@
 		7CA45EA323389F1A00D2AF9B /* Feedback_View.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Feedback_View.m; sourceTree = "<group>"; };
 		7CA77EF6230E954700814B7A /* UITabBar+badge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBar+badge.h"; sourceTree = "<group>"; };
 		7CA77EF7230E954700814B7A /* UITabBar+badge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBar+badge.m"; sourceTree = "<group>"; };
+		7CAFFEB5239609ED000FA095 /* SLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLView.h; sourceTree = "<group>"; };
+		7CAFFEB6239609ED000FA095 /* SLView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLView.m; sourceTree = "<group>"; };
 		7CB548BC2318F3A9002F03C3 /* IanAdsStartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IanAdsStartView.h; sourceTree = "<group>"; };
 		7CB548BD2318F3A9002F03C3 /* IanClickImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IanClickImageView.h; sourceTree = "<group>"; };
 		7CB548BE2318F3A9002F03C3 /* GetLaunchImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetLaunchImage.m; sourceTree = "<group>"; };
@@ -2605,6 +2620,7 @@
 		7C2F8B88229BCE2E0036F9F9 /* Store(商家中心) */ = {
 			isa = PBXGroup;
 			children = (
+				7C62106D238CD83D002BDBCA /* 绑定支付宝 */,
 				7CDBFF0223716252003B4078 /* 商品属性 */,
 				7C3384B6235DB8F9000A56B5 /* 分账认证 */,
 				7C7839B6235AB62B00AD4A20 /* 绑定打印设备 */,
@@ -3813,6 +3829,43 @@
 			path = cell;
 			sourceTree = "<group>";
 		};
+		7C62106D238CD83D002BDBCA /* 绑定支付宝 */ = {
+			isa = PBXGroup;
+			children = (
+				7C62106F238CD85A002BDBCA /* View */,
+				7C62106E238CD854002BDBCA /* Controller */,
+			);
+			path = "绑定支付宝";
+			sourceTree = "<group>";
+		};
+		7C62106E238CD854002BDBCA /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				7C621070238CD892002BDBCA /* BindingPayController.h */,
+				7C621071238CD892002BDBCA /* BindingPayController.m */,
+				7C621073238CF0DD002BDBCA /* 绑定 */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		7C62106F238CD85A002BDBCA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7C621077238CFABC002BDBCA /* PayTableViewCell.h */,
+				7C621078238CFABC002BDBCA /* PayTableViewCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		7C621073238CF0DD002BDBCA /* 绑定 */ = {
+			isa = PBXGroup;
+			children = (
+				7C621074238CF133002BDBCA /* YLSAddPayViewController.h */,
+				7C621075238CF133002BDBCA /* YLSAddPayViewController.m */,
+			);
+			path = "绑定";
+			sourceTree = "<group>";
+		};
 		7C71BD1C236A92A800E3CDA9 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -3838,6 +3891,8 @@
 			children = (
 				7C757D6522E6976D00403474 /* OrderViewCell.h */,
 				7C757D6622E6976D00403474 /* OrderViewCell.m */,
+				7C7003BC23868333002BD599 /* BrandNewOrderCell.h */,
+				7C7003BD23868333002BD599 /* BrandNewOrderCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3942,6 +3997,15 @@
 				7CA45EA323389F1A00D2AF9B /* Feedback_View.m */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		7CAFFEB4239609CD000FA095 /* 示例图 */ = {
+			isa = PBXGroup;
+			children = (
+				7CAFFEB5239609ED000FA095 /* SLView.h */,
+				7CAFFEB6239609ED000FA095 /* SLView.m */,
+			);
+			path = "示例图";
 			sourceTree = "<group>";
 		};
 		7CB548BB2318F3A9002F03C3 /* IanAdsStartView(开屏广告) */ = {
@@ -4541,6 +4605,7 @@
 			children = (
 				7CCB15412359969200B8F80A /* YLSinStoreView.h */,
 				7CCB15422359969200B8F80A /* YLSinStoreView.m */,
+				7CAFFEB4239609CD000FA095 /* 示例图 */,
 				7C2CD817236295B4007DE68B /* 选择温馨提示 */,
 			);
 			path = View;
@@ -4959,6 +5024,7 @@
 				7C2F8C27229BDFAE0036F9F9 /* WithdrawView.m in Sources */,
 				297A1623229C166E000800AF /* labelView.m in Sources */,
 				297A160B229C1576000800AF /* CHTableViewCellT.m in Sources */,
+				7C7003BE23868333002BD599 /* BrandNewOrderCell.m in Sources */,
 				7C2F8B4A229BC9400036F9F9 /* LRSLinesPaoPaoView.m in Sources */,
 				7C2F8C01229BDE8E0036F9F9 /* FBHRevenueController.m in Sources */,
 				7C2F8B99229BCF250036F9F9 /* FBHWorkbenchController.m in Sources */,
@@ -5175,6 +5241,7 @@
 				7CBDD4C422A6689800932BDA /* MarketingController.m in Sources */,
 				7C1DFFE822FBBD250037BE9A /* GYZCity.m in Sources */,
 				7C757D8322EEE43200403474 /* FBHPreferController.m in Sources */,
+				7C621072238CD892002BDBCA /* BindingPayController.m in Sources */,
 				7CB5AE4622DD577C00D21349 /* RoomsRules.m in Sources */,
 				7C3E6596232F780D00ACCF9A /* Store_Menu_View.m in Sources */,
 				7CBDD4E322A8BAAA00932BDA /* goodDetailsView.m in Sources */,
@@ -5218,6 +5285,7 @@
 				7C3384BE235EAACE000A56B5 /* YLSAddCertification.m in Sources */,
 				7C2F8B58229BC9400036F9F9 /* SWScannerView.m in Sources */,
 				7C2F8A52229BC81A0036F9F9 /* UIView+SHViewCategory.m in Sources */,
+				7CAFFEB7239609ED000FA095 /* SLView.m in Sources */,
 				7C3384B2235D7D54000A56B5 /* EquipmentCell.m in Sources */,
 				7C2F8C02229BDE8E0036F9F9 /* FBHRevenuedetailsController.m in Sources */,
 				7C2F8BF7229BDE450036F9F9 /* ReveTableViewCell.m in Sources */,
@@ -5238,9 +5306,11 @@
 				7C2F8D2A229BEFA30036F9F9 /* FBHinformViewController.m in Sources */,
 				7C2F8B69229BC9400036F9F9 /* PublicMethods.m in Sources */,
 				7CCB15432359969200B8F80A /* YLSinStoreView.m in Sources */,
+				7C621079238CFABC002BDBCA /* PayTableViewCell.m in Sources */,
 				7C2F8BDE229BDBE10036F9F9 /* FBHCashierBaseView.m in Sources */,
 				7C2F8CCC229BE3770036F9F9 /* SureguideView.m in Sources */,
 				297A15F9229C1525000800AF /* FBHCPViewController.m in Sources */,
+				7C621076238CF133002BDBCA /* YLSAddPayViewController.m in Sources */,
 				7C1DFFDA22FA591F0037BE9A /* YCShadowView.m in Sources */,
 				7C2F8B63229BC9400036F9F9 /* TZPhotoPickerController.m in Sources */,
 				7C2F8BC5229BD82A0036F9F9 /* FBHQRCodeController.m in Sources */,

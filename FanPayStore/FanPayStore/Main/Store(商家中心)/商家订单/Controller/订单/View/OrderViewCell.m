@@ -154,16 +154,6 @@
         make.width.mas_offset(80);
     }];
     /*剩余支付时间*/
-//    UILabel *label = [[UILabel alloc] init];
-//    label.numberOfLines = 0;
-//    label.text = @"剩余支付时间";
-//    label.font = [UIFont systemFontOfSize:14];
-//    label.textColor = UIColorFromRGB(0x3D8AFF);
-//    [self.orderView addSubview:label];
-//    [label mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.mas_offset(10);
-//        make.centerY.equalTo(DetailButton.mas_centerY).offset(0);
-//    }];
     self.PaymentTime  = [[UILabel alloc] init];
     self.PaymentTime.numberOfLines = 0;
     self.PaymentTime.text = @"剩余支付时间";

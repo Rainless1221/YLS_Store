@@ -260,6 +260,30 @@
         
     }];
 }
+#pragma mark -示例图
+- (void)SetSLDelegate:(NSInteger)SLint{
+    SampleView *samView = [[SampleView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    if (SLint==1) {
+        samView.Sampletext.text = @"门脸照-示例图";
+        samView.imagesArr = @[@"店内环境照片-1",@"店内环境照片-2",@"店内环境照片-3"];
+    }else if (SLint==2){
+        samView.Sampletext.text = @"店内环境-示例图";
+        samView.imagesArr = @[@"店内环境照片-1",@"店内环境照片-2",@"店内环境照片-3"];
+    }else if (SLint == 3) {
+        samView.Sampletext.text = @"门脸照-示例图";
+        samView.imagesArr = @[@"身份证-正面",@"身份证-反面"];
+    }else if(SLint == 4){
+        samView.Sampletext.text = @"营业执照-示例图";
+        samView.imagesArr = @[@"营业执照"];
+    }else{
+        samView.Sampletext.text = @"许可证-示例图";
+        samView.imagesArr = @[@"许可证"];
+    }
+    
+    
+    
+    [[UIApplication sharedApplication].keyWindow addSubview:samView];
+}
 #pragma mark - 懒加载
 -(UIScrollView *)ScrollView{
     if (!_ScrollView) {

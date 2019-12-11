@@ -119,7 +119,6 @@
     CGFloat Bheight = 88;
     //    NSArray *storeArray = @[@"商家信息",@"商家产品",@"促销设置",@"我的粉丝"];
     NSArray *storeArray = @[@"商家信息",@"商品分类",@"商家产品",@"营销设置"];
-    //    NSArray *store_imageArray = @[@"icn_b_center_information",@"icn_b_center_product",@"icn_b_center_set",@"icn_b_center_fan"];
     NSArray *store_imageArray = @[@"icn_b_center_information",@"icn_b_center_classification",@"icn_b_center_product",@"icn_b_center_set"];
     
     /**

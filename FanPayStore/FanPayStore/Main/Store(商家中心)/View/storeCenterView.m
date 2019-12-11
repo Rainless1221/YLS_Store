@@ -332,7 +332,7 @@
     [self.storeView2 addSubview:centerlabel2];
     [centerlabel2 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_offset(10);
-        make.top.mas_offset(0);
+        make.top.mas_offset(5);
         make.size.mas_offset(CGSizeMake(200, 30));
     }];
     
@@ -391,7 +391,7 @@
     [self.storeView4 addSubview:centerlabel4];
     [centerlabel4 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_offset(10);
-        make.top.mas_offset(0);
+        make.top.mas_offset(5);
         make.size.mas_offset(CGSizeMake(200, 30));
     }];
     
@@ -431,9 +431,9 @@
 #pragma mark - 服务中心
     //,@"最新资讯"  ,@"icn_service_c_information"
     //     NSArray *serviceArray = @[@"账户与安全",@"银行卡",@"加盟代理",@"关于一鹿省",@"帮助与客服",@"版本更新"];
-    NSArray *serviceArray = @[@"账户与安全",@"分店管理",@"提现认证",@"我的粉丝",@"加盟代理",@"关于一鹿省",@"帮助与客服",@"版本更新"];
+    NSArray *serviceArray = @[@"账户与安全",@"分店管理",@"提现认证",@"我的粉丝",@"加盟代理",@"关于一鹿省",@"帮助与客服",@"版本更新",@"绑定支付宝"];
     //    NSArray *service_imageAry = @[@"icn_service_c_security",@"icn_service_c_bankcard",@"icn_service_c_join",@"icn_service_c_about",@"icn_service_c_cut_service",@"icn_service_c_update"];
-    NSArray *service_imageAry = @[@"icn_service_c_security",@"icn_service_c_branch",@"icn_service_c_authentication",@"icn_service_c_fans",@"icn_service_c_join",@"icn_service_c_about",@"icn_service_c_cut_service",@"icn_service_c_update"];
+    NSArray *service_imageAry = @[@"icn_service_c_security",@"icn_service_c_branch",@"icn_service_c_authentication",@"icn_service_c_fans",@"icn_service_c_join",@"icn_service_c_about",@"icn_service_c_cut_service",@"icn_service_c_update",@"icn_service_c_zhifubao"];
     /**
      服务中心
      */
@@ -441,7 +441,7 @@
         make.top.equalTo(self.storeView3.mas_bottom).offset(15);
         make.left.mas_offset(15);
         make.right.mas_offset(-15);
-        make.height.mas_offset(204);
+        make.height.mas_offset(298);
     }];
     
     UILabel *centerlabel5= [[UILabel alloc]init];
@@ -451,7 +451,7 @@
     [self.storeView5 addSubview:centerlabel5];
     [centerlabel5 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_offset(10);
-        make.top.mas_offset(0);
+        make.top.mas_offset(5);
         make.size.mas_offset(CGSizeMake(200, 30));
     }];
     
