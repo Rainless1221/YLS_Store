@@ -3266,7 +3266,38 @@
     
 }
 
+/**
+ 设置店铺预约功能开关
+ */
+-(void)set_appointment:(NSString *)merchant_id
+           andstore_id:(NSString *)store_id
+             andstatus:(NSString *)status
+               Success:(void (^)(NSDictionary *resDic))success
+            andfailure:(void (^)(void))failure{
+    
+    //里层的parameter
+    NSMutableDictionary *dic=[NSMutableDictionary dictionary];
+    [dic setValue:merchant_id forKey:@"merchant_id"];
+    [dic setValue:store_id forKey:@"store_id"];
+    [dic setValue:status forKey:@"status"];
 
+    
+    UserModel *model = [UserModel getUseData];
+    [dic setValue:model.token forKey:@"token"];
+    
+    NSString *timestamp = [FBHAppViewModel currentTimeStr];
+    [dic setValue:timestamp forKey:@"timestamp"];
+    NSString *process = [NSString stringWithFormat:@"%@%@",merchant_id,timestamp];
+    [dic setValue:[MD5Sign MD5:process] forKey:@"process"];
+    
+    [YBHttpTool post:@"service_center/set_appointment" params:dic success:^(NSDictionary *obj) {
+        success(obj);
+        
+    } failure:^(NSError *error) {
+        failure();
+        
+    }];
+}
 
 
 
@@ -3524,7 +3555,44 @@
     }];
     
 }
+/**
+ 商家打印机终端绑定编辑 接口
+ */
+-(void)switch_pinter:(NSString *)merchant_id
+         andstore_id:(NSString *)store_id
+       andprinter_id:(NSString *)printer_id
+         andjoinDict:(NSDictionary *)Dict
+             Success:(void (^)(NSDictionary *resDic))success
+          andfailure:(void (^)(void))failure{
+    //里层的parameter
+    NSMutableDictionary *dic=[NSMutableDictionary dictionary];
+    [dic setValue:merchant_id forKey:@"merchant_id"];
+    [dic setValue:store_id forKey:@"store_id"];
+    [dic setValue:printer_id forKey:@"printer_id"];
 
+    for (NSString *key in Dict) {
+        //        NSLog(@"%@",key);
+        
+        [dic setValue:Dict[key] forKey:key];
+    }
+    
+    
+    UserModel *model = [UserModel getUseData];
+    [dic setValue:model.token forKey:@"token"];
+    
+    NSString *timestamp = [FBHAppViewModel currentTimeStr];
+    [dic setValue:timestamp forKey:@"timestamp"];
+    NSString *process = [NSString stringWithFormat:@"%@%@",merchant_id,timestamp];
+    [dic setValue:[MD5Sign MD5:process] forKey:@"process"];
+    
+    [YBHttpTool post:@"yly_receipts/switch_pinter" params:dic success:^(NSDictionary *obj) {
+        success(obj);
+        
+    } failure:^(NSError *error) {
+        failure();
+        
+    }];
+}
 /**
  获取商家打印机终端列表 接口
  */

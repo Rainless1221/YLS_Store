@@ -823,6 +823,15 @@
                  Success:(void (^)(NSDictionary *resDic))success
               andfailure:(void (^)(void))failure;
 
+/**
+ 设置店铺预约功能开关
+ */
+-(void)set_appointment:(NSString *)merchant_id
+             andstore_id:(NSString *)store_id
+            andstatus:(NSString *)status
+                 Success:(void (^)(NSDictionary *resDic))success
+              andfailure:(void (^)(void))failure;
+
 #pragma mark - 上传图片
 -(void)uploadImageWithData:(UIImage *)image
                    andtype:(NSString *)type
@@ -857,6 +866,15 @@
                     andjoinDict:(NSDictionary *)Dict
                         Success:(void (^)(NSDictionary *resDic))success
                     andfailure:(void (^)(void))failure;
+/**
+ 商家打印机终端绑定编辑 接口
+ */
+-(void)switch_pinter:(NSString *)merchant_id
+          andstore_id:(NSString *)store_id
+       andprinter_id:(NSString *)printer_id
+          andjoinDict:(NSDictionary *)Dict
+              Success:(void (^)(NSDictionary *resDic))success
+           andfailure:(void (^)(void))failure;
 /**
 获取商家打印机终端列表 接口
  */

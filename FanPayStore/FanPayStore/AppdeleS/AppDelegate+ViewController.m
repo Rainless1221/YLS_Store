@@ -444,20 +444,23 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     
     
     JWPrinter *printer = [[JWPrinter alloc] init];
-    [printer appendNewLine];
+//    [printer appendNewLine];
     [printer appendText:@"一鹿省商家小票" alignment:HLTextAlignmentLeft];
-    [printer appendNewLine];
-    [printer appendSeperatorLine];
-    [printer appendNewLine];
+//    [printer appendNewLine];
+//    [printer appendSeperatorLine];
+    [printer appendText:@"-------------------------------" alignment:HLTextAlignmentCenter];
+//    [printer appendNewLine];
     NSString *table_number = [NSString stringWithFormat:@"%@",Dict[@"table_number"]];
     if ([[MethodCommon judgeStringIsNull:table_number] isEqualToString:@""]) {
         table_number = @"#";
     }
     [printer appendText:[NSString stringWithFormat:@"桌号：%@",table_number] alignment:HLTextAlignmentCenter fontSize:0x11];
     [printer appendText:[NSString stringWithFormat:@"*%@*",Dict[@"store_name"]] alignment:HLTextAlignmentCenter];
-    [printer appendSeperatorLine];
+//    [printer appendSeperatorLine];
+    [printer appendText:@"-------------------------------" alignment:HLTextAlignmentCenter];
     [printer appendText:[NSString stringWithFormat:@"序号:#%@ ",Dict[@"sort"]] alignment:HLTextAlignmentCenter fontSize:0x11];
-    [printer appendSeperatorLine];
+//    [printer appendSeperatorLine];
+    [printer appendText:@"-------------------------------" alignment:HLTextAlignmentCenter];
     NSString *Time = [NSString stringWithFormat:@"%@",Dict[@"add_time_full"]];
     NSArray *TimeArray = [Time componentsSeparatedByString:@" "];
     [printer appendTitle:[NSString stringWithFormat:@"下单时间：%@",TimeArray[0]] value:@"人数"];
@@ -465,7 +468,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     [printer appendText:@"*******************************" alignment:HLTextAlignmentCenter];
     //    [printer appendSeperator_xing];
     [printer appendText:@"-----------订单信息-----------" alignment:HLTextAlignmentCenter];
-    [printer appendNewLine];
+//    [printer appendNewLine];
     [printer appendLeftText:@"名称" middleText:@"单价" rightText:@"数量" isTitle:YES];
     NSArray *goodsArr = Dict[@"goods_info"];
     for (int i =0; i<goodsArr.count; i++) {
@@ -478,13 +481,14 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
         [printer setOffset:320 ];
         [printer YLSappendLeftText:num alignment:HLTextAlignmentLeft  fontSize:0x00 isTitle:YES];
     }
-    [printer appendNewLine];
+//    [printer appendNewLine];
     [printer appendSeperatorLine];
     [printer appendTitle:@"门店金额：" value:Dict[@"account_money"]];
     [printer appendTitle:@"服务费用：" value:Dict[@"service_money"]];
     [printer appendTitle:@"本单节省：" value:Dict[@"save_money"]];
     [printer appendTitle:@"用户实付：" value:[NSString stringWithFormat:@"%@",Dict[@"actual_money"]]];
-    [printer appendSeperatorLine];
+//    [printer appendSeperatorLine];
+    [printer appendText:@"-------------------------------" alignment:HLTextAlignmentCenter];
     double i = [Dict[@"actual_money"] doubleValue];
     double j = [Dict[@"service_money"] doubleValue];
     double qian = i - j;
@@ -492,12 +496,13 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     //    [printer setOffset:270];
     //    [printer YLSappendLeftText:[NSString stringWithFormat:@"%.2f",qian]  alignment:HLTextAlignmentRight fontSize:20 isTitle:YES];
     [printer appendTitle:@"商家实收：" value:[NSString stringWithFormat:@"%.2f",qian] fontSize:0x01];
-    [printer appendSeperatorLine];
-    [printer appendNewLine];
+//    [printer appendSeperatorLine];
+     [printer appendText:@"-------------------------------" alignment:HLTextAlignmentCenter];
+//    [printer appendNewLine];
     [printer appendText:[NSString stringWithFormat:@"备注：%@",Dict[@"remark"]] alignment:HLTextAlignmentLeft fontSize:0x01];
     [printer appendText:@"*******************************" alignment:HLTextAlignmentCenter];
     [printer appendText:@"-----------其他信息-----------" alignment:HLTextAlignmentCenter];
-    [printer appendText:[NSString stringWithFormat:@"消费地址：%@",Dict[@"store_address"]] alignment:HLTextAlignmentLeft];
+//    [printer appendText:[NSString stringWithFormat:@"消费地址：%@",Dict[@"store_address"]] alignment:HLTextAlignmentLeft];
     NSString *phon = [NSString stringWithFormat:@"%@",Dict[@"user_info"][@"mobile"]];
     NSString *string = [NSString new];
     if ([[MethodCommon judgeStringIsNull:phon] isEqualToString:@""]) {
@@ -522,11 +527,11 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     }
     [printer appendText:[NSString stringWithFormat:@"交易类型：%@",paid] alignment:HLTextAlignmentLeft];
     [printer appendSeperatorLine];
-    [printer appendNewLine];
+//    [printer appendNewLine];
     [printer appendText:@"感谢使用一鹿省，祝您生活愉快!\n下载一鹿省app全国走到哪省到哪" alignment:HLTextAlignmentCenter fontSize:0x00];
-    [printer appendNewLine];
-    [printer appendNewLine];
-    [printer appendNewLine];
+//    [printer appendNewLine];
+//    [printer appendNewLine];
+//    [printer appendNewLine];
     
     
     

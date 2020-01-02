@@ -13,13 +13,14 @@
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         
         UIView *view = [[UIView alloc] init];
-        view.frame = CGRectMake(15,0,ScreenW-30,65);
+        view.frame = CGRectMake(15,0,ScreenW-30,85);
         view.backgroundColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0];
         view.layer.cornerRadius = 0;
         [self addSubview:view];
         
         [view addSubview:self.machine_name];
         [view addSubview:self.machine_code];
+        [view addSubview:self.machine_tixt];
         [self.machine_name mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_offset(15);
             make.left.mas_offset(10);
@@ -31,7 +32,11 @@
             make.left.mas_offset(10);
             make.right.mas_offset(-60);
         }];
-        
+        [self.machine_tixt mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.machine_code.mas_bottom).offset(7.5);
+            make.left.mas_offset(10);
+            make.right.mas_offset(-10);
+        }];
         /*解绑*/
         UIButton *Button = [UIButton buttonWithType:UIButtonTypeCustom];
         [Button setTitle:@"解绑" forState:UIControlStateNormal];
@@ -75,6 +80,19 @@
         self.machine_code.text = [NSString stringWithFormat:@"终端号：%@",code];
     }
 
+    
+    NSString *tixt = [NSString stringWithFormat:@"%@",Data[@"multi"]];
+    NSString *tixt1 = [NSString stringWithFormat:@"%@",Data[@"setsound"]];
+    if ([[MethodCommon judgeStringIsNull:tixt] isEqualToString:@""]) {
+        tixt = @"";
+    }
+    if ([[MethodCommon judgeStringIsNull:tixt1] isEqualToString:@""]) {
+        tixt1 = @"";
+    }
+        self.machine_tixt.text = [NSString stringWithFormat:@"打印联数：%@       音量：%@",tixt,tixt1];
+
+    
+    
 }
 #pragma mark - 懒加载
 -(UILabel *)machine_name{
@@ -92,6 +110,14 @@
         _machine_code.font = [UIFont systemFontOfSize:13];
     }
     return _machine_code;
+}
+-(UILabel *)machine_tixt{
+    if (!_machine_tixt) {
+        _machine_tixt = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 120, 20)];
+        _machine_tixt.textColor = UIColorFromRGB(0x999999);
+        _machine_tixt.font = [UIFont systemFontOfSize:13];
+    }
+    return _machine_tixt;
 }
 - (void)awakeFromNib {
     [super awakeFromNib];

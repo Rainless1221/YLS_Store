@@ -22,6 +22,9 @@ typedef void(^MenuBlock)(NSString *btntag);
 @property (assign,nonatomic)NSInteger isSelete;
 @property (strong,nonatomic)UIView * view_line;
 @property (strong,nonatomic)UILabel * badgeLable;
+@property (strong,nonatomic)UILabel * badgeLable1;
+@property (strong,nonatomic)UILabel * badgeLable2;
+@property (strong,nonatomic)UILabel * badgeLable3;
 
 @property (nonatomic, copy) MenuBlock Menublock;
 

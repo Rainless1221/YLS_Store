@@ -64,7 +64,7 @@
     FBHinformationViewController *VC = [FBHinformationViewController new];
     VC.Navtitle = @"使用协议";
     VC.agreeUrl = FBHApi_HTML_Falu;
-    [self.navigationController pushViewController:VC animated:NO];
+    [self.navigationController pushViewController:VC animated:YES];
     
 }
 

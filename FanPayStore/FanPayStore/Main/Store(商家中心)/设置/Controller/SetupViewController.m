@@ -293,9 +293,10 @@
         NSString * isbluetooth = [PublicMethods readFromUserD:@"isbluetooth"];
         if ([model.open_status isEqualToString:@"2"]) {
             self.bluetooth.OnStatus = NO;
+            [PublicMethods writeToUserD:@"NO" andKey:@"isbluetooth"];
         }else if([model.open_status isEqualToString:@"1"]) {
             self.bluetooth.OnStatus = YES;
-
+            [PublicMethods writeToUserD:@"YES" andKey:@"isbluetooth"];
         }else{
             self.bluetooth.OnStatus = NO;
             [self.manage autoConnectLastPeripheralCompletion:^(CBPeripheral *perpheral, NSError *error) {
@@ -452,11 +453,11 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (indexPath.section == 0) {
-        [self.navigationController pushViewController:[FBHaccountController new] animated:NO];
+        [self.navigationController pushViewController:[FBHaccountController new] animated:YES];
     }else if (indexPath.section == 1){
-        [self.navigationController pushViewController:[ManagementTypesController new] animated:NO];
+        [self.navigationController pushViewController:[ManagementTypesController new] animated:YES];
     }else if (indexPath.section == 2){
-        [self.navigationController pushViewController:[YLSSheBeiController new] animated:NO];
+        [self.navigationController pushViewController:[YLSSheBeiController new] animated:YES];
 
     }else if (indexPath.section == 4){
 //        ReceiptsController *VC = [ReceiptsController new];
@@ -465,21 +466,21 @@
     }else if (indexPath.section == 55){
      
     }else if (indexPath.section == 5 && indexPath.row == 0){
-        [self.navigationController pushViewController:[FBHHelpViewController new] animated:NO];
+        [self.navigationController pushViewController:[FBHHelpViewController new] animated:YES];
     }else if (indexPath.section == 5 && indexPath.row == 1){
         /** Html 页面(用户协议) **/
         FBHinformationViewController *VC = [FBHinformationViewController new];
         VC.Navtitle = @"用户协议";
         VC.agreeUrl = FBHApi_HTML_yonghu;
-        [self.navigationController pushViewController:VC animated:NO];
+        [self.navigationController pushViewController:VC animated:YES];
     }else if (indexPath.section == 5 && indexPath.row == 2){
         //隐私协议
         FBHinformationViewController *VC = [FBHinformationViewController new];
         VC.Navtitle = @"隐私协议";
         VC.agreeUrl = FBHApi_HTML_Yinsi;
-        [self.navigationController pushViewController:VC animated:NO];
+        [self.navigationController pushViewController:VC animated:YES];
     }else if (indexPath.section == 5 && indexPath.row == 3){
-        [self.navigationController pushViewController:[FBHGYViewController new] animated:NO];
+        [self.navigationController pushViewController:[FBHGYViewController new] animated:YES];
     }else if (indexPath.section == 5 && indexPath.row == 4){
         [[WMZAlert shareInstance]showAlertWithType:AlertTypeSystemPush headTitle:@"清除缓存" textTitle:@"确定清除缓存?" leftHandle:^(id anyID) {
             //        取消按钮点击回调

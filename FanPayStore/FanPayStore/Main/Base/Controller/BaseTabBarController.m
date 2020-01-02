@@ -33,6 +33,7 @@
 
 #pragma makr -- 提前加载
     for(UINavigationController *nav in  self.viewControllers){
+      
         if ([self.viewControllers indexOfObject:nav] == 3) { // 指定需要加载的vc
             UIViewController *viewController = nav.viewControllers.firstObject;
             [viewController loadViewIfNeeded]; // 让其调用viewdidload

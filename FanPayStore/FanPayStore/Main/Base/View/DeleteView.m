@@ -117,6 +117,7 @@
         _deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _deleteButton.frame = CGRectMake(0,0,ScreenW-90,44);
         [_deleteButton setTitle:@"删除" forState:UIControlStateNormal];
+        _deleteButton.titleLabel.font = [UIFont systemFontOfSize:18];
         [_deleteButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         _deleteButton.backgroundColor = [UIColor colorWithRed:247/255.0 green:174/255.0 blue:43/255.0 alpha:1.0];
         _deleteButton.layer.cornerRadius = 10;
@@ -144,6 +145,7 @@
         [_cancel setTitle:@"取消" forState:UIControlStateNormal];
         [_cancel setTitleColor:UIColorFromRGB(0xF7AE2B) forState:UIControlStateNormal];
         _cancel.frame = CGRectMake(0,0,ScreenW-90,44);
+        _cancel.titleLabel.font = [UIFont systemFontOfSize:18];
         _cancel.layer.borderColor = UIColorFromRGB(0xF7AE2B).CGColor;
         _cancel.layer.cornerRadius = 10;
         _cancel.layer.borderWidth = 1;

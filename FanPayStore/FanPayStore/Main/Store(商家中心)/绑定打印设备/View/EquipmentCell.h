@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface EquipmentCell : UITableViewCell
 @property (strong,nonatomic)UILabel * machine_name;
 @property (strong,nonatomic)UILabel * machine_code;
+@property (strong,nonatomic)UILabel * machine_tixt;
 @property (strong,nonatomic)NSDictionary * Data;
 @property (nonatomic, copy) void(^unbindingBlock)(void);
 

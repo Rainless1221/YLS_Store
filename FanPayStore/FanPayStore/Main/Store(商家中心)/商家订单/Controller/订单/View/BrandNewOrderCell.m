@@ -47,31 +47,75 @@
         }];
         
     }
+    /*预约*/
+    [self.orderView addSubview:self.YuyueView];
+    [self.YuyueView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_offset(0);
+        make.top.mas_offset(0);
+        make.height.mas_offset(50);
+    }];
+    self.YYicon = [[UIImageView alloc]init];
+    self.YYicon.image = [UIImage imageNamed:@"icn_booking_big"];
+    [self.YuyueView addSubview:self.YYicon];
+    [self.YYicon mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.mas_offset(0);
+        make.left.mas_offset(10);
+        make.size.mas_offset(CGSizeMake(36, 36));
+    }];
+    self.yylabel = [[UILabel alloc]init];
+    self.yylabel.font = [UIFont systemFontOfSize:12];
+    self.yylabel.backgroundColor =  [UIColor colorWithRed:224/255.0 green:242/255.0 blue:255/255.0 alpha:1.0];
+    self.yylabel.text = @"预约";
+    self.yylabel.textAlignment = 1;
+    self.yylabel.textColor = [UIColor colorWithRed:61/255.0 green:138/255.0 blue:255/255.0 alpha:1.0];
+    [self.YuyueView addSubview:self.yylabel];
+    [self.yylabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.mas_offset(0);
+        make.left.equalTo(self.YYicon.mas_right).offset(10);
+        make.width.mas_offset(36);
+    }];
+    
+    self.YYTimeLabel = [[UILabel alloc]init];
+    self.YYTimeLabel .font = [UIFont systemFontOfSize:16];
+    self.YYTimeLabel .text = @"2019-12-12 12:30";
+    self.YYTimeLabel .textColor = [UIColor colorWithRed:61/255.0 green:138/255.0 blue:255/255.0 alpha:1.0];
+    [self.YuyueView addSubview:self.YYTimeLabel ];
+    [self.YYTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.mas_offset(0);
+        make.left.equalTo(self.yylabel.mas_right).offset(10);
+        make.right.mas_offset(0);
+    }];
+    
     /*订单的状态*/
     [self.orderView addSubview:self.iconBtn];
     [self.iconBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_offset(10);
-        make.top.mas_offset(0);
+        make.top.equalTo(self.YuyueView.mas_bottom).offset(0);
         make.height.mas_offset(50);
     }];
     /*订单下单时间*/
     [self.orderView addSubview:self.TimeLabel];
     [self.TimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_offset(-10);
-        make.top.mas_offset(0);
+        make.top.equalTo(self.YuyueView.mas_bottom).offset(0);
         make.height.mas_offset(50);
     }];
     /*订单横线*/
     UIView *line = [[UIView alloc] init];
-    line.frame = CGRectMake(10,50,self.orderView.width-20,0.5);
+    line.frame = CGRectMake(10,self.iconBtn.bottom,self.orderView.width-20,0.5);
     line.backgroundColor = [UIColor colorWithRed:234/255.0 green:234/255.0 blue:234/255.0 alpha:1.0];
     [self.orderView addSubview:line];
-    
+    [line mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_offset(10);
+        make.top.equalTo(self.iconBtn.mas_bottom).offset(0);
+        make.right.mas_offset(-10);
+        make.height.mas_offset(0.5);
+    }];
     /*订单核销状态*/
     [self.orderView addSubview:self.HexiaoBtn];
     [self.HexiaoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_offset(-15);
-        make.top.mas_offset(49);
+        make.top.equalTo(self.iconBtn.mas_bottom).offset(-1);
         make.size.mas_offset(CGSizeMake(50, 25));
     }];
     self.OrderLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 62.5, 150, 13)];
@@ -266,12 +310,81 @@
     NSInteger trade_status = [Data[@"trade_status"] integerValue];//交易状态 0 进行中 1.已完成(未核销)，2.已结算（已核销），3.已分佣,4 已取消
     NSInteger eval_status = [Data[@"eval_status"] integerValue]; // 评价状态 0 未评价，1.已评价
     NSInteger refund_status = [Data[@"refund_status"] integerValue]; //  退款状态 0 未退款 1发起退款中 2.退款已确认，3退款已完成，4.退款已取消
+     NSInteger order_type = [Data[@"order_type"] integerValue]; //  订单类型 1表示到店，2表示预约
+    NSString *arrive_time = [NSString stringWithFormat:@"%@",Data[@"arrive_time"]]; //到店时间
+    if ([[MethodCommon judgeStringIsNull:arrive_time] isEqualToString:@""]) {
+        arrive_time = @"";
+    }
+    NSInteger appointment_timeout = [Data[@"appointment_timeout"] integerValue]; //  预约是否超时 0未超时，1已超时
+    NSString *appointment_time = [NSString stringWithFormat:@"%@",Data[@"appointment_time"]];//预约时间 预约单有值，到店单值为null
+
+   
+#pragma mark - /*是否预约、或是超时*/
+    if (arrive_time.length>0) {
+        self.contactButton.hidden = YES;
+        self.YuyueView.height = 0;
+        self.YuyueView.hidden = YES;
+        [self.YuyueView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_offset(0);
+        }];
+    }else{
+        if (order_type ==2) {
+            [self.iconBtn setImage:[UIImage imageNamed:@"icn_order_booking"] forState:UIControlStateNormal];
+            self.contactButton.hidden = NO;
+            if ([[MethodCommon judgeStringIsNull:appointment_time] isEqualToString:@""]) {
+                appointment_time = @"";
+            }
+            self.YYTimeLabel.text = appointment_time;
+            self.YuyueView.height = 50;
+            self.YuyueView.hidden = NO;
+            [self.YuyueView mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.height.mas_offset(50);
+            }];
+            if (appointment_timeout == 0) {
+                /*未超时*/
+                self.YuyueView.backgroundColor = UIColorFromRGB(0xF8FCFF);
+                self.YYicon.image = [UIImage imageNamed:@"icn_booking_big"];
+                self.yylabel.backgroundColor =  UIColorFromRGB(0xE0F2FF);
+                self.yylabel.textColor = UIColorFromRGB(0x3D8AFF);
+                self.yylabel.text = @"预约";
+                self.YYTimeLabel .textColor = UIColorFromRGB(0x3D8AFF);
+                [self.yylabel mas_updateConstraints:^(MASConstraintMaker *make) {
+                    make.width.mas_offset(36);
+                }];
+            }else{
+                /*超时*/
+                self.YuyueView.backgroundColor = UIColorFromRGB(0xFFF9FA);
+                self.YYicon.image = [UIImage imageNamed:@"icn_booking_timeout_big"];
+                self.yylabel.backgroundColor =  UIColorFromRGB(0xFCE9E8);
+                self.yylabel.textColor = UIColorFromRGB(0xEE4E3E);
+                self.yylabel.text = @"预约超时";
+                self.YYTimeLabel .textColor = UIColorFromRGB(0xEE4E3E);
+                [self.yylabel mas_updateConstraints:^(MASConstraintMaker *make) {
+                    make.width.mas_offset(60);
+                }];
+            }
+        }else{
+            self.contactButton.hidden = YES;
+            self.YuyueView.height = 0;
+            self.YuyueView.hidden = YES;
+            [self.YuyueView mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.height.mas_offset(0);
+            }];
+        }
+        
+    }
+   
 #pragma mark -   /*是否核销 - 展示核销状态*/
     if (trade_status ==0) {
+        self.HexiaoBtn.hidden = NO;
         self.HexiaoBtn.selected = NO;
     }else if (trade_status ==1) {
+         self.HexiaoBtn.hidden = NO;
         self.HexiaoBtn.selected = NO;
+    }else if (trade_status ==4){
+        self.HexiaoBtn.hidden = YES;
     }else{
+        self.HexiaoBtn.hidden = NO;
         self.HexiaoBtn.selected = YES;
     }
   #pragma mark -   /*订单的状态*/
@@ -290,11 +403,12 @@
 #pragma mark -     /*是否支付 - 展示支付时间 0 未支付，1 已支付*/
     if (pay_status ==0) {
         self.PaymentTime.hidden = NO;
-        self.contactButton.hidden = NO;
+//        self.contactButton.hidden = NO;
         self.PrintBtn.hidden = YES;
         if (trade_status ==4) {
              self.PaymentTime.hidden = YES;
-             self.contactButton.hidden = YES;
+//             self.contactButton.hidden = YES;
+            [self.iconBtn setImage:[UIImage imageNamed:@"icn_order_cancel"] forState:UIControlStateNormal];
         }else{
             /*待支付订单的剩余支付时间 remaining_payment_time*/
             NSString *remaining_payment_time = [NSString stringWithFormat:@"%@",Data[@"remaining_payment_time"]];
@@ -310,11 +424,12 @@
 
     }else if (pay_status ==1) {
         self.PaymentTime.hidden = YES;
-        self.contactButton.hidden = YES;
+//        self.contactButton.hidden = YES;
         self.PrintBtn.hidden = NO;
+        [self.iconBtn setImage:[UIImage imageNamed:@"icn_order_paid"] forState:UIControlStateNormal];
     }else{
         self.PaymentTime.hidden = YES;
-        self.contactButton.hidden = YES;
+//        self.contactButton.hidden = YES;
         self.PrintBtn.hidden = NO;
     }
 
@@ -322,6 +437,13 @@
     if (refund_status == 1) {
         self.DeleteButton.hidden = YES;
         self.ConfirmButton.hidden = NO;
+        [self.iconBtn setImage:[UIImage imageNamed:@"icn_order_refund"] forState:UIControlStateNormal];
+        self.contactButton.hidden = YES;
+        self.YuyueView.height = 0;
+        self.YuyueView.hidden = YES;
+        [self.YuyueView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_offset(0);
+        }];
     }else{
          self.DeleteButton.hidden = NO;
         self.ConfirmButton.hidden = YES;
@@ -412,10 +534,11 @@
     self.numlabel.text = [NSString stringWithFormat:@"总计     共%@件商品",nums];
     NSInteger i = [nums integerValue] - 3;
     [detailsButton setTitle:[NSString stringWithFormat:@"查询其余%ld件",i] forState:UIControlStateNormal];
-
-    self.numlabel.top = Y+43;
+    
+    
+    self.numlabel.top = Y+43+self.YuyueView.height;
     [self.numlabel mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_offset(Y+43);
+        make.top.mas_offset(Y+43+self.YuyueView.height);
     }];
 
 
@@ -476,7 +599,7 @@
             self.label_TKBeiZhu.hidden = YES;
 
         }
-
+        [self.iconBtn setImage:[UIImage imageNamed:@"icn_order_complete"] forState:UIControlStateNormal];
     }
 
 //    refund_status 0 未退款 1发起退款中 2.退款已确认，3退款已完成，4.退款已取消
@@ -953,9 +1076,17 @@
     }
     return _orderView;
 }
+-(UIView *)YuyueView{
+    if (!_YuyueView) {
+        _YuyueView = [[UIView alloc]initWithFrame: CGRectMake(0, 0, 120, 50)];
+        _YuyueView.backgroundColor = UIColorFromRGB(0xF8FCFF);
+    }
+    return _YuyueView;
+}
 -(UIButton *)iconBtn{
     if (!_iconBtn) {
         _iconBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _iconBtn.frame = CGRectMake(0, self.YuyueView.bottom, 120, 50);
         [_iconBtn setImage:[UIImage imageNamed:@"icn_order_to_be_paid"] forState:UIControlStateNormal];
         [_iconBtn setTitle:@" " forState:UIControlStateNormal];
         [_iconBtn setTitleColor:UIColorFromRGB(0xF7AE2B) forState:UIControlStateNormal];

@@ -25,6 +25,7 @@
 @property (strong,nonatomic)DetailsQTView * QTView;
 @property (strong,nonatomic)DetailsPLView * PLView;
 @property (strong,nonatomic)DetailsTKView * TKView;
+@property (strong,nonatomic)DetailsYYView * YYView;
 @property (strong,nonatomic)UIButton * TKButton;
 @property (strong,nonatomic)DetailsAmountView * AmountView;
 /** 提现密码输入 */
@@ -113,7 +114,7 @@
     navLabel.textAlignment = NSTextAlignmentCenter;
     [NavView addSubview:navLabel];
     self.NavLabl = navLabel;
-    self.NavLabl.text = [NSString stringWithFormat:@"%@",self.DictData[@"order_status_txt"]];
+//    self.NavLabl.text = [NSString stringWithFormat:@"%@",self.DictData[@"order_status_txt"]];
     //按钮
     UIButton *thirdBtn1 = [UIButton buttonWithType:UIButtonTypeCustom];
     thirdBtn1.frame = CGRectMake(0, STATUS_BAR_HEIGHT, 44, 44);
@@ -198,6 +199,7 @@
     int f = ceil(tagMun / 3.0);
     
     [self.SJScrollView addSubview:self.TKView];
+    [self.SJScrollView addSubview:self.YYView];
     [self.SJScrollView addSubview:self.YSView];
     [self.SJScrollView addSubview:self.QTView];
     [self.SJScrollView addSubview:self.PLView];
@@ -227,7 +229,7 @@
         
     }
     
-    /*本版本不是上退款、先隐藏*/
+    /*本版本不上退款、先隐藏*/
 //    self.TKButton.height = 0.01;
 //    self.TKButton.hidden = YES;
 
@@ -239,6 +241,10 @@
     NSString *refund_status = [NSString stringWithFormat:@"%@",self.DictData[@"refund_status"]];
     //评论是否
     NSString *eval_status = [NSString stringWithFormat:@"%@",self.DictData[@"eval_status"]];
+    //订单类型 1表示到店 2表示预约
+    NSString *order_type = [NSString stringWithFormat:@"%@",self.DictData[@"order_type"]];
+    //预约是否超时 1表是 0表否
+    NSString *appointment_timeout = [NSString stringWithFormat:@"%@",self.DictData[@"appointment_timeout"]];
     
     if ([refund_status isEqualToString:@"3"]) {
         [self.TKView.Button2 setTitle:@"到账成功" forState:UIControlStateSelected];
@@ -253,6 +259,48 @@
     }else{
         self.TKView.Button2.selected = NO;
     }
+    /*是否有预约时间*/
+    NSString *arrive_time = [NSString stringWithFormat:@"%@",self.DictData[@"arrive_time"]]; //到店时间
+    if ([[MethodCommon judgeStringIsNull:arrive_time] isEqualToString:@""]) {
+        arrive_time = @"";
+    }
+    NSString *appointment_time_ymd = [NSString stringWithFormat:@"%@",self.DictData[@"appointment_time_ymd"]];//预约时间 预约单有值，到店单值为null
+    if ([[MethodCommon judgeStringIsNull:appointment_time_ymd] isEqualToString:@""]) {
+        appointment_time_ymd = @"";
+    }
+    self.YYView.YYTime.text = appointment_time_ymd;
+    NSString *appointment_time_hi = [NSString stringWithFormat:@"%@",self.DictData[@"appointment_time_hi"]];//预约时间 预约单有值，到店单值为null
+    if ([[MethodCommon judgeStringIsNull:appointment_time_hi] isEqualToString:@""]) {
+        appointment_time_hi = @"";
+    }
+    self.YYView.YYTime_T.text = appointment_time_hi;
+    if (arrive_time.length >0) {
+        self.YYView.hidden = YES;
+        self.YYView.height = IPHONEHIGHT(10);
+    }else{
+        if ([order_type integerValue] == 1) {
+            self.YYView.hidden = YES;
+            self.YYView.height = IPHONEHIGHT(10);
+        }else{
+            self.YYView.hidden = NO;
+            self.YYView.height = IPHONEHIGHT(85);
+            /**判断是否预约超时*/
+            if ([appointment_timeout integerValue] == 1) {
+                self.YYView.YYlabel.textColor = UIColorFromRGB(0xEE4E3E);
+                self.YYView.YYTime.textColor = UIColorFromRGB(0xEE4E3E);
+                self.YYView.YYTime_T.textColor = UIColorFromRGB(0xEE4E3E);
+                self.YYView. icon.image = [UIImage imageNamed:@"icn_booking_timeout_medium"];
+            }else{
+                self.YYView.YYlabel.textColor = UIColorFromRGB(0x3D8AFF);
+                self.YYView.YYTime.textColor = UIColorFromRGB(0x3D8AFF);
+                self.YYView.YYTime_T.textColor = UIColorFromRGB(0x3D8AFF);
+                self.YYView. icon.image = [UIImage imageNamed:@"icn_booking_medium"];
+            }
+        }
+       
+        
+    }
+    
     
     /**1、判断是否有退款*/
 //    self.TKView.hidden = refund_info.count>0 ? NO:YES;
@@ -263,13 +311,27 @@
     if ([refund_status isEqualToString:@"0"] || [refund_status isEqualToString:@"4"]) {
         self.TKView.hidden = YES;
         self.TKView.height = IPHONEHIGHT(10);
+        if (arrive_time.length >0) {
+            self.YYView.hidden = YES;
+            self.YYView.height = IPHONEHIGHT(10);
+        }else{
+            if ([order_type integerValue] == 1) {
+                self.YYView.hidden = YES;
+                self.YYView.height = IPHONEHIGHT(10);
+            }else{
+                self.YYView.hidden = NO;
+                self.YYView.height = IPHONEHIGHT(85);
+            }
+        }
 
         self.YSView.status = DetailsVieWStatus_1;
          self.YSView.height = goodsArr.count*35+240;
     }else{
         self.TKView.hidden = NO;
         self.TKView.height = IPHONEHIGHT(122);
-
+        self.YYView.hidden = YES;
+        self.YYView.height = IPHONEHIGHT(10);
+        
         self.YSView.status = DetailsVieWStatus_2;
          self.YSView.height = goodsArr.count*35+317;
     }
@@ -280,33 +342,31 @@
     
     if (self.status == 4) {
 
-
-
-        self.YSView.top = self.TKView.bottom -10;
+        self.YSView.top = (self.TKView.hidden ? self.YYView.bottom:self.TKView.bottom )-10;
         self.TKButton.top = self.YSView.bottom +20;
         self.QTView.top = self.TKButton.bottom +20;
         self.PLView.top = self.QTView.bottom +20;
-        self.SJScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, self.YSView.height+self.QTView.height+self.PLView.height+240+(refund_info.count>0 ? 130:20));
+        self.SJScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, self.YYView.height+self.YSView.height+self.QTView.height+self.PLView.height+240+(refund_info.count>0 ? 130:20));
         
     }else if (self.status == 2){
 
 
         self.PLView.hidden = ([eval_status integerValue]==1) ? NO:YES;
-        self.YSView.top = self.TKView.bottom -10;
+        self.YSView.top = (self.TKView.hidden ? self.YYView.bottom:self.TKView.bottom )-10;
         self.TKButton.top = self.YSView.bottom +20;
         self.QTView.top = self.TKButton.bottom +20;
         self.PLView.top = self.QTView.bottom +20;
-        self.SJScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, self.TKView.height+self.YSView.height+self.QTView.height+240+(([eval_status integerValue]==1) ? self.PLView.height:0));
+        self.SJScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, self.YYView.height+self.TKView.height+self.YSView.height+self.QTView.height+240+(([eval_status integerValue]==1) ? self.PLView.height:0));
         
     }else if (self.status == 8 || self.status == 6 || self.status == 7 ){
 
 
         self.PLView.hidden = ([eval_status integerValue]==1) ? NO:YES;
-        self.YSView.top = self.TKView.bottom -10;
+        self.YSView.top = (self.TKView.hidden ? self.YYView.bottom:self.TKView.bottom )-10;
         self.TKButton.top = self.YSView.bottom +20;
         self.QTView.top = self.TKButton.bottom +20;
         self.PLView.top = self.QTView.bottom +20;
-        self.SJScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, self.TKView.height+self.YSView.height+self.QTView.height+240+(([eval_status integerValue]==1) ? self.PLView.height:0));
+        self.SJScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, self.YYView.height+self.TKView.height+self.YSView.height+self.QTView.height+240+(([eval_status integerValue]==1) ? self.PLView.height:0));
         
     }else if (self.status == 9 || self.status == 10 || self.status == 11 ){
 
@@ -322,22 +382,22 @@
         
         self.PLView.hidden = ([eval_status integerValue]==1) ? NO:YES;
 
-        self.YSView.top = self.TKView.bottom -10;
+        self.YSView.top = (self.TKView.hidden ? self.YYView.bottom:self.TKView.bottom )-10;
         self.TKButton.top = self.YSView.bottom +20;
         self.QTView.top = self.TKButton.bottom +20;
         self.PLView.top = self.QTView.bottom +20;
-        self.SJScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, self.TKView.height+self.YSView.height+self.QTView.height+240+(([eval_status integerValue]==1) ? self.PLView.height:0));
+        self.SJScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, self.YYView.height+self.TKView.height+self.YSView.height+self.QTView.height+240+(([eval_status integerValue]==1) ? self.PLView.height:0));
         
         
     }else{
        
 
         self.PLView.hidden = ([eval_status integerValue]==1) ? NO:YES;
-        self.YSView.top = self.TKView.bottom -10;
+        self.YSView.top = (self.TKView.hidden ? self.YYView.bottom:self.TKView.bottom )-10;
         self.TKButton.top = self.YSView.bottom +20;
         self.QTView.top = self.TKButton.bottom +20;
         self.PLView.top = self.QTView.bottom +20;
-        self.SJScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, self.TKView.height+self.YSView.height+self.QTView.height+240+(([eval_status integerValue]==1) ? self.PLView.height:0));
+        self.SJScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, self.YYView.height+self.TKView.height+self.YSView.height+self.QTView.height+240+(([eval_status integerValue]==1) ? self.PLView.height:0));
         
     }
     
@@ -1289,6 +1349,18 @@
         //        _TKView.delagate = self;
     }
     return _TKView;
+}
+-(DetailsYYView *)YYView{
+    if (!_YYView) {
+        _YYView = [[DetailsYYView alloc]initWithFrame:CGRectMake(30, 104+STATUS_BAR_HEIGHT, ScreenW-60, 85)];
+        _YYView.backgroundColor = [UIColor whiteColor];
+        _YYView.layer.shadowOffset = CGSizeMake(0,2);
+        _YYView.layer.shadowOpacity = 1;
+        _YYView.layer.shadowRadius = 8;
+        _YYView.layer.cornerRadius = 5;
+        _YYView.layer.shadowColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.1].CGColor;
+    }
+    return _YYView;
 }
 -(DetailsYSView *)YSView{
     if (!_YSView) {

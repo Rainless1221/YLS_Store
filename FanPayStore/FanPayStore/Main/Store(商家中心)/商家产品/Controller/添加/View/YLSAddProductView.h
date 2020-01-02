@@ -43,6 +43,9 @@ NS_ASSUME_NONNULL_BEGIN
 /**商品图片 添加商品图片**/
 @property (strong,nonatomic)UIView * GoodPicImageView;
 
+/**错误提示**/
+@property (strong,nonatomic)UIView * ErrorView;
+
 /**赋值**/
 @property (strong,nonatomic)NSDictionary * Data;
 @end

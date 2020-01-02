@@ -17,8 +17,11 @@
 }
 #pragma mark - UI
 -(void)createUI{
-    NSArray *SArray = @[@"全部",@"待支付",@"已支付",@"已评价",@"退单",@"退款"];
-    self.SArrayTag = @[@"0",@"1",@"2",@"4",@"6",@"9"];
+//    NSArray *SArray = @[@"全部",@"待支付",@"已支付",@"已评价",@"退单",@"退款"];
+//    self.SArrayTag = @[@"0",@"1",@"2",@"4",@"6",@"9"];
+    
+    NSArray *SArray = @[@"已付款",@"已预约",@"评价",@"退单",@"退款",@"全部"];
+    self.SArrayTag = @[@"2",@"12",@"4",@"6",@"9",@"0"];
     CGFloat Bwidth = (ScreenW-45)/SArray.count;
 
     for (int i =0; i<SArray.count; i++) {
@@ -42,6 +45,11 @@
         NSString *tagint = [NSString stringWithFormat:@"%@",self.SArrayTag[i]];
         thirdBtn.tag = [tagint integerValue]+10;
         
+        
+        CGFloat badgeW   = 12;
+        CGSize imageSize = thirdBtn.frame.size;
+        CGFloat imageY   = thirdBtn.frame.origin.y;
+        
         if (i==0) {
 //            [thirdBtn setBackgroundColor:UIColorFromRGB(0x3D8AFF)];
             thirdBtn.selected = YES;
@@ -57,11 +65,50 @@
             view_line.centerX = thirdBtn.centerX;
             self.view_line = view_line;
             [self addSubview:view_line];
-        }else if (i == 4){
             
-            CGFloat badgeW   = 12;
-            CGSize imageSize = thirdBtn.frame.size;
-            CGFloat imageY   = thirdBtn.frame.origin.y;
+
+            UILabel *badgeLable = [[UILabel alloc]init];
+            //            badgeLable.text = [NSString stringWithFormat:@"%ld",2];
+            badgeLable.textAlignment = NSTextAlignmentCenter;
+            badgeLable.textColor = [UIColor whiteColor];
+            badgeLable.font = [UIFont systemFontOfSize:12];
+            badgeLable.layer.cornerRadius = badgeW*0.5;
+            badgeLable.clipsToBounds = YES;
+            badgeLable.backgroundColor = [UIColor redColor];
+            badgeLable.layer.borderWidth = 1;
+            badgeLable.layer.borderColor = [UIColor redColor].CGColor;
+            [badgeLable sizeToFit];
+            
+            CGFloat badgeX =   imageSize.width - badgeW*1.5;
+            CGFloat badgeY = imageY - badgeW*0.5;
+            badgeLable.frame = CGRectMake(badgeX, badgeY, badgeW, badgeW);
+            [thirdBtn addSubview:badgeLable];
+            self.badgeLable2 = badgeLable;
+            [badgeLable setHidden:YES];
+            
+        }else if (i == 1){
+            
+            
+            UILabel *badgeLable = [[UILabel alloc]init];
+            //            badgeLable.text = [NSString stringWithFormat:@"%ld",2];
+            badgeLable.textAlignment = NSTextAlignmentCenter;
+            badgeLable.textColor = [UIColor whiteColor];
+            badgeLable.font = [UIFont systemFontOfSize:12];
+            badgeLable.layer.cornerRadius = badgeW*0.5;
+            badgeLable.clipsToBounds = YES;
+            badgeLable.backgroundColor = [UIColor redColor];
+            badgeLable.layer.borderWidth = 1;
+            badgeLable.layer.borderColor = [UIColor redColor].CGColor;
+            [badgeLable sizeToFit];
+            
+            CGFloat badgeX =   imageSize.width - badgeW*1.5;
+            CGFloat badgeY = imageY - badgeW*0.5;
+            badgeLable.frame = CGRectMake(badgeX, badgeY, badgeW, badgeW);
+            [thirdBtn addSubview:badgeLable];
+            self.badgeLable3 = badgeLable;
+            [badgeLable setHidden:YES];
+        }else if (i == 3){
+            
             
             UILabel *badgeLable = [[UILabel alloc]init];
 //            badgeLable.text = [NSString stringWithFormat:@"%ld",2];
@@ -75,11 +122,31 @@
             badgeLable.layer.borderColor = [UIColor redColor].CGColor;
             [badgeLable sizeToFit];
             
-            CGFloat badgeX =   imageSize.width - badgeW*2.1;
+            CGFloat badgeX =   imageSize.width - badgeW*2;
             CGFloat badgeY = imageY - badgeW*0.5;
             badgeLable.frame = CGRectMake(badgeX, badgeY, badgeW, badgeW);
             [thirdBtn addSubview:badgeLable];
             self.badgeLable = badgeLable;
+            [badgeLable setHidden:YES];
+        }else if (i == 4){
+            
+            UILabel *badgeLable = [[UILabel alloc]init];
+            //            badgeLable.text = [NSString stringWithFormat:@"%ld",2];
+            badgeLable.textAlignment = NSTextAlignmentCenter;
+            badgeLable.textColor = [UIColor whiteColor];
+            badgeLable.font = [UIFont systemFontOfSize:12];
+            badgeLable.layer.cornerRadius = badgeW*0.5;
+            badgeLable.clipsToBounds = YES;
+            badgeLable.backgroundColor = [UIColor redColor];
+            badgeLable.layer.borderWidth = 1;
+            badgeLable.layer.borderColor = [UIColor redColor].CGColor;
+            [badgeLable sizeToFit];
+            
+            CGFloat badgeX =   imageSize.width - badgeW*2;
+            CGFloat badgeY = imageY - badgeW*0.5;
+            badgeLable.frame = CGRectMake(badgeX, badgeY, badgeW, badgeW);
+            [thirdBtn addSubview:badgeLable];
+            self.badgeLable1 = badgeLable;
             [badgeLable setHidden:YES];
         }
         

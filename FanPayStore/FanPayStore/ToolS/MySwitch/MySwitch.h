@@ -41,7 +41,7 @@ typedef void (^MyBlock) (BOOL OnStatus);
 //滑块距离边框边距
 @property (nonatomic) CGFloat Gap;
 
-
+@property (strong,nonatomic) UITapGestureRecognizer *tap;
 
 /*  带有block 初始化
  *  @param frame

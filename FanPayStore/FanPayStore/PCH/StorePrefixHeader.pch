@@ -60,6 +60,7 @@
 #import "YCShadowView.h"
 #import "IanAdsStartView.h"//开屏广告
 #import "JHCoverView.h"//密码验证
+#import "StarSliderView.h"//声音滑动设置
 
 
 
@@ -156,6 +157,8 @@
 #import "YLSAddProductController.h"//发布产品
 #import "YLSCommodityAttriController.h"//商品属性
 #import "BindingPayController.h"//绑定支付宝
+#import "SetupStoreViewController.h"//店铺设置
+#import "YLSGoodSeekController.h"//产品搜索
 
 
 
@@ -264,6 +267,7 @@
 #import "YLSCertifH5Controller.h"
 #import "YLSSheBeiController.h"
 #import "BrandNewOrderCell.h"//全新的订单样式
+#import "DetailsYYView.h"//预约View
 
 
 

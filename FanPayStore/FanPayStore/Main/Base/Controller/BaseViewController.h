@@ -36,4 +36,6 @@
 -(void)JWPrinter_Printer:(NSDictionary *)Dict;
 #pragma mark - 获取应用在 appStore的信息
 -(void)lookup;
+#pragma mark - 获取当前版本信息 商户端
+-(void)get_mer_version_info;
 @end

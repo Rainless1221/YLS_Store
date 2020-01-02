@@ -23,6 +23,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface BrandNewOrderCell : UITableViewCell <StarEvaluatorDelegate>
 @property (strong,nonatomic)UIView * orderView;
+@property (strong,nonatomic)UIView * YuyueView;//预约视图
+@property (strong,nonatomic)UIImageView * YYicon;
+@property (strong,nonatomic)UILabel * yylabel;
+@property (strong,nonatomic)UILabel * YYTimeLabel;//预约时间
 @property (strong,nonatomic)UIButton * iconBtn;//状态
 @property (strong,nonatomic)UILabel * TimeLabel;//时间
 @property (strong,nonatomic)UIButton * HexiaoBtn;//核销

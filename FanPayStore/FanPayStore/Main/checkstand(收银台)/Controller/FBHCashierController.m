@@ -59,10 +59,17 @@
     self.navigationItem.title = @"收银台";
 //    [self refund_order_num];
 
-    /** 获取收银台基本信息 */
-    [self merchant_center];
-    /** 某天收支列表 */
-    [self list_checkstand:self.begin_date andEnd:self.end_date];
+    // 并发队列的创建方法
+    dispatch_queue_t queue_B = dispatch_queue_create("net.bujige.testQueue", DISPATCH_QUEUE_CONCURRENT);
+    // 异步执行任务创建方法
+    dispatch_async(queue_B, ^{
+        /** 获取收银台基本信息 */
+        [self merchant_center];
+        /** 某天收支列表 */
+        [self list_checkstand:self.begin_date andEnd:self.end_date];
+        NSLog(@"收银线程---%@",[NSThread currentThread]);      // 打印当前线程
+    });
+   
 
     /** 是否可见 */
     [self isSetLook];
@@ -95,7 +102,7 @@
 }
 #pragma mark - 获取收银台基本信息
 -(void)merchant_center{
-    [MBProgressHUD MBProgress:@"数据加载中..."];
+    
     UserModel *model = [UserModel getUseData];
     NSString *store_id = [NSString stringWithFormat:@"%@",model.store_id];
     if ([[MethodCommon judgeStringIsNull:store_id] isEqualToString:@""]) {
@@ -419,7 +426,7 @@
     FBHinformationViewController *VC = [FBHinformationViewController new];
     VC.Navtitle = @"收银细则";
     VC.agreeUrl = FBHApi_HTML_shouyi;
-    [self.navigationController pushViewController:VC animated:NO];
+    [self.navigationController pushViewController:VC animated:YES];
     
     
 }
@@ -523,7 +530,7 @@
 //    [SVProgressHUD showErrorWithStatus:@"功能正在开发完善中"];
 //    [self.navigationController pushViewController:[StatisticalController new] animated:YES];
     
-    [self.navigationController pushViewController:[FBHRevenueController new] animated:YES];
+    [self.navigationController pushViewController:[YLSCommodityAttriController new] animated:YES];
 
 }
 #pragma mark -查看更多
@@ -609,7 +616,7 @@
         [PublicMethods writeToUserD:[NSString stringWithFormat:@"%02ld-%02ld-%02ld",(long)comp.year,(long)comp.month,(long)comp.day] andKey:@"adeTime"];
         [PublicMethods writeToUserD:[NSString stringWithFormat:@"%02ld-%02ld-%02ld",(long)comp.year,(long)comp.month,(long)comp.day] andKey:@"endTime"]; 
         
-        [self.navigationController pushViewController:VC animated:NO];
+        [self.navigationController pushViewController:VC animated:YES];
     }else{
         FBHOrderViewController *VC = [FBHOrderViewController new];
         
@@ -618,28 +625,29 @@
                 /**
                  *  订单
                  **/
-                VC.status = @"0";VC.isDzhuang = 1;
-                [self.navigationController pushViewController:VC animated:NO];
+                VC.status = @"2";VC.isDzhuang = 1;
+                [self.navigationController pushViewController:VC animated:YES];
                 break;
             case 21:
                 
-                VC.status = @"1";VC.isDzhuang = 1;
-                [self.navigationController pushViewController:VC animated:NO];
+                VC.status = @"12";VC.isDzhuang = 1;
+                [self.navigationController pushViewController:VC animated:YES];
                 break;
             case 22:
                 
-                VC.status = @"2";VC.isDzhuang = 1;
-                [self.navigationController pushViewController:VC animated:NO];
+                VC.status = @"4";VC.isDzhuang = 1;
+                [self.navigationController pushViewController:VC animated:YES];
                 break;
             case 23:
                 
-                VC.status = @"4";VC.isDzhuang = 1;
-                [self.navigationController pushViewController:VC animated:NO];
+                VC.status = @"6";VC.isDzhuang = 1;
+                [self.navigationController pushViewController:VC animated:YES];
                 break;
             case 24:
                 
-                VC.status = @"6";VC.isDzhuang = 1;
-                [self.navigationController pushViewController:VC animated:NO];
+               
+                VC.status = @"0";VC.isDzhuang = 1;
+                [self.navigationController pushViewController:VC animated:YES];
                 break;
                 
             default:
@@ -653,7 +661,7 @@
 -(void)LookOrder{
     FBHOrderViewController *VC = [FBHOrderViewController new];
     VC.status = @"6";VC.isDzhuang = 1;
-    [self.navigationController pushViewController:VC animated:NO];
+    [self.navigationController pushViewController:VC animated:YES];
 }
 #pragma mark - 退单、首次进入app
 -(void)RefundApp:(NSMutableArray *)Data{
@@ -668,7 +676,7 @@
     VC.status = 6;
     VC.order_id = self.RefundData[order][@"order_id"];
     VC.navigationTitle = [NSString stringWithFormat:@"%@",self.RefundData[order][@"order_status_txt"]];
-    [self.navigationController pushViewController:VC animated:NO];
+    [self.navigationController pushViewController:VC animated:YES];
 }
 #pragma mark - ScrollViewDelegate
 // 滑动时要执行的代码
@@ -689,6 +697,7 @@
     
 }
 -(void)ViewheaderRereshing{
+    [MBProgressHUD MBProgress:@"数据加载中..."];
     [self merchant_center];
     [self list_checkstand:self.begin_date andEnd:self.end_date];
     [self.SJScrollView.mj_header endRefreshing];

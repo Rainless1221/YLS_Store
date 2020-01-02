@@ -62,13 +62,13 @@
 - (IBAction)ResetAction:(UIButton *)sender {
     FBHResetViewController *VC = [FBHResetViewController new];
     VC.isTonav = @"YES";
-    [self.navigationController pushViewController:VC animated:NO];
+    [self.navigationController pushViewController:VC animated:YES];
 }
 /**
  *  提现密码
  */
 - (IBAction)withdrawalAction:(UIButton *)sender {
-    [self.navigationController pushViewController:[FBHupPassViewController new] animated:NO];
+    [self.navigationController pushViewController:[FBHupPassViewController new] animated:YES];
 
 }
 /**
@@ -99,7 +99,7 @@
  * 绑定手机
  */
 - (IBAction)BingbangAction:(UIButton *)sender {
-    [self.navigationController pushViewController:[BingYuanViewController new] animated:NO];
+    [self.navigationController pushViewController:[BingYuanViewController new] animated:YES];
 
 }
 

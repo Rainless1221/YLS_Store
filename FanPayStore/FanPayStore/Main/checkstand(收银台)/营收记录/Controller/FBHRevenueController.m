@@ -226,6 +226,8 @@
     if (Btntag == 1) {
         self.Reventype = @"3";
     }else if(Btntag == 2){
+        self.Reventype = @"4";
+    }else if (Btntag == 3){
         self.Reventype = @"2";
     }else{
         self.Reventype = @"1";

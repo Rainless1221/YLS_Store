@@ -145,6 +145,7 @@
     self.goods_price.textColor = UIColorFromRGB(0x222222);
     self.goods_price.font = [UIFont systemFontOfSize:15];
     self.goods_price.keyboardType = UIKeyboardTypeDecimalPad;
+    self.goods_price.delegate = self;
     [self.GoodsView addSubview:self.goods_price];
     [self.goods_price mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(line1.mas_bottom).offset(0);
@@ -225,7 +226,7 @@
         make.left.equalTo(iconMiao.mas_right).offset(8);
     }];
     
-
+    
 #pragma mark - 商品标签
     [self addSubview:self.TheLabelView];
     [self.TheLabelView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -260,7 +261,7 @@
     self.TheLabelButton.frame = CGRectMake(85, 9, 140, 32);
     [self.TheLabelButton setTitle:@"请选择商品标签" forState:UIControlStateNormal];
     self.TheLabelButton.titleLabel.font = [UIFont systemFontOfSize:15];
-    [self.TheLabelButton addTarget:self action:@selector(LabelAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.TheLabelButton addTarget:self action:@selector(LabelBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.TheLabelButton setTitleColor:UIColorFromRGB(0xCCCCCC) forState:UIControlStateNormal];
     [self.TheLabelView addSubview:self.TheLabelButton];
     [self.TheLabelButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -313,13 +314,13 @@
     }];
     
 #pragma mark - 商品类型
-    [self addSubview:self.GoodTypeView];
-    [self.GoodTypeView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.AttributeView.mas_bottom).offset(15);
-        make.left.mas_offset(15);
-        make.right.mas_offset(-15);
-        make.height.mas_offset(50);
-    }];
+//    [self addSubview:self.GoodTypeView];
+//    [self.GoodTypeView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(self.AttributeView.mas_bottom).offset(15);
+//        make.left.mas_offset(15);
+//        make.right.mas_offset(-15);
+//        make.height.mas_offset(50);
+//    }];
     UILabel *label8 = [[UILabel alloc] init];
     label8.text = @"商品类型";
     label8.textColor = [UIColor blackColor];
@@ -361,7 +362,7 @@
     #pragma mark - 商品图片
     [self addSubview:self.GoodPicImageView];
     [self.GoodPicImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.GoodTypeView.mas_bottom).offset(15);
+        make.top.equalTo(self.AttributeView.mas_bottom).offset(15);
         make.left.mas_offset(15);
         make.right.mas_offset(-15);
         make.bottom.mas_offset(-50);
@@ -390,6 +391,25 @@
         make.height.mas_offset(15);
     }];
     
+    #pragma mark - 提示的文本
+    [self addSubview:self.ErrorView];
+    [self.ErrorView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.GoodPicImageView.mas_bottom).offset(0);
+        make.left.mas_offset(15);
+        make.right.mas_offset(-15);
+        make.height.mas_offset(37);
+    }];
+    UIButton *Erroricon = [UIButton buttonWithType:UIButtonTypeCustom];
+    [Erroricon setImage:[UIImage imageNamed:@"icn_message_warning"] forState:UIControlStateNormal];
+    [Erroricon setTitle:@"    名称、价格、库存为必填，描述为选填项" forState:UIControlStateNormal];
+    [Erroricon setTitleColor:UIColorFromRGB(0xFF6969) forState:UIControlStateNormal];
+    Erroricon.titleLabel.font = [UIFont systemFontOfSize:12];
+    [self.ErrorView addSubview:Erroricon];
+    [Erroricon mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.bottom.mas_offset(0);
+//        make.width.mas_offset(200);
+    }];
+    
 }
 #pragma mark - 选择标签事件
 -(void)LabelAction:(UITapGestureRecognizer *)tap{
@@ -397,16 +417,19 @@
         [self.delagate andTheLabel];
     }
 }
--(void)LabelAction{
-    if (self.delagate && [self.delagate respondsToSelector:@selector(andTheLabel)]) {
-        [self.delagate andTheLabel];
+-(void)LabelBtnAction:(UIButton *)Btn{
+    if (Btn.selected !=YES) {
+        if (self.delagate && [self.delagate respondsToSelector:@selector(andTheLabel)]) {
+            [self.delagate andTheLabel];
+        }
     }
+   
 }
 #pragma mark - 选择属性事件
 -(void)AttributeAction:(UITapGestureRecognizer *)tap{
-    if (self.delagate && [self.delagate respondsToSelector:@selector(andAttribute)]) {
-        [self.delagate andAttribute];
-    }
+//    if (self.delagate && [self.delagate respondsToSelector:@selector(andAttribute)]) {
+//        [self.delagate andAttribute];
+//    }
 }
 -(void)AttributeAction{
     if (self.delagate && [self.delagate respondsToSelector:@selector(andAttribute)]) {
@@ -440,19 +463,29 @@
     }
     NSString *price = [self reviseString:plat_price_rate];
     double plat = [price doubleValue];
-    
-    if (text.length>0) {
-        if (self.goods_price.text.length>0) {
-            double price = ([self.goods_price.text doubleValue]-[text doubleValue])*plat+[text doubleValue];
-            self.goods_Ping.text = [NSString stringWithFormat:@"%.2f",price];
-            self.goods_Ping.textColor = UIColorFromRGB(0x222222);
+
+
+    if (textField ==  self.goods_price) {
+        if (text.length>0&&self.discount_price.text.length>0) {
+            [self get_plat_price_rate1:text];
+        }else{
+            self.goods_Ping.text = @"平台价为优惠价+服务费之和";
+            self.goods_Ping.textColor = UIColorFromRGB(0xCCCCCC);
         }
         
-    }else {
-        self.goods_Ping.text = @"平台价为优惠价+服务费之和";
-        self.goods_Ping.textColor = UIColorFromRGB(0xCCCCCC);
+        
+    }else{
+        if (text.length>0&&self.goods_price.text.length>0) {
+            [self get_plat_price_rate:text];
+        }else{
+            self.goods_Ping.text = @"平台价为优惠价+服务费之和";
+            self.goods_Ping.textColor = UIColorFromRGB(0xCCCCCC);
+        }
+        
         
     }
+        
+
     
     return returnValue;
 }
@@ -462,6 +495,105 @@
     NSString *temp = [NSString stringWithFormat:@"%lf", value];
     NSDecimalNumber *resultNumber = [NSDecimalNumber decimalNumberWithString:temp];
     return [resultNumber stringValue];
+    
+}
+-(void)get_plat_price_rate:(NSString *)discount_price{
+    
+    //get_plat_price_according_goods_price_and_discount_price
+    UserModel *model = [UserModel getUseData];
+    
+    [[FBHAppViewModel shareViewModel]get_plat_price_according_goods_price_and_discount_price:model.merchant_id andstore_id:model.store_id  andgoods_price:[NSString stringWithFormat:@"%@",self.goods_price.text] anddiscount_price:discount_price  Success:^(NSDictionary *resDic) {
+        
+        if ([resDic[@"status"] integerValue]==1) {
+            NSDictionary *DIC=resDic[@"data"];
+            
+            self.goods_Ping.text = [NSString stringWithFormat:@"%@",DIC[@"plat_price"]];
+            self.goods_Ping.textColor = UIColorFromRGB(0x222222);
+            
+        }else{
+            self.goods_Ping.text = [NSString stringWithFormat:@"%@",resDic[@"message"]];
+            self.goods_Ping.textColor = UIColorFromRGB(0xCCCCCC);
+            
+        }
+        
+    } andfailure:^{
+        
+    }];
+}
+-(void)get_plat_price_rate1:(NSString *)discount_price{
+    
+    //get_plat_price_according_goods_price_and_discount_price
+    UserModel *model = [UserModel getUseData];
+    
+    [[FBHAppViewModel shareViewModel]get_plat_price_according_goods_price_and_discount_price:model.merchant_id andstore_id:model.store_id  andgoods_price:discount_price anddiscount_price:[NSString stringWithFormat:@"%@",self.discount_price.text]  Success:^(NSDictionary *resDic) {
+        
+        if ([resDic[@"status"] integerValue]==1) {
+            NSDictionary *DIC=resDic[@"data"];
+            
+            self.goods_Ping.text = [NSString stringWithFormat:@"%@",DIC[@"plat_price"]];
+            self.goods_Ping.textColor = UIColorFromRGB(0x222222);
+            
+        }else{
+            self.goods_Ping.text = [NSString stringWithFormat:@"%@",resDic[@"message"]];
+            self.goods_Ping.textColor = UIColorFromRGB(0xCCCCCC);
+            
+        }
+        
+    } andfailure:^{
+        
+    }];
+}
+
+#pragma mark - 赋值
+-(void)setData:(NSDictionary *)Data{
+    //商品名
+    NSString *goods_name = [NSString stringWithFormat:@"%@",Data[@"goods_name"]];
+    if ([[MethodCommon judgeStringIsNull:goods_name] isEqualToString:@""]) {
+        
+    }else{
+        self.goods_name.text = goods_name;
+        
+    }
+    
+    
+    NSString *goods_price = [NSString stringWithFormat:@"%@",Data[@"goods_price"]];
+    if ([[MethodCommon judgeStringIsNull:goods_price] isEqualToString:@""]) {
+        
+    }else{
+        self.goods_price.text = goods_price;
+    }
+    
+    
+    
+    NSString *discount_price = [NSString stringWithFormat:@"%@",Data[@"discount_price"]];
+    if ([[MethodCommon judgeStringIsNull:discount_price] isEqualToString:@""]) {
+        
+    }else{
+        self.discount_price.text = discount_price;
+    }
+    
+    
+    
+    NSString *goods_num = [NSString stringWithFormat:@"%@",Data[@"goods_count"]];
+    if ([[MethodCommon judgeStringIsNull:goods_num] isEqualToString:@""]) {
+        
+    }else{
+        self.goods_num.text = goods_num;
+    }
+    
+    
+    NSString *goods_description1 = [NSString stringWithFormat:@"%@",Data[@"goods_desc"]];
+    if ([[MethodCommon judgeStringIsNull:goods_description1] isEqualToString:@""]) {
+        
+    }else{
+        self.goods_Miao.text = goods_description1;
+        self.goods_Miao.jk_placeHolderTextView.hidden = YES;
+    }
+    
+    
+    [self get_plat_price_rate:self.discount_price.text];
+    
+    
     
 }
 #pragma mark - 懒加载
@@ -508,5 +640,13 @@
         _GoodPicImageView.layer.cornerRadius = 5;
     }
     return _GoodPicImageView;
+}
+-(UIView *)ErrorView{
+    if (!_ErrorView) {
+        _ErrorView = [[UIView alloc]init];
+        _ErrorView.backgroundColor = [UIColor clearColor];
+        _ErrorView.layer.cornerRadius = 5;
+    }
+    return _ErrorView;
 }
 @end

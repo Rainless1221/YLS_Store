@@ -27,6 +27,7 @@
 @property (nonatomic, copy) NSString *business_hours;
 @property (nonatomic, copy) NSString *choice_printer;//选择打印机类型 1表云打印 2表蓝牙打印
 @property (nonatomic, copy) NSString *open_status;//开关状态 1表开启 2表关闭
+@property (nonatomic, copy) NSString *appointment_switch;//预约开关状态 1表开启 2表关闭
 //保存
 -(void)saveUserData;
 //清理

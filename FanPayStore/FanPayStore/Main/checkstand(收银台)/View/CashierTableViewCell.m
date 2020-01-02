@@ -22,20 +22,43 @@
     /** 时间  **/
     NSString *timeString =  [NSString stringWithFormat:@"%@",Data[@"consumption_time"]];
     NSString *Time = [timeString substringToIndex:5];
-    
+    if ([[MethodCommon judgeStringIsNull:Time] isEqualToString:@""]) {
+        Time = @"";
+    }
     self.Timelabel.text = Time;
     /** 金额 **/
-    self.Mlabel.text = [NSString stringWithFormat:@"+%@",Data[@"consumption_amount"]];
+    NSString *consumption_amount =[NSString stringWithFormat:@"+%@",Data[@"consumption_amount"]];
+    if ([[MethodCommon judgeStringIsNull:consumption_amount] isEqualToString:@""]) {
+        consumption_amount = @"";
+    }
+    self.Mlabel.text = consumption_amount;
     /** 状态 **/
     NSString *status = [NSString stringWithFormat:@"%@",Data[@"consumption_status"]];
+    if ([[MethodCommon judgeStringIsNull:status] isEqualToString:@""]) {
+        status = @"";
+    }
     self.Zhuanglabel.text = status;
     /** 描述 **/
-    self.Textlabel.text = [NSString stringWithFormat:@"%@",Data[@"consumption_desc"]];
+    NSString *consumption_desc= [NSString stringWithFormat:@"%@",Data[@"consumption_desc"]];
+    if ([[MethodCommon judgeStringIsNull:consumption_desc] isEqualToString:@""]) {
+        consumption_desc = @"";
+    }
+    self.Textlabel.text = consumption_desc;
     
-    if ([status isEqualToString:@"已到账"]) {
+    NSString *type = [NSString stringWithFormat:@"%@",Data[@"type"]];
+    if ([type isEqualToString:@"2"]) {
         self.Zhuanglabel.textColor = UIColorFromRGB(0x3D8AFF);
         self.Mlabel.textColor = UIColorFromRGB(0x3D8AFF);
         self.shuxian.image = [UIImage imageNamed:@"icn_cashier_record_side_bar_blue"];
+    }else if([type isEqualToString:@"3"]){
+        self.Zhuanglabel.textColor = UIColorFromRGB(0x38A94D);
+        self.Mlabel.textColor = UIColorFromRGB(0x38A94D);
+        self.shuxian.image = [UIImage imageNamed:@""];//icn_order_commission_small
+        self.shuxian.backgroundColor = UIColorFromRGB(0x38A94D);
+    }else{
+        self.Zhuanglabel.textColor = UIColorFromRGB(0xF7AE2A);
+        self.Mlabel.textColor = UIColorFromRGB(0xF7AE2A);
+        self.shuxian.image = [UIImage imageNamed:@"icn_cashier_record_side_bar_yellow"];
     }
     
 }

@@ -284,9 +284,10 @@
     CGFloat Bheight = 88;
     
    
-    NSArray *orderArray = @[@"全部",@"待支付",@"已支付",@"已评价",@"退单/退款"];
-    NSArray *order_imageAry = @[@"icn_b_order_all",@"icn_b_order_tobepaid",@"icn_b_order_paid",@"icn_b_order_evaluated",@"icn_b_order_refund"];
-    
+//    NSArray *orderArray = @[@"全部",@"待支付",@"已支付",@"已评价",@"退单/退款"];
+//    NSArray *order_imageAry = @[@"icn_b_order_all",@"icn_b_order_tobepaid",@"icn_b_order_paid",@"icn_b_order_evaluated",@"icn_b_order_refund"];
+    NSArray *orderArray = @[@"已付款",@"已预约",@"评价",@"退单/退款",@"全部"];
+    NSArray *order_imageAry = @[@"icn_b_order_paid",@"icn_b_order_booking",@"icn_b_order_evaluated",@"icn_b_order_refund",@"icn_b_order_all"];
     UILabel *centerlabel4= [[UILabel alloc]init];
     centerlabel4.text =@"商家订单";
     centerlabel4.textColor = UIColorFromRGB(0x282828);
@@ -330,12 +331,12 @@
                 make.left.mas_offset(badgeX);
                 make.size.mas_offset(CGSizeMake(badgeW, badgeW));
             }];
-        }else if (i == 2){
+        }else if (i == 0){
             [thirdBtn addSubview:self.badgeLable1];
             CGFloat badgeW   = 17;
-            CGSize imageSize = self.thirdBtn.imageView.frame.size;
-            CGFloat imageX   = self.thirdBtn.imageView.frame.origin.x;
-            CGFloat imageY   = self.thirdBtn.imageView.frame.origin.y;
+            CGSize imageSize = thirdBtn.imageView.frame.size;
+            CGFloat imageX   = thirdBtn.imageView.frame.origin.x;
+            CGFloat imageY   = thirdBtn.imageView.frame.origin.y;
             
             CGFloat badgeX = imageX + imageSize.width - badgeW*0.25;
             CGFloat badgeY = imageY - badgeW*0.5;
@@ -353,16 +354,13 @@
 //                make.height.mas_offset(30);
 //
 //            }];
-        } else if (i == 4){
-            UIImageView *line = [[UIImageView alloc]initWithFrame:CGRectMake(index*Bwidth+3.5, page*Bheight+55, 4, Bheight-30)];
-//            line.backgroundColor = UIColorFromRGB(0xF6F6F6);
-            line.image = [UIImage imageNamed:@"icn_b_order_cutline"];
-             [self.orderView addSubview:line];
+        } else if (i == 3){
+            
             [thirdBtn addSubview:self.badgeLable2];
             CGFloat badgeW   = 17;
-            CGSize imageSize = self.thirdBtn.imageView.frame.size;
-            CGFloat imageX   = self.thirdBtn.imageView.frame.origin.x;
-            CGFloat imageY   = self.thirdBtn.imageView.frame.origin.y;
+            CGSize imageSize = thirdBtn.imageView.frame.size;
+            CGFloat imageX   = thirdBtn.imageView.frame.origin.x;
+            CGFloat imageY   = thirdBtn.imageView.frame.origin.y;
             
             CGFloat badgeX = imageX + imageSize.width - badgeW*0.25;
             CGFloat badgeY = imageY - badgeW*0.5;
@@ -372,6 +370,10 @@
                 make.left.mas_offset(badgeX);
                 make.size.mas_offset(CGSizeMake(badgeW, badgeW));
             }];
+        }else if(i == 4){
+            UIImageView *line = [[UIImageView alloc]initWithFrame:CGRectMake(index*Bwidth+16, page*Bheight+55, 4, Bheight-30)];
+            line.image = [UIImage imageNamed:@"icn_b_order_cutline"];
+            [self.orderView addSubview:line];
         }
         
     }
@@ -875,8 +877,19 @@
     }
     
     
-    /*待支付*/
-    NSString *num = [NSString stringWithFormat:@"%@",Data[@"order_num_to_be_paid"]];
+//    /*待支付*/
+//    NSString *num = [NSString stringWithFormat:@"%@",Data[@"order_num_to_be_paid"]];
+//    NSInteger order_num = [num integerValue];
+//    if (order_num >0) {
+//        self.badgeLable.width = order_num>9 ? 24:17;
+//        self.badgeLable.text = [NSString stringWithFormat:@"%ld",order_num];
+//        self.badgeLable.hidden = NO;
+//    }else if (order_num == 0){
+//        self.badgeLable.hidden = YES;
+//
+//    }
+    //order_num_appointment 预约未到店订单数量
+    NSString *num = [NSString stringWithFormat:@"%@",Data[@"order_num_appointment"]];
     NSInteger order_num = [num integerValue];
     if (order_num >0) {
         self.badgeLable.width = order_num>9 ? 24:17;
@@ -886,7 +899,6 @@
         self.badgeLable.hidden = YES;
         
     }
-    
     /*已支付订单数量*/
     NSString *num1 = [NSString stringWithFormat:@"%@",Data[@"order_num_have_paid"]];
     NSInteger order_num1 = [num1 integerValue];

@@ -34,6 +34,7 @@
 }
 #pragma mark - 请求
 -(void)merchant_center{
+     [MBProgressHUD MBProgress:@"数据加载中..."];
     UserModel *model = [UserModel getUseData];
 
     NSDictionary *dict = @{

@@ -109,7 +109,7 @@
         make.top.offset(0);
         make.left.offset(0);
         make.width.offset(66);
-        make.height.offset(39);
+        make.height.offset(50);
     }];
     
     UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(70, 0, 120, 50)];
@@ -130,26 +130,28 @@
     [self.picView addSubview:line];
     
     UIButton *sureButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    sureButton.layer.shadowColor = [UIColor colorWithRed:61/255.0 green:138/255.0 blue:255/255.0 alpha:0.5].CGColor;
-    sureButton.layer.shadowOffset = CGSizeMake(0,4);
-    sureButton.layer.shadowOpacity = 1;
+    sureButton.backgroundColor = UIColorFromRGB(0xF7AE2B);
+    sureButton.layer.cornerRadius = 10;
+//    sureButton.layer.shadowColor = [UIColor colorWithRed:61/255.0 green:138/255.0 blue:255/255.0 alpha:0.5].CGColor;
+//    sureButton.layer.shadowOffset = CGSizeMake(0,4);
+//    sureButton.layer.shadowOpacity = 1;
     sureButton.layer.shadowRadius = 9;
     
-    CAGradientLayer *gl = [CAGradientLayer layer];
-    gl.frame = CGRectMake(0,0,self.picView.frame.size.width-60,44);
-    gl.startPoint = CGPointMake(0, 0);
-    gl.endPoint = CGPointMake(1, 1);
-    gl.colors = @[(__bridge id)[UIColor colorWithRed:61/255.0 green:137/255.0 blue:255/255.0 alpha:1.0].CGColor,(__bridge id)[UIColor colorWithRed:69/255.0 green:166/255.0 blue:255/255.0 alpha:1.0].CGColor,(__bridge id)[UIColor colorWithRed:67/255.0 green:193/255.0 blue:255/255.0 alpha:1.0].CGColor];
-    gl.locations = @[@(0.0),@(0.5),@(1.0)];
-    gl.cornerRadius = 10;
-    [sureButton.layer addSublayer:gl];
+//    CAGradientLayer *gl = [CAGradientLayer layer];
+//    gl.frame = CGRectMake(0,0,self.picView.frame.size.width-60,44);
+//    gl.startPoint = CGPointMake(0, 0);
+//    gl.endPoint = CGPointMake(1, 1);
+//    gl.colors = @[(__bridge id)[UIColor colorWithRed:61/255.0 green:137/255.0 blue:255/255.0 alpha:1.0].CGColor,(__bridge id)[UIColor colorWithRed:69/255.0 green:166/255.0 blue:255/255.0 alpha:1.0].CGColor,(__bridge id)[UIColor colorWithRed:67/255.0 green:193/255.0 blue:255/255.0 alpha:1.0].CGColor];
+//    gl.locations = @[@(0.0),@(0.5),@(1.0)];
+//    gl.cornerRadius = 10;
+//    [sureButton.layer addSublayer:gl];
 
     
 
     [sureButton setTitle:@"确定" forState:UIControlStateNormal];
     [sureButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [sureButton addTarget:self action:@selector(sureAction) forControlEvents:UIControlEventTouchUpInside];
-    sureButton.titleLabel.font = [UIFont systemFontOfSize:14];
+    sureButton.titleLabel.font = [UIFont systemFontOfSize:18];
     [self.picView addSubview:sureButton];
     [sureButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.offset(-26);
@@ -193,12 +195,12 @@
     rowLabel.frame = CGRectMake(0, 0, 39,self.picView.frame.size.width);
     rowLabel.textAlignment = NSTextAlignmentCenter;
     rowLabel.font = [UIFont systemFontOfSize:25];
-    rowLabel.textColor = [UIColor colorWithRed:61/255.0 green:138/255.0 blue:255/255.0 alpha:1.0];
+    rowLabel.textColor = [UIColor colorWithRed:247/255.0 green:174/255.0 blue:43/255.0 alpha:1.0];
     
     if (pickerView == self.yearPicker) {
         
-        [pickerView.subviews[1] setBackgroundColor:[UIColor colorWithRed:61/255.0 green:138/255.0 blue:255/255.0 alpha:1.0]];
-        [pickerView.subviews[2] setBackgroundColor:[UIColor colorWithRed:61/255.0 green:138/255.0 blue:255/255.0 alpha:1.0]];
+        [pickerView.subviews[1] setBackgroundColor:[UIColor colorWithRed:247/255.0 green:174/255.0 blue:43/255.0 alpha:1.0]];
+        [pickerView.subviews[2] setBackgroundColor:[UIColor colorWithRed:247/255.0 green:174/255.0 blue:43/255.0 alpha:1.0]];
         [pickerView.subviews[1] setFrame:CGRectMake(0 , 48, 84, 2)];
         [pickerView.subviews[2] setFrame:CGRectMake(0, 96, 84, 2)];
         [rowLabel sizeToFit];
@@ -206,8 +208,8 @@
         rowLabel.text = self.yearArray[row];
         
     }else if (pickerView == self.monthPicker){
-        [pickerView.subviews[1] setBackgroundColor:[UIColor colorWithRed:61/255.0 green:138/255.0 blue:255/255.0 alpha:1.0]];
-        [pickerView.subviews[2] setBackgroundColor:[UIColor colorWithRed:61/255.0 green:138/255.0 blue:255/255.0 alpha:1.0]];
+        [pickerView.subviews[1] setBackgroundColor:[UIColor colorWithRed:247/255.0 green:174/255.0 blue:43/255.0 alpha:1.0]];
+        [pickerView.subviews[2] setBackgroundColor:[UIColor colorWithRed:247/255.0 green:174/255.0 blue:43/255.0 alpha:1.0]];
         [pickerView.subviews[1] setFrame:CGRectMake(0 , 48, 57, 2)];
         [pickerView.subviews[2] setFrame:CGRectMake(0, 96, 57, 2)];
         [rowLabel sizeToFit];

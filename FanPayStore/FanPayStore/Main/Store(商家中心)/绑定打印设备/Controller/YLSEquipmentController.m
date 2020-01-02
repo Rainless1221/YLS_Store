@@ -160,7 +160,7 @@
 
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 65;
+    return 85;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 190;
@@ -260,13 +260,16 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     YLSAddFacilityController *VC = [YLSAddFacilityController new];
     VC.Data = self.dataSource[indexPath.row];
+    VC.IsSwitch = YES;
     [self.navigationController pushViewController:VC animated:NO];
 
     
 }
 #pragma mark -添加打印设备
 -(void)AddFacilityAction{
-    [self.navigationController pushViewController:[YLSAddFacilityController new] animated:NO];
+    YLSAddFacilityController *VC = [YLSAddFacilityController new];
+    VC.IsSwitch = NO;
+    [self.navigationController pushViewController:VC animated:NO];
 
 }
 #pragma mark - 解绑部分

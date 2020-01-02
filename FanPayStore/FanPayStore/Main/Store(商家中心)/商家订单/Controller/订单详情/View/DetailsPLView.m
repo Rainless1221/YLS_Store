@@ -257,7 +257,7 @@
         [goodsName mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(picView.mas_bottom).offset(40*i+10);
             make.left.mas_offset(10);
-            make.size.mas_offset(CGSizeMake(self.width/2, 25));
+            make.size.mas_offset(CGSizeMake(self.width-100, 32));
         }];
         
         

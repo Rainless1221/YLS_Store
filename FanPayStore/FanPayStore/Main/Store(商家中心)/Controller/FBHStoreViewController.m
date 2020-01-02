@@ -60,10 +60,19 @@
     /**
      请求数据
      */
-    [self merchant_center];
-//    [self discount_goods];
     self.cust_type = 4;
-    [self get_completion_ysepay_mer_info];
+    // 并发队列的创建方法
+    dispatch_queue_t queue_B = dispatch_queue_create("net.bujige.testQueue", DISPATCH_QUEUE_CONCURRENT);
+    // 异步执行任务创建方法
+    dispatch_async(queue_B, ^{
+        [self merchant_center];
+        [self get_completion_ysepay_mer_info];
+        [self get_store_application_info];
+        NSLog(@"中心线程---%@",[NSThread currentThread]);      // 打印当前线程
+    });
+    
+//    [self discount_goods];
+//     [self get_completion_ysepay_mer_info];
     
     
     /**
@@ -80,16 +89,15 @@
 
 #pragma mark - 请求数据
 -(void)merchant_center{
-    
-    [MBProgressHUD MBProgress:@"数据加载中..."];
-    
+    // 获取主队列
+    dispatch_queue_t mainQueue = dispatch_get_main_queue();
+    // 回到主线程
+    dispatch_async(mainQueue, ^{
+        
+        
+    });
     UserModel *model = [UserModel getUseData];
-    
-    if ([model.store_id isEqualToString:@""]) {
-        [MBProgressHUD hideHUD];
 
-        return;
-    }
     /**
      获取商家中心的信息（商家中心显示的信息）
      */
@@ -135,12 +143,12 @@
 //                [self Exit_log];
             }
         }
-        [MBProgressHUD hideHUD];
+      [MBProgressHUD hideHUD];
     } andfailure:^{
-        [MBProgressHUD hideHUD];
+       [MBProgressHUD hideHUD];
     }];
     
-    [MBProgressHUD MBProgress:@"数据加载中..."];
+//    [MBProgressHUD MBProgress:@"数据加载中..."];
 
 //    [[FBHAppViewModel shareViewModel]get_store_application_info:model.merchant_id Success:^(NSDictionary *resDic) {
 //        if ([resDic[@"status"] integerValue]==1){
@@ -254,7 +262,32 @@
         
     }];
 }
-
+#pragma mark - 店铺申请信息
+-(void)get_store_application_info{
+    UserModel *model = [UserModel getUseData];
+    [[FBHAppViewModel shareViewModel]get_store_application_info:model.merchant_id Success:^(NSDictionary *resDic) {
+        if ([resDic[@"status"] integerValue]==1){
+            NSDictionary *DIC=resDic[@"data"];
+            //1为未审核，2为审核通过，3为审核驳回
+            NSString *status = [NSString stringWithFormat:@"%@",DIC[@"status"]];
+            if ([[MethodCommon judgeStringIsNull:status] isEqualToString:@""]) {
+                status=@"";
+            }
+            if ([status isEqualToString:@"1"]) {
+//                [SVProgressHUD setMinimumDismissTimeInterval:2];
+//                [SVProgressHUD showErrorWithStatus:@"您的资料已提交审核，请勿重复提交!"];
+            }else if([status isEqualToString:@"3"]){
+                [SVProgressHUD setMinimumDismissTimeInterval:2];
+                [SVProgressHUD showErrorWithStatus:@"您的资料审核未通过，请检查资料重新提交！"];
+            }else{
+               
+            }
+            
+        }
+    } andfailure:^{
+        
+    }];
+}
 #pragma mark - 导航栏
 -(void)setupNav{
     UIView *NavView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 44+STATUS_BAR_HEIGHT)];
@@ -326,13 +359,13 @@
     Btn.selected = NO;
     [self.tabBarController.tabBar  hideBadgeOnItemIndex:3];
 
-    [self.navigationController pushViewController:[SetupViewController new] animated:NO];
+    [self.navigationController pushViewController:[SetupViewController new] animated:YES];
 }
 /**
  * 信息中心
  */
 -(void)WordAction{
-    [self.navigationController pushViewController:[WordViewController new] animated:NO];
+    [self.navigationController pushViewController:[WordViewController new] animated:YES];
 }
 #pragma mark - 定位
 -(void)LatViewcontroler{
@@ -363,7 +396,7 @@
 }
 //店铺转换
 - (void)conversionAction: (NSNotification *) notification {
-    [self.SJScrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+    [self.SJScrollView setContentOffset:CGPointMake(0, -22) animated:YES];
     [self ViewheaderRereshing];
     [self get_ysepay_merchant_info];
 }
@@ -385,10 +418,10 @@
         case 10:
             if ([[MethodCommon judgeStringIsNull:store_id] isEqualToString:@""]) {
                 /** 未入驻店铺 **/
-                [self.navigationController pushViewController:[StepsViewController new] animated:NO];
+                [self.navigationController pushViewController:[StepsViewController new] animated:YES];
             }else{
                 /** 已入驻店铺 **/
-                [self.navigationController pushViewController:[StoreStatusViewController new] animated:NO];
+                [self.navigationController pushViewController:[StoreStatusViewController new] animated:YES];
                 
             }
             break;
@@ -400,7 +433,7 @@
             }
             
             /** 商家分类 **/
-            [self.navigationController pushViewController:[TheLabelController new] animated:NO];
+            [self.navigationController pushViewController:[TheLabelController new] animated:YES];
             break;
             
         case 12:
@@ -409,7 +442,7 @@
                 return;
             }
             /** 商家产品 **/
-            [self.navigationController pushViewController:[FBHCPViewController new] animated:NO];
+            [self.navigationController pushViewController:[FBHCPViewController new] animated:YES];
             break;
         case 13:
             if ([[MethodCommon judgeStringIsNull:store_id] isEqualToString:@""]){
@@ -417,7 +450,7 @@
                 return;
             }
             /** 翻呗设置 **/
-            [self.navigationController pushViewController:[MarketingController new] animated:NO];
+            [self.navigationController pushViewController:[MarketingController new] animated:YES];
             break;
         
         case 20:
@@ -429,7 +462,7 @@
              *  订单
              **/
             VC.status = @"0";VC.isDzhuang = 1;
-            [self.navigationController pushViewController:VC animated:NO];
+            [self.navigationController pushViewController:VC animated:YES];
             break;
         case 21:
             if ([[MethodCommon judgeStringIsNull:store_id] isEqualToString:@""]){
@@ -437,7 +470,7 @@
                 return;
             }
             VC.status = @"1";VC.isDzhuang = 1;
-            [self.navigationController pushViewController:VC animated:NO];
+            [self.navigationController pushViewController:VC animated:YES];
             break;
         case 22:
             if ([[MethodCommon judgeStringIsNull:store_id] isEqualToString:@""]){
@@ -445,7 +478,7 @@
                 return;
             }
             VC.status = @"2";VC.isDzhuang = 1;
-            [self.navigationController pushViewController:VC animated:NO];
+            [self.navigationController pushViewController:VC animated:YES];
             break;
         case 23:
             if ([[MethodCommon judgeStringIsNull:store_id] isEqualToString:@""]){
@@ -453,7 +486,7 @@
                 return;
             }
             VC.status = @"4";VC.isDzhuang = 1;
-            [self.navigationController pushViewController:VC animated:NO];
+            [self.navigationController pushViewController:VC animated:YES];
             break;
             
         case 30:
@@ -462,7 +495,7 @@
                 return;
             }
             /** 账号安全 **/
-            [self.navigationController pushViewController:[FBHaccountController new] animated:NO];
+            [self.navigationController pushViewController:[FBHaccountController new] animated:YES];
             break;
         case 31:
              /** 分店切换 **/
@@ -472,10 +505,10 @@
             }
             if ([branch_type isEqualToString:@"2"]){
                 /** 2表主店  **/
-                [self.navigationController pushViewController:[StoreBranchController new] animated:NO];
+                [self.navigationController pushViewController:[StoreBranchController new] animated:YES];
             }else if ([branch_type isEqualToString:@"3"]){
                 /** 3表既不是主店也不是分店 **/
-                [self.navigationController pushViewController:[StoreBranchController new] animated:NO];
+                [self.navigationController pushViewController:[StoreBranchController new] animated:YES];
             }else{
                 [SVProgressHUD setMinimumDismissTimeInterval:2];
                 [SVProgressHUD showErrorWithStatus:@"无权限查看分店信息"];
@@ -493,15 +526,15 @@
             }
             switch (self.cust_type) {
                 case 1:
-                    [self.navigationController pushViewController:[Wei_StoreController new] animated:NO];
+                    [self.navigationController pushViewController:[Wei_StoreController new] animated:YES];
 
                     break;
                 case 2:
-                    [self.navigationController pushViewController:[Geti_StoreController new] animated:NO];
+                    [self.navigationController pushViewController:[Geti_StoreController new] animated:YES];
 
                     break;
                 case 3:
-                    [self.navigationController pushViewController:[Qiye_StoreController new] animated:NO];
+                    [self.navigationController pushViewController:[Qiye_StoreController new] animated:YES];
 
                     break;
                 case 4:
@@ -522,7 +555,7 @@
                 [self store];
                 return;
             }
-            [self.navigationController pushViewController:[FBHbankcardController new] animated:NO];
+            [self.navigationController pushViewController:[FBHbankcardController new] animated:YES];
 //            [self.navigationController pushViewController:[YLSCertificationController new] animated:NO];
 
             break;
@@ -532,7 +565,7 @@
                 return;
             }
             /** 我的粉丝 **/
-            [self.navigationController pushViewController:[FansViewController new] animated:NO];
+            [self.navigationController pushViewController:[FansViewController new] animated:YES];
             break;
         case 34:
             /** 加盟代理 **/
@@ -540,16 +573,16 @@
                 [self store];
                 return;
             }
-            [self.navigationController pushViewController:[FBHJoinInViewController new] animated:NO];
+            [self.navigationController pushViewController:[FBHJoinInViewController new] animated:YES];
             break;
 
         case 35:
             /** 关于一鹿省 **/
-            [self.navigationController pushViewController:[FBHGYViewController new] animated:NO];
+            [self.navigationController pushViewController:[FBHGYViewController new] animated:YES];
             break;
         case 36:
             /** 帮助与客服 **/
-            [self.navigationController pushViewController:[YLSHelpViewController new] animated:NO];
+            [self.navigationController pushViewController:[YLSHelpViewController new] animated:YES];
             break;
         case 37:
             /** 版本更新 **/
@@ -561,16 +594,24 @@
                 [self store];
                 return;
             }
-            [self.navigationController pushViewController:[BindingPayController new] animated:NO];
+            [self.navigationController pushViewController:[BindingPayController new] animated:YES];
             break;
         case 39:
+            /** 店铺设置 **/
+            if ([[MethodCommon judgeStringIsNull:store_id] isEqualToString:@""]){
+                [self store];
+                return;
+            }
+            [self.navigationController pushViewController:[SetupStoreViewController new] animated:YES];
+            break;
+        case 40:
             /** 反馈 **/
-            [self.navigationController pushViewController:[FeedbackViewController new] animated:NO];
+            [self.navigationController pushViewController:[FeedbackViewController new] animated:YES];
             break;
             
         case 399:
             /** 打印机 **/
-            [self.navigationController pushViewController:[ReceiptsController new] animated:NO];
+            [self.navigationController pushViewController:[ReceiptsController new] animated:YES];
             break;
             
             
@@ -581,7 +622,7 @@
 
 /** 去申请入驻商铺 */
 -(void)store{
-    [self.navigationController pushViewController:[StepsViewController new] animated:NO];
+    [self.navigationController pushViewController:[StepsViewController new] animated:YES];
 }
 
 #pragma mark - ScrollViewDelegate
@@ -604,8 +645,24 @@
 }
 
 -(void)ViewheaderRereshing{
-    [self merchant_center];
-    [self get_completion_ysepay_mer_info];
+    [MBProgressHUD MBProgress:@"数据加载中..."];
+    
+    UserModel *model = [UserModel getUseData];
+    
+    if ([model.store_id isEqualToString:@""]) {
+        
+        [MBProgressHUD hideHUD];
+        return;
+    }
+    // 并发队列的创建方法
+    dispatch_queue_t queue_B = dispatch_queue_create("net.bujige.testQueue", DISPATCH_QUEUE_CONCURRENT);
+    // 异步执行任务创建方法
+    dispatch_async(queue_B, ^{
+        [self merchant_center];
+        [self get_completion_ysepay_mer_info];
+        NSLog(@"中心线程---%@",[NSThread currentThread]);      // 打印当前线程
+    });
+    
     [self.SJScrollView.mj_header endRefreshing];
 }
 - (void)dealloc {

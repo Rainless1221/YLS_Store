@@ -46,6 +46,30 @@
 
         
         
+    }else if([type isEqualToString:@"3"]){
+        self.typeIcon.image = [UIImage imageNamed:@"icn_order_commission_small"];
+        
+        /*月份*/
+        NSString *mon = [NSString stringWithFormat:@"%@",Data[@"months"]];
+        NSString *str5 = [mon substringFromIndex:mon.length-2];
+        NSString *months = [self months:str5];
+        self.months.text = months;
+        /*日期*/
+        NSString *Time1 = [NSString stringWithFormat:@"%@",Data[@"time"]];
+        NSString *Timelen1 = [Time1 substringFromIndex:Time1.length-11];
+        NSString *strTime = [Timelen1 substringToIndex:2];
+        self.time.text = strTime;
+        /*时间*/
+        NSString *TimeS = [NSString stringWithFormat:@"%@",Data[@"time"]];
+        NSString *Timelen = [TimeS substringFromIndex:TimeS.length-8];
+        NSString *str3 = [Timelen substringToIndex:5];
+        self.reveTime.text = str3;
+        
+        /*描述*/
+        self.content.text = [NSString stringWithFormat:@"%@",Data[@"content"]];
+        /*金额*/
+        self.amount.textColor = UIColorFromRGB(0x38A94D);
+        self.amount.text= [NSString stringWithFormat:@"%@",Data[@"amount"]];
     }else{
         self.typeIcon.image = [UIImage imageNamed:@"icn_order_income"];
         

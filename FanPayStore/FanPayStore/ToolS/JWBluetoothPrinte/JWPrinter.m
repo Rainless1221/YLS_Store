@@ -239,9 +239,9 @@
     // 3.设置标题内容
     [self setText:text];
     // 4.换行
-    [self appendNewLine];
+    [self appendReturn];
     if (fontSize != HLFontSizeTitleSmalle) {
-        [self appendNewLine];
+//        [self appendNewLine];
     }
 }
 
@@ -263,7 +263,7 @@
     // 5.换行
     [self appendNewLine];
     if (fontSize != HLFontSizeTitleSmalle) {
-        [self appendNewLine];
+//        [self appendNewLine];
     }
 }
 
@@ -395,16 +395,16 @@
 - (void)appendSeperatorLine
 {
     // 1.设置分割线居中
-    [self setAlignment:HLTextAlignmentCenter];
+//    [self setAlignment:HLTextAlignmentCenter];
     // 2.设置字号
-    [self setFontSize:HLFontSizeTitleSmalle];
+//    [self setFontSize:HLFontSizeTitleSmalle];
     // 3.添加分割线
     NSString *line = @"-------------------------------";
     NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
     NSData *data = [line dataUsingEncoding:enc];
     [_printerData appendData:data];
     // 4.换行
-    [self appendNewLine];
+//    [self appendNewLine];
 }
 #pragma mark 星号
 - (void)appendSeperator_xing

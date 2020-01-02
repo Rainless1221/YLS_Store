@@ -44,7 +44,7 @@
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
     self.navigationController.navigationBar.hidden = YES;
     //    self.navigationController.navigationBar.barTintColor = [UIColor clearColor];
-    [self get_store_application_info];
+//    [self get_store_application_info];
     
     
 }
@@ -56,7 +56,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"工作台";
-    [self merchant_center];
+    // 并发队列的创建方法
+    dispatch_queue_t queue_B = dispatch_queue_create("net.bujige.testQueue", DISPATCH_QUEUE_CONCURRENT);
+    // 异步执行任务创建方法
+    dispatch_async(queue_B, ^{
+        [self merchant_center];
+        NSLog(@"工作太线程---%@",[NSThread currentThread]);      // 打印当前线程
+    });
     
     [self setnodataView];
     
@@ -101,15 +107,21 @@
 }
 //店铺转换
 - (void)conversionAction: (NSNotification *) notification {
-
-    [self get_store_application_info];
-    [self merchant_center];
+    // 并发队列的创建方法
+    dispatch_queue_t queue_B = dispatch_queue_create("net.bujige.testQueue", DISPATCH_QUEUE_CONCURRENT);
+    // 异步执行任务创建方法
+    dispatch_async(queue_B, ^{
+         [self merchant_center];
+        [self get_store_application_info];
+        NSLog(@"工作太线程---%@",[NSThread currentThread]);      // 打印当前线程
+    });
+    
+   
 
 }
 #pragma mark - 请求
 -(void)merchant_center{
     
-    [MBProgressHUD MBProgress:@"数据加载中..."];
     
     UserModel *model = [UserModel getUseData];
     //获取店铺ID
@@ -354,7 +366,7 @@
  * 无入驻时，去申请入驻
  *///
 -(void)InstoreAction{
-    [self.navigationController pushViewController:[StepsViewController new] animated:NO];
+    [self.navigationController pushViewController:[StepsViewController new] animated:YES];
     //测试
     //    [self.navigationController pushViewController:[FBHStoreDataController new] animated:NO];
 }
@@ -679,7 +691,7 @@
                     [self store];
                 }else{
                     /** 已入驻店铺 **/
-                    [self.navigationController pushViewController:[StoreStatusViewController new] animated:NO];
+                    [self.navigationController pushViewController:[StoreStatusViewController new] animated:YES];
                 }
                 break;
                 
@@ -690,7 +702,7 @@
                 }
                 
                 /** 商家分类 **/
-                [self.navigationController pushViewController:[TheLabelController new] animated:NO];
+                [self.navigationController pushViewController:[TheLabelController new] animated:YES];
                 break;
                 
             case 12:
@@ -699,7 +711,7 @@
                     return;
                 }
                 /** 商家产品 **/
-                [self.navigationController pushViewController:[FBHCPViewController new] animated:NO];
+                [self.navigationController pushViewController:[FBHCPViewController new] animated:YES];
                 break;
             case 13:
                 if ([model.store_id isEqualToString:@""]){
@@ -707,7 +719,7 @@
                     return;
                 }
                 /** 营销设置 **/
-                [self.navigationController pushViewController:[MarketingController new] animated:NO];
+                [self.navigationController pushViewController:[MarketingController new] animated:YES];
                 break;
                 
             default:
@@ -728,6 +740,8 @@
 }
 
 -(void)ViewheaderRereshing{
+    [MBProgressHUD MBProgress:@"数据加载中..."];
+
     [self merchant_center];
     [self.FBHScrollView.mj_header endRefreshing];
 }

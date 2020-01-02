@@ -46,8 +46,17 @@
         [self.Data addObject:dict];
         
     }
-    [MBProgressHUD MBProgress:@"数据加载中..."];
-    [self merchant_center];
+     [MBProgressHUD MBProgress:@"数据加载中..."];
+    // 并发队列的创建方法
+    dispatch_queue_t queue_B = dispatch_queue_create("net.bujige.testQueue", DISPATCH_QUEUE_CONCURRENT);
+    // 异步执行任务创建方法
+    dispatch_async(queue_B, ^{
+          [self merchant_center];
+        NSLog(@"信息线程---%@",[NSThread currentThread]);      // 打印当前线程
+    });
+    
+   
+  
 
     /**
      *  UI

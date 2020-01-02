@@ -272,14 +272,15 @@
      */
     [self setupGoodsTableView];
     
-    
+    [self createUI];
     
 }
 #pragma mark - 导航栏
 -(void)setupNav{
-    UIButton *leftbutton=[[UIButton alloc]initWithFrame:CGRectMake(0, 0, 60, 28)];
-    [leftbutton setBackgroundColor:UIColorFromRGB(0xF7AE2B)];
-    [leftbutton setTitle:@"+发布" forState:UIControlStateNormal];
+    UIButton *leftbutton=[[UIButton alloc]initWithFrame:CGRectMake(0, 0, 40, 28)];
+//    [leftbutton setBackgroundColor:UIColorFromRGB(0xF7AE2B)];
+//    [leftbutton setTitle:@"+发布" forState:UIControlStateNormal];
+    [leftbutton setImage:[UIImage imageNamed:@"icn_nav_search_black_normal"] forState:UIControlStateNormal];
     leftbutton.titleLabel.font = [UIFont systemFontOfSize:14];
     [leftbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
 //    [leftbutton setBackgroundImage:[UIImage imageNamed:@"btn_nav_add_product_pressed"] forState:UIControlStateNormal];
@@ -290,9 +291,13 @@
  
 }
 #pragma mark - 发布  //FBHCPfabuViewController
+-(void)AddGoodAction{
+    //    [self.navigationController pushViewController:[FBHCPfabuViewController new] animated:YES];
+        [self.navigationController pushViewController:[YLSAddProductController new] animated:YES];
+}
 -(void)FabuAction{
-    [self.navigationController pushViewController:[FBHCPfabuViewController new] animated:YES];
-//    [self.navigationController pushViewController:[YLSAddProductController new] animated:YES];
+    /*搜索*/
+    [self.navigationController pushViewController:[YLSGoodSeekController new] animated:YES];
 }
 #pragma mark - 选择栏
 - (void)setupSelectView{
@@ -430,14 +435,24 @@
 }
 #pragma mark - UI
 -(void)createUI {
-
-    
+    UIButton *AddButton =[UIButton buttonWithType:UIButtonTypeCustom];
+    [AddButton setTitle:@"  新建商品" forState:UIControlStateNormal];
+    [AddButton setTitleColor:UIColorFromRGB(0x222222) forState:UIControlStateNormal];
+    AddButton.titleLabel.font = [UIFont systemFontOfSize:14];
+    AddButton.backgroundColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0];
+    [AddButton setImage:[UIImage imageNamed:@"icn_tab_plus_pro"] forState:UIControlStateNormal];
+    [AddButton addTarget:self action:@selector(AddGoodAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:AddButton];
+    [AddButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.mas_offset(0);
+        make.height.mas_offset(49);
+    }];
 }
 - (void)setupGoodsTableView{
     //移除元素,防止覆盖
     [self.shopsTableView removeFromSuperview];
     [self.bottomView removeFromSuperview];
-    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 52+TheLabe_H, ScreenW, ScreenH-52-STATUS_BAR_HEIGHT-44) style:UITableViewStylePlain];
+    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 52+TheLabe_H, ScreenW, ScreenH-52-STATUS_BAR_HEIGHT-44-49) style:UITableViewStylePlain];
     tableView.backgroundColor = MainbackgroundColor;
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     tableView.delegate = self;
@@ -448,6 +463,11 @@
     [tableView registerNib:[UINib nibWithNibName:@"CHDeleTableViewCell" bundle:nil] forCellReuseIdentifier:@"CHDeleTableViewCell"];
 //    [tableView registerClass:[YLSGoodsCell class] forCellReuseIdentifier:@"YLSGoodsCell"];
     [self.view addSubview:tableView];
+    [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_offset(0);
+        make.top.mas_offset(52+TheLabe_H);
+        make.bottom.mas_offset(-49);
+    }];
     self.goodsTableView = tableView;
     
     tableView.defaultNoDataText = @"";
@@ -474,7 +494,7 @@
     //移除元素,防止覆盖
     [self.goodsTableView removeFromSuperview];
     [self.bottomView removeFromSuperview];
-    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 52+TheLabe_H, ScreenW, ScreenH-52-STATUS_BAR_HEIGHT-44) style:UITableViewStylePlain];
+    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 52+TheLabe_H, ScreenW, ScreenH-52-STATUS_BAR_HEIGHT-44-49) style:UITableViewStylePlain];
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     tableView.backgroundColor = MainbackgroundColor;
     tableView.delegate = self;
@@ -486,6 +506,11 @@
     [tableView registerClass:[YLSGoodsCell class] forCellReuseIdentifier:@"YLSGoodsCell"];
 
     [self.view addSubview:tableView];
+    [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_offset(0);
+        make.top.mas_offset(52+TheLabe_H);
+        make.bottom.mas_offset(-49);
+    }];
     self.shopsTableView = tableView;
     
     tableView.defaultNoDataText = @"";
@@ -570,6 +595,11 @@
     [tableView registerClass:[YLSGoodsCell class] forCellReuseIdentifier:@"YLSGoodsCell"];
 
     [self.view addSubview:tableView];
+    [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_offset(0);
+        make.top.mas_offset(52+TheLabe_H);
+        make.bottom.mas_offset(-49);
+    }];
     self.deleTableView = tableView;
     [self.deleTableView setEditing:YES animated:YES];
 
@@ -591,7 +621,10 @@
         cell.Data = self.gooddata[indexPath.row];
         cell.backgroundColor  = MainbackgroundColor;
         cell.BianjiBlock = ^{
-            FBHCPfabuViewController *VC = [FBHCPfabuViewController new];
+//            FBHCPfabuViewController *VC = [FBHCPfabuViewController new];
+//            VC.goodId = self.gooddata[indexPath.row][@"goods_id"];
+//            [self.navigationController pushViewController:VC animated:NO];
+            YLSAddProductController *VC = [YLSAddProductController new];
             VC.goodId = self.gooddata[indexPath.row][@"goods_id"];
             [self.navigationController pushViewController:VC animated:NO];
         };

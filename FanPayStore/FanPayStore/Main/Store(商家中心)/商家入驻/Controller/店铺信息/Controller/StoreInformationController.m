@@ -34,7 +34,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self merchant_center];
+    
     
 }
 -(void)merchant_center{
@@ -141,6 +141,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"店铺信息";
+    [self merchant_center];
     /**
      * 导航栏
      */

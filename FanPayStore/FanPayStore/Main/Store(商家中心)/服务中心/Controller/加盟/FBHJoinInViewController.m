@@ -41,7 +41,7 @@
         _scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 667 );
         YBWeakSelf
         _scrollView.joinblock = ^{
-            [weakSelf.navigationController pushViewController:[FBHJoinInTController new] animated:NO];
+            [weakSelf.navigationController pushViewController:[FBHJoinInTController new] animated:YES];
 
 //            [SVProgressHUD setMinimumDismissTimeInterval:0.5];
 //            [SVProgressHUD showErrorWithStatus:@"此功能暂未开发"];

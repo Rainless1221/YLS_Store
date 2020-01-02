@@ -259,7 +259,8 @@
     leftbutton.layer.cornerRadius = 14;
     [leftbutton.titleLabel setFont:[UIFont systemFontOfSize:14]];
     [leftbutton addTarget:self action:@selector(RighAction) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *rightitem=[[UIBarButtonItem alloc]initWithCustomView:leftbutton];self.navigationItem.rightBarButtonItem=rightitem;
+    UIBarButtonItem *rightitem=[[UIBarButtonItem alloc]initWithCustomView:leftbutton];
+    self.navigationItem.rightBarButtonItem=rightitem;
 }
 /** 提现记录 */
 -(void)RighAction{

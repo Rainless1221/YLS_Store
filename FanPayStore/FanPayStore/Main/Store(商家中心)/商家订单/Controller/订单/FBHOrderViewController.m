@@ -116,8 +116,8 @@
         if ([resDic[@"status"] integerValue] == 1) {
             NSDictionary *DIC = resDic[@"data"];
 
-                /*退款数量*/
-                NSString *num = [NSString stringWithFormat:@"%@",DIC[@"pending_refund_order_num"]];
+                /*退单数量*/
+                NSString *num = [NSString stringWithFormat:@"%@",DIC[@"pending_refund_order_num_full_amount"]];
                 NSInteger order_num = [num integerValue];
                 if (order_num >0) {
                     [self.MenuView.badgeLable setHidden:NO];
@@ -128,6 +128,45 @@
                     [self.MenuView.badgeLable setHidden:YES];
                     
                 }
+            
+            /*退款数量*/
+            NSString *num1 = [NSString stringWithFormat:@"%@",DIC[@"pending_refund_order_num_part_amount"]];
+            NSInteger order_num1 = [num1 integerValue];
+            if (order_num1 >0) {
+                [self.MenuView.badgeLable1 setHidden:NO];
+                self.MenuView.badgeLable1.width = order_num1>9 ? 18: 13;
+                [self.MenuView.badgeLable1  setText:num1];
+                
+            }else if (order_num1 == 0){
+                [self.MenuView.badgeLable1 setHidden:YES];
+            
+            }
+        
+            
+            /*已支付订单数量*/
+            NSString *num2 = [NSString stringWithFormat:@"%@",DIC[@"order_num_have_paid"]];
+            NSInteger order_num2 = [num2 integerValue];
+            if (order_num2 >0) {
+            [self.MenuView.badgeLable2 setHidden:NO];
+            self.MenuView.badgeLable2.width = order_num2>9 ? 18: 13;
+            [self.MenuView.badgeLable2  setText:num2];
+            
+            }else if (order_num2 == 0){
+                [self.MenuView.badgeLable2 setHidden:YES];
+
+            }
+            /*已预约订单数量*/
+            NSString *num3 = [NSString stringWithFormat:@"%@",DIC[@"order_num_appointment"]];
+            NSInteger order_num3 = [num3 integerValue];
+            if (order_num3 >0) {
+                [self.MenuView.badgeLable3 setHidden:NO];
+                self.MenuView.badgeLable3.width = order_num3>9 ? 18: 13;
+                [self.MenuView.badgeLable3  setText:num3];
+                
+            }else if (order_num3 == 0){
+                [self.MenuView.badgeLable3 setHidden:YES];
+
+            }
             
             
         }else{
@@ -816,62 +855,62 @@
     switch ([order_status integerValue]) {
         case 0:
             VC.status = 0;
-            [self.navigationController pushViewController:VC animated:NO];
+            [self.navigationController pushViewController:VC animated:YES];
             
             break;
         case 1:
             VC.status = 1;
-            [self.navigationController pushViewController:VC animated:NO];
+            [self.navigationController pushViewController:VC animated:YES];
             
             break;
         case 2:
             VC.status = 2;
-            [self.navigationController pushViewController:VC animated:NO];
+            [self.navigationController pushViewController:VC animated:YES];
             
             break;
         case 3:
             VC.status = 3;
-            [self.navigationController pushViewController:VC animated:NO];
+            [self.navigationController pushViewController:VC animated:YES];
             
             break;
         case 4:
             VC.status = 4;
-            [self.navigationController pushViewController:VC animated:NO];
+            [self.navigationController pushViewController:VC animated:YES];
             
             break;
         case 5:
             VC.status = 5;
-            [self.navigationController pushViewController:VC animated:NO];
+            [self.navigationController pushViewController:VC animated:YES];
             
             break;
         case 6:
             VC.status = 6;
-            [self.navigationController pushViewController:VC animated:NO];
+            [self.navigationController pushViewController:VC animated:YES];
             
             break;
         case 7:
             VC.status = 7;
-            [self.navigationController pushViewController:VC animated:NO];
+            [self.navigationController pushViewController:VC animated:YES];
             
             break;
         case 8:
             VC.status = 8;
-            [self.navigationController pushViewController:VC animated:NO];
+            [self.navigationController pushViewController:VC animated:YES];
             
             break;
         case 9:
             VC.status = 9;
-            [self.navigationController pushViewController:VC animated:NO];
+            [self.navigationController pushViewController:VC animated:YES];
             
             break;
         case 10:
             VC.status = 10;
-            [self.navigationController pushViewController:VC animated:NO];
+            [self.navigationController pushViewController:VC animated:YES];
             
             break;
         case 11:
             VC.status = 11;
-            [self.navigationController pushViewController:VC animated:NO];
+            [self.navigationController pushViewController:VC animated:YES];
             
             break;
             

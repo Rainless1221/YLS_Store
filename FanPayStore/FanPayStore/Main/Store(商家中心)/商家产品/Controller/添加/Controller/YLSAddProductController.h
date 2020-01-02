@@ -11,6 +11,10 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface YLSAddProductController : BaseViewController
+/*编辑时、传过来的数据*/
+@property (strong,nonatomic)NSDictionary * Data;
+/*编辑时、商品ID*/
+@property (strong,nonatomic)NSString * goodId;
 
 @end
 

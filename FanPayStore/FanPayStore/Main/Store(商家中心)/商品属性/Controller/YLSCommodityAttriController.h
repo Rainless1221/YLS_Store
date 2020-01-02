@@ -9,9 +9,17 @@
 #import "BaseViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
+@protocol AttriAndDelegate<NSObject>
+//方法可实现的
+@optional
+//方法必须实现
+-(void)AddlAttri:(NSString *)lableString and:(NSString *)category_id;
+
+@end
 
 @interface YLSCommodityAttriController : BaseViewController
-
+/*代理*/
+@property(nonatomic,weak)id<AttriAndDelegate>delagate;
 @end
 
 NS_ASSUME_NONNULL_END

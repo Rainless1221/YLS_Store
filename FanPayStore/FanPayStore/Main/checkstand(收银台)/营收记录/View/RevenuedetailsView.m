@@ -129,6 +129,21 @@
         self.status3.text = [NSString stringWithFormat:@"%@",Data[@"order_sn"]];
         /*订单时间*/
         self.status4.text = [NSString stringWithFormat:@"%@",Data[@"time"]];
+    }else if([type isEqualToString:@"3"]){
+        self.icon.image = [UIImage imageNamed:@"icn_order_commission_small"];
+        self.amount.textColor = UIColorFromRGB(0x38A94D);
+        self.amount.text = [NSString stringWithFormat:@"%@",Data[@"amount"]];
+        self.desc.text = @"返佣";
+        self.TextLabel3.text = @"记录ID";
+        
+        /*商家信息*/
+        self.status1.text = [NSString stringWithFormat:@"%@",Data[@"content"]];
+        /*商家名称*/
+        self.status2.text = [NSString stringWithFormat:@"%@",Data[@"store_name"]];
+        /*订单标号*/
+        self.status3.text = [NSString stringWithFormat:@"%@",Data[@"order_sn"]];
+        /*订单时间*/
+        self.status4.text = [NSString stringWithFormat:@"%@",Data[@"time"]];
     }else{
         self.icon.image = [UIImage imageNamed:@"icn_order_income"];
         self.amount.textColor = UIColorFromRGB(0xF7AE2A);

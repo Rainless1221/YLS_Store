@@ -310,7 +310,7 @@
         [SVProgressHUD showErrorWithStatus:@"此功能暂未开发"];
     }else{
         /** 个人 */
-        [self.navigationController pushViewController:[bankcardYanViewController new] animated:NO];
+        [self.navigationController pushViewController:[bankcardYanViewController new] animated:YES];
     }
     
 }

@@ -54,6 +54,9 @@
 		7C027EC022B3A7E300F4753B /* NotificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C027EBF22B3A7E300F4753B /* NotificationService.m */; };
 		7C027EC422B3A7E300F4753B /* StoreAV.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 7C027EBC22B3A7E300F4753B /* StoreAV.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		7C027EC922B3A80400F4753B /* 叮咚，您有新的订单请及时处理.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7C027EC822B3A80400F4753B /* 叮咚，您有新的订单请及时处理.mp3 */; };
+		7C0DA8F423A1D05200FE1FAA /* StarSliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C0DA8F223A1D05100FE1FAA /* StarSliderView.m */; };
+		7C0DA8F723A9D4DA00FE1FAA /* DetailsYYView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C0DA8F623A9D4D900FE1FAA /* DetailsYYView.m */; };
+		7C0DA8FD23A9F19600FE1FAA /* SetupStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C0DA8FC23A9F19600FE1FAA /* SetupStoreViewController.m */; };
 		7C1C63F322E1BC7D00CB7643 /* LeaveAmessageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C1C63F222E1BC7D00CB7643 /* LeaveAmessageController.m */; };
 		7C1C63F622E1BD1B00CB7643 /* RequirementsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C1C63F522E1BD1B00CB7643 /* RequirementsController.m */; };
 		7C1DFF9F22F16B680037BE9A /* PreferCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C1DFF9E22F16B680037BE9A /* PreferCollectionViewCell.m */; };
@@ -355,7 +358,11 @@
 		7C621072238CD892002BDBCA /* BindingPayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C621071238CD892002BDBCA /* BindingPayController.m */; };
 		7C621076238CF133002BDBCA /* YLSAddPayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C621075238CF133002BDBCA /* YLSAddPayViewController.m */; };
 		7C621079238CFABC002BDBCA /* PayTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C621078238CFABC002BDBCA /* PayTableViewCell.m */; };
+		7C64257023BC5813002EEE40 /* YLSGoodSeekController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C64256F23BC5813002EEE40 /* YLSGoodSeekController.m */; };
+		7C64257323BC5A07002EEE40 /* CanWeiView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C64257223BC5A07002EEE40 /* CanWeiView.m */; };
+		7C64257623BC652E002EEE40 /* SeekCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C64257523BC652E002EEE40 /* SeekCell.m */; };
 		7C7003BE23868333002BD599 /* BrandNewOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C7003BD23868333002BD599 /* BrandNewOrderCell.m */; };
+		7C70880D23BD954D00F15C55 /* SearchBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C70880C23BD954D00F15C55 /* SearchBarView.m */; };
 		7C71BD1B236A722300E3CDA9 /* YLSRegisteredController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C71BD1A236A722300E3CDA9 /* YLSRegisteredController.m */; };
 		7C71BD20236AAEDF00E3CDA9 /* YLSAddProductView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C71BD1F236AAEDF00E3CDA9 /* YLSAddProductView.m */; };
 		7C71BD23236AB5EE00E3CDA9 /* YLSAddProductController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C71BD22236AB5EE00E3CDA9 /* YLSAddProductController.m */; };
@@ -442,6 +449,8 @@
 		7CCB15432359969200B8F80A /* YLSinStoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CCB15422359969200B8F80A /* YLSinStoreView.m */; };
 		7CDA5F37235EF6DA000F8CC8 /* YLSCertifH5Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CDA5F36235EF6DA000F8CC8 /* YLSCertifH5Controller.m */; };
 		7CDA5F3A235F1082000F8CC8 /* YLSSheBeiController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CDA5F39235F1082000F8CC8 /* YLSSheBeiController.m */; };
+		7CDBE2B723B9E1D5001A2EDB /* AttriCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CDBE2B623B9E1D5001A2EDB /* AttriCell.m */; };
+		7CDBE2BA23B9F8CE001A2EDB /* AttriLabView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CDBE2B923B9F8CE001A2EDB /* AttriLabView.m */; };
 		7CDBFF07237162B9003B4078 /* YLSCommodityAttriController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CDBFF06237162B9003B4078 /* YLSCommodityAttriController.m */; };
 		7CE9FA3922CB5028002438E9 /* AccountView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CE9FA3822CB5028002438E9 /* AccountView.m */; };
 		7CE9FA3D22CB56BD002438E9 /* FillInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CE9FA3C22CB56BD002438E9 /* FillInViewController.m */; };
@@ -568,6 +577,12 @@
 		7C027EC122B3A7E300F4753B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7C027EC822B3A80400F4753B /* 叮咚，您有新的订单请及时处理.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "叮咚，您有新的订单请及时处理.mp3"; sourceTree = "<group>"; };
 		7C027ECA22B3AA2A00F4753B /* StoreAV.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StoreAV.entitlements; sourceTree = "<group>"; };
+		7C0DA8F223A1D05100FE1FAA /* StarSliderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StarSliderView.m; sourceTree = "<group>"; };
+		7C0DA8F323A1D05200FE1FAA /* StarSliderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StarSliderView.h; sourceTree = "<group>"; };
+		7C0DA8F523A9D4D900FE1FAA /* DetailsYYView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailsYYView.h; sourceTree = "<group>"; };
+		7C0DA8F623A9D4D900FE1FAA /* DetailsYYView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailsYYView.m; sourceTree = "<group>"; };
+		7C0DA8FB23A9F19600FE1FAA /* SetupStoreViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SetupStoreViewController.h; sourceTree = "<group>"; };
+		7C0DA8FC23A9F19600FE1FAA /* SetupStoreViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SetupStoreViewController.m; sourceTree = "<group>"; };
 		7C1C63F122E1BC7D00CB7643 /* LeaveAmessageController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LeaveAmessageController.h; sourceTree = "<group>"; };
 		7C1C63F222E1BC7D00CB7643 /* LeaveAmessageController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LeaveAmessageController.m; sourceTree = "<group>"; };
 		7C1C63F422E1BD1B00CB7643 /* RequirementsController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequirementsController.h; sourceTree = "<group>"; };
@@ -1143,8 +1158,16 @@
 		7C621075238CF133002BDBCA /* YLSAddPayViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YLSAddPayViewController.m; sourceTree = "<group>"; };
 		7C621077238CFABC002BDBCA /* PayTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PayTableViewCell.h; sourceTree = "<group>"; };
 		7C621078238CFABC002BDBCA /* PayTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PayTableViewCell.m; sourceTree = "<group>"; };
+		7C64256E23BC5813002EEE40 /* YLSGoodSeekController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YLSGoodSeekController.h; sourceTree = "<group>"; };
+		7C64256F23BC5813002EEE40 /* YLSGoodSeekController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YLSGoodSeekController.m; sourceTree = "<group>"; };
+		7C64257123BC5A07002EEE40 /* CanWeiView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CanWeiView.h; sourceTree = "<group>"; };
+		7C64257223BC5A07002EEE40 /* CanWeiView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CanWeiView.m; sourceTree = "<group>"; };
+		7C64257423BC652E002EEE40 /* SeekCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SeekCell.h; sourceTree = "<group>"; };
+		7C64257523BC652E002EEE40 /* SeekCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SeekCell.m; sourceTree = "<group>"; };
 		7C7003BC23868333002BD599 /* BrandNewOrderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BrandNewOrderCell.h; sourceTree = "<group>"; };
 		7C7003BD23868333002BD599 /* BrandNewOrderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BrandNewOrderCell.m; sourceTree = "<group>"; };
+		7C70880B23BD954D00F15C55 /* SearchBarView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchBarView.h; sourceTree = "<group>"; };
+		7C70880C23BD954D00F15C55 /* SearchBarView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchBarView.m; sourceTree = "<group>"; };
 		7C71BD19236A722300E3CDA9 /* YLSRegisteredController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YLSRegisteredController.h; sourceTree = "<group>"; };
 		7C71BD1A236A722300E3CDA9 /* YLSRegisteredController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YLSRegisteredController.m; sourceTree = "<group>"; };
 		7C71BD1E236AAEDF00E3CDA9 /* YLSAddProductView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YLSAddProductView.h; sourceTree = "<group>"; };
@@ -1305,6 +1328,10 @@
 		7CDA5F36235EF6DA000F8CC8 /* YLSCertifH5Controller.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YLSCertifH5Controller.m; sourceTree = "<group>"; };
 		7CDA5F38235F1082000F8CC8 /* YLSSheBeiController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YLSSheBeiController.h; sourceTree = "<group>"; };
 		7CDA5F39235F1082000F8CC8 /* YLSSheBeiController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YLSSheBeiController.m; sourceTree = "<group>"; };
+		7CDBE2B523B9E1D5001A2EDB /* AttriCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AttriCell.h; sourceTree = "<group>"; };
+		7CDBE2B623B9E1D5001A2EDB /* AttriCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AttriCell.m; sourceTree = "<group>"; };
+		7CDBE2B823B9F8CE001A2EDB /* AttriLabView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AttriLabView.h; sourceTree = "<group>"; };
+		7CDBE2B923B9F8CE001A2EDB /* AttriLabView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AttriLabView.m; sourceTree = "<group>"; };
 		7CDBFF05237162B9003B4078 /* YLSCommodityAttriController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YLSCommodityAttriController.h; sourceTree = "<group>"; };
 		7CDBFF06237162B9003B4078 /* YLSCommodityAttriController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YLSCommodityAttriController.m; sourceTree = "<group>"; };
 		7CE9FA3722CB5028002438E9 /* AccountView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AccountView.h; sourceTree = "<group>"; };
@@ -1493,6 +1520,8 @@
 				7C757D7A22EE81A900403474 /* DetailsYSView.m */,
 				7C1E7087236044C20058542E /* DetailsTKView.h */,
 				7C1E7088236044C20058542E /* DetailsTKView.m */,
+				7C0DA8F523A9D4D900FE1FAA /* DetailsYYView.h */,
+				7C0DA8F623A9D4D900FE1FAA /* DetailsYYView.m */,
 				7C1E708A236140FC0058542E /* DetailsAmountView.h */,
 				7C1E708B236140FC0058542E /* DetailsAmountView.m */,
 			);
@@ -1621,6 +1650,7 @@
 		297A15F2229C14C5000800AF /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				7C64256A23BC57AB002EEE40 /* 产品搜索 */,
 				7CBDD4C922A7579600932BDA /* 产品详情 */,
 				297A1611229C1605000800AF /* 标签 */,
 				297A15F6229C150D000800AF /* 添加 */,
@@ -1756,6 +1786,42 @@
 				7C027EC122B3A7E300F4753B /* Info.plist */,
 			);
 			path = StoreAV;
+			sourceTree = "<group>";
+		};
+		7C0DA8F123A1D03800FE1FAA /* 声音滑动设置 */ = {
+			isa = PBXGroup;
+			children = (
+				7C0DA8F323A1D05200FE1FAA /* StarSliderView.h */,
+				7C0DA8F223A1D05100FE1FAA /* StarSliderView.m */,
+			);
+			path = "声音滑动设置";
+			sourceTree = "<group>";
+		};
+		7C0DA8F823A9F12400FE1FAA /* 店铺设置 */ = {
+			isa = PBXGroup;
+			children = (
+				7C0DA8FA23A9F13C00FE1FAA /* View */,
+				7C0DA8F923A9F13400FE1FAA /* Controller */,
+			);
+			path = "店铺设置";
+			sourceTree = "<group>";
+		};
+		7C0DA8F923A9F13400FE1FAA /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				7C0DA8FB23A9F19600FE1FAA /* SetupStoreViewController.h */,
+				7C0DA8FC23A9F19600FE1FAA /* SetupStoreViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		7C0DA8FA23A9F13C00FE1FAA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7C64257123BC5A07002EEE40 /* CanWeiView.h */,
+				7C64257223BC5A07002EEE40 /* CanWeiView.m */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		7C1C63EF22E1BC1E00CB7643 /* 对房客要求 */ = {
@@ -2049,6 +2115,7 @@
 		7C2F8A49229BC6D90036F9F9 /* ToolS */ = {
 			isa = PBXGroup;
 			children = (
+				7C0DA8F123A1D03800FE1FAA /* 声音滑动设置 */,
 				7C3E6597233221E400ACCF9A /* 七鱼客服SDK */,
 				7CB548BB2318F3A9002F03C3 /* IanAdsStartView(开屏广告) */,
 				7CEDA441230A85D700F52EE8 /* RTDragCellTableView */,
@@ -2620,6 +2687,7 @@
 		7C2F8B88229BCE2E0036F9F9 /* Store(商家中心) */ = {
 			isa = PBXGroup;
 			children = (
+				7C0DA8F823A9F12400FE1FAA /* 店铺设置 */,
 				7C62106D238CD83D002BDBCA /* 绑定支付宝 */,
 				7CDBFF0223716252003B4078 /* 商品属性 */,
 				7C3384B6235DB8F9000A56B5 /* 分账认证 */,
@@ -3866,6 +3934,43 @@
 			path = "绑定";
 			sourceTree = "<group>";
 		};
+		7C64256A23BC57AB002EEE40 /* 产品搜索 */ = {
+			isa = PBXGroup;
+			children = (
+				7C64256D23BC57C9002EEE40 /* Model */,
+				7C64256C23BC57C1002EEE40 /* View */,
+				7C64256B23BC57B8002EEE40 /* Controller */,
+			);
+			path = "产品搜索";
+			sourceTree = "<group>";
+		};
+		7C64256B23BC57B8002EEE40 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				7C64256E23BC5813002EEE40 /* YLSGoodSeekController.h */,
+				7C64256F23BC5813002EEE40 /* YLSGoodSeekController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		7C64256C23BC57C1002EEE40 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7C64257423BC652E002EEE40 /* SeekCell.h */,
+				7C64257523BC652E002EEE40 /* SeekCell.m */,
+				7C70880B23BD954D00F15C55 /* SearchBarView.h */,
+				7C70880C23BD954D00F15C55 /* SearchBarView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		7C64256D23BC57C9002EEE40 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		7C71BD1C236A92A800E3CDA9 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -4632,6 +4737,10 @@
 		7CDBFF0423716272003B4078 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7CDBE2B523B9E1D5001A2EDB /* AttriCell.h */,
+				7CDBE2B623B9E1D5001A2EDB /* AttriCell.m */,
+				7CDBE2B823B9F8CE001A2EDB /* AttriLabView.h */,
+				7CDBE2B923B9F8CE001A2EDB /* AttriLabView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -5038,6 +5147,7 @@
 				7C2F8CEB229BE50F0036F9F9 /* FBHDWSSViewController.m in Sources */,
 				7C2F8C6B229BE05A0036F9F9 /* FBHaccountController.m in Sources */,
 				7C2F8CCF229BE39C0036F9F9 /* storeCenterView.m in Sources */,
+				7C0DA8F423A1D05200FE1FAA /* StarSliderView.m in Sources */,
 				297A1607229C1576000800AF /* CHTableViewCell.m in Sources */,
 				7C2F8C70229BE05A0036F9F9 /* FBHGYViewController.m in Sources */,
 				7C2CB13C22C9B8220026957B /* BankView.m in Sources */,
@@ -5133,11 +5243,13 @@
 				7C2F8C67229BE05A0036F9F9 /* Bank_infoModel.m in Sources */,
 				7C2CB13F22C9BA640026957B /* AgreementView.m in Sources */,
 				7C2F8D06229BE83F0036F9F9 /* FansViewController.m in Sources */,
+				7CDBE2BA23B9F8CE001A2EDB /* AttriLabView.m in Sources */,
 				7CBDD4D022A7582200932BDA /* FBHgoodDetailsController.m in Sources */,
 				297A1619229C163E000800AF /* TheLabelController.m in Sources */,
 				7C2F8B5C229BC9400036F9F9 /* TZAssetModel.m in Sources */,
 				7C2F8BF9229BDE450036F9F9 /* RevenueHeaderM.m in Sources */,
 				7CB5AE2822D88E2500D21349 /* RoomsViewone.m in Sources */,
+				7C0DA8FD23A9F19600FE1FAA /* SetupStoreViewController.m in Sources */,
 				7C2F8CB5229BE2050036F9F9 /* Payment_passwordViewController.m in Sources */,
 				297A15E2229C11FD000800AF /* FdetailsTableViewCell.m in Sources */,
 				7CBDD4C822A66D8400932BDA /* MarkeViewCell.m in Sources */,
@@ -5175,6 +5287,7 @@
 				297A1606229C1576000800AF /* CPFBView.m in Sources */,
 				7CCB15402359959500B8F80A /* YLSinStoreController.m in Sources */,
 				297A15C3229C0DF8000800AF /* StoreDiscountView.m in Sources */,
+				7C0DA8F723A9D4DA00FE1FAA /* DetailsYYView.m in Sources */,
 				7C2F8CB9229BE2050036F9F9 /* PaymentViewController.m in Sources */,
 				7C2CB14622C9BCAA0026957B /* BusinessView.m in Sources */,
 				7CEDA444230A85D800F52EE8 /* RTDragCellTableView.m in Sources */,
@@ -5183,6 +5296,7 @@
 				7C757D6B22E7F1D400403474 /* FanSiSViewController.m in Sources */,
 				7C2F8D40229CE5850036F9F9 /* StoreInformationController.m in Sources */,
 				7C2F8CBB229BE2050036F9F9 /* BingbangViewController.m in Sources */,
+				7CDBE2B723B9E1D5001A2EDB /* AttriCell.m in Sources */,
 				7C2F8C7A229BE05A0036F9F9 /* DMTypeView.m in Sources */,
 				7C2F8B5D229BC9400036F9F9 /* NSBundle+TZImagePicker.m in Sources */,
 				7CF295392302A7480079314B /* ZhuoCodeViewController.m in Sources */,
@@ -5222,6 +5336,7 @@
 				7C2F8B6B229BC9400036F9F9 /* DDNSObject+Ext.m in Sources */,
 				7C3384C1235EC7F6000A56B5 /* YLSAddDuiGongCertification.m in Sources */,
 				7C2CB12F22C99B250026957B /* Qiye_StoreController.m in Sources */,
+				7C70880D23BD954D00F15C55 /* SearchBarView.m in Sources */,
 				7C2F8B53229BC9400036F9F9 /* HQBannerView.m in Sources */,
 				7C2F8CC5229BE2060036F9F9 /* SecondaryCell.m in Sources */,
 				7C2F8B54229BC9400036F9F9 /* SWQRCodeConfig.m in Sources */,
@@ -5233,8 +5348,10 @@
 				7C2F8C08229BDEF70036F9F9 /* FBHWithdrawJLViewController.m in Sources */,
 				7CF2954523040D5D0079314B /* BingYuanViewController.m in Sources */,
 				7C2F8C81229BE05A0036F9F9 /* JoinInView.m in Sources */,
+				7C64257623BC652E002EEE40 /* SeekCell.m in Sources */,
 				7C2F8B47229BC9400036F9F9 /* DateModel.m in Sources */,
 				7C2F8CB2229BE2050036F9F9 /* FBHResetViewController.m in Sources */,
+				7C64257323BC5A07002EEE40 /* CanWeiView.m in Sources */,
 				7CBDD50D22AFA6D000932BDA /* ProgressShow.m in Sources */,
 				7C2F8BD0229BD9190036F9F9 /* FBHbondViewController.m in Sources */,
 				7C2F8B34229BC93F0036F9F9 /* YBHttpTool.m in Sources */,
@@ -5253,6 +5370,7 @@
 				7C2CB14322C9BBBF0026957B /* ModifyController.m in Sources */,
 				7CB5AE1A22D81BAB00D21349 /* DistributionList.m in Sources */,
 				297A1625229C166E000800AF /* TheLabeView.m in Sources */,
+				7C64257023BC5813002EEE40 /* YLSGoodSeekController.m in Sources */,
 				7C2F8A45229BC6390036F9F9 /* AppDelegate+Share.m in Sources */,
 				7C2F8B2D229BC93F0036F9F9 /* StarEvaluator.m in Sources */,
 				7C55A4ED22D2E476002584C4 /* NameOfShop.m in Sources */,

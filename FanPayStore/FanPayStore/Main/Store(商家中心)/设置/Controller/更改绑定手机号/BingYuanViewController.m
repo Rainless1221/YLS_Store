@@ -289,7 +289,7 @@
         _Phone.placeholder = @"请输入手机号码";
 //        _Phone.textColor = [UIColor colorWithRed:61/255.0 green:138/255.0 blue:255/255.0 alpha:1.0];
         _Phone.keyboardType = UIKeyboardTypeDecimalPad;
-
+        _Phone.userInteractionEnabled = NO;
     }
     return _Phone;
 }

@@ -378,13 +378,7 @@
                 <outlet property="nameLabel" destination="pfn-fG-pDN" id="J0x-3k-1Ua"/>
                 <outlet property="placeholderLabel" destination="3aP-T1-lvI" id="YDA-yP-3fx"/>
             </connections>
-            <point key="canvasLocation" x="-135" y="-179"/>
-        </view>
-        <view contentMode="scaleToFill" id="tLR-xM-tAK">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-            <point key="canvasLocation" x="259" y="60"/>
+            <point key="canvasLocation" x="-290" y="-208"/>
         </view>
     </objects>
     <resources>
