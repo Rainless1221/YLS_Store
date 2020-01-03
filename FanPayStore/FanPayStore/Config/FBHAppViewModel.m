@@ -773,13 +773,19 @@
     [dic setValue:merchant_id forKey:@"merchant_id"];
     [dic setValue:store_id forKey:@"store_id"];
     
-    [dic setValue:Dict[@"goods_name"] forKey:@"goods_name"];
-    [dic setValue:Dict[@"goods_price"] forKey:@"goods_price"];
-    [dic setValue:Dict[@"discount_price"] forKey:@"discount_price"];
-    [dic setValue:Dict[@"goods_num"] forKey:@"goods_num"];
-    [dic setValue:Dict[@"goods_description"] forKey:@"goods_description"];
-    [dic setValue:Dict[@"goods_pic"] forKey:@"goods_pic"];
-    [dic setValue:Dict[@"category_id"] forKey:@"category_id"];
+//    [dic setValue:Dict[@"goods_name"] forKey:@"goods_name"];
+//    [dic setValue:Dict[@"goods_price"] forKey:@"goods_price"];
+//    [dic setValue:Dict[@"discount_price"] forKey:@"discount_price"];
+//    [dic setValue:Dict[@"goods_num"] forKey:@"goods_num"];
+//    [dic setValue:Dict[@"goods_description"] forKey:@"goods_description"];
+//    [dic setValue:Dict[@"goods_pic"] forKey:@"goods_pic"];
+//    [dic setValue:Dict[@"category_id"] forKey:@"category_id"];
+    
+    for (NSString *key in Dict) {
+        //        NSLog(@"%@",key);
+        
+        [dic setValue:Dict[key] forKey:key];
+    }
     
     UserModel *model = [UserModel getUseData];
     [dic setValue:model.token forKey:@"token"];
@@ -1400,15 +1406,20 @@
     [dic setValue:merchant_id forKey:@"merchant_id"];
     [dic setValue:store_id forKey:@"store_id"];
     
-    [dic setValue:Dict[@"goods_id"] forKey:@"goods_id"];
-    [dic setValue:Dict[@"goods_name"] forKey:@"goods_name"];
-    [dic setValue:Dict[@"goods_price"] forKey:@"goods_price"];
-    [dic setValue:Dict[@"discount_price"] forKey:@"discount_price"];
-    [dic setValue:Dict[@"goods_num"] forKey:@"goods_num"];
-    [dic setValue:Dict[@"goods_description"] forKey:@"goods_description"];
-    [dic setValue:Dict[@"goods_pic"] forKey:@"goods_pic"];
-    [dic setValue:Dict[@"category_id"] forKey:@"category_id"];
+//    [dic setValue:Dict[@"goods_id"] forKey:@"goods_id"];
+//    [dic setValue:Dict[@"goods_name"] forKey:@"goods_name"];
+//    [dic setValue:Dict[@"goods_price"] forKey:@"goods_price"];
+//    [dic setValue:Dict[@"discount_price"] forKey:@"discount_price"];
+//    [dic setValue:Dict[@"goods_num"] forKey:@"goods_num"];
+//    [dic setValue:Dict[@"goods_description"] forKey:@"goods_description"];
+//    [dic setValue:Dict[@"goods_pic"] forKey:@"goods_pic"];
+//    [dic setValue:Dict[@"category_id"] forKey:@"category_id"];
     
+    for (NSString *key in Dict) {
+        //        NSLog(@"%@",key);
+        
+        [dic setValue:Dict[key] forKey:key];
+    }
     
     UserModel *model = [UserModel getUseData];
     [dic setValue:model.token forKey:@"token"];

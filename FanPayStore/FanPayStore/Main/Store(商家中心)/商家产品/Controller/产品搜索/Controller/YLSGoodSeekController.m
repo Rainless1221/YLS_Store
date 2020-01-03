@@ -81,7 +81,8 @@
 }
 /*搜索事件*/
 -(void)SeekAction{
-    
+   
+    [self.GoodsTableview reloadData];
 }
 #pragma mark - UI
 -(void)createUI{
@@ -112,8 +113,8 @@
     cell.backgroundColor = [UIColor clearColor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
+    cell.keyString = self.SearchView.SearchField.text;
     //    cell.Data = self.Data[indexPath.row];
-    
     cell.BianjiBlock = ^{
         YLSAddProductController *VC = [YLSAddProductController new];
 //        VC.goodId = self.gooddata[indexPath.row][@"goods_id"];

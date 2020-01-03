@@ -25,7 +25,7 @@
  */
 
 //测试http://elsapi.en8.top:81/api/
-#define kAPI_URL @"https://exbuy.double.com.cn/api/"
+#define kAPI_URL @"http://elsapi.en8.top:81/api/"
 
 //正式
 #define kAPI_URL1 @"https://exbuy.double.com.cn/api/"

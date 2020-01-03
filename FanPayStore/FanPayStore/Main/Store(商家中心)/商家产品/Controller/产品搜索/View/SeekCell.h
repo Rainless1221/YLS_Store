@@ -24,6 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong,nonatomic)UIButton * GoodsXia;
 /*赋值*/
 @property (strong,nonatomic)NSDictionary * Data;
+/*查询关键字*/
+@property (strong,nonatomic)NSString * keyString;
 
 @property (nonatomic, copy) void(^BianjiBlock)(void);//编辑事件
 @property (nonatomic, copy) void(^SoldBlock)(void);//下架事件

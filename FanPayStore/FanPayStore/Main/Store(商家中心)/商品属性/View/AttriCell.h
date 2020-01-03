@@ -10,8 +10,15 @@
 #import "AttriLabView.h"
 
 NS_ASSUME_NONNULL_BEGIN
+@protocol AttriDataDelegate<NSObject>
+//方法可实现的
+@optional
+//方法必须实现
+-(void)AttriData:(NSString *)attr_name and:(NSString *)attr_value and:(NSInteger)Row;
 
-@interface AttriCell : UITableViewCell<AttriLabDelegate>
+@end
+
+@interface AttriCell : UITableViewCell<AttriLabDelegate,UITextFieldDelegate>
 @property (strong,nonatomic)UILabel * SuXin;
 @property (strong,nonatomic)UIButton * DeleteBtn;
 @property (strong,nonatomic)UIView * BaseView;
@@ -19,6 +26,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong,nonatomic)UIButton * AddAttriBtn;
 @property (strong,nonatomic)UITextField * AttriField1;
 @property (strong, nonatomic) AttriLabView    *tagList;
+/*赋值*/
+@property (strong,nonatomic)NSDictionary * Data;
+@property(nonatomic,weak)id<AttriDataDelegate>delagate;
+@property (nonatomic, copy) void(^AttriDataBlock)(NSString *attr_name,NSString *attr_value);//编辑事件
+@property (nonatomic, copy) void(^DeleteAttriBlock)(void);//删除事件
+
 /*高度*/
 - (CGFloat)getCellHeight;
 @end

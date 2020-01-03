@@ -530,7 +530,7 @@
 //    [SVProgressHUD showErrorWithStatus:@"功能正在开发完善中"];
 //    [self.navigationController pushViewController:[StatisticalController new] animated:YES];
     
-    [self.navigationController pushViewController:[YLSCommodityAttriController new] animated:YES];
+    [self.navigationController pushViewController:[FBHRevenueController new] animated:YES];
 
 }
 #pragma mark -查看更多

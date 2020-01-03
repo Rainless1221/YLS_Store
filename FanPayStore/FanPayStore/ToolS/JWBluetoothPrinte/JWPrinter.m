@@ -306,7 +306,7 @@
     }
     
     if (middle) {
-        [self setOffset:230 + offset];
+        [self setOffset:240 + offset];
         [self setText:middle];
 
     }

@@ -32,11 +32,12 @@
     for (int i = 1; i< self.tagButtons.count+1; i++) {
 
         if (button.tag == i) {
+            [self.tagButtons removeObjectAtIndex:button.tag-1];
 
             // 设置按钮的位置
 //            [self updateTagButtonFrame:button.tag extreMargin:YES];
 
-
+            [self updateLaterTagButtonFrame:button.tag-1];
             /* 选中的标签 */
             if (self.delagate && [self.delagate respondsToSelector:@selector(Addlabelcell: and:)]) {
                 [self.delagate Addlabelcell:button.titleLabel.text and:button.tag-1];
@@ -130,9 +131,14 @@
             preButton = self.tagButtons[preI];
         }
         // 获取当前按钮
-        UIButton *tagButton = self.tagButtons[i-1];
-        
-        [self setupTagButtonCustomFrame:tagButton preButton:preButton extreMargin:YES];
+        if (i==0) {
+            i++;
+        }else{
+            UIButton *tagButton = self.tagButtons[i-1];
+            
+            [self setupTagButtonCustomFrame:tagButton preButton:preButton extreMargin:YES];
+        }
+       
     }
 }
 - (void)updateTagButtonFrame:(NSInteger)i extreMargin:(BOOL)extreMargin
@@ -170,7 +176,8 @@
     CGFloat titleW = [tagButton.titleLabel.text sizeWithFont:[UIFont systemFontOfSize:15]].width;
     CGFloat titleH = [tagButton.titleLabel.text sizeWithFont:[UIFont systemFontOfSize:15]].height;
     
-    CGFloat btnW = extreMargin?titleW + 20 : tagButton.bounds.size.width;
+    CGFloat btnW = extreMargin?titleW + 20
+    : tagButton.bounds.size.width;
     if (tagButton.selected == YES && extreMargin == YES) {
         btnW += 20;
         //        btnW += 5;
@@ -185,11 +192,11 @@
         //        CGFloat height = 20 > titleH ? 20 : titleH;
         //        btnH = height + 2 * 5;
         
-        [tagButton setTitleEdgeInsets:UIEdgeInsetsMake(0, - 20, 0, 20)];
+        [tagButton setTitleEdgeInsets:UIEdgeInsetsMake(0, - 10, 0, 10)];
         
         //        CGFloat imageX = btnW - tagButton.imageView.frame.size.width -  5;
         //        tagButton.imageView.frame = CGRectMake(imageX, (btnH - 20) * 0.5, 20, 20);
-        [tagButton setImageEdgeInsets:UIEdgeInsetsMake(0, (btnW - 30), 0, -10)];
+        [tagButton setImageEdgeInsets:UIEdgeInsetsMake(0, (btnW - 20), 0, -10)];
         
     }else{
         [tagButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];

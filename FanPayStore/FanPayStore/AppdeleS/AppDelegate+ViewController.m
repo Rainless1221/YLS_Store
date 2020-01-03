@@ -473,9 +473,15 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     NSArray *goodsArr = Dict[@"goods_info"];
     for (int i =0; i<goodsArr.count; i++) {
         NSString *name = [NSString stringWithFormat:@"%@",goodsArr[i][@"goods_name"]];
+        NSString *goods_attributes = [NSString stringWithFormat:@"%@",goodsArr[i][@"goods_attributes"]];
+        if ([[MethodCommon judgeStringIsNull:goods_attributes] isEqualToString:@""]) {
+            
+        }else{
+            goods_attributes = [NSString stringWithFormat:@"(%@)",goods_attributes];
+        }
         NSString *price = [NSString stringWithFormat:@"%@ ",goodsArr[i][@"goods_price"]];
         NSString *num =  [NSString stringWithFormat:@" x%@",goodsArr[i][@"goods_num"]];
-        [printer YLSappendLeftText:name  alignment:HLTextAlignmentLeft fontSize:0x03 isTitle:NO];
+        [printer YLSappendLeftText:[NSString stringWithFormat:@"%@%@",name,goods_attributes]  alignment:HLTextAlignmentLeft fontSize:0x03 isTitle:NO];
         [printer setOffset:230];
         [printer YLSappendLeftText:price  alignment:HLTextAlignmentLeft fontSize:0x00 isTitle:NO];
         [printer setOffset:320 ];
@@ -484,18 +490,19 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 //    [printer appendNewLine];
     [printer appendSeperatorLine];
     [printer appendTitle:@"门店金额：" value:Dict[@"account_money"]];
-    [printer appendTitle:@"服务费用：" value:Dict[@"service_money"]];
+    //    [printer appendTitle:@"服务费用：" value:Dict[@"service_money"]];
+    [printer appendTitle:@"平台金额：" value:Dict[@"plat_price"]];
     [printer appendTitle:@"本单节省：" value:Dict[@"save_money"]];
-    [printer appendTitle:@"用户实付：" value:[NSString stringWithFormat:@"%@",Dict[@"actual_money"]]];
+//    [printer appendTitle:@"用户实付：" value:[NSString stringWithFormat:@"%@",Dict[@"actual_money"]]];
 //    [printer appendSeperatorLine];
     [printer appendText:@"-------------------------------" alignment:HLTextAlignmentCenter];
-    double i = [Dict[@"actual_money"] doubleValue];
-    double j = [Dict[@"service_money"] doubleValue];
-    double qian = i - j;
+//    double i = [Dict[@"actual_money"] doubleValue];
+//    double j = [Dict[@"service_money"] doubleValue];
+//    double qian = i - j;
     //    [printer YLSappendLeftText:@"商家实收："  alignment:HLTextAlignmentLeft fontSize:10 isTitle:NO];
     //    [printer setOffset:270];
     //    [printer YLSappendLeftText:[NSString stringWithFormat:@"%.2f",qian]  alignment:HLTextAlignmentRight fontSize:20 isTitle:YES];
-    [printer appendTitle:@"商家实收：" value:[NSString stringWithFormat:@"%.2f",qian] fontSize:0x01];
+    [printer appendTitle:@"实付金额：" value:[NSString stringWithFormat:@"%@",Dict[@"actual_money"]] fontSize:0x01];
 //    [printer appendSeperatorLine];
      [printer appendText:@"-------------------------------" alignment:HLTextAlignmentCenter];
 //    [printer appendNewLine];

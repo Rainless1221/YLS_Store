@@ -179,6 +179,36 @@
         make.bottom.equalTo(self.numlabel.mas_bottom).offset(0);
     }];
     
+    self.save_money_Label1 = [[UILabel alloc]init];
+    self.save_money_Label1.text = @"门店金额";
+    self.save_money_Label1.textColor = UIColorFromRGB(0x999999);
+    self.save_money_Label1.font = [UIFont systemFontOfSize:14];
+    [self.orderView addSubview:self.save_money_Label1];
+    [self.save_money_Label1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_offset(10);
+        make.top.equalTo(self.numlabel.mas_bottom).offset(11.5);
+    }];
+    [self.orderView addSubview:self.account_money];
+    [self.account_money mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_offset(-10);
+        make.top.equalTo(self.numlabel.mas_bottom).offset(11.5);
+    }];
+    
+    self.save_money_Label = [[UILabel alloc]init];
+    self.save_money_Label.text = @"用户实付";
+    self.save_money_Label.textColor = UIColorFromRGB(0x999999);
+    self.save_money_Label.font = [UIFont systemFontOfSize:14];
+    [self.orderView addSubview:self.save_money_Label];
+    [self.save_money_Label mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_offset(10);
+        make.top.equalTo(self.save_money_Label1.mas_bottom).offset(11.5);
+    }];
+    [self.orderView addSubview:self.save_money];
+    [self.save_money mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_offset(-10);
+        make.top.equalTo(self.save_money_Label1.mas_bottom).offset(11.5);
+    }];
+
     self.service_money_Label = [[UILabel alloc]initWithFrame:CGRectMake(10, self.numlabel.bottom+11.5, 150, 13)];
     self.service_money_Label.text = @"服务费用";
     self.service_money_Label.textColor = UIColorFromRGB(0x999999);
@@ -186,35 +216,20 @@
     [self.orderView addSubview:self.service_money_Label];
     [self.service_money_Label mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_offset(10);
-        make.top.equalTo(self.numlabel.mas_bottom).offset(11.5);
+        make.top.equalTo(self.save_money_Label.mas_bottom).offset(11.5);
     }];
     
     [self.orderView addSubview:self.service_money];
     [self.service_money mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_offset(-10);
-        make.top.equalTo(self.numlabel.mas_bottom).offset(11.5);
-    }];
-    
-    self.save_money_Label = [[UILabel alloc]init];
-    self.save_money_Label.text = @"优惠金额";
-    self.save_money_Label.textColor = UIColorFromRGB(0xF7AE2B);
-    self.save_money_Label.font = [UIFont systemFontOfSize:14];
-    [self.orderView addSubview:self.save_money_Label];
-    [self.save_money_Label mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_offset(10);
-        make.top.equalTo(self.service_money_Label.mas_bottom).offset(11.5);
-    }];
-    [self.orderView addSubview:self.save_money];
-    [self.save_money mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_offset(-10);
-        make.top.equalTo(self.service_money_Label.mas_bottom).offset(11.5);
+        make.top.equalTo(self.save_money_Label.mas_bottom).offset(11.5);
     }];
     
     /*退款详情*/
     [self.orderView addSubview:self.TkiconButton];
     [self.TkiconButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_offset(10);
-        make.top.equalTo(self.save_money_Label.mas_bottom).offset(36);
+        make.top.equalTo(self.service_money_Label.mas_bottom).offset(36);
     }];
      /*退款状态*/
     [self.orderView addSubview:self.label_TKtype];
@@ -249,7 +264,7 @@
         make.left.mas_offset(10);
         make.right.mas_offset(-10);
         make.height.mas_offset(0.5);
-        make.top.equalTo(self.save_money_Label.mas_bottom).offset(20);
+        make.top.equalTo(self.service_money_Label.mas_bottom).offset(20);
     }];
     /*评论标题*/
     [self.orderView addSubview:self.label_Eval];
@@ -300,7 +315,7 @@
         make.height.mas_offset(25);
     }];
     
-    self.ZuiLine = [[UIView alloc]initWithFrame:CGRectMake(0, self.numlabel.bottom+250., 1, 1)];
+    self.ZuiLine = [[UIView alloc]initWithFrame:CGRectMake(0, self.numlabel.bottom+290., 1, 1)];
     [self.orderView addSubview:self.ZuiLine];
 }
 #pragma mark - 数据 赋值
@@ -455,6 +470,7 @@
     UILabel *detailslabel = [[UILabel alloc]init];
 
     CGFloat Y = 87.5;
+    CGFloat suxing_h = 0;
     /**循环创建商品l*/
     for (int i = 0; i<GoodsMen; i++) {
         if (_order_id ==1) {
@@ -498,17 +514,20 @@
         goodsName.font = [UIFont systemFontOfSize:15];
         [self.orderView addSubview:goodsName];
         [goodsName mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.OrderLabel.mas_bottom).offset(OrderGodds_H*i+12);
+            make.top.equalTo(self.OrderLabel.mas_bottom).offset(OrderGodds_H*i+12+suxing_h);
             make.left.mas_offset(10);
             make.right.mas_offset(-100);
         }];
+        
+        
+       
         UILabel *goods_price = [[UILabel alloc]init];
         goods_price.text = [NSString stringWithFormat:@"¥%@",OrderGoodsArray[i][@"goods_price"]];
         goods_price.textColor = UIColorFromRGB(0x222222);
         goods_price.font = [UIFont systemFontOfSize:14];
         [self.orderView addSubview:goods_price];
         [goods_price mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.OrderLabel.mas_bottom).offset(OrderGodds_H*i+12);
+            make.top.equalTo(self.OrderLabel.mas_bottom).offset(OrderGodds_H*i+12+suxing_h);
             make.left.equalTo(goodsName.mas_right).offset(0);
             make.width.mas_offset(90);
         }];
@@ -520,18 +539,36 @@
         goods_num.textAlignment = 2;
         [self.orderView addSubview:goods_num];
         [goods_num mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.OrderLabel.mas_bottom).offset(OrderGodds_H*i+12);
+            make.top.equalTo(self.OrderLabel.mas_bottom).offset(OrderGodds_H*i+12+suxing_h);
             make.right.mas_offset(-10);
             make.width.mas_offset(40);
         }];
-        Y = self.OrderLabel.bottom+OrderGodds_H*i+24;
+        
+        NSString *goods_attributes= [NSString stringWithFormat:@"%@",OrderGoodsArray[i][@"goods_attributes"]];
+        if ([[MethodCommon judgeStringIsNull:goods_attributes] isEqualToString:@""]) {
+//            suxing_h = 0;
+        }else{
+            suxing_h = suxing_h+12;
+            UILabel *goodsName1 = [[UILabel alloc]init];
+            goodsName1.text = goods_attributes;
+            goodsName1.textColor = UIColorFromRGB(0x999999);
+            goodsName1.font = [UIFont systemFontOfSize:12];
+            [self.orderView addSubview:goodsName1];
+            [goodsName1 mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(goodsName.mas_bottom).offset(0);
+                make.left.mas_offset(10);
+                make.right.mas_offset(-100);
+            }];
+        }
+        
+        Y = self.OrderLabel.bottom+OrderGodds_H*i+24+suxing_h;
     }
 #pragma mark - /*总计部分*/
     NSString *nums = [NSString stringWithFormat:@"%@",Data[@"total_goods_num"]];
     if ([[MethodCommon judgeStringIsNull:nums] isEqualToString:@""]) {
         nums = @"0";
     }
-    self.numlabel.text = [NSString stringWithFormat:@"总计     共%@件商品",nums];
+    self.numlabel.text = [NSString stringWithFormat:@"共%@件商品  商家实收",nums];
     NSInteger i = [nums integerValue] - 3;
     [detailsButton setTitle:[NSString stringWithFormat:@"查询其余%ld件",i] forState:UIControlStateNormal];
     
@@ -545,7 +582,7 @@
   #pragma mark - /*评论部分*/
 
 
-    self.PLLine.top = self.numlabel.bottom+90;
+    self.PLLine.top = self.numlabel.bottom+100;
 
     //评价状态 0 未评价，1.已评价
     if (eval_status == 0) {
@@ -553,11 +590,11 @@
         self.label_Eval.hidden = YES;
         self.star.hidden = YES;
         self.starEvaluator.hidden = YES;
-        self.ZuiLine.top = self.PLLine.bottom+80;
+        self.ZuiLine.top = self.PLLine.bottom+100;
 
         if (refund_status >= 1 && refund_status <4) {
-            self.PLLine.top = self.numlabel.bottom+69+90;
-            self.ZuiLine.top = self.PLLine.bottom+120;
+            self.PLLine.top = self.numlabel.bottom+69+100;
+            self.ZuiLine.top = self.PLLine.bottom+140;
             self.TkiconButton.hidden = NO;
             self.label_TKtype.hidden = NO;
             self.label_TKmoney_Label.hidden = NO;
@@ -578,14 +615,14 @@
         self.label_Eval.hidden = NO;
         self.star.hidden = NO;
         self.starEvaluator.hidden = NO;
-        self.ZuiLine.top = self.PLLine.bottom+170;
+        self.ZuiLine.top = self.PLLine.bottom+190;
 
         if (refund_status >= 1 && refund_status <4) {
-            self.PLLine.top = self.numlabel.bottom+69+120;
+            self.PLLine.top = self.numlabel.bottom+69+100;
             [self.PLLine mas_updateConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(self.save_money_Label.mas_bottom).offset(130);
+                make.top.equalTo(self.service_money_Label.mas_bottom).offset(20);
             }];
-            self.ZuiLine.top = self.PLLine.bottom+190;
+            self.ZuiLine.top = self.PLLine.bottom+210;
             self.TkiconButton.hidden = NO;
             self.label_TKtype.hidden = NO;
             self.label_TKmoney_Label.hidden = NO;
@@ -613,8 +650,20 @@
     self.service_money.text = [NSString stringWithFormat:@"¥%@",service_money];
 
     //优惠金额
-    self.save_money.text = [NSString stringWithFormat:@"-¥%@",Data[@"save_money"]];
-
+//    self.save_money.text = [NSString stringWithFormat:@"¥%@",Data[@"save_money"]];
+    //account_money。门店金额
+    NSString *account_money =[NSString stringWithFormat:@"%@",Data[@"account_money"]];
+    if ([[MethodCommon judgeStringIsNull:account_money] isEqualToString:@""]) {
+        account_money =@"0";
+    }
+    self.account_money.text = [NSString stringWithFormat:@"¥%@",account_money];
+//order_money。商家实收
+    //actual_money      实际支付金额
+    NSString *actual_money =[NSString stringWithFormat:@"%@",Data[@"actual_money"]];
+    if ([[MethodCommon judgeStringIsNull:actual_money] isEqualToString:@""]) {
+        actual_money =@"0";
+    }
+    self.save_money.text = [NSString stringWithFormat:@"¥%@",actual_money];
 
     //evaluate_score 评分
     NSString *score = [NSString stringWithFormat:@"%@",Data[@"evaluate_score"]];
@@ -636,13 +685,13 @@
         self.label_TKBeiZhu.text = [NSString stringWithFormat:@"备注：%@",refund_remark];
     }
     //订单内商品总价
-    NSString *protocol = [NSString stringWithFormat:@"¥ %@",Data[@"total_goods_price"]];
+    NSString *protocol = [NSString stringWithFormat:@"¥ %@",Data[@"order_money"]];
     NSMutableAttributedString *attri_str=[[NSMutableAttributedString alloc] initWithString:protocol];
     //设置字体颜色
     [attri_str setFont:[UIFont systemFontOfSize:24]];
     NSRange ProRange = [protocol rangeOfString:@"¥"];
     [attri_str setFont:[UIFont systemFontOfSize:14] range:NSMakeRange(0, 1)];
-    [attri_str setTextHighlightRange:ProRange color:[UIColor colorWithHexString:@"222222"] backgroundColor:[UIColor whiteColor] userInfo:nil];
+    [attri_str setTextHighlightRange:ProRange color:[UIColor colorWithHexString:@"F7AE2B"] backgroundColor:[UIColor whiteColor] userInfo:nil];
     self.goods_price.attributedText = attri_str;
 
     /*消费者手机号*/
@@ -1127,7 +1176,7 @@
 -(UILabel *)goods_price{
     if (!_goods_price) {
         _goods_price = [[UILabel alloc]init];
-        _goods_price.textColor = UIColorFromRGB(0x222222);
+        _goods_price.textColor = UIColorFromRGB(0xF7AE2B);
         _goods_price.font = [UIFont systemFontOfSize:24];
     }
     return _goods_price;
@@ -1143,10 +1192,18 @@
 -(UILabel *)save_money{
     if (!_save_money) {
         _save_money = [[UILabel alloc]init];
-        _save_money.textColor = UIColorFromRGB(0xF7AE2B);
+        _save_money.textColor = UIColorFromRGB(0x222222);
         _save_money.font = [UIFont systemFontOfSize:14];
     }
     return _save_money;
+}
+-(UILabel *)account_money{
+    if (!_account_money) {
+        _account_money = [[UILabel alloc]init];
+        _account_money.textColor = UIColorFromRGB(0x222222);
+        _account_money.font = [UIFont systemFontOfSize:14];
+    }
+    return _account_money;
 }
 -(UILabel *)PaymentTime{
     if (!_PaymentTime) {

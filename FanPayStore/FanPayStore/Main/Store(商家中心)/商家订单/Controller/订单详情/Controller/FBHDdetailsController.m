@@ -168,6 +168,7 @@
     }];
     
     NSArray *goodsArr = self.DictData[@"goods_info"];
+   
     /**
      本次订单已评价信息
      */
@@ -308,6 +309,16 @@
 //    self.YSView.status = refund_info.count>0 ? DetailsVieWStatus_2:DetailsVieWStatus_1;
 //    self.YSView.height = goodsArr.count*55+ (refund_info.count >0 ? 310:230);
     
+    /*计算属性的高度*/
+    CGFloat suxing_h = 0;
+    for (NSDictionary *dict in goodsArr) {
+        if ([[MethodCommon judgeStringIsNull:[NSString stringWithFormat:@"%@",dict[@"goods_attributes"]]] isEqualToString:@""]) {
+            
+        }else{
+            suxing_h = suxing_h+12;
+        }
+    }
+    
     if ([refund_status isEqualToString:@"0"] || [refund_status isEqualToString:@"4"]) {
         self.TKView.hidden = YES;
         self.TKView.height = IPHONEHIGHT(10);
@@ -325,7 +336,7 @@
         }
 
         self.YSView.status = DetailsVieWStatus_1;
-         self.YSView.height = goodsArr.count*35+240;
+         self.YSView.height = goodsArr.count*35+260+suxing_h;
     }else{
         self.TKView.hidden = NO;
         self.TKView.height = IPHONEHIGHT(122);
@@ -333,7 +344,7 @@
         self.YYView.height = IPHONEHIGHT(10);
         
         self.YSView.status = DetailsVieWStatus_2;
-         self.YSView.height = goodsArr.count*35+317;
+         self.YSView.height = goodsArr.count*35+337+suxing_h;
     }
 
     
@@ -1152,18 +1163,64 @@
 }
 #pragma mark - 打印
 - (void)printe{
-    
-    if (self.manage.stage != JWScanStageCharacteristics) {
-//        [ProgressShow alertView:self.view Message:@"打印机正在准备中..." cb:nil];
-        ReceiptsController *VC = [ReceiptsController new];
-        VC.ReceiptsData = self.DictData;
-        [self.navigationController pushViewController:VC animated:NO];
+    /*判读外面打印开关*/
+    NSString * isbluetooth = [PublicMethods readFromUserD:@"isbluetooth"];
+    if ([isbluetooth isEqualToString:@"YES"]) {
+        
+    }else{
+        [SVProgressHUD setMinimumDismissTimeInterval:2];
+        [SVProgressHUD showErrorWithStatus:@"未开启打印开关、请开启"];
         return;
     }
+    /*判读开关滑动展示
+     0 ：为关闭打印
+     1 ：云打印
+     2 :   蓝牙打印
+     */
+    NSString * YunLanSound = [PublicMethods readFromUserD:@"YunLanSound"];
+    if ([YunLanSound isEqualToString:@"1"]) {
+        [self dayin:self.order_id];
+        
+    }else if([YunLanSound isEqualToString:@"2"]) {
+//        [self merchant_center_DaYin:data[@"order_id"]];
+        if (self.manage.stage != JWScanStageCharacteristics) {
+            //        [ProgressShow alertView:self.view Message:@"打印机正在准备中..." cb:nil];
+            ReceiptsController *VC = [ReceiptsController new];
+            VC.ReceiptsData = self.DictData;
+            [self.navigationController pushViewController:VC animated:NO];
+            return;
+        }
+        
+        [self JWPrinter_Printer:self.DictData];
+        
+    }else{
+        [SVProgressHUD setMinimumDismissTimeInterval:2];
+        [SVProgressHUD showErrorWithStatus:@"未选择打印方式、请开启选择"];
+    }
     
-    [self JWPrinter_Printer:self.DictData];
+   
     
 
+}
+#pragma mark - 云打印请求
+-(void)dayin:(NSString *)order_id{
+    
+    [MBProgressHUD MBProgress:@"数据加载中..."];
+    UserModel *model = [UserModel getUseData];
+    
+    [[FBHAppViewModel shareViewModel]YlyReceipts:model.merchant_id andstore_id:model.store_id andorder_id:order_id Success:^(NSDictionary *resDic) {
+        if ([resDic[@"status"] integerValue] == 1) {
+            //            NSDictionary *DIC=resDic[@"data"];
+            
+        }else{
+            [SVProgressHUD setMinimumDismissTimeInterval:2];
+            [SVProgressHUD showErrorWithStatus:resDic[@"message"]];
+        }
+        
+        [MBProgressHUD hideHUD];
+    } andfailure:^{
+        [MBProgressHUD hideHUD];
+    }];
 }
 #pragma mark - 提交退款
 -(void)AmountAction{

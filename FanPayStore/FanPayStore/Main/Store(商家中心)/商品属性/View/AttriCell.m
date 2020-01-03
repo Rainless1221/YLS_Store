@@ -92,27 +92,7 @@
     LineView1.backgroundColor = [UIColor colorWithRed:234/255.0 green:234/255.0 blue:234/255.0 alpha:1.0];
     [self.BaseView addSubview:LineView1];
     
-     NSMutableArray *array = [NSMutableArray arrayWithObjects:@"主食",@"推荐菜",@"汤类",@"锅煲",@"特色小食",@"时蔬",@"酒水",@"酒水酒水酒水酒水酒水",@"111",nil];
-    self.tagList = [[AttriLabView alloc]initWithFrame:CGRectMake(0, label2.bottom,ScreenW-35, 10)];
-    self.tagList.tagArray = array;
-    self.tagList.delagate = self;
-    /*标签颜色*/
-    self.tagList.tagColor = UIColorFromRGB(0x666666);
-    /*标签背景颜色*/
-    self.tagList.tagBackgroundColor = UIColorFromRGB(0xF9F9F9);
-    /*选中标签颜色*/
-    self.tagList.SeletagColor = UIColorFromRGB(0xF7AE2B);
-    /*选中标签背景颜色*/
-    self.tagList.SeletagBackgroundColor = UIColorFromRGB(0xFCF6DE);
-    /*标签边框颜色*/
-    self.tagList.borderColor= UIColorFromRGB(0xDCDCDC);
-    /*选中标签边框颜色*/
-    self.tagList.SeleborderColor= UIColorFromRGB(0xF7AE2B);
-    self.tagList.backgroundColor = [UIColor clearColor];//UIColorFromRGB(0xFFFFFF);
     
-    [self.BaseView addSubview:self.tagList];
-    
-    self.BaseView.height  = self.tagList.height +145;
     
     self.SuXin.text = @"属性1";
 }
@@ -132,10 +112,145 @@
         self.frame = frame;
     }];
     
+    /*把数据传过去*/
+    NSString *Keystring = [[NSString alloc]init];
+    for (int i =1; i<=self.tagList.tagButtons.count; i++) {
+        
+        UIButton *preButton = self.tagList.tagButtons[i-1];
+        NSString *urlstring = [NSString stringWithFormat:@"%@",preButton.titleLabel.text];
+        if (i == self.tagList.tagButtons.count) {
+            Keystring = [Keystring stringByAppendingFormat:@"%@",urlstring];
+        }else{
+            Keystring = [Keystring stringByAppendingFormat:@"%@,",urlstring];
+        }
+        
+    }
+    
+    if (self.AttriDataBlock) {
+        self.AttriDataBlock(self.AttriField.text, Keystring);
+    }
+    
+    if (self.delagate && [self.delagate respondsToSelector:@selector(AttriData:and:and:)]) {
+        [self.delagate AttriData:self.AttriField.text and:Keystring and:1];
+    }
+    
+}
+//-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+//{
+//    NSLog(@"1");//输入文字时 一直监听
+//    NSString *text = [textField.text stringByReplacingCharactersInRange:range withString:string];
+//    if (text.length==0||text==nil) {
+//
+//    }else{
+//        /*把数据传过去*/
+//        NSString *Keystring = [[NSString alloc]init];
+//        for (int i =1; i<=self.tagList.tagButtons.count; i++) {
+//
+//            UIButton *preButton = self.tagList.tagButtons[i-1];
+//            NSString *urlstring = [NSString stringWithFormat:@"%@",preButton.titleLabel.text];
+//            if (i == self.tagList.tagButtons.count) {
+//                Keystring = [Keystring stringByAppendingFormat:@"%@",urlstring];
+//            }else{
+//                Keystring = [Keystring stringByAppendingFormat:@"%@,",urlstring];
+//            }
+//
+//        }
+//        if (self.AttriDataBlock) {
+//            self.AttriDataBlock(text, Keystring);
+//        }
+//    }
+//
+//
+//    return YES;
+//}
+-(void)textFieldDidEndEditing:(UITextField *)textField
+{
+    NSLog(@"3");//文本彻底结束编辑时调用
+    /*把数据传过去*/
+    NSString *Keystring = [[NSString alloc]init];
+    for (int i =1; i<=self.tagList.tagButtons.count; i++) {
+        
+        UIButton *preButton = self.tagList.tagButtons[i-1];
+        NSString *urlstring = [NSString stringWithFormat:@"%@",preButton.titleLabel.text];
+        if (i == self.tagList.tagButtons.count) {
+            Keystring = [Keystring stringByAppendingFormat:@"%@",urlstring];
+        }else{
+            Keystring = [Keystring stringByAppendingFormat:@"%@,",urlstring];
+        }
+        
+    }
+    if (self.AttriDataBlock) {
+        self.AttriDataBlock(textField.text, Keystring);
+    }
+}
+#pragma mark - 删除
+-(void)DeleteAttri{
+    if (self.DeleteAttriBlock) {
+        self.DeleteAttriBlock();
+    }
 }
 #pragma mark - 高度
 - (CGFloat)getCellHeight{
     return self.BaseView.height;
+}
+#pragma mark - 赋值
+-(void)setData:(NSDictionary *)Data{
+    _Data = Data;
+    
+    NSString *attr_name = [NSString stringWithFormat:@"%@", Data [@"attr_name"]];
+    self.AttriField.text = attr_name;
+
+    NSMutableArray *array = [NSMutableArray arrayWithObjects:nil];
+    self.tagList = [[AttriLabView alloc]initWithFrame:CGRectMake(0, 100.5,ScreenW-35, 10)];
+    NSString *attr_value = [NSString stringWithFormat:@"%@", Data [@"attr_value"]];
+    if ([[MethodCommon judgeStringIsNull:attr_value] isEqualToString:@""]) {
+        
+    }else{
+        NSArray *array1 = [attr_value componentsSeparatedByString:@","];
+        for (NSString *attr_value in array1) {
+            [array addObject:attr_value];
+        }
+        
+    }
+    self.tagList.tagArray = array;
+    self.tagList.delagate = self;
+    /*标签颜色*/
+    self.tagList.tagColor = UIColorFromRGB(0x666666);
+    /*标签背景颜色*/
+    self.tagList.tagBackgroundColor = UIColorFromRGB(0xF9F9F9);
+    /*选中标签颜色*/
+    self.tagList.SeletagColor = UIColorFromRGB(0xF7AE2B);
+    /*选中标签背景颜色*/
+    self.tagList.SeletagBackgroundColor = UIColorFromRGB(0xFCF6DE);
+    /*标签边框颜色*/
+    self.tagList.borderColor= UIColorFromRGB(0xDCDCDC);
+    /*选中标签边框颜色*/
+    self.tagList.SeleborderColor= UIColorFromRGB(0xF7AE2B);
+    self.tagList.backgroundColor = [UIColor clearColor];//UIColorFromRGB(0xFFFFFF);
+    
+    [self.BaseView addSubview:self.tagList];
+    
+    self.BaseView.height  = self.tagList.height +145;
+}
+-(void)Addlabelcell:(NSString *)lableString and:(NSInteger)integer{
+    /*把数据传过去*/
+    NSString *Keystring = [[NSString alloc]init];
+    for (int i =1; i<=self.tagList.tagButtons.count; i++) {
+        
+        UIButton *preButton = self.tagList.tagButtons[i-1];
+        NSString *urlstring = [NSString stringWithFormat:@"%@",preButton.titleLabel.text];
+        if (i == self.tagList.tagButtons.count) {
+            Keystring = [Keystring stringByAppendingFormat:@"%@",urlstring];
+        }else{
+            Keystring = [Keystring stringByAppendingFormat:@"%@,",urlstring];
+        }
+        
+    }
+    if (self.AttriDataBlock) {
+        self.AttriDataBlock(self.AttriField.text, Keystring);
+    }
+    
+  
 }
 #pragma mark - 懒加载
 -(UILabel *)SuXin{
@@ -157,6 +272,7 @@
         _DeleteBtn.layer.borderWidth = 1;
         _DeleteBtn.layer.borderColor = UIColorFromRGB(0xD03B34).CGColor;
         _DeleteBtn.layer.cornerRadius = 10;
+        [_DeleteBtn addTarget:self action:@selector(DeleteAttri) forControlEvents:UIControlEventTouchUpInside];
     }
     return _DeleteBtn;
 }
@@ -174,6 +290,7 @@
         _AttriField = [[UITextField alloc]init];
         _AttriField.placeholder = @"例如：甜度，辣度";
         _AttriField.font = [UIFont systemFontOfSize:15];
+        _AttriField.delegate = self;
     }
     return _AttriField;
 }

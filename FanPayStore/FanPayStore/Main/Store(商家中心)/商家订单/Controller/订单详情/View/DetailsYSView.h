@@ -21,6 +21,9 @@ typedef enum{
 @property (strong,nonatomic)UILabel * label_YH;// 翻呗优惠标题
 @property (strong,nonatomic)UILabel * hotelY;// 翻呗优惠
 
+@property (strong,nonatomic)UILabel * label_YH1;//
+@property (strong,nonatomic)UILabel * hotelY1;//
+
 @property (strong,nonatomic)UILabel * hotelSF;// 实付
 @property (strong,nonatomic)UILabel * label_TK;// 退款
 @property (strong,nonatomic)UILabel * label_TKBeiZhu;// 退款备注

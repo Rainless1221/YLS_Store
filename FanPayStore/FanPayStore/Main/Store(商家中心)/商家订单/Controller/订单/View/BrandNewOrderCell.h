@@ -36,6 +36,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong,nonatomic)UILabel * service_money;//服务费用
 @property (strong,nonatomic)UILabel * save_money_Label;//优惠标题
 @property (strong,nonatomic)UILabel * save_money;//优惠
+@property (strong,nonatomic)UILabel * save_money_Label1;//
+@property (strong,nonatomic)UILabel * account_money;//
 @property (strong,nonatomic)UILabel * goods_price;
 
 @property (strong,nonatomic)UILabel * PaymentTime;//支付时间

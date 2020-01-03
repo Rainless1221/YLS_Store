@@ -259,6 +259,8 @@
     self.navigationItem.title = @"商家产品";
     self.goodsIsClips = NO;
     self.view.backgroundColor = MainbackgroundColor;
+    [self merchant_center];
+    [self merchant_center1];
     /**
      *  导航栏
      */
@@ -277,7 +279,7 @@
 }
 #pragma mark - 导航栏
 -(void)setupNav{
-    UIButton *leftbutton=[[UIButton alloc]initWithFrame:CGRectMake(0, 0, 40, 28)];
+    UIButton *leftbutton=[[UIButton alloc]initWithFrame:CGRectMake(0, 0, 35, 28)];
 //    [leftbutton setBackgroundColor:UIColorFromRGB(0xF7AE2B)];
 //    [leftbutton setTitle:@"+发布" forState:UIControlStateNormal];
     [leftbutton setImage:[UIImage imageNamed:@"icn_nav_search_black_normal"] forState:UIControlStateNormal];

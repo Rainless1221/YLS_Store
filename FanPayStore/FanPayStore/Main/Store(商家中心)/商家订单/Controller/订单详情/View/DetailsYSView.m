@@ -145,7 +145,7 @@
     label_paid_type.numberOfLines = 0;
     label_paid_type.font = [UIFont fontWithName:@"American Typewriter" size: 14];
     label_paid_type.textColor = [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1.0];
-    label_paid_type.text = @"实付";
+    label_paid_type.text = @"商家实收";
     label_paid_type.textAlignment = 0;
     [self addSubview:label_paid_type];
     [label_paid_type mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -185,6 +185,45 @@
         make.right.mas_offset(@(-10));
         make.height.mas_equalTo(0.5);
     }];
+#pragma mark -   /*门店金额*/
+    self.label_YH1  = [[UILabel alloc] init];
+    self.label_YH1.numberOfLines = 0;
+    self.label_YH1.font = [UIFont fontWithName:@"American Typewriter" size: 14];
+    self.label_YH1.textColor = [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1.0];
+    self.label_YH1.text = @"门店金额";
+    self.label_YH1.textAlignment = 0;
+    [self addSubview:self.label_YH1];
+    [self.label_YH1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view_line_4.mas_bottom).offset(19);
+        make.left.mas_offset(10);
+        make.size.mas_offset(CGSizeMake(90, 13));
+    }];
+    [self addSubview:self.hotelY1];
+    [self.hotelY1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view_line_4.mas_bottom).offset(19);
+        make.right.mas_offset(-10);
+    }];
+
+    
+#pragma mark -   /*优惠金额*/
+    self.label_YH  = [[UILabel alloc] init];
+    self.label_YH.numberOfLines = 0;
+    self.label_YH.font = [UIFont fontWithName:@"American Typewriter" size: 14];
+    self.label_YH.textColor = [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1.0];
+    self.label_YH.text = @"用户实付";
+    self.label_YH.textAlignment = 0;
+    [self addSubview:self.label_YH];
+    [self.label_YH mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.label_YH1.mas_bottom).offset(11.5);
+        make.left.mas_offset(10);
+        make.size.mas_offset(CGSizeMake(90, 13));
+    }];
+    [self addSubview:self.hotelY];
+    [self.hotelY mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.label_YH1.mas_bottom).offset(11.5);
+        make.right.mas_offset(-10);
+    }];
+    
 #pragma mark -   /*服务费用*/
     self.label_FW  = [[UILabel alloc] init];
     self.label_FW.numberOfLines = 0;
@@ -194,35 +233,17 @@
     self.label_FW.textAlignment = 0;
     [self addSubview:self.label_FW];
     [self.label_FW mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view_line_4.mas_bottom).offset(19);
+        make.top.equalTo(self.label_YH.mas_bottom).offset(11.5);
         make.left.mas_offset(10);
         make.size.mas_offset(CGSizeMake(90, 13));
     }];
     
     [self addSubview:self.hotelFW];
     [self.hotelFW mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view_line_4.mas_bottom).offset(19);
+         make.top.equalTo(self.label_YH.mas_bottom).offset(11.5);
         make.right.mas_offset(-10);
     }];
-    
-#pragma mark -   /*优惠金额*/
-    self.label_YH  = [[UILabel alloc] init];
-    self.label_YH.numberOfLines = 0;
-    self.label_YH.font = [UIFont fontWithName:@"American Typewriter" size: 14];
-    self.label_YH.textColor = [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1.0];
-    self.label_YH.text = @"优惠金额";
-    self.label_YH.textAlignment = 0;
-    [self addSubview:self.label_YH];
-    [self.label_YH mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.label_FW.mas_bottom).offset(11.5);
-        make.left.mas_offset(10);
-        make.size.mas_offset(CGSizeMake(90, 13));
-    }];
-    [self addSubview:self.hotelY];
-    [self.hotelY mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.label_FW.mas_bottom).offset(11.5);
-        make.right.mas_offset(-10);
-    }];
+
     
     
 }
@@ -319,7 +340,7 @@
         self.view_line_3.backgroundColor = UIColorFromRGB(0xEAEAEA);
         [self addSubview:self.view_line_3];
         [self.view_line_3 mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo( self.view_line_4.mas_bottom).offset(77);
+            make.top.equalTo( self.view_line_4.mas_bottom).offset(97);
             make.left.mas_offset(@(10));
             make.right.mas_offset(@(-10));
             make.height.mas_equalTo(0.5);
@@ -398,6 +419,7 @@
 #pragma mark - 赋值
 - (void)setData:(NSDictionary *)Data{
     
+    CGFloat suxing_h = 0;
     NSArray *goodsArr = Data[@"goods_info"];
 
     for (int i =0; i<goodsArr.count; i++) {
@@ -408,11 +430,12 @@
         goodsName.font = [UIFont systemFontOfSize:15];
         [self addSubview:goodsName];
         [goodsName mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_offset(80+35*i);
+            make.top.mas_offset(80+35*i+suxing_h);
             make.left.mas_offset(10);
             make.size.mas_offset(CGSizeMake(self.width/1.6, 25));
         }];
         
+       
         
         UILabel *goods_price = [[UILabel alloc]init];
         goods_price.text = [NSString stringWithFormat:@"¥ %@",goodsArr[i][@"goods_price"]];
@@ -420,7 +443,7 @@
         goods_price.font = [UIFont systemFontOfSize:14];
         [self addSubview:goods_price];
         [goods_price mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_offset(80+35*i);
+            make.top.mas_offset(80+35*i+suxing_h);
             make.left.equalTo(goodsName.mas_right).offset(15);
             make.size.mas_offset(CGSizeMake(self.width/4, 25));
         }];
@@ -432,17 +455,36 @@
         goods_num.textAlignment = 2;
         [self addSubview:goods_num];
         [goods_num mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_offset(80+35*i);
+            make.top.mas_offset(80+35*i+suxing_h);
             make.right.mas_offset(-10);
             make.size.mas_offset(CGSizeMake(self.width/4, 25));
         }];
+        
+        NSString *goods_attributes= [NSString stringWithFormat:@"%@",goodsArr[i][@"goods_attributes"]];
+        if ([[MethodCommon judgeStringIsNull:goods_attributes] isEqualToString:@""]) {
+//            suxing_h = 0;
+        }else{
+             suxing_h = suxing_h+12;
+            UILabel *goodsName1 = [[UILabel alloc]init];
+            goodsName1.text = goods_attributes;
+            goodsName1.textColor = UIColorFromRGB(0x999999);
+            goodsName1.font = [UIFont systemFontOfSize:12];
+            [self addSubview:goodsName1];
+            [goodsName1 mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(goodsName.mas_bottom).offset(0);
+                make.left.mas_offset(10);
+                make.right.mas_offset(-100);
+            }];
+        }
+        
     }
+    
     
    
     [self.view_line_4 mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_offset(95+35*goodsArr.count);
+        make.top.mas_offset(95+35*goodsArr.count+suxing_h);
     }];
-    self.view_line_4.top = 95+35*goodsArr.count;
+    self.view_line_4.top = 95+35*goodsArr.count+suxing_h;
     
     NSInteger lineW = (ScreenW-50)/9;
     for (int i=0; i<=lineW; i++) {
@@ -490,24 +532,41 @@
 
     }
     
-     /*优惠*/
-    NSString  *save_money = [NSString stringWithFormat:@"%@",Data[@"save_money"]];
-    if ([[MethodCommon judgeStringIsNull:save_money] isEqualToString:@""]) {
-        self.hotelY.text = @"-¥00";
+    /*门店金额*/
+    NSString  *account_money = [NSString stringWithFormat:@"%@",Data[@"account_money"]];
+    if ([[MethodCommon judgeStringIsNull:account_money] isEqualToString:@""]) {
+        self.hotelY1.text = @"¥00";
     }else{
-        self.hotelY.text = [NSString stringWithFormat:@"-¥%@",save_money];
-
+        self.hotelY1.text = [NSString stringWithFormat:@"¥%@",account_money];
+        
     }
     
-    
-    /*实付*/
-    NSString *actual_money = [NSString stringWithFormat:@"%@",Data[@"actual_money"]];
+     /*实付金额*/
+    NSString  *actual_money = [NSString stringWithFormat:@"%@",Data[@"actual_money"]];
     if ([[MethodCommon judgeStringIsNull:actual_money] isEqualToString:@""]) {
-        self.hotelSF.text = @"¥00";
+        self.hotelY.text = @"¥00";
     }else{
-        self.hotelSF.text = [NSString stringWithFormat:@"¥%@",actual_money];
+        self.hotelY.text = [NSString stringWithFormat:@"¥%@",actual_money];
 
     }
+    
+    
+    /*实收*/
+    NSString *order_money = [NSString stringWithFormat:@"%@",Data[@"order_money"]];
+    if ([[MethodCommon judgeStringIsNull:order_money] isEqualToString:@""]) {
+        order_money = @"00";
+    }else{
+
+    }
+    NSString *protocol = [NSString stringWithFormat:@"¥%@",order_money];
+    NSMutableAttributedString *attri_str=[[NSMutableAttributedString alloc] initWithString:protocol];
+    //设置字体颜色
+    [attri_str setFont:[UIFont systemFontOfSize:24]];
+    NSRange ProRange = [protocol rangeOfString:@"¥"];
+    [attri_str setFont:[UIFont systemFontOfSize:14] range:NSMakeRange(0, 1)];
+    [attri_str setTextHighlightRange:ProRange color:[UIColor colorWithHexString:@"F7AE2B"] backgroundColor:[UIColor whiteColor] userInfo:nil];
+    self.hotelSF.attributedText = attri_str;
+    
        /*退款备注*/
     NSString *refund_remark = [NSString stringWithFormat:@"%@",Data[@"refund_info"][@"refund_remark"]];
     if ([[MethodCommon judgeStringIsNull:refund_remark] isEqualToString:@""]) {
@@ -542,17 +601,27 @@
         _hotelY = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.width, 12)];
         _hotelY.numberOfLines = 0;
         _hotelY.textAlignment = 1;
-        _hotelY.textColor = [UIColor colorWithRed:247/255.0 green:174/255.0 blue:43/255.0 alpha:1.0];
+        _hotelY.textColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1.0];
         _hotelY.font = [UIFont fontWithName:@"Arial-BoldMT" size: 14];
     }
     return _hotelY;
+}
+-(UILabel *)hotelY1{
+    if (!_hotelY1) {
+        _hotelY1 = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.width, 12)];
+        _hotelY1.numberOfLines = 0;
+        _hotelY1.textAlignment = 1;
+        _hotelY1.textColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1.0];
+        _hotelY1.font = [UIFont fontWithName:@"Arial-BoldMT" size: 14];
+    }
+    return _hotelY1;
 }
 -(UILabel *)hotelSF{
     if (!_hotelSF) {
         _hotelSF = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.width, 12)];
         _hotelSF.numberOfLines = 0;
         _hotelSF.textAlignment = 1;
-        _hotelSF.textColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1.0];
+        _hotelSF.textColor = [UIColor colorWithRed:247/255.0 green:174/255.0 blue:43/255.0 alpha:1.0];
         _hotelSF.font = [UIFont fontWithName:@"Arial-BoldMT" size: 24];
     }
     return _hotelSF;

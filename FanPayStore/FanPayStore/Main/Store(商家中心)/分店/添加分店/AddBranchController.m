@@ -226,6 +226,7 @@
     
     UITextField *phone_fie = [[UITextField alloc]initWithFrame:CGRectMake(phone.right, phone.top, self.AddView.width-70, 50)];
     phone_fie.placeholder = @"请输入手机号";
+    phone_fie.keyboardType = UIKeyboardTypePhonePad;
     self.phone_fie = phone_fie;
     [self.AddView addSubview:phone_fie];
     
@@ -236,6 +237,7 @@
     MSM_fie.placeholder = @"请输入验证码";
     MSM_fie.textColor= UIColorFromRGB(0x3D8AFF);
     MSM_fie.font = [UIFont systemFontOfSize:autoScaleW(16)];
+    MSM_fie.keyboardType = UIKeyboardTypePhonePad;
     self.MSM_fie = MSM_fie;
     [self.AddView addSubview:MSM_fie];
     
@@ -257,7 +259,7 @@
     UITextField *pwss_fie = [[UITextField alloc]initWithFrame:CGRectMake(10, MSM_fie.bottom, self.AddView.width-20, 50)];
     pwss_fie.placeholder = @"请设置登录密码";
     pwss_fie.textColor = UIColorFromRGB(0x3D8AFF);
-    MSM_fie.font = [UIFont systemFontOfSize:autoScaleW(16)];
+    pwss_fie.font = [UIFont systemFontOfSize:autoScaleW(16)];
     self.pwss_fie = pwss_fie;
     [self.AddView addSubview:pwss_fie];
     

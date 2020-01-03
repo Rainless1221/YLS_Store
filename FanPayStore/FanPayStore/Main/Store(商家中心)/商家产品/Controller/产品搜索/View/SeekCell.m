@@ -63,18 +63,10 @@
          make.size.mas_offset(CGSizeMake(56, 27));
     }];
     
-    self.GoodsName.text = @"家乐福开始的";
     
-    NSString *goods_price = [NSString stringWithFormat:@"3221"];
-    if ([[MethodCommon judgeStringIsNull:goods_price] isEqualToString:@""]) {
-        goods_price = @"     ¥ 0.00  ";
-    }else{
-        goods_price = [NSString stringWithFormat:@"  ¥ %@  ",goods_price];
-    }
-    NSMutableAttributedString *mutStr1 = [[NSMutableAttributedString alloc]initWithString:goods_price];
-    NSRange range1 = NSMakeRange(0, 3);
-    [mutStr1 addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:11] range:range1];
-    self.GoodsPrice.attributedText = mutStr1;
+    
+    
+   
 
 }
 #pragma mark - 编辑事件
@@ -103,6 +95,30 @@
 //    NSRange range1 = NSMakeRange(0, 3);
 //    [mutStr1 addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:12] range:range1];
 //    self.GoodsPrice.attributedText = mutStr1;
+}
+
+-(void)setKeyString:(NSString *)keyString{
+    
+    NSString *protocol =  @"家乐福开始的";
+    NSMutableAttributedString *attri_str = [[NSMutableAttributedString alloc] initWithString:protocol];
+    //设置字体颜色
+    attri_str.color = [UIColor colorWithHexString:@"222222"];
+    NSRange ProRange = [protocol rangeOfString:keyString];
+    
+    [attri_str setTextHighlightRange:ProRange color:[UIColor colorWithHexString:@"F7AE2B"] backgroundColor:[UIColor colorWithHexString:@"222222"] userInfo:nil];
+    self.GoodsName.attributedText = attri_str;
+    
+    
+    NSString *goods_price = [NSString stringWithFormat:@"3221"];
+    if ([[MethodCommon judgeStringIsNull:goods_price] isEqualToString:@""]) {
+        goods_price = @"     ¥ 0.00  ";
+    }else{
+        goods_price = [NSString stringWithFormat:@"  ¥ %@  ",goods_price];
+    }
+    NSMutableAttributedString *mutStr1 = [[NSMutableAttributedString alloc]initWithString:goods_price];
+    NSRange range1 = NSMakeRange(0, 3);
+    [mutStr1 addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:11] range:range1];
+    self.GoodsPrice.attributedText = mutStr1;
 }
 #pragma mark - 懒加载
 -(UIView *)BaseView{
@@ -136,6 +152,7 @@
         _GoodsPrice.numberOfLines = 1;
         _GoodsPrice.layer.cornerRadius = 5;
         _GoodsPrice.layer.borderWidth = 0.7;
+        _GoodsPrice.layer.masksToBounds = YES;
         _GoodsPrice.textColor = UIColorFromRGB(0xEE4E3E);
         _GoodsPrice.layer.borderColor = UIColorFromRGB(0xF0BAB6).CGColor;
         _GoodsPrice.backgroundColor = UIColorFromRGB(0xFCE9E8);
@@ -170,4 +187,5 @@
     }
     return _GoodsXia;
 }
+
 @end

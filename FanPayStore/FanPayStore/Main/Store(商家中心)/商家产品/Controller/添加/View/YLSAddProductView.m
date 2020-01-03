@@ -594,8 +594,11 @@
     [self get_plat_price_rate:self.discount_price.text];
     
     
+   
+    
     
 }
+
 #pragma mark - 懒加载
 -(UIView *)GoodsView{
     if (!_GoodsView) {

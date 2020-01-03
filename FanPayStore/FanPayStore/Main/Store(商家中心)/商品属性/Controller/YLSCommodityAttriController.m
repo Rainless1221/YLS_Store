@@ -10,18 +10,29 @@
 #import "AttriCell.h"
 #import "AttriLabView.h"
 
-@interface YLSCommodityAttriController ()<UITableViewDelegate,UITableViewDataSource>
+@interface YLSCommodityAttriController ()<UITableViewDelegate,UITableViewDataSource,AttriDataDelegate>
 @property (strong,nonatomic)UITableView * AttriTableview;
-/** 数据 **/
-@property (strong,nonatomic)NSMutableArray * Data;
+
 
 @end
-
+//@"不辣,微辣,二级辣,中辣,大辣,变态辣"
 @implementation YLSCommodityAttriController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"商品属性";
+    
+    if (self.Data.count==0) {
+        NSArray *marArr = @[@{@"attr_name":@"",
+                              @"attr_value":@""
+                              },
+                            ];
+        
+        for (NSDictionary *dict in marArr) {
+            [self.Data addObject:dict];
+            
+        }
+    }
     /*导航栏*/
     [self setupNav];
     /*UI*/
@@ -42,7 +53,7 @@
     
 }
 -(void)SaveAction{
-    
+     [self.view endEditing:YES];
     DeleteView *samView = [[DeleteView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     samView.deleteIcon.image = [UIImage imageNamed:@"icn_alert"];
     samView.deleteLabel.text = @"确认保存";
@@ -51,8 +62,15 @@
      [samView.deleteButton setTitle:@"保存退出" forState:UIControlStateNormal];
     [samView.cancel setTitle:@"退出" forState:UIControlStateNormal];
     samView.DeleteCardBlock = ^{
-//        [self Delete_goods:goodsArr];
+        NSMutableArray *Array = [NSMutableArray array];
+        for (NSDictionary*dict in self.Data) {
+            [Array addObject:dict];
+        }
         
+        if (self.delagate && [self.delagate respondsToSelector:@selector(AddlAttri:and:and:)]) {
+            [self.delagate AddlAttri:@"" and:@"" and:Array];
+        }
+        [self.navigationController popViewControllerAnimated:YES];
     };
     [[UIApplication sharedApplication].keyWindow addSubview:samView];
     
@@ -97,18 +115,33 @@
 
 #pragma mark - TableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    return self.Data.count;
-    return 1;
+    return self.Data.count;
+//    return 1;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     AttriCell * cell= [tableView dequeueReusableCellWithIdentifier:@"AttriCell"];
     cell=[[AttriCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AttriCell"];
-    
+    cell.delagate = self;
     cell.backgroundColor = [UIColor clearColor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.SuXin.text = [NSString stringWithFormat:@"属性%ld",indexPath.row+1];
+    cell.Data = self.Data[indexPath.row];
     
-//    cell.Data = self.Data[indexPath.row];
+    cell.AttriDataBlock = ^(NSString * _Nonnull attr_name, NSString * _Nonnull attr_value) {
+        [self.Data removeObjectAtIndex:indexPath.row];
+        NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+        [dict setObject:attr_name forKey:@"attr_name"];
+        [dict setObject:attr_value forKey:@"attr_value"];
+        
+        [self.Data insertObject:dict atIndex:indexPath.row];
+        [self.AttriTableview reloadData];
+    };
+    
+    cell.DeleteAttriBlock = ^{
+         [self.Data removeObjectAtIndex:indexPath.row];
+         [self.AttriTableview reloadData];
+    };
     return cell;
 }
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
@@ -159,17 +192,30 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     //当手指离开某行时，就让某行的选中状态消失
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (self.delagate && [self.delagate respondsToSelector:@selector(AddlAttri:and:)]) {
-        [self.delagate AddlAttri:@"" and:@""];
-    }
-    [self.navigationController popViewControllerAnimated:YES];
+   
 }
 #pragma mark -  添加属性
 -(void)AddAttriAction{
+    NSArray *marArr = @[@{@"attr_name":@"",
+                          @"attr_value":@""
+                          },
+                        ];
     
+    for (NSDictionary *dict in marArr) {
+        [self.Data addObject:dict];
+        
+    }
+    [self.AttriTableview reloadData];
 }
 #pragma mark -  删除属性
 -(void)DeleteAttriAction{
+    
+}
+#pragma mark -传过来的数据
+-(void)AttriData:(NSString *)attr_name and:(NSString *)attr_value{
+    
+   
+    
     
 }
 #pragma mark - 懒加载

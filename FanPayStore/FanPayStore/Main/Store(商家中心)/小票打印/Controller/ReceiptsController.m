@@ -230,7 +230,7 @@
 #pragma mark -  列表头部
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *HeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 111)];
-    HeaderView.backgroundColor = [UIColor clearColor];
+    HeaderView.backgroundColor = UIColorFromRGB(0xF6F6F6);
     
     
     UIView *view_OFF = [[UIView alloc] init];
@@ -390,7 +390,7 @@
 #pragma mark - UI
 - (void) _createTableView{
     if (!_ReceiptstableView) {
-        _ReceiptstableView = [[UITableView alloc]initWithFrame:CGRectMake(15, 0, self.view.frame.size.width-30, self.view.frame.size.height - 64) style:UITableViewStylePlain];
+        _ReceiptstableView = [[UITableView alloc]initWithFrame:CGRectMake(15, 0, self.view.frame.size.width-30, self.view.frame.size.height - 64) style:UITableViewStyleGrouped];
         _ReceiptstableView.delegate = self;
         _ReceiptstableView.dataSource = self;
         _ReceiptstableView.layer.cornerRadius = 10;

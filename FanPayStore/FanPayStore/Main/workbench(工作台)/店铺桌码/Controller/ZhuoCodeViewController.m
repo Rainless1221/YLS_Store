@@ -362,7 +362,7 @@
     [queButton_sl.titleLabel setFont:[UIFont systemFontOfSize:18]];
     queButton_sl.backgroundColor = UIColorFromRGB(0xF7AE2B);
     [queButton_sl setTitleColor:UIColorFromRGB(0x222222) forState:UIControlStateNormal];
-    [queButton_sl addTarget:self action:@selector(queButtonaction) forControlEvents:UIControlEventTouchUpInside];
+    [queButton_sl addTarget:self action:@selector(Buttonaction) forControlEvents:UIControlEventTouchUpInside];
     queButton_sl.layer.cornerRadius = 10;
     [SLview addSubview:queButton_sl];
     [queButton_sl mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -564,7 +564,7 @@
 #pragma mark - 懒加载
 -(UITableView *)CodeTabelview{
     if (!_CodeTabelview) {
-        _CodeTabelview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, ScreenH) style:UITableViewStylePlain];
+        _CodeTabelview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, ScreenH) style:UITableViewStyleGrouped];
         _CodeTabelview.delegate = self;
         _CodeTabelview.dataSource = self;
         _CodeTabelview.backgroundColor = UIColorFromRGB(0xF6F6F6);

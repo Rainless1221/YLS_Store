@@ -12,12 +12,17 @@
 #define  ScrollJIna_H 130
 
 @interface YLSAddProductController ()<ThelabelDelegate,AddProductDelegate,AttriAndDelegate,ZXCollectionCellDelegate,TZImagePickerControllerDelegate,UICollectionViewDataSource,UICollectionViewDelegate>
+{
+    CGFloat _View_h;
+}
 @property (strong,nonatomic)UIScrollView * ProductScrollView;
 @property (strong,nonatomic)YLSAddProductView *  ProductView;
 /*标签ID*/
 @property (strong,nonatomic)NSString * category_id;
-/*属性s数组*/
+/*属性数组*/
 @property (strong,nonatomic)NSMutableArray * AttributeArraty;
+/*属性视图*/
+@property (strong,nonatomic)UIView * AttBaseView;
 /*图片展示视图*/
 @property (nonatomic,strong)UICollectionView *collectionView;
 /** 展示的图片数组*/
@@ -54,6 +59,13 @@
             NSDictionary *DIC=resDic[@"data"];
             
             self.ProductView.Data = DIC;
+            NSString *json = [NSString stringWithFormat:@"%@",DIC[@"goods_attributes"]];
+            //string转data
+            NSData * jsonData = [json dataUsingEncoding:NSUTF8StringEncoding];
+            //json解析
+            self.AttributeArraty = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:nil];
+            
+            [self AddlAttri:@"" and:@"" and:self.AttributeArraty];
             
             self.category_id = [NSString stringWithFormat:@"%@",DIC[@"category_id"]];
             NSString * lableString = [NSString stringWithFormat:@"%@",DIC[@"category_name"]];
@@ -83,21 +95,22 @@
             
             
             
+            
             /** 图片数组 */
             self.goods_pic = [NSString stringWithFormat:@"%@",DIC[@"goods_pic"]];
             NSArray *array = [self.goods_pic componentsSeparatedByString:@","];
             
             if (array.count>=3&&array.count<9) {
                 NSInteger page = self.UrlimageArr.count / 3;
-                self.ProductScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, ScrollView_H+125*page+(62*self.AttributeArraty.count));
+                self.ProductScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, ScrollView_H+125*page+_View_h);
                 [self.ProductView.AttributeView mas_updateConstraints:^(MASConstraintMaker *make) {
-                    make.height.mas_offset(50+(62*self.AttributeArraty.count));
+                    make.height.mas_offset(50+_View_h);
                 }];
                 self.ProductView.height = self.ProductScrollView.contentSize.height-ScrollJIna_H;
             }else{
-                self.ProductScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, ScrollView_H+(62*self.AttributeArraty.count));
+                self.ProductScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, ScrollView_H+_View_h);
                 [self.ProductView.AttributeView mas_updateConstraints:^(MASConstraintMaker *make) {
-                    make.height.mas_offset(50+(62*self.AttributeArraty.count));
+                    make.height.mas_offset(50+_View_h);
                 }];
                 self.ProductView.height = self.ProductScrollView.contentSize.height-ScrollJIna_H;
             }
@@ -218,37 +231,82 @@
 -(void)andAttribute{
     YLSCommodityAttriController *VC = [YLSCommodityAttriController new];
     VC.delagate = self;
+    VC.Data = self.AttributeArraty;
     [self.navigationController pushViewController:VC animated:YES];
     
 }
--(void)AddlAttri:(NSString *)lableString and:(NSString *)category_id{
-    if (self.AttributeArraty.count>3) {
-        [self.AttributeArraty removeObjectAtIndex:2];
-    }else{
-        NSString *urlstr = @"1";
-        [self.AttributeArraty addObject:urlstr];
+-(void)AddlAttri:(NSString *)lableString and:(NSString *)category_id and:(NSMutableArray *)Array{
+    [self.AttBaseView removeFromSuperview];
+    _View_h = 0;
+    self.AttBaseView =[[UIView alloc]init];
+    [self.ProductView.AttributeView addSubview:self.AttBaseView];
+    [self.AttBaseView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_offset(40);
+        make.left.right.bottom.mas_offset(0);
+    }];
+    self.AttributeArraty = Array;
+    
+    for (int i=0; i<Array.count; i++) {
+       UIView *AttView = [[UIView alloc]initWithFrame:CGRectMake(0, _View_h+5, ScreenW-30, 70)];
+        
+        UIView *xian = [[UIView alloc]initWithFrame:CGRectMake(95, 0, 50, 45)];
+        xian.backgroundColor = UIColorFromRGB(0xF7AE2B);
+        [AttView addSubview:xian];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(95, 0, 50, 45)];
+        label.text = [NSString stringWithFormat:@"%@",Array[i][@"attr_name"]];
+        label.textColor = UIColorFromRGB(0x222222);
+        label.font = [UIFont systemFontOfSize:18];
+        label.numberOfLines = 1;
+        [label sizeToFit];
+        [AttView addSubview:label];
+        [xian mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(label.mas_bottom).offset(0);
+            make.height.mas_offset(8);
+            make.left.equalTo(label.mas_left).offset(0);
+            make.right.equalTo(label.mas_right).offset(0);
+        }];
+        
+        UILabel *label1= [[UILabel alloc] initWithFrame:CGRectMake(95, label.bottom+15, AttView.width-116, 45)];
+        label1.text = [NSString stringWithFormat:@"%@",Array[i][@"attr_value"]];
+        label1.textColor = UIColorFromRGB(0x222222);
+        label1.font = [UIFont systemFontOfSize:15];
+        label1.numberOfLines = 0;
+        [label1 sizeToFit];
+        [AttView addSubview:label1];
+        
+         AttView.height = label.height +label1.height+15;
+        
+        _View_h = AttView.bottom;
+         [self.AttBaseView addSubview:AttView];
+        
     }
     
     
     if (self.UrlimageArr.count>=3&&self.UrlimageArr.count<9) {
         NSInteger page = self.UrlimageArr.count / 3;
-        self.ProductScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, ScrollView_H+125*page+(62*self.AttributeArraty.count));
+        self.ProductScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, ScrollView_H+125*page+_View_h);
         [self.ProductView.AttributeView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.height.mas_offset(50+(62*self.AttributeArraty.count));
+            make.height.mas_offset(50+_View_h);
         }];
         self.ProductView.height = self.ProductScrollView.contentSize.height-ScrollJIna_H;
     }else{
-        self.ProductScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, ScrollView_H+(62*self.AttributeArraty.count));
+        self.ProductScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, ScrollView_H+_View_h);
         [self.ProductView.AttributeView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.height.mas_offset(50+(62*self.AttributeArraty.count));
+            make.height.mas_offset(50+_View_h);
         }];
         self.ProductView.height = self.ProductScrollView.contentSize.height-ScrollJIna_H;
     }
     
+    if (Array.count>0) {
+        [self.ProductView.AttributelButton setTitle:@"编辑属性" forState:UIControlStateNormal];
+        [self.ProductView.AttributelButton setTitleColor:UIColorFromRGB(0xF7AE2B) forState:UIControlStateNormal];
+        self.ProductView.AttributelButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+    }else{
+        [self.ProductView.AttributelButton setTitle:@"添加商品属性，如辣味、甜度" forState:UIControlStateNormal];
+        [self.ProductView.AttributelButton setTitleColor:UIColorFromRGB(0xCCCCCC) forState:UIControlStateNormal];
+        self.ProductView.AttributelButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    }
     
-    [self.ProductView.AttributelButton setTitle:@"编辑属性" forState:UIControlStateNormal];
-    [self.ProductView.AttributelButton setTitleColor:UIColorFromRGB(0xF7AE2B) forState:UIControlStateNormal];
-    self.ProductView.AttributelButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
 }
 
 #pragma mark - 选择商品照片
@@ -267,15 +325,15 @@
     [imagePickerVc setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
         if (self.UrlimageArr.count>=3&&self.UrlimageArr.count<9) {
             NSInteger page = self.UrlimageArr.count / 3;
-            self.ProductScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, ScrollView_H+125*page+(62*self.AttributeArraty.count));
+            self.ProductScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, ScrollView_H+125*page+_View_h);
             [self.ProductView.AttributeView mas_updateConstraints:^(MASConstraintMaker *make) {
-                make.height.mas_offset(50+(62*self.AttributeArraty.count));
+                make.height.mas_offset(50+_View_h);
             }];
             self.ProductView.height = self.ProductScrollView.contentSize.height-ScrollJIna_H;
         }else{
-            self.ProductScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, ScrollView_H+(62*self.AttributeArraty.count));
+            self.ProductScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, ScrollView_H+_View_h);
             [self.ProductView.AttributeView mas_updateConstraints:^(MASConstraintMaker *make) {
-                make.height.mas_offset(50+(62*self.AttributeArraty.count));
+                make.height.mas_offset(50+_View_h);
             }];
             self.ProductView.height = self.ProductScrollView.contentSize.height-ScrollJIna_H;
         }
@@ -296,15 +354,15 @@
     [self.UrlimageArr removeObjectAtIndex:indexPath.row];
     if (self.UrlimageArr.count>=3&&self.UrlimageArr.count<9) {
         NSInteger page = self.UrlimageArr.count / 3;
-        self.ProductScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, ScrollView_H+125*page+(62*self.AttributeArraty.count));
+        self.ProductScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, ScrollView_H+125*page+_View_h);
         [self.ProductView.AttributeView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.height.mas_offset(50+(62*self.AttributeArraty.count));
+            make.height.mas_offset(50+_View_h);
         }];
         self.ProductView.height = self.ProductScrollView.contentSize.height-ScrollJIna_H;
     }else{
-        self.ProductScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, ScrollView_H+(62*self.AttributeArraty.count));
+        self.ProductScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, ScrollView_H+_View_h);
         [self.ProductView.AttributeView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.height.mas_offset(50+(62*self.AttributeArraty.count));
+            make.height.mas_offset(50+_View_h);
         }];
         self.ProductView.height = self.ProductScrollView.contentSize.height-ScrollJIna_H;
     }
@@ -410,15 +468,15 @@
             
             if (self.UrlimageArr.count>=3&&self.UrlimageArr.count<9) {
                 NSInteger page = self.UrlimageArr.count / 3;
-                self.ProductScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, ScrollView_H+125*page+(62*self.AttributeArraty.count));
+                self.ProductScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, ScrollView_H+125*page+_View_h);
                 [self.ProductView.AttributeView mas_updateConstraints:^(MASConstraintMaker *make) {
-                    make.height.mas_offset(50+(62*self.AttributeArraty.count));
+                    make.height.mas_offset(50+_View_h);
                 }];
                 self.ProductView.height = self.ProductScrollView.contentSize.height-ScrollJIna_H;
             }else{
-                self.ProductScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, ScrollView_H+(62*self.AttributeArraty.count));
+                self.ProductScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, ScrollView_H+_View_h);
                 [self.ProductView.AttributeView mas_updateConstraints:^(MASConstraintMaker *make) {
-                    make.height.mas_offset(50+(62*self.AttributeArraty.count));
+                    make.height.mas_offset(50+_View_h);
                 }];
                 self.ProductView.height = self.ProductScrollView.contentSize.height-ScrollJIna_H;
             }
@@ -444,7 +502,7 @@
         [SVProgressHUD showErrorWithStatus:@"请输入正确的价格"];
         return;
     }
-    
+    [MBProgressHUD MBProgress:@"发布中..."];
     UserModel *model = [UserModel getUseData];
     self.goods_pic =  [NSString new];
     /** 环境图片 */
@@ -458,6 +516,18 @@
         }
         
     }
+    /*属性*/
+    NSString* text = [NSString new];
+    NSError *error = nil;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self.AttributeArraty
+                                                       options:0
+                                                         error:&error];
+    
+    if ([jsonData length] && error == nil){
+        text = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    }
+
+    
     
     if (self.goodId) {
         NSDictionary *Dict = @{
@@ -468,7 +538,8 @@
                                @"goods_description":self.ProductView.goods_Miao.text,
                                @"goods_pic":[NSString stringWithFormat:@"%@",self.goods_pic],
                                @"discount_price":[NSString stringWithFormat:@"%@",self.ProductView.discount_price.text],
-                               @"category_id":self.category_id
+                               @"category_id":self.category_id,
+                               @"goods_attributes":text
                                };
         
         [[FBHAppViewModel shareViewModel]edit_goods:model.merchant_id andstore_id:model.store_id andgood:Dict Success:^(NSDictionary *resDic) {
@@ -480,8 +551,9 @@
                 [SVProgressHUD setMinimumDismissTimeInterval:2];
                 [SVProgressHUD showErrorWithStatus:resDic[@"message"]];
             }
+            [MBProgressHUD hideHUD];
         } andfailure:^{
-            
+            [MBProgressHUD hideHUD];
         }];
         
     }else{
@@ -493,8 +565,8 @@
                                @"goods_description":self.ProductView.goods_Miao.text,
                                @"goods_pic":[NSString stringWithFormat:@"%@",self.goods_pic],
                                @"discount_price":[NSString stringWithFormat:@"%@",self.ProductView.discount_price.text],
-                               @"category_id":self.category_id
-                               
+                               @"category_id":self.category_id,
+                               @"goods_attributes":text
                                };
         
         [[FBHAppViewModel shareViewModel]insert_goods:model.merchant_id andstore_id:model.store_id andGoodDict:Dict Success:^(NSDictionary *resDic) {
@@ -506,14 +578,15 @@
                 [SVProgressHUD setMinimumDismissTimeInterval:2];
                 [SVProgressHUD showErrorWithStatus:resDic[@"message"]];
             }
-            
+            [MBProgressHUD hideHUD];
         } andfailure:^{
-            
+            [MBProgressHUD hideHUD];
         }];
     }
     
     
 }
+
 #pragma mark - 懒加载
 -(UIScrollView *)ProductScrollView{
     if (!_ProductScrollView) {
