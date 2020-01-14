@@ -100,6 +100,13 @@
             self.goods_pic = [NSString stringWithFormat:@"%@",DIC[@"goods_pic"]];
             NSArray *array = [self.goods_pic componentsSeparatedByString:@","];
             
+           
+
+            for (NSString * pic in array) {
+                NSString *url = [NSString stringWithFormat:@"%@",pic];
+                [self.UrlimageArr addObject:url];
+            }
+            
             if (array.count>=3&&array.count<9) {
                 NSInteger page = self.UrlimageArr.count / 3;
                 self.ProductScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, ScrollView_H+125*page+_View_h);
@@ -114,11 +121,7 @@
                 }];
                 self.ProductView.height = self.ProductScrollView.contentSize.height-ScrollJIna_H;
             }
-
-            for (NSString * pic in array) {
-                NSString *url = [NSString stringWithFormat:@"%@",pic];
-                [self.UrlimageArr addObject:url];
-            }
+            
             [self.collectionView reloadData];
 
             [self.SaveButton setTitle:@"保存商品" forState:UIControlStateNormal];
@@ -167,6 +170,7 @@
     
     
 }
+
 #pragma mark - 添加标签
 -(void)andTheLabel{
     TheLabelController *VC = [TheLabelController new];
@@ -518,14 +522,19 @@
     }
     /*属性*/
     NSString* text = [NSString new];
-    NSError *error = nil;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self.AttributeArraty
-                                                       options:0
-                                                         error:&error];
-    
-    if ([jsonData length] && error == nil){
-        text = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    if (self.AttributeArraty.count == 0) {
+        text = @"";
+    }else{
+        NSError *error = nil;
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self.AttributeArraty
+                                                           options:0
+                                                             error:&error];
+        
+        if ([jsonData length] && error == nil){
+            text = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        }
     }
+    
 
     
     
@@ -545,6 +554,8 @@
         [[FBHAppViewModel shareViewModel]edit_goods:model.merchant_id andstore_id:model.store_id andgood:Dict Success:^(NSDictionary *resDic) {
             
             if ([resDic[@"status"] integerValue]==1) {
+                 [[NSNotificationCenter defaultCenter] postNotificationName:@"Save" object:@""];
+                [SVProgressHUD showSuccessWithStatus:resDic[@"message"]];
                 [self.navigationController popViewControllerAnimated:YES];
                 
             }else{
@@ -572,6 +583,7 @@
         [[FBHAppViewModel shareViewModel]insert_goods:model.merchant_id andstore_id:model.store_id andGoodDict:Dict Success:^(NSDictionary *resDic) {
             
             if ([resDic[@"status"] integerValue]==1) {
+                [SVProgressHUD showSuccessWithStatus:resDic[@"message"]];
                 [self.navigationController popViewControllerAnimated:YES];
                 
             }else{

@@ -19,7 +19,7 @@
         }];
         
         
-        NSArray *ButtonArr = @[@"支出",@"返佣",@"营收",@"全部"];
+        NSArray *ButtonArr = @[@"返佣",@"营收",@"全部"];
         for (int i = 0; i<ButtonArr.count; i++) {
             UIButton *Button = [UIButton buttonWithType:UIButtonTypeCustom];
             [Button setTitle:[NSString stringWithFormat:@"%@",ButtonArr[i]] forState:UIControlStateNormal];
@@ -32,11 +32,11 @@
             [Button mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.mas_offset(0);
                 make.bottom.mas_offset(-5);
-                make.right.mas_offset(-(120/3)*i);
+                make.right.mas_offset(-(120/3)*i-12);
                 make.width.mas_offset(40);
             }];
-            if (i == 3) {
-                UIView *line = [[UIView alloc]initWithFrame:CGRectMake(ScreenW - 156, self.height - 18, 32, 2)];
+            if (i == 2) {
+                UIView *line = [[UIView alloc]initWithFrame:CGRectMake(ScreenW - ((120/3)*3+8), self.height - 18, 32, 2)];
                 line.backgroundColor = UIColorFromRGB(0xF7AE2B);
 //                line.centerX = Button.centerX;
                 [self addSubview:line];
@@ -62,7 +62,7 @@
 #pragma mark - 类型
 -(void)TyAction:(UIButton *)sender{
 
-    for (int i = 1; i<5; i++) {
+    for (int i = 1; i<4; i++) {
         
         if (sender.tag == i) {
             sender.selected = YES;

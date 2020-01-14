@@ -85,31 +85,23 @@
 }
 #pragma mark - 赋值
 -(void)setData:(NSDictionary *)Data{
-//    NSString *goods_price = [NSString stringWithFormat:@"%@",Data[@"goods_price"]];
-//    if ([[MethodCommon judgeStringIsNull:goods_price] isEqualToString:@""]) {
-//        goods_price = @"     ¥ 0.00  ";
-//    }else{
-//        goods_price = [NSString stringWithFormat:@"  ¥ %@  ",goods_price];
-//    }
-//    NSMutableAttributedString *mutStr1 = [[NSMutableAttributedString alloc]initWithString:goods_price];
-//    NSRange range1 = NSMakeRange(0, 3);
-//    [mutStr1 addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:12] range:range1];
-//    self.GoodsPrice.attributedText = mutStr1;
-}
-
--(void)setKeyString:(NSString *)keyString{
     
-    NSString *protocol =  @"家乐福开始的";
-    NSMutableAttributedString *attri_str = [[NSMutableAttributedString alloc] initWithString:protocol];
+    //图片
+    NSString *goods_pic = [NSString stringWithFormat:@"%@",Data[@"goods_pic"]];
+    NSArray *picarr = [goods_pic componentsSeparatedByString:@","];
+    [self.GoodsImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",picarr[0]]] placeholderImage:[UIImage imageNamed:@"pic_default_avatar"]];
+    
+    
+    NSString *goods_name = [NSString stringWithFormat:@"%@",Data[@"goods_name"]];
+    NSMutableAttributedString *attri_str = [[NSMutableAttributedString alloc] initWithString:goods_name];
     //设置字体颜色
     attri_str.color = [UIColor colorWithHexString:@"222222"];
-    NSRange ProRange = [protocol rangeOfString:keyString];
+    NSRange ProRange = [goods_name rangeOfString:self.keyString];
     
     [attri_str setTextHighlightRange:ProRange color:[UIColor colorWithHexString:@"F7AE2B"] backgroundColor:[UIColor colorWithHexString:@"222222"] userInfo:nil];
     self.GoodsName.attributedText = attri_str;
     
-    
-    NSString *goods_price = [NSString stringWithFormat:@"3221"];
+    NSString *goods_price = [NSString stringWithFormat:@"%@",Data[@"discount_price"]];
     if ([[MethodCommon judgeStringIsNull:goods_price] isEqualToString:@""]) {
         goods_price = @"     ¥ 0.00  ";
     }else{
@@ -117,8 +109,32 @@
     }
     NSMutableAttributedString *mutStr1 = [[NSMutableAttributedString alloc]initWithString:goods_price];
     NSRange range1 = NSMakeRange(0, 3);
-    [mutStr1 addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:11] range:range1];
+    [mutStr1 addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:12] range:range1];
     self.GoodsPrice.attributedText = mutStr1;
+}
+
+-(void)setKeyString:(NSString *)keyString{
+    _keyString = keyString;
+//    NSString *protocol =  @"家乐福开始的";
+//    NSMutableAttributedString *attri_str = [[NSMutableAttributedString alloc] initWithString:protocol];
+//    //设置字体颜色
+//    attri_str.color = [UIColor colorWithHexString:@"222222"];
+//    NSRange ProRange = [protocol rangeOfString:keyString];
+//
+//    [attri_str setTextHighlightRange:ProRange color:[UIColor colorWithHexString:@"F7AE2B"] backgroundColor:[UIColor colorWithHexString:@"222222"] userInfo:nil];
+//    self.GoodsName.attributedText = attri_str;
+//
+//
+//    NSString *goods_price = [NSString stringWithFormat:@"3221"];
+//    if ([[MethodCommon judgeStringIsNull:goods_price] isEqualToString:@""]) {
+//        goods_price = @"     ¥ 0.00  ";
+//    }else{
+//        goods_price = [NSString stringWithFormat:@"  ¥ %@  ",goods_price];
+//    }
+//    NSMutableAttributedString *mutStr1 = [[NSMutableAttributedString alloc]initWithString:goods_price];
+//    NSRange range1 = NSMakeRange(0, 3);
+//    [mutStr1 addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:11] range:range1];
+//    self.GoodsPrice.attributedText = mutStr1;
 }
 #pragma mark - 懒加载
 -(UIView *)BaseView{
@@ -133,7 +149,7 @@
     if (!_GoodsImage) {
         _GoodsImage = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, 60, 60)];
         _GoodsImage.layer.cornerRadius = 5;
-        _GoodsImage.backgroundColor = [UIColor yellowColor];
+        _GoodsImage.layer.masksToBounds = YES;
     }
     return _GoodsImage;
 }

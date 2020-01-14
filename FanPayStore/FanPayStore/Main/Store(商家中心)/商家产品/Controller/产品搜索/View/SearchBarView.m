@@ -54,7 +54,12 @@
         self.QuXiao.hidden = YES;
     }else{
         self.QuXiao.hidden = NO;
+        if (self.delagate && [self.delagate respondsToSelector:@selector(Search:)]) {
+            [self.delagate Search:text];
+        }
     }
+   
+    
     return YES;
 }
 -(void)textFieldDidBeginEditing:(UITextField *)textField
@@ -83,6 +88,13 @@
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     NSLog(@"7");// 点击键盘的‘换行’会调用
+    NSLog(@"点击了搜索");
+    
+    if (self.delagate && [self.delagate respondsToSelector:@selector(Search:)]) {
+        [self.delagate Search:textField.text];
+    }
+    
+    [_SearchField resignFirstResponder];
     return YES;
 }
 #pragma mark - 清除输入框的内容
@@ -116,6 +128,9 @@
         //修改字体大小
         _SearchField.font = [UIFont systemFontOfSize:12];
         _SearchField.placeholder = @"商品名称";
+        _SearchField.returnKeyType = UIReturnKeySearch;//变为搜索按钮
+        
+        _SearchField.delegate = self;//设置代理
     }
     return _SearchField;
 }

@@ -911,6 +911,42 @@
     }];
 }
 /**
+ 搜索商家产品信息接口
+ */
+-(void)search_merchant_goods:(NSString *)merchant_id
+                 andstore_id:(NSString *)store_id
+                 andgoods_id:(NSDictionary *)Dict
+                     Success:(void (^)(NSDictionary *resDic))success
+                  andfailure:(void (^)(void))failure{
+    
+    
+    //里层的parameter
+    NSMutableDictionary *dic=[NSMutableDictionary dictionary];
+    [dic setValue:merchant_id forKey:@"merchant_id"];
+    [dic setValue:store_id forKey:@"store_id"];
+    
+    for (NSString *key in Dict) {
+        
+        [dic setValue:Dict[key] forKey:key];
+    }
+    
+    UserModel *model = [UserModel getUseData];
+    [dic setValue:model.token forKey:@"token"];
+    
+    NSString *timestamp = [FBHAppViewModel currentTimeStr];
+    [dic setValue:timestamp forKey:@"timestamp"];
+    NSString *process = [NSString stringWithFormat:@"%@%@",merchant_id,timestamp];
+    [dic setValue:[MD5Sign MD5:process] forKey:@"process"];
+    
+    [YBHttpTool post:@"merchant_center/search_merchant_goods" params:dic success:^(NSDictionary *obj) {
+        success(obj);
+        
+    } failure:^(NSError *error) {
+        failure();
+        
+    }];
+}
+/**
  删除商品（已下架的商品）
  */
 -(void)delete_goods:(NSString *)merchant_id
@@ -3309,7 +3345,41 @@
         
     }];
 }
+/**
+ 设置店铺餐位费开关
+ */
+-(void)set_meel_fee:(NSString *)merchant_id
+        andstore_id:(NSString *)store_id
+          andstatus:(NSString *)status
+        andmeel_fee:(NSString *)meel_fee
+            Success:(void (^)(NSDictionary *resDic))success
+         andfailure:(void (^)(void))failure{
+    
+    //里层的parameter
+    NSMutableDictionary *dic=[NSMutableDictionary dictionary];
+    [dic setValue:merchant_id forKey:@"merchant_id"];
+    [dic setValue:store_id forKey:@"store_id"];
+    [dic setValue:status forKey:@"status"];
+    [dic setValue:meel_fee forKey:@"meel_fee"];
 
+    
+    UserModel *model = [UserModel getUseData];
+    [dic setValue:model.token forKey:@"token"];
+    
+    NSString *timestamp = [FBHAppViewModel currentTimeStr];
+    [dic setValue:timestamp forKey:@"timestamp"];
+    NSString *process = [NSString stringWithFormat:@"%@%@",merchant_id,timestamp];
+    [dic setValue:[MD5Sign MD5:process] forKey:@"process"];
+    
+    [YBHttpTool post:@"service_center/set_meel_fee" params:dic success:^(NSDictionary *obj) {
+        success(obj);
+        
+    } failure:^(NSError *error) {
+        failure();
+        
+    }];
+    
+}
 
 
 #pragma mark - 上传图片

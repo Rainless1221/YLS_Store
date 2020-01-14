@@ -237,7 +237,7 @@
         
         
         if ([resDic[@"status"] integerValue]==1) {
-            
+            [SVProgressHUD showSuccessWithStatus:resDic[@"message"]];
             [self merchant_center];
             [self merchant_center1];
             
@@ -666,7 +666,11 @@
         cell.backgroundColor  = MainbackgroundColor;
         
         cell.BianjiBlock = ^{
-            FBHCPfabuViewController *VC = [FBHCPfabuViewController new];
+//            FBHCPfabuViewController *VC = [FBHCPfabuViewController new];
+//            VC.goodId = self.shopdata[indexPath.row][@"goods_id"];
+//            [self.navigationController pushViewController:VC animated:NO];
+            
+            YLSAddProductController *VC = [YLSAddProductController new];
             VC.goodId = self.shopdata[indexPath.row][@"goods_id"];
             [self.navigationController pushViewController:VC animated:NO];
         };

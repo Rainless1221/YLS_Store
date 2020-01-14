@@ -290,7 +290,6 @@
 - (void)sw_handleWithValue:(NSString *)value {
     NSLog(@"sw_handleWithValue === %@", value);
     
-    
     NSLog(@"扫描后得到的结果。 === %@",value);
     [self use_order_code:value];
 }

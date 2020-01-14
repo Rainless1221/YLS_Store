@@ -67,8 +67,12 @@
 
 
 // 添加标签
-- (void)addTag:(NSString *)tagStr
-{
+- (void)addTag:(NSString *)tagStr{
+    
+    NSString *strUrl = [tagStr stringByReplacingOccurrencesOfString:@" " withString:@""];
+    if ([[MethodCommon judgeStringIsNull:strUrl] isEqualToString:@""]) {
+        return;
+    }
     
     // 创建标签按钮
     UIButton *tagButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -84,7 +88,7 @@
 
     
     
-    [tagButton setTitle:tagStr forState:UIControlStateNormal];
+    [tagButton setTitle:strUrl forState:UIControlStateNormal];
     [tagButton setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
     tagButton.backgroundColor = UIColorFromRGB(0xF9F9F9);
     tagButton.titleLabel.font = [UIFont systemFontOfSize:15];

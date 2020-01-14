@@ -77,7 +77,9 @@
 }
 -(void)cancelAction{
     [self removeFromSuperview];
-
+    if (self.CardBlock) {
+        self.CardBlock();
+    }
 }
 #pragma mark - 懒加载
 -(UIView *)Baseview{

@@ -384,6 +384,14 @@
                    Success:(void (^)(NSDictionary *resDic))success
                 andfailure:(void (^)(void))failure;
 /**
+ 搜索商家产品信息接口
+ */
+-(void)search_merchant_goods:(NSString *)merchant_id
+               andstore_id:(NSString *)store_id
+               andgoods_id:(NSDictionary *)Dict
+                   Success:(void (^)(NSDictionary *resDic))success
+                andfailure:(void (^)(void))failure;
+/**
  删除商品（已下架的商品）
  */
 -(void)delete_goods:(NSString *)merchant_id
@@ -831,6 +839,16 @@
             andstatus:(NSString *)status
                  Success:(void (^)(NSDictionary *resDic))success
               andfailure:(void (^)(void))failure;
+
+/**
+ 设置店铺餐位费开关
+ */
+-(void)set_meel_fee:(NSString *)merchant_id
+           andstore_id:(NSString *)store_id
+          andstatus:(NSString *)status
+        andmeel_fee:(NSString *)meel_fee
+               Success:(void (^)(NSDictionary *resDic))success
+            andfailure:(void (^)(void))failure;
 
 #pragma mark - 上传图片
 -(void)uploadImageWithData:(UIImage *)image

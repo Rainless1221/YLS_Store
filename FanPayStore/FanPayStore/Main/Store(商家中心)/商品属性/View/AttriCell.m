@@ -99,7 +99,6 @@
 #pragma mark - 添加
 -(void)addAttri{
     if (self.AttriField1.text==nil||self.AttriField1.text.length==0) {
-        
         return;
     }
     [self.tagList addTag:self.AttriField1.text];

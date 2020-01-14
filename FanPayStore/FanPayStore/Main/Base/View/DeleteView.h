@@ -31,5 +31,6 @@
 @property(nonatomic,weak)id<DeleteViewDelegate>delagate;
 
 @property (nonatomic, copy) void(^DeleteCardBlock)(void);
+@property (nonatomic, copy) void(^CardBlock)(void);
 
 @end

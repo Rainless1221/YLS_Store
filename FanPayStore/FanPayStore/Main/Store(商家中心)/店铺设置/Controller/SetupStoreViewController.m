@@ -18,7 +18,10 @@
 @end
 
 @implementation SetupStoreViewController
-
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self merchant_center];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
    self.navigationItem.title = @"店铺设置";
@@ -42,8 +45,8 @@
         
     }
     self.CanWei = @"0.00";
-    [self merchant_center];
-     [self createUI];
+//    [self merchant_center];
+    [self createUI];
     
 }
 #pragma mark - 请求数据
@@ -169,19 +172,23 @@
         self.YYSound = [[MySwitch alloc] initWithFrame:CGRectMake(view.width - 74, 10, 64, 32) withGap:0.3 statusChange:^(BOOL OnStatus) {
             if(OnStatus){
                 NSLog(@"打开");
-                
-                [self set_appointment:@"1"];
+                if ([self.CanWei doubleValue] <=0) {
+                    [self CanAction];
+                }else{
+                     [self set_meel_fee:@"1"];
+                }
+
                 
             }else{
                 NSLog(@"关闭");
                 
-                [self set_appointment:@"2"];
+                [self set_meel_fee:@"2"];
             }
         }];
         
-        if ([model.appointment_switch isEqualToString:@"2"]) {
+        if ([model.meel_fee_switch isEqualToString:@"2"]) {
             self.YYSound.OnStatus = NO;
-        }else if([model.appointment_switch isEqualToString:@"1"]) {
+        }else if([model.meel_fee_switch isEqualToString:@"1"]) {
             self.YYSound.OnStatus = YES;
         }else{
             self.YYSound.OnStatus = NO;
@@ -206,6 +213,7 @@
         label.text = @"餐位费";
         [view addSubview:label];
         //
+        self.CanWei  = model.meel_fee;
         [self CanWeiUI:view];
         
     }
@@ -221,7 +229,7 @@
     }else{
         return 50;
     }
-        
+         
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return  10;
@@ -343,6 +351,7 @@
 }
 -(void)Can_card:(NSString *)Canlabel{
     self.CanWei= Canlabel;
+    [self set_meel_fee:@"1"];
     [self.SetUptable reloadData];
 }
 #pragma mark - 设置店铺预约功能开关
@@ -356,6 +365,25 @@
         }
     } andfailure:^{
         
+    }];
+    
+}
+#pragma mark -设置店铺餐位费开关
+-(void)set_meel_fee:(NSString *)status{
+    if ([self.CanWei doubleValue] <=0) {
+        return;
+    }
+     [MBProgressHUD MBProgress:@"数据加载中..."];
+    UserModel *Model = [UserModel getUseData];
+    [[FBHAppViewModel shareViewModel]set_meel_fee:Model.merchant_id andstore_id:Model.store_id andstatus:status andmeel_fee:self.CanWei  Success:^(NSDictionary *resDic) {
+        if ([resDic[@"status"] integerValue]==1) {
+            [self merchant_center];
+        }else{
+            
+        }
+        [MBProgressHUD hideHUD];
+    } andfailure:^{
+        [MBProgressHUD hideHUD];
     }];
     
 }

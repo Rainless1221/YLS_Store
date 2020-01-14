@@ -485,7 +485,7 @@
                     [self.orderView addSubview:detailslabel];
                     [detailslabel mas_makeConstraints:^(MASConstraintMaker *make) {
                         make.left.mas_offset(10);
-                        make.top.equalTo(self.OrderLabel.mas_bottom).offset(OrderGodds_H*i);
+                        make.top.equalTo(self.OrderLabel.mas_bottom).offset(OrderGodds_H*i+suxing_h);
                     }];
 
                     [detailsButton setTitle:@"查询其余*件" forState:UIControlStateNormal];
@@ -499,7 +499,7 @@
                         make.left.mas_offset(10);
                         make.height.mas_offset(25);
                     }];
-                    Y = self.OrderLabel.bottom+OrderGodds_H*i+48;
+                    Y = self.OrderLabel.bottom+OrderGodds_H*i+48+suxing_h;
 
 
                 }

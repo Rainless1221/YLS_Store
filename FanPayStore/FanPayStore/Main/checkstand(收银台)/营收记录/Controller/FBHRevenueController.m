@@ -117,7 +117,7 @@
     }
     
     
-    for (NSDictionary *dict in Data[@"total_expense"]) {
+    for (NSDictionary *dict in Data[@"total_commission"]) {
         NSString *data = [NSString stringWithFormat:@"%@",dict[@"date"]];
         if (self.total_expense.count == 0) {
             [self.total_expense addObject:dict];
@@ -224,11 +224,11 @@
 - (void)RevenueButton:(NSInteger)Btntag{
     self.Page = 1;
     if (Btntag == 1) {
-        self.Reventype = @"3";
-    }else if(Btntag == 2){
         self.Reventype = @"4";
-    }else if (Btntag == 3){
+    }else if(Btntag == 2){
         self.Reventype = @"2";
+    }else if (Btntag == 3){
+        self.Reventype = @"1";
     }else{
         self.Reventype = @"1";
     }
@@ -269,7 +269,7 @@
     NSString *mon = [NSString stringWithFormat:@"%@年%@月",strTime,str5];
     
     headerView.titleStr = mon;
-    headerView.label1.text = [NSString stringWithFormat:@"营收 %@ 支出 %@",self.total_income[section][@"money"],self.total_expense[section][@"money"]];
+    headerView.label1.text = [NSString stringWithFormat:@"营收 %@ 返佣 %@",self.total_income[section][@"money"],self.total_expense[section][@"money"]];
     
 
     
